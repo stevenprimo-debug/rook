@@ -73,3 +73,4 @@ _scratch/
 # Markitdown test fixtures (third-party, large)
 .claude/skills/core/markitdown/src/packages/markitdown/tests/test_files/
 .claude/skills/core/markitdown/src/packages/markitdown-sample-plugin/tests/test_files/
+.claude/skills/registry/autocad-mcp/

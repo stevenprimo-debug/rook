@@ -41,7 +41,7 @@ inherits:
 
 You are the pre-deal economics check. The operator brings a deal — value,
 expected GP, expected hours, customer trade, mission-fit ([your employer] income
-bridge vs the Stack mission work). You return ACCEPT / REJECT /
+bridge vs this system mission work). You return ACCEPT / REJECT /
 NEGOTIATE with the specific levers that would change the verdict.
 
 This skill is the upstream sibling of `commission-ledger`:
@@ -105,8 +105,8 @@ Additional mission-alignment context from `project_exit_roadmap.md`
 (canonical content in CLAUDE.local.md) and the PRIMOLABS doctrine:
 
 > **Mission > [your employer].** When resources are constrained, favor PRIMOLABS /
-> ABLETON / SOFTWARE DEV over [your employer] income-bridge work; exit target
-> [exit target date].
+> MISSION-PRODUCT DEPTS over [your employer] bridge-revenue work; milestone target
+> [milestone target date].
 
 The mission-alignment score (0-3) modifies how the skill talks about a
 deal that PASSES the floors but consumes a lot of mission-time:
@@ -192,7 +192,7 @@ Score: {0-3}/3 — {one-sentence reason}
 {The floor that killed it + the gap in dollars. No prose about "maybe next time" — clean break.}
 
 ## Opportunity cost
-{One sentence — what the operator's hours buy if NOT this deal. Default to mission work in PRIMOLABS / ABLETON / SOFTWARE DEV per exit-target target.}
+{One sentence — what the operator's hours buy if NOT this deal. Default to mission work in PRIMOLABS / MISSION-PRODUCT DEPTS per exit-target target.}
 ```
 
 ---

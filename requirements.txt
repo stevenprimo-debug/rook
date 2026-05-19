@@ -1,0 +1,24 @@
+# ROOK Python dependencies — customer installs at install time
+# Run: pip install -r requirements.txt
+
+# Core utilities used by skills
+markitdown                    # file -> markdown conversion (.claude/skills/core/markitdown/)
+
+# PDF + HTML pipeline
+playwright                    # used by .claude/skills/core/html-to-pdf/ for seamless PDF render
+weasyprint                    # fallback PDF renderer
+pypdf2                        # PDF text extraction (engineering-lead drawing-reader skill)
+
+# YAML + dataclasses (Python stdlib + light deps)
+pyyaml                        # YAML parsing in routing manifests, frontmatter
+
+# HTTP clients (used by .claude/connectors/_lib/ where present)
+# urllib is stdlib; requests is optional convenience layer
+requests                      # convenience HTTP for connector helper libs
+
+# Testing (for ops-engineer + customers who want to run the inbox_routing tests)
+pytest                        # used by .claude/skills/core/inbox_routing/tests/
+
+# Optional: official SDKs operators may want pre-installed
+# anthropic                   # Anthropic Python SDK — only needed for some skill flows
+# openai                      # OpenAI SDK — uncomment if any agent uses it directly

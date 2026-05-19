@@ -125,7 +125,7 @@ By the end of this path you should be able to:
 
 ## Cross-References
 
-- The the Stack agent that operates in this domain: `agents/marketing-director/SKILL.md`
+- The agent that operates in this domain: `agents/marketing-director/SKILL.md`
 - Methodology framework(s) cited: `agents/marketing-director/context/methodology/` (in development)
 - Reference clippings:
   - `agents/marketing-director/context/references/hubspot-academy.md`
@@ -142,7 +142,7 @@ By the end of this path you should be able to:
   - `agents/product-manager/SKILL.md` — the product narrative your campaigns sell
   - `agents/designer/SKILL.md` — the visual surface campaigns ship on
 - Three-principle gate (per SKILL.md): Story-Spine, Audience-Build, Brand-Coherence held in productive tension.
-- For the Stack context: Marketing Director sits downstream of Creative Director (brand voice) and upstream of Content Strategist, Social Media Manager, and Copywriter. Always dispatch CD first when brand coherence is at stake.
+- For [your product] context: Marketing Director sits downstream of Creative Director (brand voice) and upstream of Content Strategist, Social Media Manager, and Copywriter. Always dispatch CD first when brand coherence is at stake.
 - For solo-operator brand-build: the owned-audience asset (email list, community, podcast) is the single most important investment. Every campaign feeds it.
 - For B2B SaaS marketing: pair with the Reforge growth-marketing modules and the OpenView SaaS benchmarks for unit-economics rigor.
 - For consumer / DTC marketing: pair with `agents/shopify-agent/SKILL.md` Stage 3 for the agentic-commerce frontier.

@@ -59,9 +59,9 @@ ranking framework is the operating implementation of all three.
   framework's authority layer is the gate.
 
 For the operator's mission surfaces, SEO matters specifically for:
-- **the Stack** — cohort sales pages, blog content, AI tooling
-  reference content; the audience finds the Stack via search.
-- **Stage Pro / Ableton products** — feature pages, support docs,
+- **[your product]** — cohort sales pages, blog content, AI tooling
+  reference content; the audience finds [your product] via search.
+- **[your physical/SaaS product] / [your product line]** — feature pages, support docs,
   audience reference pages; touring engineers search for specific
   features and tools.
 - **Public-facing [your employer] content** — the post-stealth marketing
@@ -126,7 +126,7 @@ site. Key principles:
   users and Google.
 - **Sitemap.xml** — explicit list of pages worth indexing.
 
-For the Stack, an example architecture:
+For [your product], an example architecture:
 - Pillar: `/ai-for-touring-av-pros` (comprehensive guide).
 - Spokes: `/ai-for-touring-av-pros/cue-management`,
   `/ai-for-touring-av-pros/show-prep`,
@@ -189,8 +189,8 @@ backlinks.
 Backlink quality factors:
 - **Source authority** — links from established, topically
   relevant sites carry weight.
-- **Source relevance** — a link from a touring AV blog carries
-  more weight for a touring AV page than a link from a recipe
+- **Source relevance** — a link from a [your customer industry] blog carries
+  more weight for a [your customer industry] page than a link from a recipe
   site.
 - **Anchor text** — relevant, natural anchor text passes more
   signal than generic "click here."
@@ -246,9 +246,9 @@ analysis, page speed measurement, mobile responsiveness check,
 crawl budget assessment. Output: prioritized list of structural
 fixes.
 
-**Topic cluster build for the Stack:**
+**Topic cluster build for [your product]:**
 The agent designs the pillar-spoke architecture: one
-comprehensive pillar page on AI for touring AV pros, multiple
+comprehensive pillar page on AI for [your customer audience], multiple
 spoke pages on specific sub-topics, internal links connecting
 the cluster. Each spoke targets a specific keyword; the pillar
 ranks for broader queries through aggregate authority.
@@ -288,7 +288,7 @@ ranking lift; long-term penalty when Google catches it.
 Backlinks must be earned through content quality.
 
 **Ignoring intent.** Writing comprehensive content for a query
-whose intent is navigational. Users searching "Stage Pro pricing"
+whose intent is navigational. Users searching "[your physical/SaaS product] pricing"
 want a pricing page, not a 3000-word guide to playback economics.
 The discipline: match the format Google surfaces in top 10.
 

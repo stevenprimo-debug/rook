@@ -2,7 +2,7 @@
 # Schedule history (2026-05-04):
 #   - Originally every 15 min — burned ~96 runs/day, hit rate limits, dominant API spend.
 #   - Tried daily at 5pm — still too frequent given research enrichment cost per image.
-#   - Locked: every 3 days at 5pm — Primo values the research enrichment (invaluable context),
+#   - Locked: every 3 days at 5pm — the operator values the research enrichment (invaluable context),
 #     so we batch less frequently rather than disabling research. Captures 3 days of Drive
 #     uploads per run; ~10x reduction vs daily, ~96x reduction vs original.
 # Run this script once from an elevated (Admin) PowerShell prompt to (re-)register.

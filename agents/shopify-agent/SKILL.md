@@ -51,7 +51,8 @@ memory:
   scope: per-agent
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
-  tier: 2                              # 1=synthesizer (vector+graph) | 2=structured (SQLite) | 3=document (vectorless PDF) | 4=default (markdown+grep)
+  tier: 4  # CURRENT — declared_tier=2 below preserves architectural intent (no backing files yet)
+  declared_tier: 2
   schemas:
     - path: memory/store.db
       tables:
@@ -70,7 +71,6 @@ inherits:
   - voice_spine: .claude/voice-spine.md
   - philosophy_bench: Naval + Clear + Newport (system-level, via Chief of Staff)
   - bench_file: personality/_bench.md
-  - voice_modes: personality/voice_modes/
   - frameworks_index: personality/frameworks_index.md
   - frameworks_attribution: personality/frameworks_attribution.md
 ---
@@ -121,24 +121,7 @@ Full bench detail in `personality/_bench.md`.
 
 ---
 
-## Universal Stack Capabilities
-
-| Capability | Tool | What it does |
-|---|---|---|
-| **Input** | MarkItDown | Customer uploads merchant brief, competitor app screenshots, or Shopify Partner docs PDF — agent ingests as markdown. |
-| **Synthesis** | Graphify | Builds a graph of Shopify API surfaces, app patterns, and merchant requirements; queryable for build decisions. |
-| **Vault I/O** | Obsidian CLI | App specs, merchant briefs, build logs live in the vault. |
-| **PDF Export** | html2pdf | Merchant-facing app docs and checkout-extensibility specs ship as seamless PDFs. |
-
 ---
-
-## Voice Modes
-
-| File | Purpose |
-|---|---|
-| `_default.md` | Out-of-box voice — terse, conversion-anchored, platform-native. |
-| `_README.md` | Customer instructions. |
-| `_template.md` | Blank scaffold. |
 
 ---
 
@@ -147,7 +130,6 @@ Full bench detail in `personality/_bench.md`.
 | Source | Path | What it contains |
 |---|---|---|
 | Bench index | `personality/_bench.md` | 3 poles + tension axis |
-| Voice modes | `personality/voice_modes/` | Customer-extensible voice library |
 | Frameworks index | `personality/frameworks_index.md` | Callable methodologies |
 | Frameworks attribution | `personality/frameworks_attribution.md` | Academic credit |
 | Agent memory | `memory/` | App patterns, merchant feedback, Shopify API gotchas |
@@ -174,7 +156,6 @@ Full bench detail in `personality/_bench.md`.
 | `{conversion_metric}` | `atc` \| `checkout` \| `aov` \| `lifetime` \| `repeat` | Which conversion the feature moves |
 | `{platform_surface}` | `theme` \| `app` \| `checkout-extension` \| `admin` \| `hydrogen` | Where the code lives |
 | `{reversibility}` | `Y` \| `N` | `N` if deploying to live merchant |
-| `{voice_mode}` | `_default` \| `<custom>` | Loads voice |
 | `{depth}` | `quick` \| `full` \| `deep-dive` | Quick=prototype, full=production, deep=app-store ready |
 
 **Presets:**
@@ -310,13 +291,11 @@ merchant: {merchant}
 conversion_metric: {conversion_metric}
 platform_surface: {platform_surface}
 reversibility: {reversibility}
-voice_mode: {voice_mode}
 depth: {depth}
 </parameters>
 
 <knowledge_base>
 1. READ `personality/_bench.md`.
-2. READ `personality/voice_modes/<{voice_mode}>.md`.
 3. READ `personality/frameworks_index.md`.
 4. SCAN `memory/` for prior bugs + patterns on similar features.
 5. CROSS-REF voice spine § 3-4.
@@ -514,29 +493,7 @@ specific build agent — main thread holds architecture; subagents do reads.
 
 ---
 
-## Master Skill as Skill-Builder
-
-When the user requests a new skill (e.g., "automate this checkout pattern"),
-invoke `skill-creator` and scaffold to `agents/shopify-agent/skills/<slug>/`.
-
 ---
-
-## Drift Audit Checklist
-
-- [ ] Did I open with preamble? (First line should BE the build, the audit, or the verdict.)
-- [ ] Did I describe any build as "cheap," "quick," "lazy," or a shortcut variant?
-- [ ] Did I ship a feature without a named conversion metric AND a margin check?
-- [ ] Did I use custom admin UI when Polaris components existed?
-- [ ] Did I deploy to merchant production without dev-store testing?
-- [ ] Did I bypass checkout extensibility for legacy checkout.liquid?
-- [ ] Did I introduce a dark pattern? (Fake countdown, manipulative scarcity, hidden charges, opt-out-buried.)
-- [ ] Did I name people from the bench? (Invoke methodology by name.)
-- [ ] Did I use forbidden vocab (CD § 4)?
-- [ ] Did I default to bullet-list outside structured tables?
-- [ ] If reversibility=N (live deploy), did I surface confirmation?
-- [ ] Did I write any new lesson to `memory/` via compounding-append?
-- [ ] If a recurring pattern surfaced, did I propose scaffolding it as a new skill?
-- [ ] Did the tab close cleanly? (Universal success criterion.)
 
 ---
 
@@ -576,7 +533,6 @@ tabs.
 ## Cross-references
 
 - Bench: `personality/_bench.md`
-- Voice modes: `personality/voice_modes/`
 - Frameworks index: `personality/frameworks_index.md`
 - Frameworks attribution: `personality/frameworks_attribution.md`
 - Voice spine: `.claude/voice-spine.md`

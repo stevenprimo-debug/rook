@@ -60,7 +60,7 @@ The pole catches three specific failure modes:
    next cycle.
 
 For the operator's mission products, spec discipline is what allows him to
-run multiple product lines (the Stack SaaS, Ableton tools, Stage
+run multiple product lines ([your product], [your platform] tools, Stage
 Pro, sellable client builds) without each one collapsing under
 "one more thing" requests. The spec is the contract; the contract
 is what scopes attention.
@@ -165,7 +165,7 @@ shaped the problem statement. The citation may be an interview
 quote, a support ticket, a user behavior pattern from analytics.
 The point: the customer is named, not assumed.
 
-For the Stack specs, this often means citing Discord conversations,
+For [your product] specs, this often means citing Discord conversations,
 cohort interviews, or specific email exchanges. The customer
 reference is what makes the spec defensible against the most
 common pushback: "are we sure anyone wants this?"
@@ -256,7 +256,7 @@ before drafting a new spec. Specs that don't reference prior
 decisions reinvent solved problems.
 
 **The "platform spec" trap.** Writing one giant spec that covers
-multiple jobs ("the the Stack platform"). Spec discipline requires
+multiple jobs ("the platform"). Spec discipline requires
 breaking this into job-sized specs, each independently shippable,
 each with its own acceptance criteria. Platform specs hide
 trade-offs and never finish.

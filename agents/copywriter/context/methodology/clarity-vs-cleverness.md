@@ -45,7 +45,7 @@ it. If the reader can understand the line in 1.5 seconds, the line
 serves.
 
 For the operator's commercial surfaces — [your employer] outreach, the cohort
-copy, Ableton product descriptions, Stage Pro feature
+copy, [your product] descriptions, [your physical/SaaS product] feature
 announcements — clarity is non-negotiable. The reader is a busy
 practitioner; their time-to-comprehend budget is small.
 
@@ -175,7 +175,7 @@ For the operator's commercial surfaces:
   no warmth-defaults, no marketing-ese.
 - **the cohort copy**: practitioner-to-practitioner, specific
   to the AV-pro-pivoting-to-creator-economy audience.
-- **Ableton/Stage Pro copy**: technical, specific, respects the
+- **[your product line] copy**: technical, specific, respects the
   reader's expertise; no "make music magic" defaults.
 
 Each voice has rules, but all three obey the clarity standard.

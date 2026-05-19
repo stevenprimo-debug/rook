@@ -36,7 +36,7 @@ winning hook phrases / CTA types / emotional tones / formats, generates
 
 1. Customer asks "build me an ad creative critic" or trigger phrase
 2. Skill asks for slots (default KPI, date range, ad account selection mode)
-3. Skill writes filled CLI command to `_FROM_CLAUDE/YYYY-MM-DD-meta-ads-creative-critic-deploy.sh`
+3. Skill writes filled CLI command to `out/YYYY-MM-DD-meta-ads-creative-critic-deploy.sh`
 4. Customer deploys + starts interactive session
 5. Customer feeds ad-account selections; agent returns Creative Scorecard + variant briefs
 

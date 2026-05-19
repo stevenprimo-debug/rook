@@ -34,14 +34,14 @@ freedom-fund target.
 Finance Manager's Compounding-First-Pole and Mission-Alignment-Pole
 both require this framework. Compounding-First asks: "Is the
 freedom-fund balance compounding at a rate that hits target by
-[exit target date]?" Mission-Alignment asks: "Is the operator's attention
+[milestone target date]?" Mission-Alignment asks: "Is the operator's attention
 flowing toward Engine B work or being absorbed by Engine A demands?"
 
 The agent uses wealth creation math to convert qualitative anxiety
 ("am I making progress?") into quantitative answers:
 
 - Current freedom-fund balance, monthly contribution rate, projected
-  balance at exit date, gap to target.
+  balance at milestone date, gap to target.
 - Engine A income vs. Engine B income, ratio over time, trend
   direction.
 - Hours allocated to Engine A vs. Engine B over the last week, ratio,
@@ -141,7 +141,7 @@ Every income stream is classified:
 For the operator, current state (mid-2026):
 - Engine A: [your employer] ($5M revenue target × 10% commission GP × the operator
   split, plus consulting). Dominant.
-- Engine B: the Stack SaaS (early), Ableton products (early), Stage
+- Engine B: [your product] (early), [your product line] (early), Stage
   Pro (early). Subordinate.
 
 Mission-alignment progress is measured by **the ratio of Engine B
@@ -232,7 +232,7 @@ The report surfaces whether Engine B is growing faster than Engine A
 
 **Freedom-fund projection:**
 Given current balance, monthly contributions, and assumed CAGR, the
-agent projects forward to [exit target date]:
+agent projects forward to [milestone target date]:
 ```
 balance_at_target = current × (1+CAGR/12)^months + monthly_contribution × annuity_factor
 ```
@@ -246,7 +246,7 @@ A potential $200K [your employer] opportunity requires 40 hours of evaluation
 - 40 hours × $200/hour notional = $8K opportunity cost.
 - Expected value of deal: $200K × 25% GP × probability of close × the operator
   split = realistic $7-12K.
-- 40 hours redirected to the Stack: building 1 SaaS feature ≈ $50-200/month
+- 40 hours redirected to [your product]: building 1 SaaS feature ≈ $50-200/month
   recurring → $600-2400 ARR, compounding.
 
 The math reveals the deal is break-even at best on opportunity cost.
@@ -254,7 +254,7 @@ The decision flows to the operator with the math visible, not hidden.
 
 **Compounding-check at session end:**
 The agent reads: did this week's work add to the Engine B asset base?
-If the answer is "no work shipped on the Stack / Ableton / Stage Pro,"
+If the answer is "no work shipped on [your product] / [your platform] / [your physical/SaaS product],"
 Compounding-First-Pole surfaces it as a flag.
 
 **Tax-efficient deployment:**

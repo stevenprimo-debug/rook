@@ -15,12 +15,12 @@ The story spine is the single underlying narrative the brand
 tells across every surface, every channel, every season. For
 each major brand in the operator's portfolio:
 
-- **the Stack**: the practitioner watching the AV industry
+- **[your product]**: the practitioner watching the AV industry
   shift, building the tools and community for the practitioners
   coming next.
-- **Stage Pro**: the touring engineer's playback rig that earns
+- **[your physical/SaaS product]**: the [your customer persona]'s playback rig that earns
   the trust of professionals who can't afford to fail.
-- **Ableton products / Savant Playback**: the production tools
+- **[your product line] / [your prior product]**: the production tools
   built by someone who's used the tools live, for people who
   use them live.
 - **[your employer]** (post-stealth): the integrator who understands
@@ -47,8 +47,8 @@ operating implementation of the first and third poles.
   reinforcing each other, or fragmenting into channel-specific
   voices?" The framework's spine ensures coherence.
 
-For the operator's organization (multiple brands across the Stack,
-Stage Pro, Ableton products, eventually [your employer] public-facing
+For the operator's organization (multiple brands across [your product],
+[your physical/SaaS product], [your product line], eventually [your employer] public-facing
 work), the framework prevents the failure mode where each brand
 drifts into channel-specific or campaign-specific voices that
 fragment the audience's perception. Coherent brands compound;
@@ -61,19 +61,19 @@ fragmented brands suppress.
 Every spine starts with the underlying truth — the specific
 thing that's true about the brand that drives everything else.
 
-For the Stack:
+For [your product]:
 - The truth: the AV industry is in structural shift. Touring
   practitioners with 15+ years of experience are watching their
-  gigs collapse as AI-augmented competitors emerge. the Stack
+  gigs collapse as AI-augmented competitors emerge. [your product]
   is built by one of them, for the ones coming next.
 
-For Stage Pro:
-- The truth: touring shows can't afford to fail in front of
+For [your physical/SaaS product]:
+- The truth: [your customer projects] can't afford to fail in front of
   thousands of people. The tools that touring engineers rely on
   must earn that trust through performance, not marketing
   promises.
 
-For Ableton products / Savant Playback:
+For [your product line] / [your prior product]:
 - The truth: production tools are built by people who haven't
   used them live, for people who haven't used them live. Tools
   built by practitioners who use them in actual gigs are
@@ -138,7 +138,7 @@ endless variations:
 - **Same truth, different moment** — seasonal, contextual, or
   trigger-driven variations.
 
-For the Stack:
+For [your product]:
 - Truth: industry shift requires practitioners to add AI
   tooling skills.
 - Variation 1 (career angle): "your career bridge to the next
@@ -146,7 +146,7 @@ For the Stack:
 - Variation 2 (specific tool): "Suno cloning vocalists — what
   this means for your session work."
 - Variation 3 (community angle): "60 practitioners in the
-  the Stack Discord — the people who'll get the gigs you'd be
+  [your community] — the people who'll get the gigs you'd be
   losing."
 
 Each variation is a different surface; together they reinforce
@@ -165,7 +165,7 @@ The discipline: trends are evaluated against the spine. Trends
 that reinforce the spine get adopted. Trends that fragment the
 spine get refused.
 
-For the Stack, TikTok adoption might fit the spine (touring AV
+For [your product], TikTok adoption might fit the spine ([your customer industry]
 practitioners do consume TikTok) — but only if the content
 honors the spine (specific to AV practitioner audience,
 practitioner-to-practitioner, anti-warmth-default). Generic
@@ -217,10 +217,10 @@ spine evolution is versioned, not silently rewritten.
 **Cohort launch campaign brief:**
 The marketing director briefs the campaign. Brief includes
 the spine reminder (industry shift, practitioner-to-practitioner,
-the cohort as bridge), the audience target (touring AV
+the cohort as bridge), the audience target ([your customer industry]
 practitioners 28-45, named gig types, named industry-shift
 exposure), the channels (LinkedIn organic + Twitter + paid
-Meta + email to existing the Stack list), the success
+Meta + email to existing [your product] list), the success
 metrics (qualified applications). Each channel produces
 spine-coherent variations.
 
@@ -276,8 +276,8 @@ that emerges. Each adoption fragments the spine slightly; the
 cumulative effect is brand incoherence.
 
 **Per locked feedback: "Brand to the customer's trade."** Brand
-spine respects the customer's trade. the Stack spine speaks
-touring AV practitioner; [your employer] spine speaks facilities
+spine respects the customer's trade. [your product] spine speaks
+[your customer market]; [your employer] spine speaks facilities
 operator; spine flexibility honors trade.
 
 **Per locked feedback: "Client Data Publication Rule."** Brand

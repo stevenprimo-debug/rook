@@ -51,7 +51,7 @@ the operating implementation of the first two.
   production-readiness bar for its tier?" The framework's
   per-feature gates are the gate.
 
-For the operator's product builds (the Stack SaaS, Stage Pro, Ableton
+For the operator's product builds ([your product], [your physical/SaaS product], [your platform]
 tools, client portal builds), the framework prevents two failure
 modes:
 
@@ -86,11 +86,11 @@ the velocity that's appropriate in high-velocity mode would
 produce dangerous failures in high-rigor mode.
 
 For the operator's products:
-- **Stage Pro early build** — high-velocity (validate touring-
+- **[your physical/SaaS product] early build** — high-velocity (validate touring-
   engineer demand before scaling infrastructure).
 - **the cohort tooling** — balanced (real users, but stakes
   are cohort engagement, not financial).
-- **the Stack SaaS payment processing** — high-rigor (financial
+- **[your product] payment processing** — high-rigor (financial
   transactions, recurring billing, trust-sensitive).
 
 The agent confirms mode at project start. Mode can be revisited
@@ -130,7 +130,7 @@ before merge. The bar within each gate calibrates to mode.
 
 ### 3. The Subagent-Driven Development Discipline
 
-Per the canonical the Stack stack, software-dev-team uses
+Per the canonical [your product] stack, software-dev-team uses
 subagent-driven development. The bench operates with subagent
 delegation for focused work:
 

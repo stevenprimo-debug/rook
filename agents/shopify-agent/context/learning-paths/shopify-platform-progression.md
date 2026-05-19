@@ -125,7 +125,7 @@ By the end of this path you should be able to:
 
 ## Cross-References
 
-- The the Stack agent that operates in this domain: `agents/shopify-agent/SKILL.md`
+- The agent that operates in this domain: `agents/shopify-agent/SKILL.md`
 - Methodology framework(s) cited: `agents/shopify-agent/context/methodology/` (in development)
 - Reference clippings: `agents/shopify-agent/context/references/` (vendored as Phase 1 expands)
 - Related agents:
@@ -143,7 +143,7 @@ By the end of this path you should be able to:
 - For Shopify Functions: discount Functions and delivery customization Functions are the highest-ROI surfaces; build in Rust for performance, AssemblyScript for accessibility.
 - For Polaris fluency: use Cards, Pages, Layouts, FormLayout, Banners, IndexTable, Filters, ResourceList. The component library is the design system; respect it.
 - For App Store revenue: the public app catalog is competitive; the custom-app pricing model offers higher ARPU but lower scale. Solo developers usually start with custom apps and graduate.
-- For made-to-order merchant builds (the Stack-context "first-customer engagement"): the custom-app + bespoke-theme combination is the operating model; document every customization for handoff and renewal.
+- For made-to-order merchant builds ([your product]-context "first-customer engagement"): the custom-app + bespoke-theme combination is the operating model; document every customization for handoff and renewal.
 - For HubSpot ↔ Shopify automation: webhook from Shopify (`orders/create`, `customers/create`) → HubSpot deal / contact via the HubSpot API; the loop is well-trodden; reference patterns are public.
 - For merchant-side coaching: every custom build includes operator-training on the admin surfaces the merchant will touch; the documentation lives in the store's notes.
 - For deployment / hosting (headless): Oxygen is Shopify's hosting; Vercel and Netlify are common alternatives; the choice gates on latency, edge-cache integration, and CI/CD discipline.

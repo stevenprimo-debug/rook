@@ -1,6 +1,6 @@
 # r-and-d-lead — Reference Pack
 
-> Curated authoritative sources for lean experimentation, customer development, and kill-criterion discipline. For use with the the Stack r-and-d-lead agent.
+> Curated authoritative sources for lean experimentation, customer development, and kill-criterion discipline. For use with the r-and-d-lead agent.
 
 Every URL below was verified live at time of pack creation. Sources are primary: authored by the named expert or published on their official platform.
 

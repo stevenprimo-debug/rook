@@ -16,24 +16,17 @@ Automatically files processed markdown notes into the right folder in your vault
 4. Write cross-reference stubs in secondary departments if the file scores highly there too
 5. Regenerate all `INDEX.md` files and `MASTER_INDEX.md` at vault root
 
-## Setup (one-time)
+## Setup (zero-config)
 
-No pip install needed — stdlib only.
+No pip install needed — stdlib only. **No per-dept keyword files to create.**
 
-**Create a keyword file for each department:**
+Routing keywords are read from each agent's `SKILL.md` body — the ```yaml fence under the `## Routing Keywords` heading. That block is the canonical source. `hooks/routing-rules.json` mirrors the `primary` + `secondary` arrays for the runtime hook to read fast; everything else in `routing-rules.json` (`excludes`, `enforce_message`, `dispatch_chains`, `_global_rules`) stays hand-edited there.
 
-`agents/<dept>/memory/capture_routing_keywords.md`
+**Edit keywords in:** `agents/<agent>/SKILL.md` → `## Routing Keywords` → ```yaml block → `routing_keywords.primary` / `.secondary`.
 
-```yaml
----
-dept: MARKETING
-keywords: [instagram, funnel, content, audience, social, viral, growth, linkedin, newsletter]
----
+**Mirror regenerates via:** `python scripts/regenerate-routing-rules.py` (called by `hooks/INSTALL.{ps1,sh}` and by the pre-commit hook). Idempotent.
 
-Keywords that route captures to this department.
-```
-
-Create one of these for each folder in your `agents/` directory. The more specific your keywords, the more accurate the routing.
+Never hand-edit `routing-rules.json`'s keyword arrays or any `agents/<dept>/memory/capture_routing_keywords.md` file — they regenerate from SKILL.md and any hand-edit will be silently overwritten.
 
 ## Usage
 
@@ -92,12 +85,12 @@ YOUR-VAULT/
 ├── Clippings/                    ← source (Obsidian Web Clipper output)
 └── agents/
     ├── <dept>/
+    │   ├── SKILL.md              ← keywords source (## Routing Keywords block)
     │   ├── context/
     │   │   ├── INDEX.md          ← auto-regenerated
     │   │   └── YYYY-MM/
     │   │       └── <filename>.md ← routed captures land here
     │   └── memory/
-    │       └── capture_routing_keywords.md  ← YOU configure this
 ```
 
 ## Tuning routing accuracy
@@ -105,7 +98,7 @@ YOUR-VAULT/
 - **Too many false positives in a dept?** Remove overly generic keywords (e.g., "tool", "system", "app")
 - **Files not routing to the right place?** Add more specific terms your content actually uses
 - **Same file always goes to wrong dept?** Check if that dept has a higher keyword density than expected — trim its list or add more specific terms to the correct dept
-- **Dry run first** when changing keyword files: `python -m inbox_routing --dry-run` shows routing decisions without moving anything
+- **Dry run first** when changing an agent's `## Routing Keywords` block: re-run `python scripts/regenerate-routing-rules.py` to refresh the mirror, then `python -m inbox_routing --dry-run` to preview routing decisions without moving anything
 
 ## Requirements
 

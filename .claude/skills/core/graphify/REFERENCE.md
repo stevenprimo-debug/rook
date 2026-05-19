@@ -40,7 +40,7 @@ Claude Code's skill loader resolves `graphify` against (in order):
 2. User-global `~/.claude/skills/graphify/`
 3. The vendored copy at `skills/core/graphify/src/` (this repo)
 
-For the Stack customers who clone this repo fresh — without an existing
+For this system customers who clone this repo fresh — without an existing
 user-global install — the vendored copy is what gets used. No external download
 required.
 

@@ -58,7 +58,7 @@ Three axes determine the output:
 4. Skill loads matching variant from `variants/{domain}.md` to fill sections 2-4 + 8
 5. Skill asks for slot fills (provider/customer details, dates, pricing, deliverables)
 6. Skill writes the filled SOW to the path the customer specifies (default:
-   `_FROM_CLAUDE/YYYY-MM-DD-{customer}-sow.md`)
+   `out/YYYY-MM-DD-{customer}-sow.md`)
 7. Skill offers to convert to PDF via html2pdf (seamless, never --paginated)
 
 ## 12-section universal skeleton (from references/skeleton.md)
@@ -134,5 +134,5 @@ ChatGPT-style sense) is the failure mode.
 - Sister skill: `msa-template` (Master Services Agreement this SOW can reference if customer has one signed)
 - [example enterprise customer] v4 visual frame: `agents/sales-director/COMPANIES/[CLIENT_REPO]/[CLIENT_PROJECTS]/[ENTERPRISE_CLIENT]/[ENTERPRISE_CLIENT]/[ENTERPRISE_CLIENT_HQ]/PROPOSAL/[enterprise client]_Proposal_v4.html` (if customer wants branded SOW cover)
 - Shopify-services SOW seed pattern: customer engagement template
-- SOW skeleton seed: `_FROM_CLAUDE/2026-05-14-sow-template-skeleton.md`
+- SOW skeleton seed: `out/2026-05-14-sow-template-skeleton.md`
 - Anti-pattern source: `.claude/memory/feedback_no_mono_in_proposals.md`, `feedback_design_quality_standard.md`, `feedback_html2pdf_always_seamless.md`

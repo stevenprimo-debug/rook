@@ -52,10 +52,10 @@ operating frame for all three.
   emotional and social jobs that the customer often will not name
   directly until asked.
 
-For the operator's mission depts (the Stack, Ableton, Stage Pro), JTBD is
+For the operator's mission depts ([your product], [your platform], [your physical/SaaS product]), JTBD is
 the discipline that prevents the trap of "build features that AV
 people might want." Instead: "what job are touring playback
-engineers hiring Stage Pro to do, and what are they currently hiring
+engineers hiring [your physical/SaaS product] to do, and what are they currently hiring
 instead?"
 
 ## Core Concepts
@@ -70,7 +70,7 @@ I want to _________________ (motivation/action),
 so I can _________________ (expected outcome).
 ```
 
-Example for Stage Pro:
+Example for [your physical/SaaS product]:
 > When I'm prepping a show in a venue I've never worked,
 > I want to verify my QLab cues against the actual room latency,
 > so I can avoid mid-show audio drift in front of 5,000 people.
@@ -104,7 +104,7 @@ A new product wins only when Push + Pull > Anxiety + Habit. JTBD
 interviews are designed to surface all four forces — not just the
 pain (which is what teams typically over-focus on).
 
-For the Stack courses: the push is "I can't keep up with AI
+For [your product] courses: the push is "I can't keep up with AI
 changes." The pull is "structured curriculum + community + the operator's
 experience." The anxiety is "another expensive course I won't
 finish." The habit is "free YouTube tutorials." The product wins
@@ -151,7 +151,7 @@ are **under-served**: the wedge for new product opportunity.
 Outcomes that are high-importance and high-satisfaction are
 **over-served**: the territory where commoditization happens.
 
-For the Stack SaaS opportunity-scoring:
+For [your product] opportunity-scoring:
 - High-importance, low-satisfaction outcome → strong opportunity.
 - High-importance, high-satisfaction outcome → strong incumbent;
   hard wedge.
@@ -168,7 +168,7 @@ cancels was "fired" — and the JTBD question is "what did they hire
 in its place?" The replacement product is the real competitor — not
 the product the team imagines is the competitor.
 
-For Stage Pro: a touring engineer who stops using Stage Pro may have
+For [your physical/SaaS product]: a [your customer persona] who stops using [your physical/SaaS product] may have
 hired a different specialized tool (real competitor), or may have
 hired "QLab + spreadsheet + my own brain" (competitor is the manual
 workflow), or may have hired "stop checking, just trust the cues"
@@ -198,7 +198,7 @@ adjacent product. The output is a job statement, the four forces,
 and a list of desired outcomes ranked by importance/satisfaction.
 This output gates whether the idea proceeds to spec.
 
-**Stage Pro feature-prioritization audit:**
+**[your physical/SaaS product] feature-prioritization audit:**
 The agent reads the proposed feature list and asks of each one:
 "What job is this hired to do? Whose circumstance creates this job?
 What forces push them to hire this feature over what they have now?"
@@ -239,7 +239,7 @@ job the broader customer base is trying to make progress on.
 
 **Confusing demographics with jobs.** "Our user is a 28-35 year old
 touring audio engineer with a Mac." This is a persona, not a job.
-The same person hires Stage Pro for different jobs at different
+The same person hires [your physical/SaaS product] for different jobs at different
 moments (pre-show prep vs. tour bus downtime vs. emergency
 troubleshooting). The job — not the demographic — drives behavior.
 
@@ -258,7 +258,7 @@ stated preference is the truth.
 
 **Building for the team's idealized user instead of the actual
 customer.** the cohort built for "people who want to learn AI"
-is too broad. Built for "touring AV technicians whose tour income
+is too broad. Built for "[your customer industry] technicians whose tour income
 is collapsing and who need a creator-economy off-ramp" is specific.
 The job-and-circumstance reveals the actual customer.
 

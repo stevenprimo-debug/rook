@@ -122,7 +122,7 @@ By the end of this path you should be able to:
 
 ## Cross-References
 
-- The the Stack agent that operates in this domain: `agents/deep-researcher/SKILL.md`
+- The agent that operates in this domain: `agents/deep-researcher/SKILL.md`
 - Methodology framework(s) cited: `agents/deep-researcher/context/methodology/` (in development)
 - Reference clippings: `agents/deep-researcher/context/references/` (vendored as Phase 1 expands)
 - Related agents:

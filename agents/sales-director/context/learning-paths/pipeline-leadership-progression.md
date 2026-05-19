@@ -123,7 +123,7 @@ By the end of this path you should be able to:
 
 ## Cross-References
 
-- The the Stack agent that operates in this domain: `agents/sales-director/SKILL.md`
+- The agent that operates in this domain: `agents/sales-director/SKILL.md`
 - Methodology framework(s) cited: `agents/sales-director/context/methodology/` (in development)
 - Reference clippings:
   - `agents/sales-director/context/references/hubspot-academy.md`
@@ -140,7 +140,7 @@ By the end of this path you should be able to:
 - For [your employer] context: deal-evaluation discipline (auto-reject criteria, GP floor, commission floor) lives in the user's CLAUDE.md sales quick reference. Apply the rubric every deal.
 - For enterprise B2B SaaS: pair this learning path with MEDDPICC, Force Management content, and Pavilion's CRO-track.
 - For solo-founder selling: every deal is a one-off until it isn't. The first 10 deals build the playbook; deals 11-50 prove the playbook; deals 51+ scale it.
-- For RFP / RFQ work: see `agents/sales-director/PROMETHEUS/memory/methodology_rfp_response_pipeline.md` for the 5-stage workflow.
+- For RFP / RFQ work: see `agents/sales-director/[your sales-ops platform]/memory/methodology_rfp_response_pipeline.md` for the 5-stage workflow.
 - For deal-evaluation rubric: every opp scores on (a) ICP fit, (b) decision-maker access, (c) decision timeline, (d) competitive position, (e) margin viability. Kill below threshold.
 - For coaching cadence: weekly 15-min deal reviews on the top 5 deals; monthly 60-min deep reviews on the top 3. The cadence is the asset, not the format.
 - For comp plan design: align comp to the metric that drives revenue, not the metric that's easy to measure. New-pipeline-creation comp + close comp + post-close retention comp.

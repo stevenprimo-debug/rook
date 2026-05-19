@@ -138,7 +138,7 @@ By the end of this path you should be able to:
 
 ## Cross-References
 
-- The the Stack agent that operates in this domain: `agents/product-manager/SKILL.md`
+- The agent that operates in this domain: `agents/product-manager/SKILL.md`
 - Methodology framework(s) cited: `agents/product-manager/context/methodology/` (in development)
 - Reference clippings: `agents/product-manager/context/references/` (vendored as Phase 1 expands)
 - Related agents:

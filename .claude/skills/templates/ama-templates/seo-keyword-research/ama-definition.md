@@ -29,7 +29,7 @@ Tone: Professional, concise, data-driven. Use tables and bullet lists for readab
 ant beta:agents create \
   --name 'SEO Keyword Research — {CUSTOMER_NAME}' \
   --model '{"id": "{MODEL_ID — default: claude-sonnet-4-6}"}' \
-  --system "$(cat _FROM_CLAUDE/{DATE}-seo-keyword-research-system-prompt.md)" \
+  --system "$(cat out/{DATE}-seo-keyword-research-system-prompt.md)" \
   --tool '{type: agent_toolset_20260401}' \
   --tool '{type: mcp_toolset, mcp_server_name: exa}' \
   --mcp-server '{type: url, name: exa, url: https://mcp.exa.ai/mcp}'

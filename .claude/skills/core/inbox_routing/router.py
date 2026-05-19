@@ -199,9 +199,9 @@ def _parse_routing_keywords_yaml(yaml_body: str) -> dict:
     Returns dict with keys: primary (list[str]), secondary (list[str]), exclude (list[str]),
     imports (list[str]). Missing keys default to [].
 
-    Recognized shapes (exactly the conventions used across COWORK SKILL.md files):
+    Recognized shapes (exactly the conventions used across SKILL.md files):
         routing_keywords:
-          imports: [av-touring]
+          imports: [media-domain]
           primary:
             - foo
             - bar

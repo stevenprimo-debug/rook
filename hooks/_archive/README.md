@@ -1,6 +1,6 @@
 # _archive/ — Reference snapshots from prior installs
 
-These scripts shipped in earlier stack snapshots but are NOT part of the v1 hook spec. They reference hard-coded paths to Primo's local source vault and will silent-fail (or no-op) outside that environment.
+These scripts shipped in earlier stack snapshots but are NOT part of the v1 hook spec. They reference hard-coded paths to the original source vault and will silent-fail (or no-op) outside that environment.
 
 Kept here for:
 1. Historical reference — what the source vault looks like internally.

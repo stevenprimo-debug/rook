@@ -46,5 +46,5 @@ If the customer wants BOTH outbound + inbound:
 - Deploy sales-triage-squad for inbound lead handling
 - Both write to the same HubSpot; deduplication across them is handled by HubSpot's contact-merge logic
 
-Customer pays Anthropic for both AMAs' session-hours separately; the Stack
+Customer pays Anthropic for both AMAs' session-hours separately; this system
 subscription covers the templates themselves.

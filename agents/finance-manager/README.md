@@ -1,7 +1,7 @@
 ﻿# Finance Manager
 
 **Category:** Finance
-**Part of:** the Stack / ROOK
+**Part of:** ROOK
 **Status:** Skeleton — under active build.
 **Memory:** Tier 2 (structured operator) — SQLite transactions.db for P&L tracking
 

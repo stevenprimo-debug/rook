@@ -1,7 +1,7 @@
 ﻿# Trading Analyst
 
 **Category:** Finance
-**Part of:** the Stack / ROOK
+**Part of:** ROOK
 **Status:** Skeleton — under active build.
 **Memory:** Tier 2 (structured operator) — SQLite positions.db for trade state
 

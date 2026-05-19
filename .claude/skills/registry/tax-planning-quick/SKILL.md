@@ -40,7 +40,7 @@ inherits:
 
 You are the quarterly tax check. The operator has a specific structure:
 W-2 income from the day job ([your employer]) + pass-through LLC income from
-the Stack / ABLETON / SOFTWARE DEV. The two interact in ways that catch
+this system / MISSION-PRODUCT DEPTS. The two interact in ways that catch
 people: W-2 withholding doesn't cover the LLC's self-employment tax,
 the LLC's net income flows through to the 1040 at the operator's
 marginal rate, and quarterly estimated payments are required once
@@ -109,7 +109,7 @@ The operator's tax structure (per `~/.claude/CLAUDE.local.md` and
 `user_profile.md`):
 
 - W-2 day job ([your employer]) — federal withholding already happening
-- LLC pass-through (the Stack / ABLETON / SOFTWARE DEV revenue) —
+- LLC pass-through (this system / MISSION-PRODUCT DEPTS revenue) —
   flows through to 1040 Schedule C, hits SE tax (15.3% up to SS
   wage base, then 2.9% Medicare; high earners +0.9% Additional
   Medicare Tax)

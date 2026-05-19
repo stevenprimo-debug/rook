@@ -1,6 +1,6 @@
 # content-strategist — Reference Pack
 
-> Curated authoritative sources for editorial strategy, content architecture, and audience-asset building. For use with the the Stack content-strategist agent.
+> Curated authoritative sources for editorial strategy, content architecture, and audience-asset building. For use with the [your product] content-strategist agent.
 
 ---
 

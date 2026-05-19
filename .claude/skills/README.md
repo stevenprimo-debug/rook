@@ -1,6 +1,6 @@
-# the Stack — Skills Library
+# this system — Skills Library
 
-> Every the Stack ships with this curated library of operator-grade skills. Agents invoke them automatically; you can also call them directly as slash commands in Claude Code.
+> Every this agent ships with this curated library of operator-grade skills. Agents invoke them automatically; you can also call them directly as slash commands in Claude Code.
 
 Skills are progressive-disclosure tools — small SKILL.md files with metadata that load only when their triggers fire. They turn recurring patterns into reusable capabilities so you (and the agents) never re-solve the same problem.
 
@@ -8,7 +8,7 @@ Skills are progressive-disclosure tools — small SKILL.md files with metadata t
 
 ## Universal Stack (every agent inherits these 4)
 
-Every agent shipped with the Stack declares these four skills in its frontmatter. They form the input-synthesis-output loop the agents rely on.
+Every agent shipped with this system declares these four skills in its frontmatter. They form the input-synthesis-output loop the agents rely on.
 
 | Skill | Path | What it does | When an agent uses it |
 |---|---|---|---|
@@ -80,7 +80,7 @@ The full obra/superpowers pack — engineering discipline as skills. Agents on t
 
 ## Meta-Capability (the skills that build skills)
 
-These are the skills that extend the Stack itself.
+These are the skills that extend this system itself.
 
 | Skill | Path | What it unlocks |
 |---|---|---|

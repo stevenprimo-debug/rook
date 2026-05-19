@@ -9,7 +9,7 @@ $ct = [System.TimeZoneInfo]::ConvertTimeBySystemTimeZone((Get-Date), "Central St
 $hour = $ct.Hour
 
 if ($hour -ge 16) {
-    Write-Output "HARD STOP WARNING: It is $($ct.ToString('h:mm tt')) CT. Time to get home to Chloe and Silas. Wrap up NOW."
+    Write-Output "HARD STOP WARNING: It is $($ct.ToString('h:mm tt')) CT. Time to get home to family. Wrap up NOW."
 } elseif ($hour -ge 15 -and $ct.Minute -ge 30) {
     Write-Output "HEADS UP: It is $($ct.ToString('h:mm tt')) CT. 30 minutes until hard stop. Start wrapping up."
 }

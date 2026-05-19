@@ -1,6 +1,6 @@
 # Graphify First-Run Install Gate
 
-> the Stack convention. Graphify is third-party OSS (`safishamsi/graphify`,
+> this system convention. Graphify is third-party OSS (`safishamsi/graphify`,
 > MIT-licensed, published to PyPI as `graphifyy`). It is NOT vendored in the
 > Stack repo. Customers install it on first use via a one-line approval prompt.
 >
@@ -11,7 +11,7 @@
 
 ## When the gate fires
 
-Every the Stack agent has `graphify` in its `skills:` block as part of the
+Every this system agent has `graphify` in its `skills:` block as part of the
 Universal Stack. When an agent invokes `/graphify` (or any Graphify command), it
 first checks whether the CLI is available.
 
@@ -86,7 +86,7 @@ will activate automatically once the CLI is on PATH.
 
 ## Attribution
 
-Graphify is third-party OSS by safishamsi. the Stack ships the skill
+Graphify is third-party OSS by safishamsi. this agent ships the skill
 manifest (in `src/SKILL.md`) which calls the upstream binary. We do not
 vendor the engine code — the customer's PyPI install is the source of truth.
 
@@ -97,7 +97,7 @@ License: MIT. Repo: https://github.com/safishamsi/graphify
 Three reasons (v3 locked session):
 
 1. **Upstream actively maintained.** Vendoring freezes a snapshot; PyPI gives the customer the latest version automatically.
-2. **Engine size.** The Graphify engine + its dependency tree (networkx, leidenalg, etc.) would bloat the Stack repo significantly.
+2. **Engine size.** The Graphify engine + its dependency tree (networkx, leidenalg, etc.) would bloat this system repo significantly.
 3. **Customer control.** Install gate keeps the customer in control of what runs on their machine. They can decline, defer, or pin a specific version.
 
 Trade-off: customers need network + a Python package manager on first run.

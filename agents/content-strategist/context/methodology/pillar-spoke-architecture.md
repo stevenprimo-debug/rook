@@ -52,12 +52,12 @@ first two.
   The pattern's internal linking serves this navigation.
 
 For the operator's content strategy:
-- **the Stack** content needs pillar-spoke architecture for
-  topics like "AI tools for touring AV pros," "cohort-based
+- **[your product]** content needs pillar-spoke architecture for
+  topics like "AI tools for [your customer audience]," "cohort-based
   learning for practitioners," "creator-economy transitions."
-- **Stage Pro / Ableton product content** needs pillar-spoke for
-  topics like "live show playback management," "MIDI integration
-  for touring rigs."
+- **[your physical/SaaS product] / [your product] content** needs pillar-spoke for
+  topics like "live show [your domain] management," "MIDI integration
+  for [your customer setups]."
 - **[your employer] public-facing content** (post-stealth) needs pillar-spoke
   for topics like "enterprise AV integration," "experiential
   installation design."
@@ -70,9 +70,9 @@ A topical neighborhood is a coherent body of content addressing
 a specific subject area. Defining the neighborhood is the first
 move: which topic, which audience, which competitive landscape.
 
-For the Stack:
-- **Neighborhood 1**: AI tools for touring AV professionals.
-  - Audience: touring AV practitioners (engineers, designers,
+For [your product]:
+- **Neighborhood 1**: AI tools for [your customer audience].
+  - Audience: [your customer audience] (engineers, designers,
     producers) facing industry shifts.
   - Competitive landscape: general AI-for-creative content (broad
     but not specific to AV), AV vendor content (specific but not
@@ -141,7 +141,7 @@ that makes the architecture function:
   resource list near the end).
 - **Spokes link to adjacent spokes** when natural (e.g., a spoke
   on "MIDI integration for QLab" links to a spoke on "MIDI
-  integration for Stage Pro" within the same cluster).
+  integration for [your physical/SaaS product]" within the same cluster).
 - **No links to unrelated content** unless serving the reader's
   journey (e.g., a spoke can link to a related product page;
   shouldn't link to an unrelated blog post).
@@ -203,7 +203,7 @@ moat: slow to construct, valuable for years.
 
 ## Common Applications
 
-**the Stack pillar: "AI Tools for Touring AV Professionals":**
+**[your product]'s pillar: "AI Tools for Touring AV Professionals":**
 The pillar covers the territory comprehensively — current AI
 tooling landscape, specific tools by category (cue management,
 visual generation, post-show analysis, business operations),
@@ -211,8 +211,8 @@ implementation patterns, industry-shift context, getting-started
 paths. Spokes drill into each named tool, each use case, each
 implementation pattern. Cohort pages link from relevant spokes.
 
-**Stage Pro pillar: "Live Show Playback Management":**
-The pillar covers playback foundations — cue catalog
+**[your physical/SaaS product] pillar: "Live Show Playback Management":**
+The pillar covers [your domain] foundations — cue catalog
 organization, latency considerations, MIDI integration patterns,
 contingency planning. Spokes drill into specific software
 comparisons, specific hardware setups, specific use cases (FoH

@@ -10,7 +10,7 @@ upstream: https://github.com/microsoft/markitdown
 
 # markitdown
 
-Canonical `file_ingest()` for every the Stack agent. Customer uploads any artifact;
+Canonical `file_ingest()` for every this system agent. Customer uploads any artifact;
 agent normalizes it to markdown before reasoning over it.
 
 ## Install status

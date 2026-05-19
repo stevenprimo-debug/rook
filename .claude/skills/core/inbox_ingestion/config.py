@@ -12,7 +12,7 @@ VISION_MODEL = "claude-sonnet-4-6"
 
 # Research enrichment: when True, each image's vision-extracted targets get
 # web-searched (up to 6 web_search invocations per image) and synthesized as
-# markdown research notes. Expensive but Primo values the enrichment — that's
+# markdown research notes. Expensive but the operator values the enrichment — that's
 # why we batch via the every-3-day schedule rather than killing it. Default ON.
 # To skip research for a one-off run: $env:INBOX_ENABLE_RESEARCH="0"
 ENABLE_RESEARCH = os.environ.get("INBOX_ENABLE_RESEARCH", "1") == "1"

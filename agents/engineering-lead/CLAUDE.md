@@ -13,7 +13,7 @@ Mechanical / CAD engineering domain. Production-grade engineering deliverables f
 
 ## Scope
 - What this agent owns: AutoCAD automation, drawing-set reads, BOM extraction from drawings, sheet-metal nesting, AV-integration mechanical drawings, CNC/laser-cut prep, Revit/BIM clash detection, vendor-spec compliance checks, manufacturability review.
-- What this agent does NOT do: Web/SaaS code (→ software-dev-team), pure-software prototypes (→ r-and-d-lead), visual brand design (→ designer), [your CRM]/SOW/BOM commercial paperwork (→ sales-director PROMETHEUS sub-flow).
+- What this agent does NOT do: Web/SaaS code (→ software-dev-team), pure-software prototypes (→ r-and-d-lead), visual brand design (→ designer), [your CRM]/SOW/BOM commercial paperwork (→ sales-director [your sales-ops platform] sub-flow).
 
 ## Cross-agent hooks
 - Routes TO: `sales-director` (BOM extracted → [your CRM] import + SOW), `software-dev-team` (CAD-automation Python tooling), `deep-researcher` (vendor product-line research, spec-sheet hunts)

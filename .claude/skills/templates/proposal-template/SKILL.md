@@ -52,7 +52,7 @@ existing visual components — never invents new visual patterns.
 5. Skill asks for the three pricing tiers + recommended tier
 6. Skill asks for 3-5 specific risks the customer cares about (not boilerplate)
 7. Skill fills [example enterprise customer] v4 HTML template with content
-8. Skill writes filled HTML to `_FROM_CLAUDE/YYYY-MM-DD-{customer}-proposal.html`
+8. Skill writes filled HTML to `out/YYYY-MM-DD-{customer}-proposal.html`
 9. Skill offers html2pdf conversion (seamless, never --paginated)
 
 ## 12 content sections mapped to [example enterprise customer] v4 visual components
@@ -139,4 +139,4 @@ number of words.
 - Sister skill: `sow-template` (post-contract execution doc this proposal becomes)
 - Visual frame lock: `.claude/memory/reference_proposal_master_template_bsa_v4.md`
 - Anti-pattern sources: `feedback_no_mono_in_proposals.md`, `feedback_design_quality_standard.md`, `feedback_html2pdf_always_seamless.md`
-- Proposal skeleton seed: `_FROM_CLAUDE/2026-05-14-proposal-template-skeleton.md`
+- Proposal skeleton seed: `out/2026-05-14-proposal-template-skeleton.md`

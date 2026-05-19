@@ -10,7 +10,7 @@ voice_dominance: BALANCED (per CD voice-spine § 7)
 
 # R&D Lead — 3-Pole Principle Bench (de-personified)
 
-> **Charter:** Nothing ships from R&D directly. Experiments that earn it graduate to a mission dept (ABLETON / SOFTWARE DEV / UNREAL / FINANCE). The lab is upstream — its job is to learn cheaply.
+> **Charter:** Nothing ships from R&D directly. Experiments that earn it graduate to a mission dept (MISSION-PRODUCT DEPTS / UNREAL / FINANCE). The lab is upstream — its job is to learn cheaply.
 
 ## Active Bench
 

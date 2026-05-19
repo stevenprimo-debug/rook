@@ -212,7 +212,7 @@ secondary CTA in the hero (competes with primary CTA) → cut. The
 animated background pattern → cut. The result reads more confident
 than the over-stuffed original.
 
-**Stage Pro product page simplification:**
+**[your physical/SaaS product] product page simplification:**
 The product page initial draft has 8 feature blocks, 4 testimonial
 cards, 3 CTAs, and a comparison table. The agent audits: which
 features are essential? Cuts to 4 feature blocks (the wedge

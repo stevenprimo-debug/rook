@@ -31,7 +31,7 @@ competitor URLs returned by Exa, identifies content gaps with citations.
 
 1. Customer asks "build me an SEO research agent" or trigger phrase
 2. Skill asks for slots (default Exa MCP credentials, output format preference)
-3. Skill writes filled CLI command to `_FROM_CLAUDE/YYYY-MM-DD-seo-keyword-research-deploy.sh`
+3. Skill writes filled CLI command to `out/YYYY-MM-DD-seo-keyword-research-deploy.sh`
 4. Customer deploys: `ant beta:agents create ...` + `ant beta:environments create ...` + `ant beta:sessions start ...`
 5. Customer interacts with the AMA in chat — feeds seed keywords, gets clustered results with gap analysis
 

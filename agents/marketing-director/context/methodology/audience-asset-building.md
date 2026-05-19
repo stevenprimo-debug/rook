@@ -35,13 +35,13 @@ audience members = more total reach) and qualitative compounding
 refer more).
 
 For the operator's brand portfolio:
-- **the Stack Discord** — primary audience asset; warm
+- **[your community]** — primary audience asset; warm
   practitioners who form the cohort funnel.
-- **the Stack email list** — direct ownership; cohort
+- **[your email list]** — direct ownership; cohort
   pre-launch sequence.
-- **Stage Pro user base** — touring engineer customer base;
+- **[your physical/SaaS product] user base** — [your customer persona] customer base;
   word-of-mouth referrals.
-- **Ableton products audience / Savant Playback Discord** —
+- **[your product line] audience / [your prior community]** —
   legacy audience asset from prior product lines; still active.
 
 ## Why It Matters For This Agent
@@ -68,7 +68,7 @@ catches three specific failure modes:
 For the operator's organization, audience asset building is what makes
 the exit-by-Dec-2026 economics work. Engine B income (per the
 wealth-creation math framework) scales with audience asset.
-Mission products (the Stack, Stage Pro, Ableton tools) all
+Mission products ([your product], [your physical/SaaS product], [your platform] tools) all
 depend on audience compounding.
 
 ## Core Concepts
@@ -236,7 +236,7 @@ does it acquire? What capture-to-owned mechanisms are
 included? Campaigns without audience-asset contribution get
 flagged.
 
-**the Stack Discord operations:**
+**[your community] operations:**
 The director ensures Discord operations are maintained: active
 moderation, welcome flow for new joiners, regular
 practitioner-driven content prompts, engagement with member
@@ -261,8 +261,8 @@ framing per locked memory. Audience messaging respects locked
 brand framing.
 
 **Per locked feedback: "Brand to the customer's trade."**
-Audience operations respect the audience's trade. the Stack
-community speaks touring AV practitioner; [your employer] audience
+Audience operations respect the audience's trade. [your product]
+community speaks [your customer market]; [your employer] audience
 (post-launch) speaks facilities operator.
 
 ## Anti-patterns (when this framework is misapplied)

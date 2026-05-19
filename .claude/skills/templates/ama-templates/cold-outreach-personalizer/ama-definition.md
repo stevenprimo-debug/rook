@@ -14,7 +14,7 @@ Forbidden vocabulary in first lines: "elegant," "premium," "luxury," "delightful
 ant beta:agents create \
   --name 'Cold Outreach Personalizer — {CUSTOMER_NAME}' \
   --model '{"id": "{MODEL_ID — default: claude-sonnet-4-6}"}' \
-  --system "$(cat _FROM_CLAUDE/{DATE}-cold-outreach-personalizer-system-prompt.md)" \
+  --system "$(cat out/{DATE}-cold-outreach-personalizer-system-prompt.md)" \
   --tool '{type: agent_toolset_20260401}' \
   --tool '{type: mcp_toolset, mcp_server_name: apollo}' \
   --tool '{type: mcp_toolset, mcp_server_name: clay}' \

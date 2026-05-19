@@ -62,8 +62,8 @@ modes:
    new positioning, new visual treatments, new voice. The
    experiments don't roll back; they erode the spine.
 
-For the operator's brand portfolio (the Stack, Stage Pro, Ableton/
-Savant Playback, eventually [your employer] public), brand coherence
+For the operator's brand portfolio ([your product], [your physical/SaaS product], [your platform]/
+[your prior product], eventually [your employer] public), brand coherence
 pressure test is what produces brand assets that compound rather
 than fragment.
 
@@ -238,10 +238,10 @@ regardless of how minor; locked means locked.
 
 **Pre-launch brand audit:**
 A new cohort sales page is about to launch. The agent runs the
-per-surface gate: spine fidelity (specific to the Stack spine),
+per-surface gate: spine fidelity (specific to [your product] spine),
 voice fidelity (practitioner-to-practitioner), visual fidelity
-(brand standards), audience fidelity (touring AV practitioner),
-cross-surface consistency (matches recent the Stack surfaces).
+(brand standards), audience fidelity ([your customer market]),
+cross-surface consistency (matches recent [your product] surfaces).
 Specific flags surface; remediation applied; page launches
 coherent.
 

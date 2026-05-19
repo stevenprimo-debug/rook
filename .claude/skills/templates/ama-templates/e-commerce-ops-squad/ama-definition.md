@@ -29,7 +29,7 @@ You are the E-commerce Ops Squad orchestrator — a headless multi-agent system 
 ant beta:agents create \
   --name 'E-commerce Ops Squad — {CUSTOMER_NAME}' \
   --model '{"id": "{MODEL_ID — default: claude-sonnet-4-6}"}' \
-  --system "$(cat _FROM_CLAUDE/{DATE}-e-commerce-ops-squad-system-prompt.md)" \
+  --system "$(cat out/{DATE}-e-commerce-ops-squad-system-prompt.md)" \
   --tool '{type: agent_toolset_20260401}' \
   --tool '{type: mcp_toolset, mcp_server_name: shopify}' \
   --tool '{type: mcp_toolset, mcp_server_name: shippo}' \

@@ -1,7 +1,7 @@
 ﻿# Shopify Agent
 
 **Category:** Revenue
-**Part of:** the Stack / ROOK
+**Part of:** ROOK
 **Status:** Skeleton — under active build.
 **Memory:** Tier 2 (structured operator) — SQLite store.db for products + orders
 

@@ -129,15 +129,15 @@ By the end of this path you should be able to:
 
 ## Cross-References
 
-- The the Stack agent that operates in this domain: `agents/engineering-lead/SKILL.md`
+- The agent that operates in this domain: `agents/engineering-lead/SKILL.md`
 - Methodology framework(s) cited: `agents/engineering-lead/context/methodology/` (in development)
 - Reference clippings: `agents/engineering-lead/context/references/` (vendored as Phase 1 expands)
 - Related agents: `agents/sales-director/SKILL.md` (engineering scoping informs deal qualification — load both for high-value-deal review), `agents/product-manager/SKILL.md` (for productized engineering offerings), `agents/deep-researcher/SKILL.md` (vendor-research before validation)
 - Critical SKILL.md rule: BOMs extracted via PyPDF2 text-first ALWAYS, never visual reading. See SKILL.md and `feedback_lmg_cad_reading` for the reasoning.
 - Three-principle gate (per SKILL.md): Invention, Manufacturability, Drawing-Rigor held in productive tension.
-- For [your employer] work: the BOM → SOW → [your CRM] import pipeline lives in `agents/sales-director/PROMETHEUS/`. Engineering Lead delegates to PROMETHEUS for the import-file generation; PROMETHEUS does NOT delegate to customer-facing depts.
+- For [your employer] work: the BOM → SOW → [your CRM] import pipeline lives in `agents/sales-director/[your sales-ops platform]/`. Engineering Lead delegates to [your sales-ops platform] for the import-file generation; [your sales-ops platform] does NOT delegate to customer-facing depts.
 - For multi-discipline coordination: MEP + structural + AV + IT clash-detection runs in BIM 360 / Navisworks; the punch-list lives in the spec.
-- For RFP response work: pair this learning path with the RFP-response methodology in `agents/sales-director/PROMETHEUS/memory/methodology_rfp_response_pipeline.md`.
+- For RFP response work: pair this learning path with the RFP-response methodology in `agents/sales-director/[your sales-ops platform]/memory/methodology_rfp_response_pipeline.md`.
 - Engineering Lead is downstream of Sales (deal qualified) and upstream of fabrication / install (drawings issued). The drawing is the contract.
 - For RFP technical-scope work: validate every requirement against industry standards (e.g., CSI) before agreeing to it; flag the requirements that conflict with each other.
 - For projection / LED-wall projects: pair with sightline-math, brightness-budget, and pixel-pitch-vs-viewing-distance calcs before specifying.

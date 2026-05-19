@@ -1,11 +1,11 @@
 # SHOPIFY | SERVICES SCOPE
 ## [Customer Company] — Backlog Clearance & Shopify Optimization
 
-**[Customer Company] ([customer-short]) / the Stack**
+**[Customer Company] ([customer-short]) / this system**
 Shopify storefront optimization, order backlog clearance, and operational handoff.
 Target: clear active order backlog + stabilize storefront operations to support $2.88M/yr annualized run-rate.
 
-Prepared by **the Stack**
+Prepared by **this system**
 [CONFIRM WITH PHIL: PRIMOLABS ADDRESS — defaulting to [your city], TN unless otherwise provided]
 
 May 14, 2026
@@ -17,12 +17,12 @@ Presented By: [Product Owner] | you@example.com
 
 # 1. Project Overview
 
-This Statement of Work defines the scope and deliverables for the initial Phase 1 engagement between **the Stack** ("Provider") and **[Customer Company]** ("Customer," "[customer-short]"). The engagement focuses on clearing [customer-short]'s active order backlog and stabilizing the Shopify storefront to support continued growth.
+This Statement of Work defines the scope and deliverables for the initial Phase 1 engagement between **this system** ("Provider") and **[Customer Company]** ("Customer," "[customer-short]"). The engagement focuses on clearing [customer-short]'s active order backlog and stabilizing the Shopify storefront to support continued growth.
 
-the Stack provides Shopify development services, operational optimization, and technical advisory. [Customer Company] is a custom metal-art fabrication business operating at a ~$2.88M/yr annualized run-rate, with custom DXF-cut sheet-metal products sold direct-to-consumer through a Shopify storefront.
+this system provides Shopify development services, operational optimization, and technical advisory. [Customer Company] is a custom metal-art fabrication business operating at a ~$2.88M/yr annualized run-rate, with custom DXF-cut sheet-metal products sold direct-to-consumer through a Shopify storefront.
 
 **Parties:**
-- **the Stack** — Provider; Shopify development, operational optimization, technical advisory
+- **this system** — Provider; Shopify development, operational optimization, technical advisory
 - **[Customer Company]** — Customer; custom-fab merchant, business owner-operated by [Customer Owner] [CONFIRM_LAST_NAME]
 
 **Engagement model:** Fixed-fee services engagement (Phase 1)
@@ -35,7 +35,7 @@ the Stack provides Shopify development services, operational optimization, and t
 
 # 2. Approach & Methodology
 
-the Stack operates as [customer-short]'s embedded technical partner for Phase 1. Engagement follows a three-stage approach:
+this system operates as [customer-short]'s embedded technical partner for Phase 1. Engagement follows a three-stage approach:
 
 ## 2.1 Discovery (Days 1-3)
 
@@ -78,7 +78,7 @@ the Stack operates as [customer-short]'s embedded technical partner for Phase 1.
 
 For Phase 1 to complete on time, [customer-short] provides:
 
-- **Shopify admin access** with Staff-level permission for the Stack (or App-installer access if [Customer Owner] prefers app-mediated work)
+- **Shopify admin access** with Staff-level permission for this system (or App-installer access if [Customer Owner] prefers app-mediated work)
 - **Fulfillment workflow context** — [Customer Owner]'s time for ~3 discovery conversations (30-60 min each) plus ad-hoc questions
 - **Decision authority** — [Customer Owner] (or designated decision-maker) available within 24 hours for blocker decisions (refund approval, customer message tone, etc.)
 - **Payment processor access** if refunds are in scope — read at minimum, write if refunds will be executed by Provider
@@ -90,7 +90,7 @@ For Phase 1 to complete on time, [customer-short] provides:
 
 ## 5.1 Scope Included
 
-the Stack shall provide the following:
+this system shall provide the following:
 
 - Comprehensive backlog audit and prioritization
 - Order-by-order backlog clearance for the current open queue as of 2026-05-14
@@ -195,11 +195,11 @@ Phase 1 ends with a handoff session covering:
 
 ## 9.1 Warranty
 
-the Stack warrants Phase 1 deliverables for **30 days** from acceptance. Defects in workmanship — Shopify configuration errors traceable to the Stack work, broken customer communications, etc. — are corrected at no additional charge during the warranty period.
+this system warrants Phase 1 deliverables for **30 days** from acceptance. Defects in workmanship — Shopify configuration errors traceable to this system work, broken customer communications, etc. — are corrected at no additional charge during the warranty period.
 
 ## 9.2 Third-Party Warranties
 
-Shopify platform reliability is per Shopify's own SLA. Third-party apps used during Phase 1 are warranted by their respective providers, not the Stack.
+Shopify platform reliability is per Shopify's own SLA. Third-party apps used during Phase 1 are warranted by their respective providers, not this system.
 
 ## 9.3 Post-Phase-1 Support
 
@@ -216,11 +216,11 @@ Phase 2 (Cost-Calc System and beyond) is a separate engagement. Ad-hoc questions
 | # | Milestone | Target Date | Owner |
 |---|---|---|---|
 | M1 | Engagement start + deposit received | 2026-05-14 | ✅ Complete |
-| M2 | Discovery complete + backlog audit shared | [CONFIRM: 2026-05-17?] | the Stack |
+| M2 | Discovery complete + backlog audit shared | [CONFIRM: 2026-05-17?] | this system |
 | M3 | Mid-engagement review with [Customer Owner] | [CONFIRM: 2026-05-21?] | Shared |
-| M4 | Backlog cleared + storefront fixes pushed | [CONFIRM: 2026-05-28?] | the Stack |
-| M5 | Handoff doc + Phase 2 recommendations delivered | [CONFIRM: 2026-05-30?] | the Stack |
-| M6 | Acceptance + final payment | M5 + 5 business days | [customer-short] → the Stack |
+| M4 | Backlog cleared + storefront fixes pushed | [CONFIRM: 2026-05-28?] | this system |
+| M5 | Handoff doc + Phase 2 recommendations delivered | [CONFIRM: 2026-05-30?] | this system |
+| M6 | Acceptance + final payment | M5 + 5 business days | [customer-short] → this system |
 
 [CONFIRM ALL DATES WITH PHIL — these are placeholders pending discovery sizing.]
 
@@ -247,7 +247,7 @@ No verbal or assumed differences apply. Changes to the backlog scope, [customer-
 
 # Sign-Off
 
-**For the Stack:**
+**For this system:**
 
 ___________________________
 [Product Owner], Sales Director
@@ -267,12 +267,12 @@ Before sending, fill these in:
 
 1. ✅ **[Customer Owner]'s last name** — for the sign-off block
 2. ✅ **[customer-short]'s legal entity name** — "[Customer Company]" or "[Customer Company] LLC" or other?
-3. ✅ **the Stack address** — what to put as the provider address
+3. ✅ **this system address** — what to put as the provider address
 4. ✅ **Backlog size** — number of open orders → determines N in timeline
 5. ✅ **[Customer Owner]'s preferred communication cadence** — Slack? Email? Weekly call?
-6. ✅ **Refund authority** — does the Stack execute refunds directly, or always via [Customer Owner]?
+6. ✅ **Refund authority** — does this system execute refunds directly, or always via [Customer Owner]?
 7. ✅ **Theme work** — is theme work in scope or strictly out? (current draft: strictly out)
-8. ✅ **Customer communications tone** — [Customer Owner]'s voice or the Stack drafting on his behalf?
+8. ✅ **Customer communications tone** — [Customer Owner]'s voice or this system drafting on his behalf?
 9. ✅ **Date confirmations** — M2 / M3 / M4 / M5 placeholder dates need real targets
 
 ## Notes for the operator

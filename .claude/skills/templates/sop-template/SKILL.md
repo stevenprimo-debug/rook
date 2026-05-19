@@ -54,7 +54,7 @@ Customer picks one from each axis → skeleton + tone + use-case = filled SOP.
 3. Skill asks for use-case axis (customer-onboarding / employee-onboarding / etc.)
 4. Skill loads skeleton + matching variant content
 5. Skill asks for process-specific slots (purpose, scope, roles, step sequence, success definition)
-6. Skill writes filled SOP to `_FROM_CLAUDE/YYYY-MM-DD-{process}-sop.md`
+6. Skill writes filled SOP to `out/YYYY-MM-DD-{process}-sop.md`
 7. Skill offers html2pdf conversion + Obsidian Vault sync via obsidian-cli
 
 ## Core sections (universal across variants)

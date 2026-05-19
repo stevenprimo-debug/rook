@@ -51,8 +51,8 @@ operating system for all three.
   brand voice through every line — no slipping into "delightful"
   or "elevate your experience" defaults.
 
-For the operator's commercial surfaces ([your employer] outreach emails, the Stack
-cohort landing pages, Ableton product launch emails, Stage Pro sales
+For the operator's commercial surfaces ([your employer] outreach emails, [your product]
+cohort landing pages, [your product] launch emails, [your physical/SaaS product] sales
 copy), direct response is the standard. The reader is busy. The
 offer must be clear. The action must be specific.
 
@@ -133,7 +133,7 @@ generic (the reader has read this opening 100 times), or about
 the writer (the reader doesn't care about the writer yet).
 
 Strong hooks are specific to the reader's exact circumstance. A
-the cohort hook for touring AV pros doesn't open with "AI is
+the cohort hook for [your customer audience] doesn't open with "AI is
 changing everything" — it opens with "Three months ago, the venue
 techs you've worked with for ten years started getting laid off,
 and the gigs you used to get are pivoting to creators with AI
@@ -191,16 +191,16 @@ push (specific reply ask). Sign-off "Cheers" — no name, no emojis.
 Output as .eml file per the operator's standard.
 
 **the cohort landing page:**
-Opens with the hook (named circumstance of touring AV pros facing
+Opens with the hook (named circumstance of [your customer audience] facing
 industry shifts), names the problem (gigs collapsing, AI tooling
 opportunity), agitates (the cost of inaction over 18 months), offers
 the solution (the cohort + community), proves with specific outcomes
 from prior cohort members (when available), closes with single
 action (cohort application).
 
-**Ableton/Stage Pro product launch email:**
+**[your product line] product launch email:**
 Hook → problem (named touring-engineer scenario) → agitate
-(specific gig-night risk) → solution (Stage Pro's specific
+(specific gig-night risk) → solution ([your physical/SaaS product]'s specific
 capability) → proof (named tour, named engineer, named outcome)
 → push (specific next step: download, demo, purchase).
 

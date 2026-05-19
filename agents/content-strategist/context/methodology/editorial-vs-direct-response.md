@@ -57,13 +57,13 @@ The pole catches three specific failure modes:
    and disengage.
 
 For the operator's content surfaces:
-- **the Stack pillar pages** are editorial (build authority on
+- **[your product]'s pillar pages** are editorial (build authority on
   the topic; downstream conversion to cohort).
 - **the cohort sales pages** are direct response (immediate
   cohort application).
-- **Stage Pro product page** is direct response (immediate
+- **[your physical/SaaS product] product page** is direct response (immediate
   download or purchase).
-- **Stage Pro support docs** are editorial (inform users).
+- **[your physical/SaaS product] support docs** are editorial (inform users).
 - **[your employer] case studies** (post-stealth) blend modes: editorial
   storytelling structure, direct-response CTA.
 
@@ -239,7 +239,7 @@ voice = practitioner direct address; structure = hook → stake
 words. CTA: single application form.
 
 **Long-form blended page brief:**
-The strategist briefs a long-form sales page for Stage Pro.
+The strategist briefs a long-form sales page for [your physical/SaaS product].
 Brief specifies: blended mode; editorial sections (educational
 content on cue management) inside direct response container
 (specific product offer, CTA). Length: 3,000-5,000 words. The

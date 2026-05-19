@@ -328,5 +328,5 @@ produces misfit proposals.
 - Memory: `.claude/memory/feedback_brand_to_customer_trade.md`
 - Memory: `.claude/memory/feedback_investigate_before_apologizing.md`
 - Memory: `.claude/memory/reference_pipeline_snapshots.md`
-- Memory: `agents/sales-director/PROMETHEUS/memory/methodology_rfp_response_pipeline.md`
+- Memory: `agents/sales-director/[your sales-ops platform]/memory/methodology_rfp_response_pipeline.md`
 - Dept: `agents/sales-director/CLAUDE.md`

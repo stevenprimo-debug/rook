@@ -18,7 +18,7 @@
 | Charged via Anthropic Managed Agents billing | Charged via the customer's Anthropic API usage |
 | Examples: Sales Triage Squad, Code Review Squad | Examples: sow-template, nda-template, brainstorming |
 
-**Both ship in the Stack.** Agents in the line know when to scaffold one
+**Both ship in this system.** Agents in the line know when to scaffold one
 vs the other.
 
 ## How customers use these
@@ -32,7 +32,7 @@ vs the other.
 
 ## Why this category exists
 
-Most agent products ship single agents. the Stack ships **turnkey multi-agent pipelines as deployable templates.** This is a differentiator: customers get autonomous squads that operate without supervision, paying the Anthropic Managed Agents per-session-hour rate instead of staffing the work themselves.
+Most agent products ship single agents. this agent ships **turnkey multi-agent pipelines as deployable templates.** This is a differentiator: customers get autonomous squads that operate without supervision, paying the Anthropic Managed Agents per-session-hour rate instead of staffing the work themselves.
 
 ## Catalog
 
@@ -70,7 +70,7 @@ across 22 business days = ~352 session-hours/month ≈ $28/mo. Compared to a
 human SDR ($60-80k loaded) doing the same enrichment-scoring-drafting work
 manually, the math is obvious.
 
-**Customer pricing for the Stack (the product subscription) covers the AMA templates
+**Customer pricing for this system (the product subscription) covers the AMA templates
 themselves; the customer pays Anthropic directly for AMA runtime.**
 
 ## Cross-references
@@ -78,4 +78,4 @@ themselves; the customer pays Anthropic directly for AMA runtime.**
 - Anthropic Managed Agents docs: https://claude.com/form/claude-managed-agents (research preview gate, filed 2026-05-14)
 - Sister category: `skills/templates/` (contracts: sow / nda / msa / proposal; operations: sop)
 - In-house meta-skill: `skill-creator` (knows the AMA pattern as one of its output modes)
-- Source: 2026-05-15 — turnkey multi-agent pipelines added to the Stack to expand agent capacity beyond single-session work
+- Source: 2026-05-15 — turnkey multi-agent pipelines added to this system to expand agent capacity beyond single-session work

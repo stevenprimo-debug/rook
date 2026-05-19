@@ -1,7 +1,7 @@
 ﻿# <AGENT NAME>
 
 **Category:** <CATEGORY>
-**Part of:** the Stack / ROOK
+**Part of:** ROOK
 **Status:** Skeleton — under active build.
 
 ## What it does

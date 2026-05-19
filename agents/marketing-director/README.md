@@ -1,7 +1,7 @@
 ﻿# Marketing Director
 
 **Category:** Marketing
-**Part of:** the Stack / ROOK
+**Part of:** ROOK
 **Status:** Skeleton — under active build.
 **Memory:** Tier 4 (default) — markdown files + grep; files ARE the index
 

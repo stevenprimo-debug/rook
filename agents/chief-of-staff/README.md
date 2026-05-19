@@ -1,7 +1,7 @@
 ﻿# Chief of Staff
 
 **Category:** Operations
-**Part of:** the Stack / ROOK
+**Part of:** ROOK
 **Status:** Skeleton — under active build.
 **Memory:** Tier 1 (synthesizer) — vector index + vault-wide graph for cross-agent dispatch
 

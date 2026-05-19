@@ -60,8 +60,7 @@ python -m pip install playwright
 python -m playwright install chromium
 ```
 
-Already done on the operator's Razer 18 (verified 2026-04-28). On a fresh
-machine, both lines are required — `pip install` only fetches the Python
+On a fresh machine, both lines are required — `pip install` only fetches the Python
 wrapper, the second command pulls down ~110 MB of Chromium.
 
 ## Modes

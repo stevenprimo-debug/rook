@@ -14,7 +14,7 @@ Forbidden vocabulary in prospect summaries or any drafted email: "elegant," "pre
 ant beta:agents create \
   --name 'Lead-to-Deal Pipeline — {CUSTOMER_NAME}' \
   --model '{"id": "{MODEL_ID — default: claude-sonnet-4-6}"}' \
-  --system "$(cat _FROM_CLAUDE/{DATE}-lead-to-deal-pipeline-system-prompt.md)" \
+  --system "$(cat out/{DATE}-lead-to-deal-pipeline-system-prompt.md)" \
   --tool '{type: agent_toolset_20260401}' \
   --tool '{type: mcp_toolset, mcp_server_name: apollo}' \
   --tool '{type: mcp_toolset, mcp_server_name: hubspot}' \

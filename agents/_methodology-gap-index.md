@@ -1,12 +1,12 @@
 ﻿# Stack Methodology Coverage Index — 2026-05-15
 
-Coverage status across all 20 the Stack agents. Each agent
+Coverage status across all 20 [your product] agents. Each agent
 has 1-3 substantive methodology files (~200-400 lines each)
 covering the primary framework(s) the agent operates within.
 
 Files draw on: agent SKILL.md, personality/_bench.md,
 personality/frameworks_index.md, vendored references in
-context/references/, the Stack root memory in
+context/references/, [your product] root memory in
 `.claude/memory/`, and dept-specific memory in
 `agents/<dept>/memory/`.
 
@@ -32,7 +32,7 @@ Conventions enforced across all files:
 - methodology/wealth-creation-math.md (built from `context/references/mastering-saas-pricing.md` + canonical compounding/CAGR math + project_exit_roadmap.md + wealth_creator_mode.md + sixty_minute_rule.md)
 
 ## product-manager
-- methodology/jobs-to-be-done.md (built from canonical JTBD framework + Stage Pro / the Stack / Ableton product examples + sixty_minute_rule.md + brand_to_customer_trade.md + no_patches.md)
+- methodology/jobs-to-be-done.md (built from canonical JTBD framework + [your physical/SaaS product] / [your product] / [your product] examples + sixty_minute_rule.md + brand_to_customer_trade.md + no_patches.md)
 - methodology/spec-discipline.md (built from canonical problem-first spec framework + verify_project_status_before_speaking.md + no_patches.md + sixty_minute_rule.md + PRODUCT DEV dept context)
 
 ## copywriter
@@ -91,7 +91,7 @@ Conventions enforced across all files:
 
 ## sales-director
 - methodology/pipeline-velocity-vs-quality.md (built from canonical pipeline-velocity vs. fit framework + user_profile.md (auto-reject thresholds, priority targets) + reference_pipeline_snapshots.md + brand_to_customer_trade.md + verify_project_status_before_speaking.md + wealth_creator_mode.md + `context/references/hubspot-academy.md`)
-- methodology/customer-truth-discipline.md (built from canonical solution-selling/MEDDIC/customer-truth framework + no_inferring_entities.md + verify_project_status_before_speaking.md + brand_to_customer_trade.md + investigate_before_apologizing.md + reference_pipeline_snapshots.md + methodology_rfp_response_pipeline.md from PROMETHEUS + HubSpot academy clippings)
+- methodology/customer-truth-discipline.md (built from canonical solution-selling/MEDDIC/customer-truth framework + no_inferring_entities.md + verify_project_status_before_speaking.md + brand_to_customer_trade.md + investigate_before_apologizing.md + reference_pipeline_snapshots.md + methodology_rfp_response_pipeline.md from [your sales-ops platform] + HubSpot academy clippings)
 
 ## sales-outreach
 - methodology/specificity-over-volume.md (built from canonical specificity-over-volume outreach framework + lmg-outreach-pipeline skill + workflow.md (.eml + X-Unsent + Cheers sign-off) + execute_dont_preamble.md + no_text_wrap.md + brand_to_customer_trade.md + outreach_eml_not_synced.md + HubSpot academy clippings)

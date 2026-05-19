@@ -40,7 +40,7 @@ Forbidden vocabulary in the drafted article: "elegant," "premium," "luxury," "de
 ant beta:agents create \
   --name 'Research-then-Write — {CUSTOMER_NAME}' \
   --model '{"id": "{MODEL_ID — default: claude-sonnet-4-6}"}' \
-  --system "$(cat _FROM_CLAUDE/{DATE}-research-then-write-system-prompt.md)" \
+  --system "$(cat out/{DATE}-research-then-write-system-prompt.md)" \
   --tool '{type: agent_toolset_20260401}' \
   --tool '{type: mcp_toolset, mcp_server_name: exa}' \
   --tool '{type: mcp_toolset, mcp_server_name: notion}' \

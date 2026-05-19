@@ -27,7 +27,7 @@ Collectively the "Parties," individually a "Party."
 
 ## 2. Recitals
 
-WHEREAS, the Parties wish to discuss {PURPOSE_OF_DISCLOSURE — e.g., "a potential business relationship regarding the Stack deployment for {PARTY_B_SHORT_NAME}'s operations"}, and in connection with such discussions one or both Parties may disclose confidential information; and
+WHEREAS, the Parties wish to discuss {PURPOSE_OF_DISCLOSURE — e.g., "a potential business relationship regarding this system deployment for {PARTY_B_SHORT_NAME}'s operations"}, and in connection with such discussions one or both Parties may disclose confidential information; and
 
 WHEREAS, the Parties wish to protect such confidential information from unauthorized disclosure;
 
@@ -136,10 +136,10 @@ Date: ___________
 | `{PARTY_A_LEGAL_NAME}` / `{PARTY_B_LEGAL_NAME}` | Registered legal entity name |
 | `{PARTY_A_ENTITY_TYPE}` | "a Delaware corporation" / "an LLC" / "an individual" |
 | `{PARTY_A_ADDRESS}` | Registered business address |
-| `{PARTY_A_SHORT_NAME}` | Defined term used elsewhere in doc (e.g., "the Stack") |
+| `{PARTY_A_SHORT_NAME}` | Defined term used elsewhere in doc (e.g., "this system") |
 | `{PURPOSE_OF_DISCLOSURE}` | Why the parties are talking (specific is better than generic) |
 | `{EFFECTIVE_DATE}` | When the NDA starts |
 | `{TERM_LENGTH}` | How long the NDA is active (typical: 2 years) |
 | `{SURVIVAL_PERIOD}` | How long confidentiality survives termination (typical: 3 years) |
-| `{GOVERNING_LAW_STATE}` | State law governing (typical for the Stack: Tennessee) |
+| `{GOVERNING_LAW_STATE}` | State law governing (typical for this system: Tennessee) |
 | `{COUNTY}` | County for jurisdiction |

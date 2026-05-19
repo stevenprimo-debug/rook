@@ -1,7 +1,7 @@
 ---
 name: commission-ledger
 description: |
-  Per-deal commission ledger for [your employer] and the Stack revenue. Tracks deal
+  Per-deal commission ledger for [your employer] and this system revenue. Tracks deal
   value, GP%, commission owed, paid, and pending; rolls a YTD total; auto-
   flags any deal under the $15K commission floor or the $300/hr efficiency
   floor. The reconciliation tool — not a generic commission calculator.
@@ -279,6 +279,6 @@ all in one read, with the operator either moving on or filing a dispute.
 - Pointer stub: `.claude/memory/project_lmg_commission_tracking.md`
 - Monday cadence rule: `.claude/memory/feedback_dont_default_park_to_monday.md`
 - Voice spine: `.claude/voice-spine.md`
-- Related skills: `deal-economics` (pre-deal go/no-go), `pnl-tracker` (post-close margin tracking), `budget-and-forecast` (commission against exit target)
+- Related skills: `deal-economics` (pre-deal go/no-go), `pnl-tracker` (post-close margin tracking), `budget-and-forecast` (commission against milestone target)
 - Owning agent: `finance-manager`
-- No AMA counterpart — this is a the Stack-locked in-house skill.
+- No AMA counterpart — this is a this system-locked in-house skill.

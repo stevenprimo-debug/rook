@@ -37,12 +37,12 @@ def _make_kw_file(dept_dir: Path, dept_name: str, keywords: list[str]) -> Path:
 
 @pytest.fixture
 def fake_workspace(tmp_path):
-    """Fake COWORK with DEPARTMENTS/{FINANCE,ABLETON,SOFTWARE DEV,CEO} + INBOX + Clippings."""
+    """Fake COWORK with DEPARTMENTS/{FINANCE,MEDIA,SOFTWARE DEV,CEO} + INBOX + Clippings."""
     depts = tmp_path / "DEPARTMENTS"
-    for d in ("FINANCE", "ABLETON", "SOFTWARE DEV", "CEO"):
+    for d in ("FINANCE", "MEDIA", "SOFTWARE DEV", "CEO"):
         (depts / d).mkdir(parents=True)
     _make_kw_file(depts / "FINANCE", "FINANCE", ["tradingview", "oklo", "thinkorswim"])
-    _make_kw_file(depts / "ABLETON", "ABLETON", ["ableton", "max for live", "stage pro"])
+    _make_kw_file(depts / "MEDIA", "MEDIA", ["widget", "gizmo platform", "flagship product"])
     _make_kw_file(depts / "SOFTWARE DEV", "SOFTWARE DEV", ["api", "python", "react"])
     # CEO has no kw file — it just receives stubs
     (tmp_path / "INBOX" / "processed").mkdir(parents=True)
@@ -79,7 +79,7 @@ class TestLoadDeptRules:
         monkeypatch.setattr("inbox_routing.router.DEPARTMENTS_DIR", fake_workspace / "DEPARTMENTS")
         rules = load_dept_rules(fake_workspace / "DEPARTMENTS")
         names = {r.name for r in rules}
-        assert names == {"FINANCE", "ABLETON", "SOFTWARE DEV"}
+        assert names == {"FINANCE", "MEDIA", "SOFTWARE DEV"}
 
     def test_dept_without_kw_file_is_skipped(self, fake_workspace):
         rules = load_dept_rules(fake_workspace / "DEPARTMENTS")
@@ -93,14 +93,14 @@ class TestScoring:
         f.write_text("---\ntags: []\n---\n\nThis is a TradingView screenshot of OKLO chart.\n")
         scores = score_file_against_rules(f, rules)
         assert scores.get("FINANCE", 0) >= 2
-        assert "ABLETON" not in scores
+        assert "MEDIA" not in scores
 
     def test_keyword_hit_in_filename(self, fake_workspace):
         rules = load_dept_rules(fake_workspace / "DEPARTMENTS")
-        f = fake_workspace / "INBOX" / "processed" / "ableton-mcp-server-thing.md"
+        f = fake_workspace / "INBOX" / "processed" / "widget-mcp-server-thing.md"
         f.write_text("---\n---\n\ngeneric note.\n")
         scores = score_file_against_rules(f, rules)
-        assert "ABLETON" in scores
+        assert "MEDIA" in scores
 
     def test_word_boundary_avoids_false_match(self, fake_workspace):
         # "ict" must not match "predict"
@@ -127,7 +127,7 @@ class TestDecideRoute:
     def test_primary_is_highest_scoring(self, fake_workspace):
         rules = load_dept_rules(fake_workspace / "DEPARTMENTS")
         f = fake_workspace / "INBOX" / "processed" / "x.md"
-        f.write_text("---\n---\n\nTradingView OKLO ThinkOrSwim and a passing ableton mention.\n")
+        f.write_text("---\n---\n\nTradingView OKLO ThinkOrSwim and a passing widget mention.\n")
         decision = decide_route(f, rules)
         assert decision.primary == "FINANCE"
 
@@ -136,24 +136,24 @@ class TestDecideRoute:
         rules = load_dept_rules(fake_workspace / "DEPARTMENTS")
         f = fake_workspace / "INBOX" / "processed" / "x.md"
         # FINANCE: tradingview×2, oklo×3, thinkorswim×1 = 6 hits
-        # ABLETON: ableton×2, max for live×2 = 4 hits   →   4/6 = 67%, qualifies
+        # MEDIA: widget×2, gizmo platform×2 = 4 hits   →   4/6 = 67%, qualifies
         f.write_text(
             "---\n---\n\nTradingView OKLO TradingView ThinkOrSwim OKLO OKLO. "
-            "Also ableton ableton max for live max for live integration.\n"
+            "Also widget widget gizmo platform gizmo platform integration.\n"
         )
         decision = decide_route(f, rules)
         assert decision.primary == "FINANCE"
-        assert "ABLETON" in decision.secondaries
+        assert "MEDIA" in decision.secondaries
 
     def test_secondary_below_min_hits_excluded(self, fake_workspace):
-        # ABLETON with only 2 hits fails the >=4 hits gate even at high ratio.
+        # MEDIA with only 2 hits fails the >=4 hits gate even at high ratio.
         rules = load_dept_rules(fake_workspace / "DEPARTMENTS")
         f = fake_workspace / "INBOX" / "processed" / "x.md"
-        # FINANCE: 3 hits; ABLETON: 2 hits  →  ABLETON ratio = 67% but hits < 4
-        f.write_text("---\n---\n\nTradingView OKLO ThinkOrSwim. Ableton ableton.\n")
+        # FINANCE: 3 hits; MEDIA: 2 hits  →  MEDIA ratio = 67% but hits < 4
+        f.write_text("---\n---\n\nTradingView OKLO ThinkOrSwim. [your platform] widget.\n")
         decision = decide_route(f, rules)
         assert decision.primary == "FINANCE"
-        assert "ABLETON" not in decision.secondaries
+        assert "MEDIA" not in decision.secondaries
 
     def test_no_hits_returns_no_primary(self, fake_workspace):
         rules = load_dept_rules(fake_workspace / "DEPARTMENTS")
@@ -168,20 +168,20 @@ class TestRouteFile:
         monkeypatch.setattr("inbox_routing.router.DEPARTMENTS_DIR", fake_workspace / "DEPARTMENTS")
         rules = load_dept_rules(fake_workspace / "DEPARTMENTS")
         f = fake_workspace / "INBOX" / "processed" / "test.md"
-        # FINANCE 6 hits (primary), ABLETON 4 hits (secondary qualifies under new threshold)
+        # FINANCE 6 hits (primary), MEDIA 4 hits (secondary qualifies under new threshold)
         f.write_text(
             '---\ncaptured_date: 2026-05-03T13:31:00-05:00\ntags: [tradingview]\n---\n\n'
             'TradingView OKLO TradingView ThinkOrSwim OKLO OKLO. '
-            'Also ableton ableton max for live max for live.\n'
+            'Also widget widget gizmo platform gizmo platform.\n'
         )
         decision = route_file(f, rules)
         assert decision.primary == "FINANCE"
         assert not f.exists()
         primary = fake_workspace / "DEPARTMENTS" / "FINANCE" / "context" / "2026-05" / "test.md"
         assert primary.exists()
-        ableton_stub = fake_workspace / "DEPARTMENTS" / "ABLETON" / "context" / "2026-05" / "test.md"
-        assert ableton_stub.exists()
-        assert "cross_ref: true" in ableton_stub.read_text(encoding="utf-8")
+        media_stub = fake_workspace / "DEPARTMENTS" / "MEDIA" / "context" / "2026-05" / "test.md"
+        assert media_stub.exists()
+        assert "cross_ref: true" in media_stub.read_text(encoding="utf-8")
         # CEO stub disabled by default — should NOT exist
         ceo_stub = fake_workspace / "DEPARTMENTS" / "CEO" / "context" / "2026-05" / "test.md"
         assert not ceo_stub.exists()
@@ -210,15 +210,15 @@ class TestRouteFile:
         monkeypatch.setattr("inbox_routing.router.COWORK_ROOT", fake_workspace)
         rules = load_dept_rules(fake_workspace / "DEPARTMENTS")
         f = fake_workspace / "INBOX" / "processed" / "shared.md"
-        # FINANCE 6, ABLETON 4 — secondary qualifies under new threshold
+        # FINANCE 6, MEDIA 4 — secondary qualifies under new threshold
         f.write_text(
             '---\ncaptured_date: 2026-05-03T00:00:00-05:00\n---\n\n'
             'TradingView OKLO TradingView ThinkOrSwim OKLO OKLO. '
-            'ableton ableton max for live max for live.\n'
+            'widget widget gizmo platform gizmo platform.\n'
         )
         route_file(f, rules)
-        ableton_stub = fake_workspace / "DEPARTMENTS" / "ABLETON" / "context" / "2026-05" / "shared.md"
-        text = ableton_stub.read_text(encoding="utf-8")
+        media_stub = fake_workspace / "DEPARTMENTS" / "MEDIA" / "context" / "2026-05" / "shared.md"
+        text = media_stub.read_text(encoding="utf-8")
         # Wikilink must reference the FINANCE primary by full path, not bare basename
         assert "[[DEPARTMENTS/FINANCE/context/2026-05/shared|shared]]" in text
         assert 'primary_path: "DEPARTMENTS/FINANCE/context/2026-05/shared.md"' in text
@@ -255,7 +255,7 @@ class TestSkillMdRouting:
 
     def test_parse_routing_keywords_yaml_basic(self):
         body = """routing_keywords:
-  imports: [av-touring]
+  imports: [media-domain]
   primary:
     - foo
     - bar
@@ -266,14 +266,14 @@ class TestSkillMdRouting:
     - drop me
 """
         parsed = _parse_routing_keywords_yaml(body)
-        assert parsed["imports"] == ["av-touring"]
+        assert parsed["imports"] == ["media-domain"]
         assert parsed["primary"] == ["foo", "bar"]
         assert parsed["secondary"] == ["baz qux", "hello"]
         assert parsed["exclude"] == ["drop me"]
 
     def test_load_shared_pack_flattens_categories(self, tmp_path):
         packs = tmp_path / "_shared_keyword_packs"
-        self._write_pack(packs, "av-touring", """name: av-touring
+        self._write_pack(packs, "media-domain", """name: media-domain
 keywords:
   timecode:
     - smpte
@@ -282,7 +282,7 @@ keywords:
     - ndi
     - dante
 """)
-        kws = _load_shared_pack("av-touring", packs_dir=packs)
+        kws = _load_shared_pack("media-domain", packs_dir=packs)
         assert kws == ["smpte", "ltc", "ndi", "dante"]
 
     def test_load_shared_pack_missing_returns_empty(self, tmp_path):
@@ -292,7 +292,7 @@ keywords:
     def test_resolve_keywords_from_skill_md_with_imports(self, tmp_path, monkeypatch):
         # Set up a shared pack
         packs = tmp_path / "_shared_keyword_packs"
-        self._write_pack(packs, "av-touring", """name: av-touring
+        self._write_pack(packs, "media-domain", """name: media-domain
 keywords:
   timecode:
     - smpte
@@ -301,8 +301,8 @@ keywords:
         monkeypatch.setattr("inbox_routing.router.SHARED_PACKS_DIR", packs)
 
         # Set up a fake dept SKILL.md
-        dept = tmp_path / "DEPARTMENTS" / "RESOLUME"
-        skill = self._write_skill_md(dept, "resolume", """---
+        dept = tmp_path / "DEPARTMENTS" / "MEDIA_SERVER"
+        skill = self._write_skill_md(dept, "media_server", """---
 name: x
 ---
 
@@ -312,14 +312,14 @@ name: x
 
 ```yaml
 routing_keywords:
-  imports: [av-touring]
+  imports: [media-domain]
   primary:
-    - resolume
-    - arena
+    - media_server
+    - flagship
   secondary:
     - vj
   exclude:
-    - ableton
+    - widget
 ```
 
 more text
@@ -327,7 +327,7 @@ more text
 
         kws = _resolve_keywords_from_skill_md(skill)
         # primary + imported + secondary, deduped, in order
-        assert kws == ["resolume", "arena", "smpte", "ltc", "vj"]
+        assert kws == ["media_server", "flagship", "smpte", "ltc", "vj"]
 
     def test_resolve_keywords_from_skill_md_no_block_returns_none(self, tmp_path):
         dept = tmp_path / "DEPARTMENTS" / "FOO"
@@ -341,15 +341,15 @@ more text
         monkeypatch.setattr("inbox_routing.router.SHARED_PACKS_DIR", packs)
 
         depts = tmp_path / "DEPARTMENTS"
-        dept = depts / "RESOLUME"
+        dept = depts / "MEDIA_SERVER"
 
         # Mirror file with stale keywords
         (dept / "memory").mkdir(parents=True, exist_ok=True)
         mirror = dept / "memory" / "capture_routing_keywords.md"
-        mirror.write_text("---\ndept: RESOLUME\nkeywords:\n  - stale_keyword\n---\n", encoding="utf-8")
+        mirror.write_text("---\ndept: MEDIA_SERVER\nkeywords:\n  - stale_keyword\n---\n", encoding="utf-8")
 
         # SKILL.md with fresh routing block
-        self._write_skill_md(dept, "resolume", """---
+        self._write_skill_md(dept, "media_server", """---
 name: x
 ---
 
@@ -358,42 +358,42 @@ name: x
 ```yaml
 routing_keywords:
   primary:
-    - resolume
-    - arena
+    - media_server
+    - flagship
 ```
 """)
 
         monkeypatch.setattr("inbox_routing.router.COWORK_ROOT", tmp_path)
         rules = load_dept_rules(depts)
         assert len(rules) == 1
-        assert rules[0].name == "RESOLUME"
-        assert "resolume" in rules[0].keywords
-        assert "arena" in rules[0].keywords
+        assert rules[0].name == "MEDIA_SERVER"
+        assert "media_server" in rules[0].keywords
+        assert "flagship" in rules[0].keywords
         assert "stale_keyword" not in rules[0].keywords
 
         # Auto-mirror was written, replacing the stale content
         new_mirror = mirror.read_text(encoding="utf-8")
         assert "AUTO-GENERATED" in new_mirror
-        assert "resolume" in new_mirror
+        assert "media_server" in new_mirror
         assert "stale_keyword" not in new_mirror
 
     def test_load_dept_rules_falls_back_to_mirror_when_skill_md_missing_block(self, tmp_path, monkeypatch):
         # SKILL.md exists but has no routing_keywords block → mirror takes over.
         depts = tmp_path / "DEPARTMENTS"
-        dept = depts / "ABLETON"
+        dept = depts / "MEDIA"
         (dept / "memory").mkdir(parents=True, exist_ok=True)
         mirror = dept / "memory" / "capture_routing_keywords.md"
         mirror.write_text(
-            "---\ndept: ABLETON\nkeywords:\n  - ableton\n  - max for live\n---\n",
+            "---\ndept: MEDIA\nkeywords:\n  - widget\n  - gizmo platform\n---\n",
             encoding="utf-8",
         )
         # SKILL.md without routing block
-        self._write_skill_md(dept, "ableton", "# nothing here\nno routing block")
+        self._write_skill_md(dept, "widget", "# nothing here\nno routing block")
 
         rules = load_dept_rules(depts)
         assert len(rules) == 1
-        assert rules[0].name == "ABLETON"
-        assert "ableton" in rules[0].keywords
+        assert rules[0].name == "MEDIA"
+        assert "widget" in rules[0].keywords
         # Mirror was preserved (no auto-rewrite when no SKILL.md source)
         assert mirror.read_text(encoding="utf-8").startswith("---\n")
 

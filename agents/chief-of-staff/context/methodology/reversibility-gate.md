@@ -66,8 +66,8 @@ The pole catches three specific failure modes:
 
 For the operator's organization, reversibility gating protects multiple
 high-stakes surfaces: [your employer] client communications (executive-buyer
-relationships), the Stack public marketing (brand-launch
-positioning), Stage Pro and Ableton public releases (user-facing
+relationships), [your product] public marketing (brand-launch
+positioning), [your physical/SaaS product] and [your product] public releases (user-facing
 commitments), and any git operation on the vault itself.
 
 ## Core Concepts
@@ -228,7 +228,7 @@ operator hasn't pre-authorized.
 **[your employer] cold outreach send vs. draft:**
 Operator: "Draft outreach to the [enterprise client] CIO." Chief-of-staff
 identifies: drafting is reversible (file generation in
-`_FROM_CLAUDE/` or local outreach folder); sending is irreversible.
+`[your reading inbox folder]/` or local outreach folder); sending is irreversible.
 Default action: draft only. The send action remains gated until
 the operator confirms recipient, content, and timing.
 

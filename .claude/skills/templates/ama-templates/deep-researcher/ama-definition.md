@@ -19,7 +19,7 @@ Be skeptical. If sources conflict, say so and explain which you find more credib
 ant beta:agents create \
   --name 'Deep Researcher — {CUSTOMER_NAME}' \
   --model '{"id": "{MODEL_ID — default: claude-sonnet-4-6}"}' \
-  --system "$(cat _FROM_CLAUDE/{DATE}-deep-researcher-system-prompt.md)" \
+  --system "$(cat out/{DATE}-deep-researcher-system-prompt.md)" \
   --tool '{type: agent_toolset_20260401}'
 ```
 

@@ -22,7 +22,7 @@ help produce revenue), and the going-concern assumption (the business
 will continue operating in the foreseeable future).
 
 For a solo operator running multiple revenue streams ([your employer] W-2,
-the Stack product income, side-engagement consulting), the framework
+[your product] product income, side-engagement consulting), the framework
 applies in compressed form. The three statements collapse into one
 question: **is the engine producing cash that compounds the freedom
 fund, or is it producing activity that consumes attention without
@@ -48,7 +48,7 @@ framework supplies the vocabulary for the first pole — what does
 The Compounding-First-Pole uses accounting data to answer: "Is this
 month's economic activity moving the freedom fund forward?" The
 Mission-Alignment-Pole uses it to answer: "Is the activity producing
-wealth-creation income (the Stack SaaS, Ableton products) or just
+wealth-creation income ([your product], [your product line]) or just
 trading time for cash ([your employer] W-2, consulting)?"
 
 ## Core Concepts
@@ -170,7 +170,7 @@ Revenue is recognized when:
 For [your employer]: revenue recognized at install completion, not at deal
 close. For SaaS subscriptions: revenue recognized ratably over the
 subscription period (a $1200 annual subscription = $100/month
-recognized, not $1200 upfront). For Ableton product sales: revenue
+recognized, not $1200 upfront). For [your product] sales: revenue
 recognized at point of sale.
 
 This matters because: a strong "deal close" month can be a weak
@@ -187,7 +187,7 @@ the credit card statement is due).
 
 For the operator: this principle is the basis for understanding ROI
 on marketing spend, on tool subscriptions, on time invested in a
-product line. If the time invested in the Stack in Q2 produces SaaS
+product line. If the time invested in [your product] in Q2 produces SaaS
 revenue in Q4, the matching principle is what allows that ROI to be
 seen clearly rather than smeared across periods.
 
@@ -195,7 +195,7 @@ seen clearly rather than smeared across periods.
 
 **Monthly cash-flow audit:**
 The agent pulls operating cash flow, separates wealth-creation income
-(the Stack SaaS, Ableton products) from time-trading income ([your employer] W-2,
+([your product], [your product line]) from time-trading income ([your employer] W-2,
 consulting), and reports the ratio. If wealth-creation income is
 flat across three months while time-trading income absorbs the
 operator's attention, Mission-Alignment-Pole flags the drift.
@@ -246,15 +246,15 @@ the net to the freedom fund may be $40-60K. Reporting "$250K profit"
 on this deal is dishonest math that overstates progress toward
 exit.
 
-**Ignoring the matching principle.** A heavy month of the Stack
+**Ignoring the matching principle.** A heavy month of [your product]
 content production may show as pure expense — but the matching
 principle says: this expense will be matched against future SaaS
 revenue. Without the matching frame, the operator over-rotates on
-"cut the Stack spend" decisions during low-revenue months.
+"cut [your product] spend" decisions during low-revenue months.
 
 **Confusing wealth-creation income with time-trading income.** [your employer]
 W-2 and [your employer] commission are both income, but they are not wealth
-creation. They are time traded for cash. the Stack SaaS and Ableton
+creation. They are time traded for cash. [your product] and [your platform]
 product royalties are wealth creation — the income continues without
 ongoing time input. Mission-Alignment-Pole gates on this distinction.
 

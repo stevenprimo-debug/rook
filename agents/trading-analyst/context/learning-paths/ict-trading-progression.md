@@ -133,7 +133,7 @@ By the end of this path you should be able to:
 
 ## Cross-References
 
-- The the Stack agent that operates in this domain: `agents/trading-analyst/SKILL.md`
+- The agent that operates in this domain: `agents/trading-analyst/SKILL.md`
 - Methodology framework(s) cited: `agents/trading-analyst/context/methodology/` (in development)
 - Reference clippings (vendored to this agent):
   - `agents/trading-analyst/context/references/ict-trading-ultimate-guide.md`

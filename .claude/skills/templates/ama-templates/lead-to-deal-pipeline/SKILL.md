@@ -52,7 +52,7 @@ A customer with both inbound + outbound flows deploys BOTH templates.
 
 1. Customer says "build me an outbound prospecting pipeline" or trigger phrase
 2. Skill asks for slots (ICP definition, Slack channel, Calendly link, HubSpot lifecycle stage targets)
-3. Skill writes filled CLI command to `_FROM_CLAUDE/YYYY-MM-DD-lead-to-deal-pipeline-deploy.sh`
+3. Skill writes filled CLI command to `out/YYYY-MM-DD-lead-to-deal-pipeline-deploy.sh`
 4. Customer deploys + creates environment + starts session
 5. Operator feeds search criteria; AMA runs end-to-end handoff
 

@@ -70,7 +70,7 @@ first pole and feeds the other two.
   by naming what tier of source would resolve the gap.
 
 For the operator's research surfaces — competitive intelligence on
-the Stack and Stage Pro categories, pre-meeting client briefs,
+[your product] and [your physical/SaaS product] categories, pre-meeting client briefs,
 trademark and name research, market trend analysis — source
 credibility discipline prevents the failure mode of confident
 conclusions drawn from unreliable sources. When [your employer] outreach
@@ -198,8 +198,8 @@ higher-tier sources. The researcher treats Tier 6 sources as
 **lead generators** — surfaces that point at questions worth
 asking — not as conclusion sources.
 
-Concrete example: a touring engineer's Reddit thread about
-playback software issues is valuable as a lead (this is a real
+Concrete example: a [your customer persona]'s Reddit thread about
+[your software category] issues is valuable as a lead (this is a real
 problem, here are the specifics they encountered) but cannot
 anchor a research claim about market opportunity. The lead points
 at where to look in higher tiers (industry surveys, vendor
@@ -252,10 +252,10 @@ Tier 6 (Reddit, Discord, X) reveals practitioner experiences.
 Conclusion synthesis weights tiers explicitly.
 
 **Market-trend research for Stack cohort positioning:**
-The agent investigates the touring AV industry shift narrative.
+The agent investigates the [your customer market] shift narrative.
 Tier 2 (academic labor-economics research on creative-industry
 shifts), Tier 3 (industry trade press on tour-economy changes),
-Tier 4 (named-expert blog posts from touring professionals),
+Tier 4 (named-expert blog posts from [your customer audience]),
 Tier 6 (community-forum discussions). Conclusions about the size
 and timing of the shift rest on the higher tiers; specifics about
 practitioner experiences are surfaced from lower tiers.
@@ -267,7 +267,7 @@ benchmark data. If the claim is corroborated by independent
 sources, it earns the citation. If not, the claim is flagged as
 vendor self-report.
 
-**Pre-publication review on the Stack content:**
+**Pre-publication review on [your product] content:**
 Before publishing a piece that makes claims about the AI tooling
 landscape, the agent runs the source audit. Claims with Tier 4+
 backing pass; claims with only Tier 6 backing get downgraded to

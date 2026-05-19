@@ -1,6 +1,6 @@
-﻿# the Stack / Agents
+﻿# [your product] / Agents
 
-The 20 shippable agents that make up the the Stack/ROOK product line.
+The 20 shippable agents that make up the/ROOK product line.
 
 ## Categories (matching yourcompany.com/agents)
 

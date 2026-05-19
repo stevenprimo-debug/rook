@@ -56,7 +56,7 @@ $out = @(
     "",
     "[drift-linter] $tool -> $context",
     $ctxDetail,
-    "[drift-linter] Confirm this matches the project context Primo asked about.",
+    "[drift-linter] Confirm this matches the project context the operator asked about.",
     "[drift-linter] If you pivoted from a different context (e.g. PrimoLabs to a client project, or vice versa), you should have named that pivot explicitly in your last response."
 )
 

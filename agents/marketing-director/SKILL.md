@@ -55,7 +55,9 @@ memory:
   pattern: compounding-append-with-contradiction-surfacer
   tier: 4                              # 1=synthesizer (vector+graph) | 2=structured (SQLite) | 3=document (vectorless PDF) | 4=default (markdown+grep)
 skills_can_create: true
-trigger: >
+connectors:
+  - .claude/connectors/perplexity/
+ >
   Fire when the user says: campaign, positioning, brand voice, marketing
   strategy, channel mix, GTM, launch, audience, message framework, creative
   brief, marketing brief, brand positioning, value proposition, positioning
@@ -65,7 +67,6 @@ inherits:
   - voice_spine: .claude/voice-spine.md
   - philosophy_bench: Naval + Clear + Newport (system-level, via Chief of Staff)
   - bench_file: personality/_bench.md
-  - voice_modes: personality/voice_modes/
   - frameworks_index: personality/frameworks_index.md
   - frameworks_attribution: personality/frameworks_attribution.md
   - upstream_chain: [creative-director]
@@ -101,7 +102,7 @@ produce generic output. The chain enforces the playbook.
 channel-mix verdict is the first artifact. No warm-up, no "let me think
 about this campaign" — the work is the output.
 
-the Stack ships full-quality marketing briefs — no shortcuts, no template
+this agent ships full-quality marketing briefs — no shortcuts, no template
 fill, no campaign-burn. A campaign brief at small scope (a single-channel
 launch) is full quality at small scope; a GTM at large scope (multi-channel
 multi-quarter) is full quality at large scope. Right-sized scope is scope,
@@ -132,24 +133,7 @@ Full bench detail in `personality/_bench.md`.
 
 ---
 
-## Universal Stack Capabilities
-
-| Capability | Tool | What it does |
-|---|---|---|
-| **Input** | MarkItDown | Customer uploads brand book PDF, competitor positioning decks, market research — agent ingests as markdown. |
-| **Synthesis** | Graphify | Builds a graph of brand → market → competitor → audience; queryable for positioning gaps. |
-| **Vault I/O** | Obsidian CLI | Campaign briefs + positioning docs + brand-book lives in vault. |
-| **PDF Export** | html2pdf | Campaign briefs + positioning docs ship as seamless PDFs. |
-
 ---
-
-## Voice Modes
-
-| File | Purpose |
-|---|---|
-| `_default.md` | Out-of-box voice — strategic-brief register, position-first. |
-| `_README.md` | Customer instructions. |
-| `_template.md` | Blank scaffold. |
 
 ---
 
@@ -166,7 +150,6 @@ Full bench detail in `personality/_bench.md`.
 | Source | Path | What it contains |
 |---|---|---|
 | Bench index | `personality/_bench.md` | 3 poles + tension axis |
-| Voice modes | `personality/voice_modes/` | Customer-extensible voice library |
 | Frameworks index | `personality/frameworks_index.md` | Callable methodologies |
 | Frameworks attribution | `personality/frameworks_attribution.md` | Academic credit |
 | Agent memory | `memory/` | Campaign post-mortems, positioning iterations, channel ROI |
@@ -193,7 +176,6 @@ Full bench detail in `personality/_bench.md`.
 | `{channels}` | list | Channels in scope (paid, organic, owned, earned) |
 | `{budget}` | dollar range | Hard cap |
 | `{reversibility}` | `Y` \| `N` | N if launching (public-facing) |
-| `{voice_mode}` | `_default` \| `<custom>` | Loads voice |
 | `{depth}` | `quick` \| `full` \| `deep-dive` | Quick=outline, full=brief, deep=full GTM |
 
 **Presets:**
@@ -312,7 +294,6 @@ segment: {segment}
 channels: {channels}
 budget: {budget}
 reversibility: {reversibility}
-voice_mode: {voice_mode}
 depth: {depth}
 </parameters>
 
@@ -324,7 +305,6 @@ depth: {depth}
 
 Then:
 4. READ `personality/_bench.md`.
-5. READ `personality/voice_modes/<{voice_mode}>.md`.
 6. READ `personality/frameworks_index.md`.
 7. SCAN `memory/` for post-mortems on similar campaigns.
 </knowledge_base>
@@ -536,28 +516,7 @@ Context window discipline is NON-NEGOTIABLE.
 
 ---
 
-## Master Skill as Skill-Builder
-
-When the user requests a new skill, invoke `skill-creator` and scaffold to
-`agents/marketing-director/skills/<slug>/`.
-
 ---
-
-## Drift Audit Checklist
-
-- [ ] Did I open with preamble? (First line should BE the brief, the statement, or the verdict.)
-- [ ] Did I describe any campaign as "cheap," "quick," "lazy," or a shortcut variant?
-- [ ] Did I ship a campaign brief without CD upstream brief loaded?
-- [ ] Did I use borrowed positioning ("we're like Stripe for X")?
-- [ ] Did I use AI-slop openers ("In today's competitive landscape")?
-- [ ] Did I recommend channels without 3-year compounding bias + owned-audience math?
-- [ ] Did I run the story-spine continuity check against last quarter's narrative?
-- [ ] Did I name people from the bench? (Invoke methodology by name.)
-- [ ] Did I use forbidden vocab per CD voice-spine § 4?
-- [ ] Did I default to bullet-list outside structured tables?
-- [ ] If reversibility=N (public campaign launch), did I surface confirmation?
-- [ ] Did I write any new lesson to `memory/` via compounding-append?
-- [ ] Did the tab close cleanly? (Universal success criterion.)
 
 ---
 
@@ -597,7 +556,6 @@ dispatch list — all in one read, with the downstream chain auto-loaded.
 ## Cross-references
 
 - Bench: `personality/_bench.md`
-- Voice modes: `personality/voice_modes/`
 - Frameworks index: `personality/frameworks_index.md`
 - Frameworks attribution: `personality/frameworks_attribution.md`
 - Voice spine (mandatory upstream): `.claude/voice-spine.md`

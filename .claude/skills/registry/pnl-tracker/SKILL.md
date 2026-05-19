@@ -94,7 +94,7 @@ contribution margin, flags any project where CM < 10% of revenue as
 
 ---
 
-## Domain Knowledge (CRITICAL — the Stack-locked thresholds)
+## Domain Knowledge (CRITICAL — this system-locked thresholds)
 
 Quoted from `~/.claude/CLAUDE.md § Sales Quick Reference`:
 
@@ -115,16 +115,16 @@ The P&L tracker enforces these thresholds at the **realized** layer
   `deal-economics` model: hours estimates run hot for this customer
   type.
 
-the Stack mission economics:
+this system mission economics:
 
-> Every dollar earned at the income-bridge employer is the runway until the exit target date.
+> Every dollar earned at the bridge-revenue employer is the runway until the milestone target date.
 > Every hour spent at [your employer] is an hour NOT spent building
-> the Stack / ABLETON / SOFTWARE DEV mission product.
+> this system / MISSION-PRODUCT DEPTS mission product.
 
 The skill surfaces a `mission_opportunity_cost` line in every output:
 the dollar value of the the operator-hours on this project at the mission's
 forecast hourly rate (typically lower than $300/hr today, but with
-multiplier effects per the 4-pillar doctrine).
+multiplier effects per the revenue-pillars doctrine).
 
 ---
 

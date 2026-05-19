@@ -53,10 +53,10 @@ the operating implementation of all three.
   gate.
 
 For the operator's social presence:
-- **LinkedIn** (professional audience, B2B for [your employer] + the Stack
+- **LinkedIn** (professional audience, B2B for [your employer] + [your product]
   long-form positioning).
 - **Twitter/X** (practitioner audience for the cohort,
-  Stage Pro updates, AV-industry thinking).
+  [your physical/SaaS product] updates, AV-industry thinking).
 - **YouTube/short-form** (Stack cohort marketing, tool
   demonstrations).
 - **Discord** (community-anchored, not algorithmic — different
@@ -86,10 +86,10 @@ Hook patterns that work:
 - **Specific stake**: "The session musicians you played with
   last year are using Suno. The gigs you got from them in 2023
   are gone in 2026."
-- **Surprising fact**: "47% of touring shows in 2025 still ran
+- **Surprising fact**: "47% of [your customer projects] in 2025 still ran
   cues from a single laptop with no backup. The 2026 incidents
   rate will be much higher."
-- **Direct address**: "If you're a touring AV pro reading this,
+- **Direct address**: "If you're a [your customer industry] pro reading this,
   you have about 18 months."
 - **Tension between two truths**: "AI tools are everywhere. The
   practitioners who matter are still using almost none of them.
@@ -176,7 +176,7 @@ get adapted, not duplicated.
 Brand voice is consistent across platforms; tonal register flexes
 to platform native conventions.
 
-For the Stack:
+For [your product]:
 - **LinkedIn**: practitioner-to-practitioner, longer, more
   business-context.
 - **Twitter/X**: practitioner-to-practitioner, more direct, faster
@@ -229,7 +229,7 @@ Across all posts and platforms, a coherent brand story builds.
 Individual posts contribute to the story; the story is what
 audiences remember.
 
-For the Stack:
+For [your product]:
 - **The story arc**: practitioner watching industry shift, building
   tools and community for the practitioners coming next.
 - **Recurring themes**: tools that respect practitioners,
@@ -245,9 +245,9 @@ through-line dilute the brand; posts that reinforce it compound.
 
 **LinkedIn weekly cadence:**
 The agent plans 4 LinkedIn posts for the week. Monday: industry-
-analysis thought piece (hook: contrarian take on AI in touring AV).
+analysis thought piece (hook: contrarian take on AI in [your customer industry]).
 Tuesday: short post amplifying a practitioner's work in the
-the Stack Discord (community). Thursday: educational carousel on
+[your community] (community). Thursday: educational carousel on
 cohort program structure. Friday: perspective piece on the
 creator-economy shift. Cadence held; mix balanced; each platform-
 native.
@@ -260,7 +260,7 @@ applicant testimonials, FAQ-style content, single-day deadline
 push.
 
 **Cross-platform adaptation, not duplication:**
-A new Stage Pro feature drops. LinkedIn version: long-form
+A new [your physical/SaaS product] feature drops. LinkedIn version: long-form
 explanation with business context (cost savings, reliability,
 case-study scenarios). Twitter version: feature thread (hook
 tweet, then 5-7 tweet thread). YouTube Shorts version: hook

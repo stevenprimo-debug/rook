@@ -20,7 +20,7 @@ status: active
 4. **Sync-bloat folders** — top 10 folders by size. Flag any >500MB that aren't in Obsidian `userIgnoreFilters`.
 5. **Contradiction map** — files that mention the same concept (e.g., "brand palette", "brand colors") with different active values. Surfaces silent conflicts.
 
-**Output:** Single markdown file `_FROM_CLAUDE/YYYY-MM-DD-memory-audit.md`. Phone-readable summary. Issues + action recommendations + zero autonomous fixes.
+**Output:** Single markdown file `out/YYYY-MM-DD-memory-audit.md`. Phone-readable summary. Issues + action recommendations + zero autonomous fixes.
 
 **Run modes:**
 - Manual: `pwsh agents/chief-of-staff/skills/memory-audit/run.ps1`

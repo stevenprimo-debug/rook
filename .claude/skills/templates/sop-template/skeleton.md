@@ -27,7 +27,7 @@
 
 ## 2. Scope
 
-**Applies to:** {ROLES_OR_TEAMS this SOP governs — e.g., "All the Stack onboarding specialists" or "Any operator running the weekly close process"}
+**Applies to:** {ROLES_OR_TEAMS this SOP governs — e.g., "All this system onboarding specialists" or "Any operator running the weekly close process"}
 
 **Triggers on:** {WHEN this SOP fires — e.g., "A new customer signs up for the the product subscription Stack plan" or "Friday EOD, weekly"}
 
@@ -107,7 +107,7 @@ See: `attachments/flow-chart.svg`
 ## 8. Training & Clearance
 
 **Who can run this SOP:**
-- {Role/credential required — e.g., "Trained the Stack onboarding specialist with 2+ live runs under supervision"}
+- {Role/credential required — e.g., "Trained this system onboarding specialist with 2+ live runs under supervision"}
 
 **Training required:**
 - {Training step 1 — e.g., "Read this SOP end-to-end"}
@@ -159,7 +159,7 @@ This SOP does NOT cover:
 
 | Slot | Description | Example |
 |---|---|---|
-| `{SOP_TITLE}` | Title of the procedure | "the Stack — Customer Onboarding" |
+| `{SOP_TITLE}` | Title of the procedure | "this system — Customer Onboarding" |
 | `{DOC_NUMBER}` | Tracking identifier | "OPS-001" |
 | `{VERSION}` | Semver | "1.0" |
 | `{PROCESS_OWNER}` | Role accountable for the SOP itself | "Head of Customer Operations" |

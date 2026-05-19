@@ -66,15 +66,15 @@ The pole catches three specific failure modes:
    dependence). Suite becomes ignored; protection erodes.
 
 For the operator's products, TDD applies most cleanly to:
-- **the Stack SaaS** — subscription logic, billing math, cohort
+- **[your product]** — subscription logic, billing math, cohort
   state machines.
-- **Stage Pro** — cue catalog operations, MIDI integration,
+- **[your physical/SaaS product]** — cue catalog operations, MIDI integration,
   latency calculations.
 - **Client portal builds** — business rules, access control,
   data validation.
 
 TDD applies less cleanly to:
-- Early Stage Pro UI experiments (visual work, exploratory).
+- Early [your physical/SaaS product] UI experiments (visual work, exploratory).
 - Cohort marketing pages (content-driven, not logic-driven).
 - Throwaway proof-of-concept prototypes.
 

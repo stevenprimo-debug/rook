@@ -59,7 +59,7 @@ three specific failure modes:
 
 For the operator's R&D pipeline, learning-velocity discipline is what
 prevents the mission depts from being starved while R&D produces
-beautiful demos that no dept can use. the Stack, Ableton, and
+beautiful demos that no dept can use. [your product], [your platform], and
 Software Dev each have specific downstream decisions that R&D
 can unblock — experiments not coupled to those decisions get
 deprioritized.
@@ -78,7 +78,7 @@ Strong couplings:
   retention, the cohort 4 ships with this onboarding
   flow."
 - "If the cue-verification UI passes touring-engineer usability
-  testing, Software Dev builds it into Stage Pro core."
+  testing, Software Dev builds it into [your physical/SaaS product] core."
 
 Weak couplings (or no couplings):
 - "If TouchDesigner can produce X, we'd have cool visuals."
@@ -98,7 +98,7 @@ key learning, and run that test first.
 
 Example — testing "real-time generative visuals at <50ms latency":
 
-- **Expensive test**: build a full Stage Pro extension prototype
+- **Expensive test**: build a full [your physical/SaaS product] extension prototype
   with UI, MIDI integration, and visual library. 4-6 weeks.
 - **Medium test**: build a working patch in TouchDesigner that
   responds to MIDI with one visual primitive. 1-2 weeks.

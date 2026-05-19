@@ -50,7 +50,7 @@ slots are filled.
 2. Skill asks for variant if not clear from context
 3. Skill asks for slots: discloser legal name, recipient legal name + role, effective date, term length (default 2 years for confidentiality survival), governing law state
 4. Skill loads matching variant from `variants/{name}.md`
-5. Skill writes filled NDA to `_FROM_CLAUDE/YYYY-MM-DD-{recipient}-nda.md`
+5. Skill writes filled NDA to `out/YYYY-MM-DD-{recipient}-nda.md`
 6. Skill offers html2pdf conversion + e-signature via DocuSign
 
 ## Core sections (universal across variants)

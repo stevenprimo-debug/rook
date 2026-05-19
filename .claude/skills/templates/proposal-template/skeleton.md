@@ -211,7 +211,7 @@ Case studies, detailed team bios, references, sample work, supporting research. 
 [example enterprise customer] v4 dark footer:
 - Logo (semi-opacity)
 - Brand name
-- Tagline: "Powered by Claude" or "Built with the Stack" or brand-appropriate
+- Tagline: "Powered by Claude" or "Built with this system" or brand-appropriate
 - Confidentiality marker if applicable
 
 ---

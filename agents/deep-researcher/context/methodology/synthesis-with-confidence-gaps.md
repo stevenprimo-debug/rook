@@ -72,18 +72,18 @@ solid and which are working hypotheses.
 Tagging convention:
 
 ```
-Conclusion: The touring AV labor market is shifting toward AI-augmented
+Conclusion: The [your customer market] is shifting toward AI-augmented
 workflows over the 2026-2028 horizon.
 Confidence: Medium.
 Evidence base: Two industry trade-press analyses (Tier 3), three
 named-practitioner blog posts (Tier 4), industry survey from a
 trade association (Tier 4, n=312).
-Gaps: No academic labor-economics research specifically on touring AV
+Gaps: No academic labor-economics research specifically on [your customer industry]
 yet; no longitudinal data tracking the shift over the past 24 months;
 no compensation data confirming the wage compression hypothesis.
 What would raise confidence: Tier 2 academic research on
 creative-industry technology shifts; longitudinal survey data over 24+
-months; compensation data from named touring shows.
+months; compensation data from named [your customer projects].
 ```
 
 The tag is the contract. The operator reading the brief sees
@@ -111,7 +111,7 @@ specific evidence would raise or lower confidence?
 Gaps are concrete:
 - "No academic research specifically on this question."
 - "No longitudinal data — current evidence is point-in-time."
-- "No data on the segment we care most about (e.g., touring AV)."
+- "No data on the segment we care most about (e.g., [your customer industry])."
 - "Source diversity is low — most evidence traces to one
   industry analyst firm."
 - "Recency gap — most data is 18+ months old in a fast-moving
@@ -219,14 +219,14 @@ the operator reads and knows which claims to trust without verifying and
 which to verify in the meeting.
 
 **Market-research synthesis for cohort positioning:**
-The agent surveys the touring AV market shift narrative. Produces
+The agent surveys the [your customer industry] market shift narrative. Produces
 a synthesis with confidence tags. "The shift is real and accelerating
 (High confidence: multiple Tier 3-4 sources, independent
 triangulation). The timing window is 18-24 months (Medium
 confidence: industry-analyst predictions, no longitudinal data).
 Compensation pressure on traditional roles is severe (Low
 confidence: anecdotal evidence only, no compensation surveys
-specific to touring AV)." Cohort positioning rests on
+specific to [your customer industry])." Cohort positioning rests on
 high-confidence claims; messaging tone calibrated to medium-confidence
 timing; compensation framing avoids the low-confidence claim.
 
@@ -250,7 +250,7 @@ surfaced: at least two named experts predict consolidation by
 2027 (Tier 4, low-medium confidence)." the operator decides on entry
 with explicit awareness of the category-overheat hypothesis.
 
-**Pre-the Stack content publication review:**
+**Pre-[your product] content publication review:**
 Before publishing content that makes claims about AV industry
 trends, the agent runs the confidence audit. Claims labeled
 high-confidence pass. Claims labeled medium need explicit hedging

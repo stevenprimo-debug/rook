@@ -61,7 +61,7 @@ $staleCutoff = $today.AddDays(-$staleDays)
 $archiveMonth = $today.ToString('yyyy-MM')
 $archiveRoot = "$VaultRoot/_archive/$archiveMonth/pruned"
 $logFile = "$VaultRoot/agents/librarian/librarian-log.md"
-$digestPath = "$VaultRoot/_FROM_CLAUDE/$(Get-Date -Format 'yyyy-MM-dd')-librarian-digest.md"
+$digestPath = "$VaultRoot/out/$(Get-Date -Format 'yyyy-MM-dd')-librarian-digest.md"
 
 if (-not $DryRun) {
     New-Item -ItemType Directory -Force -Path $archiveRoot | Out-Null

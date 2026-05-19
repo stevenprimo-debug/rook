@@ -1,7 +1,7 @@
 ﻿# Deep Researcher
 
 **Category:** Research
-**Part of:** the Stack / ROOK
+**Part of:** ROOK
 **Status:** Skeleton — under active build.
 **Memory:** Tier 1 (synthesizer) — vector index + research-corpus graph
 

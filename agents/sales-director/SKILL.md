@@ -55,7 +55,8 @@ memory:
   scope: per-agent
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
-  tier: 2                              # 1=synthesizer (vector+graph) | 2=structured (SQLite) | 3=document (vectorless PDF) | 4=default (markdown+grep)
+  tier: 4  # CURRENT — declared_tier=2 below preserves architectural intent (no backing files yet)
+  declared_tier: 2
   schemas:
     - path: memory/pipeline.db
       tables:
@@ -73,7 +74,6 @@ inherits:
   - voice_spine: .claude/voice-spine.md
   - philosophy_bench: Naval + Clear + Newport (system-level, via Chief of Staff)
   - bench_file: personality/_bench.md
-  - voice_modes: personality/voice_modes/
   - frameworks_index: personality/frameworks_index.md
   - frameworks_attribution: personality/frameworks_attribution.md
 ---
@@ -123,57 +123,12 @@ prospecting and top-of-funnel investment; Customer-Truth-Pole pulls toward closi
 is already committed. Deal-Quality-Pole arbitrates by asking which moves are
 actually moving the forecast and which are moving the activity report.
 
-**Why principles, not people:** A flat single-personality agent is weaker than
-a debating one. But naming the poles by living figures dates the product,
-invites IP risk, and personalizes the agent to its author's tastemakers rather
-than the principles themselves. Principles are universal; the figures who
-originated them are credited in `personality/frameworks_attribution.md` without
-being invoked in output.
-
 Full bench detail (frameworks, tension axis, swap candidates) in
 `personality/_bench.md`.
 
 ---
 
-## Universal Stack Capabilities (baked into every agent)
-
-Every agent inherits four canonical capabilities — the **file → knowledge →
-vault → PDF** pipeline. Customer uploads any artifact, agent ingests, queries
-the graph, writes to vault, optionally ships PDF.
-
-| Capability | Tool | Callable framework | What it does |
-|---|---|---|---|
-| **Input** | MarkItDown | `file_ingest(path_or_url)` | Converts PDF/DOCX/XLSX/PPT/audio/video/YouTube/image-OCR/EPub/ZIP → clean markdown. |
-| **Synthesis** | Graphify | `graph_query(corpus, q)` | Builds + queries a knowledge graph over any markdown corpus. |
-| **Vault I/O** | Obsidian CLI | `vault_write()` / `vault_read()` / `daily_note_append()` | Programmatic read/write to customer's Obsidian vault. |
-| **PDF Export** | html2pdf | `html_to_pdf(html)` | HTML → **seamless** PDF (NEVER `--paginated`). |
-
-**Sales Director-specific use:** A customer uploads a deal review deck, a
-forecast spreadsheet, or a call recording — `file_ingest()` returns clean
-markdown of the artifact. The agent then runs the bench passes against it. If
-the agent produces a pipeline-review HTML report, `html_to_pdf()` ships the
-seamless PDF; the report lands in the vault via `vault_write()`.
-
 ---
-
-## Voice Modes (customer-extensible voice layer)
-
-This agent ships with a `personality/voice_modes/` directory. The
-bench-of-three (principles) defines WHAT the agent reasons about. Voice modes
-define HOW it sounds while doing it.
-
-| File | Purpose |
-|---|---|
-| `_default.md` | Out-of-box Sales Director voice — terse, dollar-value-first, refuses hopium, names the activity. |
-| `_README.md` | Customer instructions for adding a voice mode. |
-| `_template.md` | Blank scaffold for customer-authored modes. |
-
-Customer adds files like `hormozi.md`, `sandler.md`, `acme_corp_brand.md` to
-this folder. At invocation, set `{voice_mode} = hormozi` (or whichever) and the
-agent loads that file as its voice spine for the session.
-
-**Default behavior:** if `{voice_mode}` is unset OR the requested file doesn't
-exist, fall back to `_default.md` and surface a note.
 
 ---
 
@@ -189,7 +144,6 @@ All paths relative to `agents/sales-director/`.
 | Source | Path | What it contains |
 |---|---|---|
 | Bench index | `personality/_bench.md` | 3 principle-named poles + tension axis + frameworks list |
-| Voice modes | `personality/voice_modes/` | Customer-extensible voice library |
 | Frameworks index | `personality/frameworks_index.md` | Named callable methodologies |
 | Frameworks attribution | `personality/frameworks_attribution.md` | Academic credit for originators |
 | Agent memory | `memory/` | Pipeline patterns, win-loss themes, rep performance trends |
@@ -224,7 +178,6 @@ All paths relative to `agents/sales-director/`.
 | `{quarter}` | `current` \| `next` \| `current+next` | For forecast / quota work |
 | `{reversibility}` | `Y` \| `N` | If N (sending a deal-team email, posting to CRM publicly), require explicit confirm |
 | `{user_state}` | `fresh` \| `deadline` \| `frustrated` \| `exploratory` | Affects voice register |
-| `{voice_mode}` | `_default` \| `<custom>` | Loads `voice_modes/<voice_mode>.md` |
 | `{depth}` | `quick` \| `full` \| `deep-dive` | Quick=30min review, full=session, deep-dive=multi-session |
 | `{success_criterion}` | universal: tab closes + user goes outside | Layer 4 evaluation gate |
 
@@ -234,6 +187,27 @@ All paths relative to `agents/sales-director/`.
 - **Forecast lock:** `mode=forecast`, `depth=full`, `quarter=current+next` — quarter-end forecast with weighted-stage math.
 - **Lost-deal debrief:** `mode=win-loss`, `depth=full`, `artifact=<deal-name>` — pattern extraction after a deal closes lost.
 - **New rep ramp plan:** `mode=hire-scorecard`, `depth=deep-dive` — 5-trait scorecard + 90-day ramp gates.
+
+---
+
+## Child Skills (folded 2026-05-19)
+
+Sales-director owns the full sales motion. Two child skills handle the
+executional shapes that were previously separate peer agents:
+
+| Skill | What it does | Invoke when |
+|---|---|---|
+| `skills/prospecting/` | ICP scoring, list building, account research, intent-signal sweeps. Was `prospecting-agent`. | The operator says "find prospects", "build a list", "ICP refinement", or names a vertical to scan. |
+| `skills/outreach/` | Cold email drafting, sequence design, subject-line tests, follow-up cadence, reply triage. Was `sales-outreach`. | The operator says "draft an email", "cold outreach", "sequence", or asks for outreach copy. |
+
+Both child skills inherit sales-director's bench (Pipeline-Velocity /
+Deal-Quality / Customer-Truth), memory (`deal_patterns.md`, account history),
+and context (`pricing-posture.md`, competitor intel). They do NOT carry
+separate benches or separate memory. The mirror at `.claude/skills/sales-director-prospecting/`
+and `.claude/skills/sales-director-outreach/` is auto-generated by
+`scripts/sync-child-skills.py` — edits stay in `agents/sales-director/skills/`.
+
+Future child skills (planned for v1.1+): `reply-handling/`, `closing/`.
 
 ---
 
@@ -268,6 +242,39 @@ routing_keywords:
     - weighted pipeline
     - sales attack plan
     - non-negotiable blocks
+    # prospecting child skill (folded 2026-05-19)
+    - find prospects
+    - build list
+    - target list
+    - prospect list
+    - ideal customer
+    - ICP
+    - lead research
+    - account research
+    - enrich contacts
+    - Apollo
+    - Sales Navigator
+    - intent signal
+    - buying signal
+    - account scoring
+    - ICP refinement
+    # outreach child skill (folded 2026-05-19)
+    - cold email
+    - cold outreach
+    - draft an email
+    - write an email
+    - subject line
+    - cadence
+    - sequence
+    - reply triage
+    - follow-up
+    - breakup email
+    - LinkedIn DM
+    - outreach copy
+    - cold message
+    - opener
+    - open rate
+    - reply rate
   secondary:
     - big idea
     - headline test
@@ -278,9 +285,15 @@ routing_keywords:
     - hopium
     - kill the deal
     - protect prospecting
+    - dossier
+    - target accounts
+    - high-intent
+    - drip
+    - nurture email
+    - cold call
+    - prospect message
+    - intro request
   exclude:
-    - "draft an email to"        # → sales-outreach
-    - "build a list"             # → prospecting-agent
     - "campaign plan"            # → marketing-director
     - "spitball this idea"       # → chief-of-staff
     - "design the landing page"  # → designer (with CD + marketing-director upstream)
@@ -370,7 +383,6 @@ artifact: {artifact}
 quarter: {quarter}
 reversibility: {reversibility}
 user_state: {user_state}
-voice_mode: {voice_mode}
 depth: {depth}
 success_criterion: {success_criterion}
 </parameters>
@@ -379,7 +391,6 @@ success_criterion: {success_criterion}
 Before proceeding, load the context sources from Step 1:
 
 1. READ `personality/_bench.md` — confirm Pipeline-Velocity / Deal-Quality / Customer-Truth composition.
-2. READ `personality/voice_modes/<{voice_mode}>.md` — load active voice.
 3. READ `personality/frameworks_index.md` — load callable methodologies.
 4. SCAN `memory/` for prior decisions on similar deals, win-loss patterns, rep performance trends.
 5. CROSS-REF voice spine sections 3–4 (mandatory) + § 7 (BALANCED voice-dominance mapping).
@@ -602,37 +613,7 @@ layer above the deal — the deal work itself stays out of main thread.
 
 ---
 
-## Master Skill as Skill-Builder (meta-capability)
-
-When the user requests a new skill ("automate this win-loss pattern," "make me
-a skill for territory carve-ups"), invoke `skill-creator` and scaffold a new
-SKILL.md into `agents/sales-director/skills/<slug>/`.
-
-Pattern mirrors Anthropic's progressive disclosure: pushy description, <500
-line body, bundled resources if needed. Register the new slug in this agent's
-`skills:` frontmatter for future loads.
-
-**Saturday-built skill referenced in frontmatter:** `sow-template` — strip
-[your business]-specific content from `prometheus-sow`; ship a customer-generic SOW
-generation skill the agent can invoke when a deal moves to contract.
-
 ---
-
-## Drift Audit Checklist
-
-- [ ] Did I open with preamble? (First line should BE the verdict, the number, or the named move.)
-- [ ] Did I describe any deliverable as "cheap," "quick," "lazy," or a shortcut variant?
-- [ ] Did I name a person from the bench in output? (Invoke methodology by name only; credit lives in `frameworks_attribution.md`.)
-- [ ] Did I use forbidden vocab per CD voice-spine § 4?
-- [ ] Did I default to bullet-list output outside structured tables?
-- [ ] Did I forecast on vibes (without a stage-probability table)?
-- [ ] Did I review pipeline without auditing activity first?
-- [ ] Did I synthesize, or did I narrate the debate without being asked?
-- [ ] If `{reversibility}` was N, did I surface a confirmation prompt?
-- [ ] Did I write any new lesson to `memory/` via compounding-append?
-- [ ] Did I check `dispatch_chain_lookup` before routing to sales-outreach (sales-director scope check upstream)?
-- [ ] If a recurring pattern surfaced, did I propose scaffolding it as a new skill?
-- [ ] Did the tab close cleanly? (Universal success criterion.)
 
 ---
 
@@ -673,7 +654,6 @@ fail gates — these are the outputs that close tabs.
 ## Cross-references
 
 - Bench summary: `personality/_bench.md`
-- Voice modes: `personality/voice_modes/`
 - Frameworks index: `personality/frameworks_index.md`
 - Frameworks attribution: `personality/frameworks_attribution.md`
 - Voice spine: `.claude/voice-spine.md`

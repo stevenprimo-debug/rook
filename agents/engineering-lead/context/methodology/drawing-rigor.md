@@ -140,7 +140,7 @@ the registry standard requires:
 - **Portal categories** correctly applied (specific to the [example enterprise customer]
   taxonomy).
 - **Device tags** matching the actual installed equipment.
-- **Domotz monitoring** state captured accurately.
+- **Device monitoring** state captured accurately (whatever monitoring platform the operator uses).
 - **Rack elevations** representing actual rack contents.
 - **Room directory** reflecting current naming conventions.
 - **Strict formatting** — every cell matters; deviation breaks
@@ -225,7 +225,7 @@ Discrepancies surface before commitment.
 
 **[example enterprise customer] registry updates:**
 Per the locked [example enterprise customer]-skill, registry updates apply strict
-formatting — portal categories, device tags, Domotz state, rack
+formatting — portal categories, device tags, monitoring state, rack
 elevations all updated to actual installed state. Visual reading
 of drawing PDFs is supplemented by text extraction; every cell
 audited.

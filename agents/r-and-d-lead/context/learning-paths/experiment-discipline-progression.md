@@ -120,7 +120,7 @@ By the end of this path you should be able to:
 
 ## Cross-References
 
-- The the Stack agent that operates in this domain: `agents/r-and-d-lead/SKILL.md`
+- The agent that operates in this domain: `agents/r-and-d-lead/SKILL.md`
 - Methodology framework(s) cited: `agents/r-and-d-lead/context/methodology/` (in development)
 - Reference clippings: `agents/r-and-d-lead/context/references/` (vendored as Phase 1 expands)
 - Related agents:
@@ -131,7 +131,7 @@ By the end of this path you should be able to:
   - `agents/finance-manager/SKILL.md` — capital allocation discipline for experimental spend
   - `agents/librarian/SKILL.md` — archives killed experiments; promotes survivor learnings
 - Three-principle gate (per SKILL.md): Novelty, Learning-Velocity, Kill-Criterion held in productive tension.
-- Critical RND rule: nothing ships from RND. Survivors graduate to a production dept (PRODUCT DEV, SOFTWARE DEV, ABLETON, UNREAL, FINANCE). RND is the sandbox, not the surface.
+- Critical RND rule: nothing ships from RND. Survivors graduate to a production dept (PRODUCT DEV, SOFTWARE DEV, [YOUR PLATFORM], UNREAL, FINANCE). RND is the sandbox, not the surface.
 - For multi-experiment portfolios: maintain a kill-criterion-named-up-front discipline. If you can't name what would kill it before you start, you're not running an experiment, you're running a project.
 - For "novel stack" exploration: budget 10-20% of weekly hours to genuinely lateral exposure. The lateral hour pays back in 6-12 months.
 - For graduation handoff: every survivor includes the original brief, the learnings ledger entry, the cheap-teardown timeline, and a one-page "what to do with this" handoff doc.

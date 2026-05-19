@@ -42,7 +42,7 @@ TODAY=$(date +%Y-%m-%d)
 ARCHIVE_MONTH=$(date +%Y-%m)
 ARCHIVE_ROOT="$VAULT_ROOT/_archive/$ARCHIVE_MONTH/pruned"
 LOG_FILE="$VAULT_ROOT/agents/librarian/librarian-log.md"
-DIGEST_DIR="$VAULT_ROOT/_FROM_CLAUDE"
+DIGEST_DIR="$VAULT_ROOT/out"
 DIGEST_PATH="$DIGEST_DIR/${TODAY}-librarian-digest.md"
 
 mkdir -p "$ARCHIVE_ROOT" "$DIGEST_DIR"

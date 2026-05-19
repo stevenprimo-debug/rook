@@ -1,0 +1,1 @@
+Account-Memory-Pole / Deal-Architecture-Pole / Renewal-Window-Pole bench scaffolded inline at SKILL.md § 'The 3-Pole Principle Bench'. This file will be expanded in v1.1 with full pole-by-pole framework attribution.

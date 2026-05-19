@@ -135,7 +135,7 @@ By the end of this path you should be able to:
 
 ## Cross-References
 
-- The the Stack agent that operates in this domain: `agents/finance-manager/SKILL.md`
+- The agent that operates in this domain: `agents/finance-manager/SKILL.md`
 - Methodology framework(s) cited: `agents/finance-manager/context/methodology/` (in development)
 - Reference clippings (vendored to this agent):
   - `agents/finance-manager/context/references/6-leadership-skills-finance-manager.md`

@@ -34,7 +34,7 @@ shippo + klaviyo + stripe.
 
 1. Customer asks "build me a Shopify ops squad" or trigger phrase
 2. Skill asks for slots (Shopify store, Shippo account, Klaviyo profile, Stripe account)
-3. Skill writes filled CLI command to `_FROM_CLAUDE/YYYY-MM-DD-e-commerce-ops-squad-deploy.sh`
+3. Skill writes filled CLI command to `out/YYYY-MM-DD-e-commerce-ops-squad-deploy.sh`
 4. Customer deploys + creates environment + starts session with both webhook + cron triggers
 5. Squad runs autonomously — every new order goes through all four phases
 

@@ -127,7 +127,7 @@ By the end of this path you should be able to:
 
 ## Cross-References
 
-- The the Stack agent that operates in this domain: `agents/software-dev-team/SKILL.md`
+- The agent that operates in this domain: `agents/software-dev-team/SKILL.md`
 - Methodology framework(s) cited: `agents/software-dev-team/context/methodology/` (in development)
 - Reference clippings: `agents/software-dev-team/context/references/` (vendored as Phase 1 expands)
 - Related agents:
@@ -138,7 +138,7 @@ By the end of this path you should be able to:
   - `agents/seo-specialist/SKILL.md` — technical SEO implementation (Core Web Vitals, schema, programmatic)
   - `agents/designer/SKILL.md` — UI implementation against design specs
 - Three-principle gate (per SKILL.md): Ship-Velocity, Production-Readiness, Debuggability held in productive tension.
-- For the Stack canonical stack: Vercel (Next.js or SPA) + Supabase (Postgres + RLS + Auth + Storage) by default. NOT Cloudflare Workers (except [example email agent]), Netlify, or Heroku. See `memory/project_canonical_stack.md`.
+- For [your product] canonical stack: Vercel (Next.js or SPA) + Supabase (Postgres + RLS + Auth + Storage) by default. NOT Cloudflare Workers (except [example email agent]), Netlify, or Heroku. See `memory/project_canonical_stack.md`.
 - For agent-infrastructure dev: MCP server pattern (FastMCP for Python, MCP SDK for TS); see `anthropic-skills:mcp-builder` for the canonical guide.
 - For security audit: OWASP Top 10, dependency-supply-chain (npm audit / snyk / dependabot), secrets-scan (gitleaks), authn/authz review. Run before any launch.
 - For observability: structured logging at every layer; OpenTelemetry tracing; Sentry / Honeybadger error tracking; PostHog / Plausible / DataDog metrics; real-user-monitoring; synthetic-monitoring on critical paths.

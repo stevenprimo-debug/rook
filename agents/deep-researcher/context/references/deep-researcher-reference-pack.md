@@ -1,6 +1,6 @@
 # deep-researcher — Reference Pack
 
-> Curated authoritative sources for multi-step research, source synthesis, and confidence calibration. For use with the the Stack deep-researcher agent.
+> Curated authoritative sources for multi-step research, source synthesis, and confidence calibration. For use with the deep-researcher agent.
 
 ---
 

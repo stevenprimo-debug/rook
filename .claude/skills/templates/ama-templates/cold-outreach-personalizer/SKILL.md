@@ -52,7 +52,7 @@ for the personalization step.
 
 1. Customer says "build me a cold outreach personalizer" or trigger phrase
 2. Skill asks for slots (default MailerLite sequence ID, target first-line word count, voice notes)
-3. Skill writes filled CLI command to `_FROM_CLAUDE/YYYY-MM-DD-cold-outreach-personalizer-deploy.sh`
+3. Skill writes filled CLI command to `out/YYYY-MM-DD-cold-outreach-personalizer-deploy.sh`
 4. Customer deploys + creates environment + starts session
 5. Operator feeds prospect lists; AMA researches each, writes first lines, enriches in Clay, triggers MailerLite
 

@@ -7,7 +7,7 @@
 # Built 2026-05-13 per Pass-8 lock in
 # CLAUDE CODE/MEMORY/project_primolabs_run_the_protocol_locked.md
 #
-# Why it exists: Primo's mental model was that the agent auto-searches vault
+# Why it exists: the operator's mental model was that the agent auto-searches vault
 # on every prompt. It did NOT until this hook. Now it does -- guaranteed at
 # the harness layer, not depending on agent judgment.
 #
@@ -30,7 +30,7 @@ $MinPromptWords  = 5    # skip prompts shorter than this
 $SnippetChars    = 100  # chars of matched-line context to show
 $HardTimeoutSec  = 5    # bail if total grep time exceeds this
 
-# Common English stopwords + Primo-conversation filler. Pruned aggressively
+# Common English stopwords + the operator-conversation filler. Pruned aggressively
 # so we keep proper nouns + topic words.
 $Stopwords = @(
     'a','an','the','is','are','was','were','be','been','being','am',
@@ -59,9 +59,9 @@ $OptOutPatterns = @(
     'no rag'
 )
 
-# _FROM_CLAUDE/ trigger phrases -- when ANY of these appear, inject an
-# explicit reminder that the deliverable goes to PRIMOLABS\_FROM_CLAUDE\,
-# NOT a dept folder. Memory: feedback_from_claude_folder_convention.md
+# out/ trigger phrases -- when ANY of these appear, inject an
+# explicit reminder that the deliverable goes to $VAULT_ROOT\out\,
+# NOT a dept folder.
 $FromClaudeTriggers = @(
     'send this to obsidian',
     'send me this',
@@ -105,7 +105,7 @@ try {
     $words = $prompt -split '\s+' | Where-Object { $_ }
     if ($words.Count -lt $MinPromptWords) { exit 0 }
 
-    # ---- _FROM_CLAUDE/ TRIGGER DETECTION ----------------------------------
+    # ---- out/ TRIGGER DETECTION ----------------------------------
     # If user is asking us to "send" / "save" a doc for Obsidian consumption,
     # inject a hard reminder about the folder convention. Fires BEFORE
     # vault-context grep so the reminder always lands even on short prompts.
@@ -120,11 +120,11 @@ try {
     if ($fromClaudeFired) {
         $today = (Get-Date).ToString('yyyy-MM-dd')
         $fromClaudeReminder = @"
-===== _FROM_CLAUDE/ TRIGGER DETECTED =====
+===== out/ TRIGGER DETECTED =====
 
-Primo asked you to send/save a doc for Obsidian consumption.
+the operator asked you to send/save a doc for Obsidian consumption.
 
-MANDATORY PATH: C:\Users\User\Desktop\PRIMOLABS\_FROM_CLAUDE\${today}-<slug>.md
+MANDATORY PATH: $env:VAULT_ROOT\out\${today}-<slug>.md
 
 DO NOT save to:
   - DEPARTMENTS/<any-dept>/assignments/
@@ -132,17 +132,17 @@ DO NOT save to:
   - CLAUDE CODE/MEMORY/
   - any other location
 
-Dept folders are for WORK ARTIFACTS. `_FROM_CLAUDE/` is Primo's READING
+Dept folders are for WORK ARTIFACTS. `out/` is the operator's READING
 INBOX -- agendas, briefs, summaries, outlines, plans, rundowns, prep
 docs, pre-meeting notes. Anything he'll open on his phone via Obsidian
 Sync to read.
 
-After saving, tell Primo the file is at the `_FROM_CLAUDE/` path so he
+After saving, tell the operator the file is at the `out/` path so he
 can find it.
 
 Memory ref: CLAUDE CODE/MEMORY/feedback_from_claude_folder_convention.md
 
-===== END _FROM_CLAUDE/ TRIGGER =====
+===== END out/ TRIGGER =====
 "@
         Write-Output $fromClaudeReminder
     }
@@ -274,7 +274,7 @@ Matches found in DEPARTMENTS + Clippings + CLAUDE CODE/MEMORY:
 $matchBlock
 
 USE THIS CONTEXT FIRST. Read the most-relevant matched files BEFORE
-responding to Primo's prompt. Do NOT ask Primo to provide context that
+responding to the operator's prompt. Do NOT ask the operator to provide context that
 is already in the vault. If matches are stale or off-topic, say so and
 proceed -- but always check first.
 

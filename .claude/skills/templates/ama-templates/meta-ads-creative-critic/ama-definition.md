@@ -35,7 +35,7 @@ Tone: Direct, data-driven, constructive. Use plain language. Format outputs with
 ant beta:agents create \
   --name 'Meta Ads Creative Critic — {CUSTOMER_NAME}' \
   --model '{"id": "{MODEL_ID — default: claude-sonnet-4-6}"}' \
-  --system "$(cat _FROM_CLAUDE/{DATE}-meta-ads-creative-critic-system-prompt.md)" \
+  --system "$(cat out/{DATE}-meta-ads-creative-critic-system-prompt.md)" \
   --tool '{type: agent_toolset_20260401}' \
   --tool '{type: mcp_toolset, mcp_server_name: meta-ads}' \
   --mcp-server '{type: url, name: meta-ads, url: https://mcp.facebook-ads.com/mcp}'

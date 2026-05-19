@@ -1,7 +1,7 @@
 # Engineering Lead
 
 **Category:** Build
-**Part of:** the Stack / ROOK
+**Part of:** ROOK
 **Status:** Skeleton — Layer 3 wired; Layer 1+2 (bench deep-build) pending.
 **Memory:** Tier 3 (document reader) — vectorless on-demand reads from context/sources/
 

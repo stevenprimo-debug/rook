@@ -25,8 +25,8 @@ integration complexity, [your employer]'s specific approach, delivered outcome."
 A the cohort sales page tells the arc of "AV practitioner,
 industry shift, the gap between today's skills and tomorrow's
 opportunities, the cohort as the bridge, the alumni cohort as the
-new state." A Stage Pro feature announcement tells the arc of
-"touring engineer, pre-show anxiety, manual cue verification, the
+new state." A [your physical/SaaS product] feature announcement tells the arc of
+"[your customer persona], pre-show anxiety, manual cue verification, the
 new feature, the new pre-show state."
 
 The discipline: every surface gets the arc named before any
@@ -56,7 +56,7 @@ The pole catches three specific failure modes:
    Without the turn, the surface is a presentation, not a story.
 
 For the operator's commercial surfaces — [your employer] proposals, the cohort
-materials, Ableton product launches, Stage Pro feature
+materials, [your product] launches, [your physical/SaaS product] feature
 announcements, social-media campaigns — narrative arc discipline
 is what produces surfaces audiences remember. Without it, even
 well-crafted surfaces blur into the background.
@@ -71,7 +71,7 @@ right now, what's happening in their week), and the current state
 (what's true about their world today).
 
 The setup answers the reader's first question: "is this for me?"
-A setup that names the reader specifically — the touring AV
+A setup that names the reader specifically — the [your customer industry]
 engineer prepping for a stadium run, the enterprise facilities
 VP evaluating [your employer], the session musician watching their industry
 shift — passes the test in <3 seconds.
@@ -124,7 +124,7 @@ where the named integration approach reveals the path that fits
 the client's specific facility." For a the cohort sale: the
 turn might be "the third week of the cohort, when the first
 student-built tool ships and the cohort sees that the path works."
-For a Stage Pro feature: the turn might be "the first time the
+For a [your physical/SaaS product] feature: the turn might be "the first time the
 engineer hits Verify Cues and the system catches the latency
 mismatch before the show."
 
@@ -145,7 +145,7 @@ Specific resolutions:
 - the cohort: "You've shipped your first tool, you have 60
   practitioners in your Discord community, and your next quarter
   has a creator-economy revenue stream attached to it."
-- Stage Pro: "You walk into pre-show prep with 20 minutes instead
+- [your physical/SaaS product]: "You walk into pre-show prep with 20 minutes instead
   of two hours, and the show runs without the cue-verification
   loop running in your head."
 
@@ -204,7 +204,7 @@ state after launch) — present. Surface ships.
 
 **Cohort sales page arc design:**
 The agent maps the arc before any copy is written. Setup: the
-touring AV practitioner whose industry is shifting in 2026. Stake:
+[your customer market] whose industry is shifting in 2026. Stake:
 the 18-month window before the gigs collapse to AI-augmented
 practitioners. Complication: the gap between today's skills and
 the skills the new gigs require. Turn: the cohort's structured
@@ -212,8 +212,8 @@ the skills the new gigs require. Turn: the cohort's structured
 shipped tools, alumni community, creator-economy revenue stream
 attached. Copy is generated against the locked arc.
 
-**Stage Pro feature-announcement arc:**
-The arc for the new Verify Cues feature: Setup (touring engineer,
+**[your physical/SaaS product] feature-announcement arc:**
+The arc for the new Verify Cues feature: Setup ([your customer persona],
 pre-show prep). Stake (next show, named risk: mid-show drift).
 Complication (manual verification doesn't scale across the tour).
 Turn (the Verify Cues moment when the system catches the

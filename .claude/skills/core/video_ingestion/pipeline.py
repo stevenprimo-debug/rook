@@ -116,7 +116,7 @@ def render_markdown(
             f"\npriority_tags: {summary.priority_signals}"
         )
         priority_block = (
-            "\n> ## ⭐ Primo priority — auto-flagged\n"
+            "\n> ## ⭐ the operator priority — auto-flagged\n"
             f"> Matched priority signals: **{signals}**.\n"
             "> See `DEPARTMENTS/CEO/conventions/priority_rules.md` for action template.\n"
         )

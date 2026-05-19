@@ -1,12 +1,12 @@
 # memory-audit/run.ps1
-# Active audit of the PRIMOLABS memory system. Writes phone-readable report to _FROM_CLAUDE/.
+# Active audit of the operator memory system. Writes phone-readable report to out/.
 # v1.1 - 2026-05-14 (ASCII-safe, no em-dashes or backticks in strings)
 
 $ErrorActionPreference = 'Stop'
 $root = "C:\Users\User\Desktop\PRIMOLABS"
 $today = Get-Date -Format 'yyyy-MM-dd'
 $now = Get-Date -Format 'yyyy-MM-dd HH:mm'
-$reportPath = Join-Path $root "_FROM_CLAUDE\$today-memory-audit.md"
+$reportPath = Join-Path $root "out\$today-memory-audit.md"
 
 $outDir = Split-Path $reportPath -Parent
 if (-not (Test-Path $outDir)) { New-Item -ItemType Directory -Path $outDir -Force | Out-Null }

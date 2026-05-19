@@ -34,7 +34,7 @@ full, extracts claims with attribution, synthesizes a structured report.
 ## How to use
 
 1. Customer asks "build me a deep research agent" or trigger phrase
-2. Skill writes filled CLI command to `_FROM_CLAUDE/YYYY-MM-DD-deep-researcher-deploy.sh`
+2. Skill writes filled CLI command to `out/YYYY-MM-DD-deep-researcher-deploy.sh`
 3. Customer deploys + starts interactive session
 4. Customer feeds questions/topics; agent returns structured reports with citations
 

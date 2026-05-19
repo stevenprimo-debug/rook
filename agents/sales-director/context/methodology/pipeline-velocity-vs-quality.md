@@ -56,7 +56,7 @@ third poles.
   protect commission floor and gross margin?" The framework's
   quality discipline is the gate.
 
-For the operator's [your employer] income-bridge work, the framework prevents two
+For the operator's [your employer] bridge-revenue work, the framework prevents two
 failure modes:
 
 1. **Velocity trap** — chasing every opportunity to keep pipeline
@@ -265,7 +265,7 @@ location (`SALES/[CLIENT_REPO]/PIPELINE/`).
 A consistent flow of below-threshold opportunities prompts a
 wealth-creator-mode review. Per Finance Manager's framework,
 the time invested in low-tier [your employer] work has opportunity cost
-against the Stack / Stage Pro / Ableton mission work. The
+against [your product] / [your physical/SaaS product] / [your platform] mission work. The
 review surfaces the trade-off.
 
 ## Anti-patterns (when this framework is misapplied)
@@ -304,7 +304,7 @@ trade language wins.
 
 **Per locked feedback: "Client Data Publication Rule."** No
 client data appears in public marketing, social posts, or
-the Stack surfaces. Sales work and public-facing work have
+[your product] surfaces. Sales work and public-facing work have
 strict separation.
 
 **Per locked feedback: "Verify Project Status Before Speaking."**
@@ -316,7 +316,7 @@ auto-reject floor to "save the deal." The deal isn't worth
 saving below the floor — it's worth walking away from.
 
 **Per locked feedback: "Wealth Creator Mode."** Periodically
-running the Naval-style stress test: is [your employer] income-bridge work
+running the Naval-style stress test: is [your employer] bridge-revenue work
 producing wealth, or just consuming time that mission products
 need?
 

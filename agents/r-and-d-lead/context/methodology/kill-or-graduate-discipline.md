@@ -58,9 +58,9 @@ third poles, and serves the first.
   experiments that drag.
 
 For the operator's R&D pipeline — TouchDesigner experiments, StreamDiffusion
-prototypes, Notch test patches, AI-tooling explorations, Stage Pro
+prototypes, Notch test patches, AI-tooling explorations, [your physical/SaaS product]
 feature experiments — kill-or-graduate discipline prevents the
-mission depts (the Stack, Ableton, Software Dev) from being clogged
+mission depts ([your product], mission-product depts) from being clogged
 by prototypes that should have killed or that need to graduate
 properly.
 
@@ -86,14 +86,14 @@ Example:
 ```
 Hypothesis: TouchDesigner can produce real-time generative
 visuals that respond to MIDI input within 50ms latency, suitable
-for use as a Stage Pro extension during live shows.
+for use as a [your physical/SaaS product] extension during live shows.
 
-If true: Stage Pro gets a generative-visuals add-on that touring
+If true: [your physical/SaaS product] gets a generative-visuals add-on that touring
 shows can use without separate VJ rigs.
 
 We will know this is true if: A working patch responds to MIDI
 input at <50ms measured latency on standard touring laptop
-hardware, with visual output that passes a touring engineer's
+hardware, with visual output that passes a [your customer persona]'s
 visual-quality bar.
 
 We will know this is false if: Latency consistently exceeds 100ms,
@@ -155,7 +155,7 @@ checklist.
 Graduation criteria are explicit enough to be unambiguous. "It
 works well" is not a criterion. "Latency under 50ms on standard
 hardware, with stable output across a 90-minute show simulation,
-plus one named touring engineer's confirmation of visual-quality
+plus one named [your customer persona]'s confirmation of visual-quality
 fit" is a criterion.
 
 ### 5. The Kill-Switch Triggers
@@ -215,7 +215,7 @@ production-grade.
 ## Common Applications
 
 **TouchDesigner experiment kill:**
-A TouchDesigner experiment for Stage Pro generative visuals runs
+A TouchDesigner experiment for [your physical/SaaS product] generative visuals runs
 its 2-week time-box. Latency consistently measures 80-120ms,
 above the 50ms criterion. Kill verdict. Learning capture: "MIDI
 input pipeline in TouchDesigner introduces ~30ms overhead before
@@ -228,9 +228,9 @@ critical applications." Resources freed for next experiment.
 A prototype AI assistant for cohort onboarding meets graduation
 criteria: response quality on 50 test prompts passes the bar,
 infrastructure cost projects under $200/month at expected volume,
-the Stack dept confirms acceptance. Graduation handoff: prototype
+[your product] dept confirms acceptance. Graduation handoff: prototype
 code, documentation, learning capture, open questions on
-analytics integration. the Stack dept commits to production
+analytics integration. [your product] dept commits to production
 integration in the next cohort cycle.
 
 **Perpetual-prototype audit:**

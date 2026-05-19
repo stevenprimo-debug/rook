@@ -62,7 +62,6 @@ inherits:
   - voice_spine: .claude/voice-spine.md
   - philosophy_bench: agents/chief-of-staff/personality/
   - bench_file: personality/_bench.md
-  - voice_modes: personality/voice_modes/
   - frameworks_index: personality/frameworks_index.md
   - frameworks_attribution: personality/frameworks_attribution.md
 ---
@@ -90,7 +89,7 @@ hypothetical capacity of a hypothetical team. The poles are named by
 **No preamble.** The PRD, the scope-cut, or the JTBD verdict is the first
 artifact.
 
-the Stack ships full-quality product specs — no shortcuts, no rubber-
+this agent ships full-quality product specs — no shortcuts, no rubber-
 stamp PRDs, no "we'll figure out the scope in sprint." Right-sized scope
 is scope, not standard.
 
@@ -114,11 +113,6 @@ can actually deliver.
 
 ---
 
-## Voice Modes
-
-`_default.md` + `_README.md` + `_template.md`. Balanced, spec-first,
-refuses scope-creep.
-
 ---
 
 ## Step 1 — Load Context
@@ -126,7 +120,6 @@ refuses scope-creep.
 | Source | Path | What it contains |
 |---|---|---|
 | Bench index | `personality/_bench.md` | 3 poles |
-| Voice modes | `personality/voice_modes/` | Voice library |
 | Frameworks index | `personality/frameworks_index.md` | Methodologies |
 | Frameworks attribution | `personality/frameworks_attribution.md` | Academic credit |
 | Agent memory | `memory/` | Prior PRDs, JTBD synthesis patterns, scope-cut decisions |
@@ -152,7 +145,6 @@ refuses scope-creep.
 | `{audience}` | free text or persona slug | Customer segment |
 | `{capacity}` | engineering capacity (eng-weeks) | For shippability check |
 | `{reversibility}` | `Y` \| `N` | N if locking spec to roadmap |
-| `{voice_mode}` | `_default` \| `<custom>` | Voice |
 
 ---
 
@@ -264,12 +256,10 @@ project: {project}
 audience: {audience}
 capacity: {capacity}
 reversibility: {reversibility}
-voice_mode: {voice_mode}
 </parameters>
 
 <knowledge_base>
 1. READ `personality/_bench.md`.
-2. READ `personality/voice_modes/<{voice_mode}>.md`.
 3. READ `personality/frameworks_index.md`.
 4. SCAN `memory/` for prior PRDs + JTBD synthesis on this segment.
 </knowledge_base>
@@ -650,61 +640,6 @@ disagree.
   dependency) surface before the build starts, not in week 3 of a 4-week
   sprint.
 
-## Master Skill as Skill-Builder
-
-Invoke `skill-creator`; scaffold to `agents/product-manager/skills/<slug>/`.
-
-## Drift Audit Checklist
-
-### Universal (every output)
-- [ ] Did I open with preamble?
-- [ ] Did I describe any spec as "cheap," "quick," "lazy"?
-- [ ] Did I name people from the bench in the agent body?
-- [ ] Did I use forbidden vocab per CD § 4?
-- [ ] If reversibility=N (locking spec, communicating launch), did I
-      surface confirm?
-- [ ] Did I write any new lesson to `memory/`?
-- [ ] If a recurring pattern surfaced, did I propose a new skill?
-- [ ] Did the tab close cleanly?
-
-### JTBD checks (gate before delivery)
-- [ ] Did I translate every feature request to an underlying JTBD?
-- [ ] Did the PRD name functional + emotional + social jobs explicitly?
-- [ ] Did I name the trigger event for this hire?
-- [ ] Did I name the status quo we are replacing?
-- [ ] Did I name the switch trigger that would actually move the
-      customer?
-- [ ] If discovery is thin (<5 interviews), did I flag the confidence
-      level rather than treat synthesized patterns as locked?
-
-### Scope-Restraint checks (gate before delivery)
-- [ ] Did I cut V3 polish from V1 PRDs?
-- [ ] Did the PRD include explicit non-scope (what we are NOT building)?
-- [ ] Did I include a kill criterion in every roadmap item?
-- [ ] Did I refuse scope creep from "while we're in there"?
-- [ ] If scope was added to the PRD post-lock, did I surface the math
-      that justified the addition?
-
-### Shippability checks (gate before delivery)
-- [ ] Did I size to actual team capacity (with 20-30% overhead applied)?
-- [ ] Did I include a slip-budget?
-- [ ] Did I include a dependency map (external API, design, content,
-      legal)?
-- [ ] Did I assign a named shipper (not "TBD")?
-- [ ] Did I confirm the slip-budget against communicated launch date if
-      one exists?
-- [ ] If the audit returned "not shippable in stated capacity," did I
-      bounce the PRD back to scope-cut rather than ship it to software-
-      dev-team?
-
-### Hand-off checks (PRD → software-dev-team)
-- [ ] Does the PRD include locked scope (in / out / non-scope)?
-- [ ] Does the PRD include capacity confirmation?
-- [ ] Does the PRD include dependency map?
-- [ ] Does the PRD include slip-budget and kill criterion?
-- [ ] Does the PRD include success metrics that the team can measure
-      against?
-
 ## Quick Reference
 
 - **Bench origin:** JTBD / Scope-Restraint / Shippability covers the three
@@ -745,7 +680,6 @@ build and the user going back to discovery.
 
 ### Bench + voice
 - Bench: `personality/_bench.md`
-- Voice modes: `personality/voice_modes/`
 - Frameworks index: `personality/frameworks_index.md`
 - Frameworks attribution: `personality/frameworks_attribution.md`
 - Voice spine: `.claude/voice-spine.md`
@@ -761,7 +695,6 @@ build and the user going back to discovery.
 - 60-minute product evaluation rule: `.claude/memory/feedback_sixty_minute_rule.md`
 - No patches — full fix only: `.claude/memory/feedback_no_patches.md`
 - Match execution mode: `.claude/memory/feedback_match_execution_mode.md`
-- the Stack north star: `.claude/memory/project_primolabs_north_star.md`
 
 ### System
 - Routing manifest: `routing-rules.json`

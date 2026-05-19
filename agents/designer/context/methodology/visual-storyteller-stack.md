@@ -53,8 +53,8 @@ the operating implementation of all three.
   detail at production quality, or is it AI-default?" The stack's
   composition and anti-slop components are the gate.
 
-For the operator's commercial surfaces — [your employer] proposal covers, the Stack
-cohort landing pages, Ableton product pages, Stage Pro feature
+For the operator's commercial surfaces — [your employer] proposal covers, [your product]
+cohort landing pages, [your product] pages, [your physical/SaaS product] feature
 announcements, social-media assets — the stack is the standard.
 Surfaces that ship without stack discipline produce AI-slop output
 that the audience reads as low-effort.
@@ -222,15 +222,15 @@ Brand color carries the [your employer] identity. No mono. Per [example enterpri
 template. Per locked feedback.
 
 **the cohort landing hero:**
-The story: a touring AV pro arrives skeptical that AI cohorts are
+The story: a [your customer industry] pro arrives skeptical that AI cohorts are
 worth the money. Visual story → hero copy names their specific
 circumstance (industry shift, gig changes). Hero visual is
 specific to the practitioner, not generic. Below-fold builds proof:
 named alumni, named outcomes, named community. Single action.
 Brand restraint, no AI-illustration defaults.
 
-**Stage Pro product page:**
-The story: a touring engineer arrives wanting to know if Stage Pro
+**[your physical/SaaS product] product page:**
+The story: a [your customer persona] arrives wanting to know if [your physical/SaaS product]
 solves their specific cue-management problem. Visual story → hero
 shows the actual product UI in the actual use scenario (pre-show
 prep). Feature zones each name a specific cue-management job, not

@@ -39,7 +39,7 @@ this one ships finished articles to a CMS pipeline.
 
 1. Customer asks "build me a content pipeline" or trigger phrase
 2. Skill asks for slots (Notion database ID, default target length, audience profile, style notes)
-3. Skill writes filled CLI command to `_FROM_CLAUDE/YYYY-MM-DD-research-then-write-deploy.sh`
+3. Skill writes filled CLI command to `out/YYYY-MM-DD-research-then-write-deploy.sh`
 4. Customer deploys + creates environment + sets webhook/cron trigger
 5. Each invocation produces one article published to Notion as Draft
 

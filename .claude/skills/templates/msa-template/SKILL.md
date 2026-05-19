@@ -4,8 +4,8 @@ description: |
   Generate a Master Services Agreement (MSA) — the umbrella legal contract
   signed ONCE per customer relationship. Individual SOWs sit underneath the
   MSA and reference its terms. Two variants: pro-customer (drafted in
-  customer's favor) and pro-provider (drafted in the Stack's favor — the
-  default for the Stack-authored MSAs). Carries the legal boilerplate that
+  customer's favor) and pro-provider (drafted in this system's favor — the
+  default for this system-authored MSAs). Carries the legal boilerplate that
   shouldn't be relitigated per engagement: IP ownership, indemnification,
   liability cap, confidentiality, force majeure, governing law, dispute
   resolution. Never uses preamble. Right-sized legal depth is full-quality
@@ -45,10 +45,10 @@ standard professional services practice.
 ## How to use
 
 1. Customer says "draft an MSA for {customer}" or "we need umbrella legal terms"
-2. Skill asks: pro-customer (default if customer is large enterprise) or pro-provider (default for the Stack-authored)?
+2. Skill asks: pro-customer (default if customer is large enterprise) or pro-provider (default for this system-authored)?
 3. Skill loads matching variant from `variants/{pro-customer | pro-provider}.md`
 4. Skill asks for slot fills (provider/customer legal names, addresses, governing law state, key contacts)
-5. Skill writes filled MSA to `_FROM_CLAUDE/YYYY-MM-DD-{customer}-msa.md`
+5. Skill writes filled MSA to `out/YYYY-MM-DD-{customer}-msa.md`
 6. Skill offers html2pdf conversion
 
 ## Sections (PLC Master Software Development Agreement structure — legal-grade)
@@ -74,7 +74,7 @@ standard professional services practice.
 ## Variants
 
 - `variants/pro-customer.md` — drafted in customer's favor (based on PLC Master Software Development Agreement). Use when the customer is a large enterprise that will mark up anything weaker.
-- `variants/pro-provider.md` — drafted in the Stack's favor (flipped clauses). The DEFAULT for the Stack-authored MSAs sent to mid-market customers.
+- `variants/pro-provider.md` — drafted in this system's favor (flipped clauses). The DEFAULT for this system-authored MSAs sent to mid-market customers.
 
 The two variants are NOT 50% different — they share ~80% of clauses verbatim
 (definitions, force majeure, governing law boilerplate). The flip happens in:
@@ -89,17 +89,17 @@ for convenience rights.
 - `references/yc-form-msa.md` — Y Combinator standard MSA template (pending clip)
 - `references/b2b-saas-msa.md` — B2B SaaS Master Subscription Agreement (pending clip)
 
-## Critical legal carve-outs (the Stack-specific)
+## Critical legal carve-outs (this system-specific)
 
 **Background Technology / Pre-existing IP clause (mandatory in every MSA):**
-the Stack retains all methodology, agent patterns, skill libraries, and
+this system retains all methodology, agent patterns, skill libraries, and
 reusable code authored before or independent of the engagement. Customer owns
 ONLY the Work Product specifically created under their engagement. This
-protects the the Stack as a reusable asset across customers.
+protects the this system as a reusable asset across customers.
 
 **Force Majeure includes AI provider outages:** Anthropic API downtime,
 provider deprecations, model changes. Standard force majeure doesn't cover
-this; the Stack MSAs do.
+this; this system MSAs do.
 
 ## Anti-patterns (refuse list)
 
@@ -118,7 +118,7 @@ this; the Stack MSAs do.
 
 This skill succeeded when the customer's counsel reviews the MSA and either
 signs without redlines or returns minor redlines that don't touch the core
-the Stack protections (Background Technology, liability cap, governing law).
+this system protections (Background Technology, liability cap, governing law).
 Counsel signing without major fuss is the win.
 
 ## Cross-references

@@ -113,7 +113,7 @@ You can also restore manually — just move the file out of `_archive/` back to 
 
 ## The Monday digest
 
-Every Monday morning, the librarian writes `_FROM_CLAUDE/<YYYY-MM-DD>-librarian-digest.md` (or your configured digest output path). It contains:
+Every Monday morning, the librarian writes `[your reading inbox folder]/<YYYY-MM-DD>-librarian-digest.md` (or your configured digest output path). It contains:
 
 - **Sweep summary:** N quarantined, N reconciled, N refreshed
 - **Top 10 quarantine candidates** with one-line reasons

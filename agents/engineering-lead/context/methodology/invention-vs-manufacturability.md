@@ -300,7 +300,7 @@ risk management.
 **Per locked feedback: "Check Dept Memory + Conventions Before
 Guessing."** Engineering questions check ENGINEERING dept memory
 and conventions (e.g., [example enterprise customer] registry standards, vendor data,
-PROMETHEUS SOW patterns) before guessing.
+[your sales-ops platform] SOW patterns) before guessing.
 
 **Documentation as afterthought.** Producing as-built
 documentation after the team has already moved on, from

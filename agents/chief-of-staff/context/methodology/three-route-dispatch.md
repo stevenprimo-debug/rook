@@ -59,9 +59,9 @@ externalized structure so they don't compete for cognitive
 resources.
 
 The framework also serves the larger mission: ideas that route
-to mission-priority depts (the Stack, Ableton, Software Dev,
+to mission-priority depts ([your product], mission-product depts,
 Product Dev) get DEPLOY treatment more often than ideas that
-route to [your employer] income-bridge work. Mission-first dispatch
+route to [your employer] bridge-revenue work. Mission-first dispatch
 discipline is what compounds toward exit-by-Dec-2026.
 
 ## Core Concepts
@@ -81,8 +81,8 @@ routes? The decision is made on five inputs:
   right now, or is current attention committed elsewhere?
 - **Maturity** — is the idea ready to act on (specific enough,
   evidence-backed), or does it need to mature?
-- **Mission-fit** — does this advance mission (the Stack,
-  Ableton, Software Dev, Product Dev) or fall under income-bridge
+- **Mission-fit** — does this advance mission ([your product],
+  mission-product depts) or fall under bridge-revenue
   ([your employer]) or experimental (RND)?
 
 The framework synthesizes these into a route recommendation. The
@@ -163,7 +163,7 @@ idea-specific follow-up trigger. Triggers cannot default to
 not a trigger).
 
 Valid trigger examples:
-- "When Stage Pro hits 50 paid users."
+- "When [your physical/SaaS product] hits 50 paid users."
 - "When [your CRM] implementation completes."
 - "When second [your employer] client requests similar capability."
 - "When the cohort 4 closes."
@@ -227,13 +227,13 @@ the operator arrives with three unstructured ideas. Chief-of-staff
 classifies each: one is session-sized and mission-fit (DEPLOY
 to PRODUCT DEV); one needs CAD reading and exceeds current
 session (ASSIGN to ENGINEERING with brief); one is interesting
-but premature (PARK with trigger "when Stage Pro hits 50 paid
+but premature (PARK with trigger "when [your physical/SaaS product] hits 50 paid
 users"). All three end with explicit disposition. None float.
 
 **Mid-session pivot detection:**
-the operator, mid-work on a Stage Pro feature, says "oh also, I should
+the operator, mid-work on a [your physical/SaaS product] feature, says "oh also, I should
 think about that LinkedIn post." Chief-of-staff identifies the
-pivot, surfaces it explicitly: "current work is Stage Pro feature
+pivot, surfaces it explicitly: "current work is [your physical/SaaS product] feature
 build; LinkedIn post is a separate thread. PARK for end-of-session?
 ASSIGN to MARKETING for tomorrow?" the operator chooses; the dispatch
 prevents the silent context-switch that produces unfinished work
@@ -249,14 +249,14 @@ confirms; send proceeds.
 A spitball arrives that could route to either MARKETING ([your employer]
 content) or PRIMOLABS (cohort marketing). Chief-of-staff checks
 mission-priority order: PRIMOLABS is mission-first (red priority);
-MARKETING for [your employer] is income-bridge (yellow priority). Default
+MARKETING for [your employer] is bridge-revenue (yellow priority). Default
 routing favors PRIMOLABS. Override requires operator decision with
 mission-cost noted.
 
 **PARK trigger audit:**
 End of week. Chief-of-staff reviews idea_log.md for PARKed items
 with active triggers. Surfaces any whose trigger conditions have
-been met (Stage Pro hit 50 paid users? PRIMOLABS cohort 4 closed?).
+been met ([your physical/SaaS product] hit 50 paid users? PRIMOLABS cohort 4 closed?).
 Items whose triggers fired get re-routed via the dispatch system.
 
 **Family-time guardrail check:**

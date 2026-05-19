@@ -57,7 +57,7 @@ Three sequential phases (single AMA orchestrates all three):
    - Auto-send vs draft-only (default: draft-only — never auto-send without explicit override)
    - HubSpot custom property names for `lead_score` and `lead_tier`
    - Halt threshold for enrichment failures (default: 20%)
-4. Skill writes the filled CLI command + system prompt to `_FROM_CLAUDE/YYYY-MM-DD-sales-triage-squad-deploy.sh`
+4. Skill writes the filled CLI command + system prompt to `out/YYYY-MM-DD-sales-triage-squad-deploy.sh`
 5. Skill prints the deploy command for the customer to run
 6. Customer runs `ant beta:agents create ...` using their Anthropic API key
 7. Customer creates an environment via `ant beta:environments create ...`
@@ -78,9 +78,9 @@ deployment for after approval.
 
 The skill writes three files:
 
-1. `_FROM_CLAUDE/YYYY-MM-DD-sales-triage-squad-deploy.sh` — the full `ant beta:agents create` CLI command with all slots filled
-2. `_FROM_CLAUDE/YYYY-MM-DD-sales-triage-squad-system-prompt.md` — the standalone system prompt (for review before deploy)
-3. `_FROM_CLAUDE/YYYY-MM-DD-sales-triage-squad-runbook.md` — operator runbook covering: how to monitor the AMA, how to update the ICP, how to pause/resume, how to interpret the daily Slack summary
+1. `out/YYYY-MM-DD-sales-triage-squad-deploy.sh` — the full `ant beta:agents create` CLI command with all slots filled
+2. `out/YYYY-MM-DD-sales-triage-squad-system-prompt.md` — the standalone system prompt (for review before deploy)
+3. `out/YYYY-MM-DD-sales-triage-squad-runbook.md` — operator runbook covering: how to monitor the AMA, how to update the ICP, how to pause/resume, how to interpret the daily Slack summary
 
 ## Guardrails (baked into the AMA system prompt)
 

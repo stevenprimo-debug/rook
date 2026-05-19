@@ -48,10 +48,10 @@ because most content is generic; specific, brand-voice content
 that AI engines learn to cite earns over time.
 
 For the operator's mission surfaces:
-- **the Stack** content competing for "AI tools for touring
+- **[your product]** content competing for "AI tools for touring
   AV pros" type queries must be cited by AI engines, not just
   ranked in SERP.
-- **Stage Pro / Ableton product** content competing for "best
+- **[your physical/SaaS product] / [your product]** content competing for "best
   cue management software" type queries must appear in AI
   comparisons.
 - **Public [your employer] content** competing for "AV integration partner"
@@ -155,7 +155,7 @@ on an unrecognized entity. Building brand-entity recognition:
 - **About page completeness** — clear ownership, history, mission,
   team.
 
-For the Stack, Stage Pro, and Ableton products, brand-entity
+For [your product], [your physical/SaaS product], and [your product line], brand-entity
 work is foundational: AI engines need to know what these are
 before they can surface them in answers.
 
@@ -165,7 +165,7 @@ AI-answer surfaces handle conversational queries better than
 keyword queries. Users type or speak full questions:
 
 - "What's the best AI tool for managing playback cues on tour?"
-- "How does Stage Pro compare to QLab for show prep?"
+- "How does [your physical/SaaS product] compare to QLab for show prep?"
 - "Who's running cohort programs for AV professionals transitioning
   to AI work?"
 
@@ -206,20 +206,20 @@ the cost, what's the outcome). Adds Article schema with author
 byline. Inserts specific claims with named alumni outcomes.
 Result: page becomes more citable by AI engines.
 
-**Stage Pro feature page AEO:**
+**[your physical/SaaS product] feature page AEO:**
 The product page is refactored: H2 phrased as user questions
-("How does Stage Pro handle latency verification?"), first
+("How does [your physical/SaaS product] handle latency verification?"), first
 paragraph answers directly with specific behavior, comparison
 table against competitors, Product schema added with
 specifications and pricing.
 
-**Pillar page for "AI tools for touring AV pros":**
+**Pillar page for "AI tools for [your customer audience]":**
 The pillar page is built as the canonical reference for the
 topical neighborhood. Comprehensive, answer-shaped, citation-rich,
 schema-marked. Designed to be the source AI engines cite when
 users ask about the space.
 
-**Brand-entity build for the Stack:**
+**Brand-entity build for [your product]:**
 The agent identifies the entity-recognition gaps: Wikipedia
 mention (if eligible), Wikidata entry, About page completeness,
 verified social profiles. Builds the entity graph that AI
@@ -229,7 +229,7 @@ engines can resolve.
 The agent probes target queries on major AI engines, records
 citations, identifies gaps. Output: a list of pages to optimize
 for specific queries where competitors are appearing but
-the Stack/Stage Pro/Ableton products are not.
+[your product]/[your physical/SaaS product]/[your product line] are not.
 
 **Per locked memory: AI visibility / GEO work.** The
 `searchfit-seo:ai-visibility` skill operationalizes brand

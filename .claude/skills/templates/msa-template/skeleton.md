@@ -135,7 +135,7 @@ Neither Party is liable for delays or failures caused by events beyond its reaso
 
 ## 16. Governing Law & Venue
 
-This Agreement is governed by the laws of the State of **{GOVERNING_LAW_STATE — default for the Stack: Tennessee}** without regard to its conflicts-of-law principles. The Parties consent to the exclusive jurisdiction of the federal and state courts located in {COUNTY}, {GOVERNING_LAW_STATE}. In any action arising hereunder, the prevailing Party is entitled to recover reasonable attorneys' fees and costs.
+This Agreement is governed by the laws of the State of **{GOVERNING_LAW_STATE — default for this system: Tennessee}** without regard to its conflicts-of-law principles. The Parties consent to the exclusive jurisdiction of the federal and state courts located in {COUNTY}, {GOVERNING_LAW_STATE}. In any action arising hereunder, the prevailing Party is entitled to recover reasonable attorneys' fees and costs.
 
 ## 17. Miscellaneous
 
@@ -173,7 +173,7 @@ Date: ___________
 
 Where the skeleton has `{VARIANT_FLIP: ...}`, the variant file determines which side:
 
-| Clause | Pro-Customer (default for enterprise customers) | Pro-Provider (default for the Stack-authored MSAs) |
+| Clause | Pro-Customer (default for enterprise customers) | Pro-Provider (default for this system-authored MSAs) |
 |---|---|---|
 | § 3 Change-order judgment | Both Parties must agree before change is effective | Provider has sole discretion to assess schedule/cost impact |
 | § 9(a) IP ownership | Work-for-hire / full assignment to Customer | License to Customer / Provider retains underlying rights |
@@ -188,13 +188,13 @@ contain these 7 clause overrides.
 
 ## Slot Glossary
 
-| Slot | Description | Default for the Stack |
+| Slot | Description | Default for this system |
 |---|---|---|
-| `{PROVIDER_LEGAL_NAME}` | "the Stack LLC" or similar | TBD on incorporation |
+| `{PROVIDER_LEGAL_NAME}` | "this system LLC" or similar | TBD on incorporation |
 | `{PROVIDER_ENTITY_TYPE}` | "a Tennessee limited liability company" | LLC, Tennessee |
 | `{PROVIDER_ADDRESS}` | Business address | [your city], TN |
 | `{CUSTOMER_LEGAL_NAME}` | Customer's legal entity name | per customer |
-| `{SERVICES_DESCRIPTION}` | "AI infrastructure services and the the Stack" | locked |
+| `{SERVICES_DESCRIPTION}` | "AI infrastructure services and the this system" | locked |
 | `{RESPONSE_WINDOW}` | Customer response time SLA | 5 business days |
 | `{ACCEPTANCE_WINDOW}` | Acceptance review period | 10 business days |
 | `{PAYMENT_TERMS}` | Net N days | 15 (pro-provider) / 30 (pro-customer) |

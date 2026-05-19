@@ -105,9 +105,10 @@ Full detail in [`context-loop.md`](context-loop.md). The librarian closes the lo
 - **routing-enforcer** — reads `routing-rules.json` on every prompt and fires the right agent's brief
 - **session-prelude** — auto-injects context on session start (recent files, locked decisions)
 - **vault-context-injector** — keyword-matches the prompt against your vault and surfaces relevant prior notes
+- **session-end-detect** — natural-language detection of session-end signals ("signing off", "wrap up", etc.); injects a "write final handoff" reminder before goodbye
+- **precompact-handoff** — fires when Claude Code is about to compact the context window; injects instruction to write a structured session summary to `agents/chief-of-staff/memory/session_handoffs/` before context drops
 - **librarian-weekly-sweep** — cron trigger for the librarian (Sunday night)
-- **memory-audit** — health check on the memory system (drift, contradictions, sync-bloat)
-- **dispatch-chains** — enforces upstream dispatch for design/copy/brand work (CD → MARKETING → DESIGN)
+- **dispatch-chains** — enforces upstream dispatch for design/copy/brand work (creative-director → marketing-director → designer/copywriter)
 
 One-time install via `hooks/INSTALL.ps1` (Windows) or `hooks/INSTALL.sh` (Mac/Linux). Idempotent — safe to re-run.
 

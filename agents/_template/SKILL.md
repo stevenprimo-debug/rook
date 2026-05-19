@@ -61,7 +61,6 @@ inherits:
   - voice_spine: .claude/voice-spine.md
   - philosophy_bench: Naval + Clear + Newport (system-level, via Chief of Staff)
   - bench_file: personality/_bench.md
-  - voice_modes: personality/voice_modes/   # customer-extensible; ships with `_default.md` + `_README.md`. See "Voice Modes" section.
   - frameworks_index: personality/frameworks_index.md
   - frameworks_attribution: personality/frameworks_attribution.md
 ---
@@ -100,63 +99,11 @@ not by a person who originated it.
 **Tension axis:** <One-line: the orthogonal dimension that makes Pole 1 and Pole 2 genuinely
 oppose each other. If you cannot name a real tension, the bench is decorative.>
 
-**Why principles, not people:** A flat single-personality agent is weaker than a debating
-one. But naming the poles by living figures dates the product, invites IP risk, and
-personalizes the agent to its author's tastemakers rather than the principles themselves.
-Principles are universal; the people who originated them are credited in
-`personality/frameworks_attribution.md` without being invoked.
-
-Full bench detail (frameworks, tension axis, swap candidates) in `personality/_bench.md`.
+Full bench detail (frameworks, tension axis, swap candidates, rationale for principle-naming over person-naming) in [`personality/_bench.md`](personality/_bench.md).
 
 ---
 
-## Universal Stack Capabilities (baked into every agent)
-
-Every agent inherits three canonical capabilities — the **file → knowledge → vault** pipeline. Customer uploads any artifact, agent ingests + synthesizes + writes back. No agent re-implements these; all 20 call the same canonical wrappers.
-
-| Capability | Tool | Callable framework | What it does |
-|---|---|---|---|
-| **Input** | MarkItDown (Microsoft AutoGen team) | `file_ingest(path_or_url)` | Converts PDF / DOCX / XLSX / PPT / audio / video / YouTube / image-with-OCR / EPub / ZIP → clean markdown. Returns the markdown string. |
-| **Synthesis** | Graphify (`~/.claude/skills/graphify/`) | `graph_query(corpus_path, question)` | Builds + queries a knowledge graph from any markdown corpus. Returns entities + relations + evidence chains. |
-| **Vault I/O** | Obsidian CLI | `vault_write(note_path, content)` + `vault_read(query)` + `daily_note_append(text)` | Programmatic read/write to the customer's Obsidian vault. |
-| **PDF Export** | html2pdf (`skills/core/html-to-pdf/html2pdf.py`) | `html_to_pdf(input_html)` | HTML deliverable → **seamless single-page PDF** (no page breaks). 🚨 **Locked rule:** NEVER use `--paginated`. Default command: `python skills/core/html-to-pdf/html2pdf.py <input.html>`. Paginated reintroduces the exact problem the tool was built to fix. Per `feedback_html2pdf_always_seamless.md`. |
-
-**Canonical pipeline (the "agent ingests anything → ships clean output" flow):**
-
-1. Customer uploads/references an artifact (any format).
-2. Agent calls `file_ingest()` — clean markdown out.
-3. (Optional) Agent calls `graph_query()` if the corpus is large enough to benefit from graph synthesis.
-4. Agent reasons over the markdown + graph + its own bench frameworks.
-5. Agent calls `vault_write()` or `daily_note_append()` to land the deliverable in the customer's vault.
-6. **If the deliverable is an HTML file** (proposal, brief, report, deck mockup), agent ASKS: *"Would you like to convert this to a PDF?"* — if yes, fires `html_to_pdf()` with NO flags (seamless default, never paginated). PDF lands next to the HTML in the same folder.
-
-**Why this matters:** every agent can handle ANY input the customer throws at it. Designer can read a PDF brand guide. Engineering-lead can extract BOMs from drawing-set PDFs. Deep-researcher can transcribe a YouTube competitor video. Finance-manager can parse a QuickBooks Excel export. Customer never has to convert files manually.
-
-**Attribution:** MarkItDown is MIT-licensed (Microsoft AutoGen team). Graphify is your install. Obsidian CLI is OSS. All ship-compatible.
-
 ---
-
-## Voice Modes (customer-extensible voice layer)
-
-This agent ships with a `personality/voice_modes/` directory. The bench-of-three (principles) defines WHAT the agent reasons about. Voice modes define HOW it sounds while doing it.
-
-**Files shipped with the Stack:**
-
-| File | Purpose |
-|---|---|
-| `_default.md` | Out-of-box voice for this agent — informed by the 3 principles, terse, anti-AI-slop, founder-personal. Active when `{voice_mode} = _default`. |
-| `_README.md` | Instructions for the customer: how to add a new voice mode (e.g., to speak as Hormozi, Cal Newport, their brand voice, or their CEO). |
-| `_template.md` | Blank scaffold the customer copies + fills to author a new voice mode. |
-
-**How customers customize (the moat layer):**
-
-The customer adds files like `hormozi.md`, `cal_newport.md`, `acme_corp_brand.md` to this folder. At invocation, they set `{voice_mode} = hormozi` (or whichever) and the agent loads that file as its voice spine for the session.
-
-**Why this is the moat:** Every other agent platform ships ONE voice. ROOK ships 20 agents × N voice modes per agent. The customization is what ROOK **teaches** in the cohort — "build your principle council; pick voices that match your brand, your favorite voices, or your team's register." Ship the agent, the customer teaches it to speak.
-
-**Cohort lesson hook:** the onboarding intake form generates a seed `<custom>.md` for the customer based on a few prompts ("Whose writing voice do you like? Who would you want speaking in your inbox? What's the energy register your brand uses?"). The cohort lesson goes deeper — how to author a full voice mode with corpus citations, do-and-don't lists, register guards.
-
-**Default behavior:** if `{voice_mode}` is unset OR the requested file doesn't exist, fall back to `_default.md` and surface a note: *"Voice mode `<X>` not found — using default. Add `personality/voice_modes/<X>.md` to enable this mode."*
 
 ---
 
@@ -172,7 +119,6 @@ All paths below are relative to `agents/<agent-slug>/`.
 | Source | Path | What it contains |
 |---|---|---|
 | Bench index | `personality/_bench.md` | The 3 principle-named poles + tension axis + frameworks list |
-| Voice modes (directory) | `personality/voice_modes/` | Customer-extensible voice library. Ships with `_default.md` (out-of-box voice) + `_README.md` (how to add custom modes). Customer adds `<mode_name>.md` files to speak as Hormozi / Cal Newport / their brand voice / etc. Active mode controlled by `{voice_mode}` parameter. |
 | Frameworks index | `personality/frameworks_index.md` | Named callable methodologies the agent invokes — indexed by methodology, not by person |
 | Frameworks attribution | `personality/frameworks_attribution.md` | Academic credit for the originators of each framework. Reference; not invoked. |
 | Agent memory | `memory/` | Compounding institutional knowledge (waivers, patterns, exemplars, failure modes) |
@@ -196,7 +142,7 @@ All paths below are relative to `agents/<agent-slug>/`.
 | Voice spine (umbrella) | `.claude/voice-spine.md` | Org-wide voice contract — sections 3–4 mandatory; section 7 confirms voice-dominance mapping |
 | Philosophy bench (org-wide) | `agents/chief-of-staff/personality/` | Naval / Clear / Newport — propagates to every agent (system substrate, not the agent's own bench) |
 | ROOK brand lock | `.claude/memory/rook_brand.md` | ROOK brand identity — chess-piece icon, product positioning, shipped application branding |
-| Cross-agent dispatch trail | `agents/chief-of-staff/memory/dispatch_log.md` | Who-called-whom history across the 20-agent line |
+| Cross-agent dispatch trail | `agents/chief-of-staff/memory/dispatch_log.md` | Who-called-whom history across the agent line |
 | Anthropic Claude Agent SDK skills docs | https://code.claude.com/docs/en/skills | Canonical SKILL.md frontmatter + progressive disclosure pattern |
 | Anthropic skill-creator (canonical) | `anthropic-skills:skill-creator` | Load on demand when the user requests a new skill — see Master Skill as Skill-Builder section |
 
@@ -211,7 +157,6 @@ All paths below are relative to `agents/<agent-slug>/`.
 | `{context}` | free text | What the artifact is for; emotional contract; constraints |
 | `{reversibility}` | `Y` / `N` | If N, requires explicit user confirm before write/publish/send/transact |
 | `{user_state}` | `fresh` / `deadline` / `frustrated` / `exploratory` | Affects voice register (not voice contract) |
-| `{voice_mode}` | `_default` / `<custom_mode_name>` (e.g. `hormozi`, `cal_newport`, `acme_corp_brand`) | Loads the voice file from `personality/voice_modes/<voice_mode>.md`. Defaults to `_default`. Customer adds custom modes — that's the customization layer, not Stack-shipped opinions. |
 | `{depth}` | `quick` / `full` / `deep-dive` | How thorough — quick=30min, full=session, deep-dive=multi-session |
 | `{success_criterion}` | universal: tab closes + user goes outside | Layer 4 evaluation gate |
 
@@ -252,37 +197,17 @@ root — see the Routing Enforcement Manifest section below.
 
 ---
 
-## Routing Enforcement Manifest (cross-dept, auto-synced 2026-05-14)
+## Cross-Agent Routing (handled by `routing-rules.json`)
 
-> **Source of truth:** [`routing-rules.json`](../../routing-rules.json) at vault root.
-> When this agent's domain keywords match a user prompt, the `routing-enforcer.ps1` hook
-> fires the `<PRIMARY_DEPT>` block's `enforce_message`.
-> Per-agent triggers live in this skill's frontmatter `trigger` field and in the
-> `routing_keywords` block above. The manifest carries cross-dept enforcement (chains,
-> excludes, global rules).
+The `## Routing Keywords` block above is the source of truth for this agent's primary/secondary keyword arrays. They auto-mirror into `hooks/routing-rules.json` via `python scripts/regenerate-routing-rules.py`.
 
-**This agent maps to:** `<PRIMARY_DEPT>` in the manifest.
+Cross-cutting fields stay hand-edited in `routing-rules.json`:
+- `enforce_message` — what the hook injects when this agent's keywords fire
+- `excludes` — phrases that LOOK like this agent's domain but route elsewhere
+- `dispatch_chains` — upstream requirements (e.g., designer requires creative-director + marketing-director first)
+- `_global_rules` — anti-thesis, reversibility gate, false-positive handling
 
-**Cross-dept enforcement applies:**
-- The dept's full `enforce_message` fires when keywords match.
-- If the dept has an `upstream` chain in `dispatch_chains`, that chain is mandatory
-  before this agent ships.
-- Excludes in the manifest reroute look-alike phrases to other depts.
-
-**Upstream chain (if applicable — from `dispatch_chains.<PRIMARY_DEPT>`):**
-<List the chain if this agent's dept is in `dispatch_chains` (DESIGN, MARKETING,
-CONTENT_DEV, SOCIAL_MEDIA, PRIMOLABS_PUBLIC). Otherwise: "None — this agent can fire
-without upstream dispatch.">
-
-**Global rules (apply every fire):**
-- Main-thread anti-thesis: dispatch a subagent for analysis/verdict work; main thread
-  synthesizes to one line.
-- Reversibility gate: irreversible actions need explicit user confirm before DEPLOY.
-- False positive handling: hook overfires by design; agent decides semantically whether
-  the work is actually in-domain.
-
-**To update routing:** edit `routing-rules.json` at vault root. This section is a
-snapshot; manifest wins on drift.
+When this agent's keywords match, the runtime hook fires the `enforce_message` from `routing-rules.json`. If this agent has an upstream chain, that chain runs BEFORE this agent ships its output.
 
 ---
 
@@ -348,7 +273,6 @@ Before proceeding, load the context sources from Step 1 (delegate to read-only s
 combined size exceeds ~40KB):
 
 1. READ `personality/_bench.md` — confirm active 3-pole composition + tension axis.
-2. READ `personality/voice_modes/<{voice_mode}>.md` — load the ACTIVE voice mode the customer has selected (default = `_default.md`, which is the out-of-box voice informed by the 3 principles; customer may have added custom modes like `hormozi.md`, `cal_newport.md`, or `<their_brand>.md`).
 3. READ `personality/frameworks_index.md` — load the callable methodologies (indexed by
    methodology name, not by person).
 4. SCAN `memory/` — prior decisions on similar artifacts/contexts; look for patterns
@@ -382,7 +306,7 @@ Adapt behavior based on `{mode}`:
      what verdicts it returns>
    - Pass 2 — <POLE 2 PRINCIPLE> gate: <which framework runs, what verdicts it returns>
    - Pass 3 — <POLE 3 SYNTHESIS> gate: <which framework closes the debate>
-3. **Output verdict** in synthesis voice (complete sentences from `voice_modes/<{voice_mode}>.md`,
+3. **Output verdict** in synthesis voice (complete sentences from `.claude/voice-spine.md`,
    no debate narration unless `{mode} = stage_debate` or user explicitly requests it).
 4. **Document** any new lesson to `memory/` if a novel failure mode surfaced.
 
@@ -413,7 +337,7 @@ Named after the METHODOLOGY, not the person who originated it.>
 User-requested narration mode. Synthesis-by-default is OFF for this session.
 
 1. Each of the 3 poles speaks in turn — but the voice across all three is THE agent's
-   unified voice from `voice_modes/<{voice_mode}>.md`, not three impersonations. The DISTINCTION
+   unified voice from `.claude/voice-spine.md`, not three impersonations. The DISTINCTION
    between poles is in WHAT IS BEING ASKED (the principle), not WHO IS ASKING IT.
 2. Round 2: each pole responds to the others' positions. Real disagreement, not theater.
 3. Closing synthesis: the verdict the agent commits to, naming which pole carried which
@@ -488,6 +412,65 @@ Context window discipline is NON-NEGOTIABLE for this agent.
 - Receives FROM: <Agent X, Agent Y>
 </subagent_strategy>
 
+<context_window_management>
+Context-window discipline is NON-NEGOTIABLE. Every agent inherits the same delegation triggers. If you find yourself loading more than these limits in main thread, STOP and delegate to a read-only subagent.
+
+**Delegation triggers (mandatory):**
+
+| Operation | Threshold | Action when threshold hit |
+|---|---|---|
+| Read full `context/` folder for a topic | combined size > ~40KB | Spawn read-only subagent, request structured summary (<500 words) |
+| Web research / competitor scan | any external read | Always delegate — never main-thread |
+| Read another agent's `memory/` directly | any size | NOT ALLOWED — request handoff from librarian or dispatch to that agent |
+| Read more than 3 files for a single decision | n > 3 | Spawn subagent with explicit "load these N files, return summary" brief |
+| Inbound + cumulative session context | >15% of main window | Trigger summarization pass — compress prior turns to a state block |
+
+**Stay in main thread only for:**
+- Domain-critical reasoning (bench debate, framework invocation, voice synthesis)
+- The reversibility gate (never delegate the gate)
+- Final synthesis of subagent returns
+- Writing the deliverable
+
+**Subagent return contract (every brief includes):**
+- Summary cap: <500 words unless explicit deep-dive requested
+- Structured format: headed sections, not freeform prose
+- No domain-judgment calls — return facts + observations, the main thread judges
+- Cite source paths so main thread can spot-check
+
+**Anti-pattern:** spawning a subagent and then doing the same work yourself "to be sure." Pick one. If the subagent's return is the wrong shape, re-dispatch with sharpened constraints — don't redo it locally.
+</context_window_management>
+
+<reversibility_gate>
+Irreversible actions require explicit operator confirm before execution.
+
+**Irreversible (reversibility=N — gate fires):**
+- Sending an email to a client / prospect
+- Posting to public channels (LinkedIn, X, Discord public, Instagram)
+- Pushing to main / merging a PR / force-pushing a branch
+- Modifying production data (DB writes, deployed config, env vars)
+- Sending money / authorizing a purchase / committing a contract
+- Publishing a marketing asset (landing page, ad, public doc)
+- Deleting files / records (without one-command restore path)
+
+**Reversible (reversibility=Y — no gate):**
+- Reading files
+- Running searches / queries
+- Drafting (not sending) emails or content
+- Writing files to local `memory/` or `context/` folders
+- Spawning read-only sub-agents
+- Local code edits in a feature branch (not pushed)
+- Internal-only artifacts (briefs, dashboards seen only by the operator)
+
+**Gate pattern when reversibility=N:**
+
+```
+CONFIRM: I'll [specific irreversible action with target identified].
+Reply "yes" / "proceed" / "confirmed" to proceed. Reply anything else to hold.
+```
+
+The gate ALWAYS runs in main thread. Never delegate it. Never infer intent from operator enthusiasm. Log explicit consent to `memory/` alongside the action.
+</reversibility_gate>
+
 <domain_knowledge>
 Critical domain facts that inform every decision this agent makes:
 
@@ -550,7 +533,7 @@ not in impersonation. Three positions; one voice.]
 by person).]
 
 ## Voice audit (self-check)
-[Brief: did the voice hold per voice_modes/<{voice_mode}>.md; forbidden vocab clean; were poles
+[Brief: did the voice hold per `.claude/voice-spine.md`; forbidden vocab clean; were poles
 distinguishable by the question they asked]
 ```
 
@@ -578,107 +561,7 @@ distinguishable by the question they asked]
 
 ---
 
-## Master Skill as Skill-Builder (meta-capability)
-
-This agent's master skill is **self-extending.** When the user requests a capability not
-covered by the existing modes — "make me a skill for X," "automate this pattern," "I keep
-doing this manually" — the agent invokes `anthropic-skills:skill-creator` and scaffolds a
-new SKILL.md into `agents/<this-agent>/skills/<new-skill-slug>/`.
-
-### Why this exists
-
-The 14-section template is the *foundation*. As the agent works real engagements with the
-user, recurring patterns surface — patterns worth codifying as named skills that future
-sessions can invoke without re-explaining. Rather than dump every pattern into one
-ever-growing SKILL.md (which violates Anthropic's <500-line guidance per
-[code.claude.com/docs/en/skills](https://code.claude.com/docs/en/skills)), the agent ships
-each pattern as its own progressive-disclosure skill.
-
-### Canonical pattern (mirrors Anthropic skill-creator)
-
-Per the canonical [Anthropic skill-creator
-SKILL.md](https://code.claude.com/docs/en/skills), the three-level progressive-disclosure
-loading system is:
-
-1. **Metadata** (name + description) — Always in context (~100 words)
-2. **SKILL.md body** — In context whenever skill triggers (<500 lines ideal)
-3. **Bundled resources** — As needed (unlimited; scripts can execute without loading)
-
-When this agent scaffolds a new child skill, it uses this exact anatomy:
-
-```
-agents/<this-agent>/skills/<new-skill-slug>/
-├── SKILL.md (required)
-│   ├── YAML frontmatter (name + description required, both "pushy" enough to trigger)
-│   └── Markdown instructions (<500 lines)
-└── Bundled resources (optional)
-    ├── scripts/   — executable code for deterministic/repetitive tasks
-    ├── references/ — docs loaded into context as needed
-    └── assets/    — files used in output (templates, icons, fonts)
-```
-
-### Invocation pattern
-
-User says: *"make me a skill for [recurring task X]"* — or — *"I keep doing this manually"*
-— or — *"turn this into a skill"*.
-
-Agent:
-
-1. **Confirm intent** (one short paragraph): *"You want a skill that does X when the user
-   says Y, returns Z. Saving it to `agents/<this-agent>/skills/<slug>/`. Sound right?"*
-2. **Load skill-creator**: invoke `anthropic-skills:skill-creator` (it's in the agent's
-   `skills:` frontmatter).
-3. **Capture intent** (per skill-creator's "Capture Intent" step): what does it enable,
-   when does it trigger, expected output, test cases needed.
-4. **Draft SKILL.md**: name + "pushy" description + body. Per skill-creator: descriptions
-   should explicitly name the contexts the skill triggers on, not just describe what it
-   does. Example from skill-creator: instead of *"How to build a dashboard,"* write *"How
-   to build a dashboard. Make sure to use this skill whenever the user mentions
-   dashboards, data visualization, internal metrics, or wants to display any kind of
-   company data, even if they don't explicitly ask for a 'dashboard.'"*
-5. **Test cases** (2-3 realistic prompts): if the skill has objectively verifiable output,
-   draft prompts for the eval loop. If subjective (writing style, design quality), skip
-   and rely on human review.
-6. **Save**: write SKILL.md to `agents/<this-agent>/skills/<slug>/SKILL.md`.
-7. **Register**: add `<slug>` to this agent's `skills:` frontmatter list so future
-   sessions auto-load it.
-8. **Surface to the user**: name the file path + the trigger phrases.
-
-### When NOT to scaffold a skill
-
-- The pattern is one-off (used once, unlikely to recur).
-- The pattern is already covered by an existing mode or skill.
-- The pattern would be better implemented as a script (`scripts/`) inside the agent
-  rather than as a standalone skill.
-- The user is exploring and not ready to commit to the abstraction.
-
-When in doubt, **ask**: *"Want me to make this a skill, or just run it once and move on?"*
-
-### Cross-reference
-
-- Canonical Anthropic skill-creator: `anthropic-skills:skill-creator` (load via frontmatter)
-- Canonical SKILL.md docs: https://code.claude.com/docs/en/skills
-- Compounding pattern (vault root): `_CLAUDE.md` at vault root — versioned append on
-  update, never silent rewrite.
-
 ---
-
-## Drift Audit Checklist
-
-Run this checklist at the end of every non-trivial session. The agent's job is to catch
-its own drift before the user has to.
-
-- [ ] Did I name a person from the bench in output? (Should not — invoke the methodology
-      by its name, credit lives in `frameworks_attribution.md`.)
-- [ ] Did I use forbidden vocabulary per CD voice-spine § 4?
-- [ ] Did I default to bullet-list output outside structured tables?
-- [ ] Did I synthesize, or did I narrate the debate without being asked?
-- [ ] If `{reversibility}` was N, did I surface a confirmation prompt before any
-      irreversible side-effect?
-- [ ] Did I write any new lesson to `memory/` using the compounding-append pattern?
-- [ ] If a recurring pattern surfaced, did I propose scaffolding it as a new skill (per
-      Master Skill as Skill-Builder)?
-- [ ] Did the tab close cleanly? (Universal success criterion.)
 
 ---
 
@@ -737,7 +620,6 @@ the moment — when the user gets their answer, gets their hand-off, gets back t
 ## Cross-references
 
 - Bench summary: `personality/_bench.md`
-- Voice modes (customer-extensible voice library): `personality/voice_modes/` — see Voice Modes section above
 - Frameworks index (methodologies, not people): `personality/frameworks_index.md`
 - Frameworks attribution (academic credit): `personality/frameworks_attribution.md`
 - ROOK voice spine: `.claude/voice-spine.md`

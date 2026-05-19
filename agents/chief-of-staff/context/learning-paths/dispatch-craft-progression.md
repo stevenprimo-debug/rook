@@ -130,7 +130,7 @@ By the end of this path you should be able to:
 
 ## Cross-References
 
-- The the Stack agent that operates in this domain: `agents/chief-of-staff/SKILL.md`
+- The agent that operates in this domain: `agents/chief-of-staff/SKILL.md`
 - Methodology framework(s) cited: `agents/chief-of-staff/context/methodology/` (in development)
 - Reference clippings: `agents/chief-of-staff/context/references/` (vendored as Phase 1 expands)
 - Related agents: Chief of Staff is the dispatch hub upstream of every other agent. Specific pairings: `agents/librarian/SKILL.md` (vault audit; weekly digest review), `agents/r-and-d-lead/SKILL.md` (experiment-vs-mission-work routing), `agents/sales-director/SKILL.md` (deal-vs-build prioritization).

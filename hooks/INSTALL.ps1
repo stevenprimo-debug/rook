@@ -45,6 +45,9 @@ Write-Step "Verifying hook scripts exist"
 $RequiredHooks = @(
     'routing-enforcer.ps1',
     'session-prelude.ps1',
+    'vault-context-injector.ps1',
+    'session-end-detect.ps1',
+    'precompact-handoff.ps1',
     'superpowers-init.ps1',
     'posture-staleness-gate.ps1',
     'librarian-digest.ps1',
@@ -82,6 +85,9 @@ function Build-HookCmd {
 
 $cmdRouting     = Build-HookCmd 'routing-enforcer.ps1'
 $cmdPrelude     = Build-HookCmd 'session-prelude.ps1'
+$cmdVaultCtx    = Build-HookCmd 'vault-context-injector.ps1'
+$cmdSessionEnd  = Build-HookCmd 'session-end-detect.ps1'
+$cmdPreCompact  = Build-HookCmd 'precompact-handoff.ps1'
 $cmdSuperpowers = Build-HookCmd 'superpowers-init.ps1'
 $cmdPosture     = Build-HookCmd 'posture-staleness-gate.ps1'
 $cmdLibrarian   = Build-HookCmd 'librarian-digest.ps1'
@@ -162,8 +168,13 @@ $hookSpec = [ordered]@{
         @{ name = 'session-prelude.ps1';       cmd = $cmdPrelude;     timeout = 12; matcher = '' }
     )
     'UserPromptSubmit' = @(
-        @{ name = 'routing-enforcer.ps1';      cmd = $cmdRouting;     timeout = 10; matcher = '' },
-        @{ name = 'preference-detector.ps1';   cmd = $cmdPreference;  timeout = 8;  matcher = '' }
+        @{ name = 'routing-enforcer.ps1';        cmd = $cmdRouting;     timeout = 10; matcher = '' },
+        @{ name = 'vault-context-injector.ps1';  cmd = $cmdVaultCtx;    timeout = 8;  matcher = '' },
+        @{ name = 'session-end-detect.ps1';      cmd = $cmdSessionEnd;  timeout = 5;  matcher = '' },
+        @{ name = 'preference-detector.ps1';     cmd = $cmdPreference;  timeout = 8;  matcher = '' }
+    )
+    'PreCompact' = @(
+        @{ name = 'precompact-handoff.ps1';      cmd = $cmdPreCompact;  timeout = 5;  matcher = '' }
     )
     'PreToolUse' = @(
         @{ name = 'posture-staleness-gate.ps1'; cmd = $cmdPosture;    timeout = 6;  matcher = '' }

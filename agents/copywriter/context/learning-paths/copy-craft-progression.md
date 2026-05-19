@@ -131,7 +131,7 @@ By the end of this path you should be able to:
 
 ## Cross-References
 
-- The the Stack agent that operates in this domain: `agents/copywriter/SKILL.md`
+- The agent that operates in this domain: `agents/copywriter/SKILL.md`
 - Methodology framework(s) cited: `agents/copywriter/context/methodology/` (in development)
 - Reference clippings: `agents/copywriter/context/references/` (vendored as Phase 1 expands)
 - Related agents:

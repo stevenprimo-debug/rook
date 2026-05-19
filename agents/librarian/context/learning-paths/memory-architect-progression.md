@@ -123,7 +123,7 @@ By the end of this path you should be able to:
 
 ## Cross-References
 
-- The the Stack agent that operates in this domain: `agents/librarian/SKILL.md`
+- The agent that operates in this domain: `agents/librarian/SKILL.md`
 - Methodology framework(s) cited: `agents/librarian/context/methodology/` (in development)
 - Reference clippings:
   - `agents/librarian/context/references/anthropic-ama-architecture.md`

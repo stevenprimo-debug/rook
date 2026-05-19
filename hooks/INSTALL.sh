@@ -45,6 +45,9 @@ step "Verifying hook scripts exist"
 REQUIRED_HOOKS=(
     "routing-enforcer.sh"
     "session-prelude.sh"
+    "vault-context-injector.sh"
+    "session-end-detect.sh"
+    "precompact-handoff.sh"
     "superpowers-init.sh"
     "posture-staleness-gate.sh"
     "librarian-digest.sh"
@@ -78,6 +81,9 @@ build_cmd() { echo "bash \"$HOOKS_DIR/$1\""; }
 
 CMD_ROUTING=$(build_cmd "routing-enforcer.sh")
 CMD_PRELUDE=$(build_cmd "session-prelude.sh")
+CMD_VAULT_CTX=$(build_cmd "vault-context-injector.sh")
+CMD_SESSION_END=$(build_cmd "session-end-detect.sh")
+CMD_PRECOMPACT=$(build_cmd "precompact-handoff.sh")
 CMD_SUPERPOWERS=$(build_cmd "superpowers-init.sh")
 CMD_POSTURE=$(build_cmd "posture-staleness-gate.sh")
 CMD_LIBRARIAN=$(build_cmd "librarian-digest.sh")
@@ -175,6 +181,9 @@ SETTINGS=$(echo "$SETTINGS" | jq \
     --argjson ourNames "$OUR_NAMES_JSON" \
     --arg cmdRouting   "$CMD_ROUTING" \
     --arg cmdPrelude   "$CMD_PRELUDE" \
+    --arg cmdVaultCtx  "$CMD_VAULT_CTX" \
+    --arg cmdSessEnd   "$CMD_SESSION_END" \
+    --arg cmdPreComp   "$CMD_PRECOMPACT" \
     --arg cmdSp        "$CMD_SUPERPOWERS" \
     --arg cmdPost      "$CMD_POSTURE" \
     --arg cmdLib       "$CMD_LIBRARIAN" \
@@ -199,8 +208,14 @@ def strip_ours($arr):
     ]}]
 | .hooks.UserPromptSubmit = strip_ours(.hooks.UserPromptSubmit) + [{
     matcher: "", hooks: [
-        {type:"command", command:$cmdRouting, timeout:10},
-        {type:"command", command:$cmdPref,    timeout:8}
+        {type:"command", command:$cmdRouting,  timeout:10},
+        {type:"command", command:$cmdVaultCtx, timeout:8},
+        {type:"command", command:$cmdSessEnd,  timeout:5},
+        {type:"command", command:$cmdPref,     timeout:8}
+    ]}]
+| .hooks.PreCompact = strip_ours(.hooks.PreCompact) + [{
+    matcher: "", hooks: [
+        {type:"command", command:$cmdPreComp, timeout:5}
     ]}]
 | .hooks.PreToolUse      = strip_ours(.hooks.PreToolUse) + [{
     matcher: "", hooks: [
@@ -213,7 +228,8 @@ def strip_ours($arr):
 ')
 
 ok "SessionStart :: superpowers-init.sh, session-prelude.sh"
-ok "UserPromptSubmit :: routing-enforcer.sh, preference-detector.sh"
+ok "UserPromptSubmit :: routing-enforcer.sh, vault-context-injector.sh, session-end-detect.sh, preference-detector.sh"
+ok "PreCompact :: precompact-handoff.sh"
 ok "PreToolUse :: posture-staleness-gate.sh"
 ok "PostToolUse :: librarian-digest.sh"
 

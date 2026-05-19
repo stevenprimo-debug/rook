@@ -80,8 +80,8 @@ The canonical loop (per locked memory) for any non-trivial build:
 
 **`/office-hours`** — for new products or features, validates
 whether the build is worth doing at all. Office hours surfaces
-the demand reality, the wedge, the customer truth. New the Stack
-SaaS ideas, new Stage Pro features, new product lines all start
+the demand reality, the wedge, the customer truth. New [your product]
+SaaS ideas, new [your physical/SaaS product] features, new product lines all start
 here.
 
 **`/autoplan`** — runs the full review gauntlet (CEO, design, eng,
@@ -228,7 +228,7 @@ until the next symptom surfaces.
 
 ## Common Applications
 
-**New the Stack SaaS feature build (balanced mode):**
+**New [your product] feature build (balanced mode):**
 The agent classifies as balanced. Build loop:
 1. `/autoplan` produces the reviewed plan.
 2. Build with TDD on business logic.
@@ -238,7 +238,7 @@ The agent classifies as balanced. Build loop:
 The cycle takes 1-2 days for a medium feature; bake-in overhead
 is ~20% of total time; quality is balanced-mode appropriate.
 
-**Stage Pro experimental feature (high-velocity mode):**
+**[your physical/SaaS product] experimental feature (high-velocity mode):**
 The agent classifies as high-velocity (early validation, no users
 yet on this feature). Compressed loop:
 1. `/autoplan` skipped (explicit reason: validation-stage; will
@@ -248,7 +248,7 @@ yet on this feature). Compressed loop:
 4. `/ship` direct.
 Cycle takes hours, not days. Bake-in overhead is ~5%.
 
-**the Stack payment integration (high-rigor mode):**
+**[your product] payment integration (high-rigor mode):**
 The agent classifies as high-rigor (financial transactions).
 Full loop:
 1. `/office-hours` to validate the approach.
@@ -262,7 +262,7 @@ Cycle takes 1-2 weeks; bake-in overhead is ~40%; high-rigor mode
 justifies the cost.
 
 **Production bug investigation:**
-A user reports a Stage Pro error. The agent triggers
+A user reports a [your physical/SaaS product] error. The agent triggers
 `/investigate` rather than debugging directly. Four phases run:
 investigate (gather data), analyze (identify root cause),
 hypothesize (propose fix), implement (apply fix with test).
@@ -273,7 +273,7 @@ patterns, code quality metrics. Output: lessons for next week's
 work. Memory file updated with patterns.
 
 **Pre-launch security check:**
-Before launching the the Stack SaaS publicly, `/cso` runs
+Before launching the [your product] publicly, `/cso` runs
 comprehensive mode. Output: list of findings with severity.
 Critical findings block launch; lower findings get logged in
 TECHDEBT with remediation plan.

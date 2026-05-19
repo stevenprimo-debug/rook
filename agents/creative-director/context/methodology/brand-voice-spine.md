@@ -14,7 +14,7 @@ Brand voice is not "tone." Tone shifts by context (formal in a
 proposal, conversational in social media). Voice is the consistent
 underlying register that persists across tone shifts — the
 signature the audience recognizes whether they're reading an [your employer]
-proposal cover, a the cohort email, or a Stage Pro product
+proposal cover, a the cohort email, or a [your physical/SaaS product] product
 update.
 
 A well-formed brand voice spine specifies:
@@ -52,10 +52,10 @@ the implementation document for the first and third poles.
   warmth language?" The spine's forbidden-vocabulary list is the
   test.
 
-For the operator's brand ecosystem — [your employer] client materials, the Stack
-cohort and community communications, Ableton/Stage Pro product
+For the operator's brand ecosystem — [your employer] client materials, [your product]
+cohort and community communications, [your product line] product
 language, social-media posts across multiple voices (the operator's
-personal, [your employer], the Stack) — the spine prevents drift across
+personal, [your employer], [your product]) — the spine prevents drift across
 surfaces and across time. Without it, each surface drifts toward
 the surface-author's voice or toward AI-default neutrality, and
 the brand sounds different in every channel.
@@ -68,7 +68,7 @@ Voice pillars are 3-5 named qualities the brand voice holds. Each
 pillar is specific enough to act on, not so abstract that it
 becomes filler.
 
-For the Stack (the practitioner voice):
+For [your product] (the practitioner voice):
 - **Specific** — uses concrete numbers, named scenarios, actual
   customer language. Refuses generalization.
 - **Practitioner-to-practitioner** — the writer is in the
@@ -104,7 +104,7 @@ the cohort example:
 | We Don't Sound Like | We Sound Like |
 |---|---|
 | "Unlock your creative potential with AI" | "The session musicians you played with last year are using Suno to clone their own sound. Here's how to stay ahead." |
-| "Join our amazing community of creators" | "There's about 60 of us in the cohort Discord, mostly touring crew who pivoted in the last 18 months." |
+| "Join our amazing community of creators" | "There's about 60 of us in the cohort Discord, mostly [your customer community] who pivoted in the last 18 months." |
 | "Transform your career with cutting-edge tools" | "By week 6 you'll have shipped one tool people pay for. The math gets honest about whether the cohort worked." |
 | "Don't miss out on this opportunity" | "Cohort 3 closes Friday at 6pm CT. After that, the next door opens in October." |
 
@@ -147,8 +147,8 @@ by audience context:
 - **Executive-buyer register** ([your employer] proposal, CFO outreach): formal,
   confident, no contractions in formal documents, executive
   vocabulary, no emojis, no exclamation points.
-- **Practitioner register** (the cohort, Ableton community,
-  Stage Pro updates): peer-to-peer, contractions natural, named
+- **Practitioner register** (the cohort, [your community],
+  [your physical/SaaS product] updates): peer-to-peer, contractions natural, named
   scenarios, technical vocabulary respected.
 - **Community register** (Discord, social media): conversational,
   closer to spoken language, but still anti-warmth-default.
@@ -224,7 +224,7 @@ our community!" → AI-default warmth; "Unlock your creative
 potential" → forbidden vocab. Returns with rewrite suggestions
 matching the "we sound like" matrix.
 
-**Stage Pro product update audit:**
+**[your physical/SaaS product] product update audit:**
 The product update reads correctly for the touring-engineer
 audience: specific feature names, specific use cases, peer-to-peer
 register. The agent audits and confirms voice held. Surface

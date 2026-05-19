@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "autocad-mcp": {
+      "type": "stdio",
+      "command": "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\.claude\\skills\\registry\\autocad-mcp\\.venv\\Scripts\\python.exe",
+      "args": ["-m", "autocad_mcp"],
+      "env": {
+        "AUTOCAD_MCP_BACKEND": "ezdxf"
+      }
+    }
+  }
+}

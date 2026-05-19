@@ -48,7 +48,7 @@ GUARDRAILS:
 ant beta:agents create \
   --name 'Sales Triage Squad (Multi-agent) — {CUSTOMER_NAME}' \
   --model '{"id": "{MODEL_ID — default: claude-sonnet-4-6}"}' \
-  --system "$(cat _FROM_CLAUDE/{DATE}-sales-triage-squad-system-prompt.md)" \
+  --system "$(cat out/{DATE}-sales-triage-squad-system-prompt.md)" \
   --tool '{type: agent_toolset_20260401}' \
   --tool '{type: mcp_toolset, mcp_server_name: apollo}' \
   --tool '{type: mcp_toolset, mcp_server_name: hubspot}' \

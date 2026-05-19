@@ -6,8 +6,8 @@
 $raw = [Console]::In.ReadToEnd()
 try { $data = $raw | ConvertFrom-Json } catch { $data = $null }
 
-$assignDir = "C:\Users\User\Desktop\PRIMOLABS\DEPARTMENTS\CEO\assignments"
-$handoffsDir = "C:\Users\User\Desktop\PRIMOLABS\CLAUDE CODE\HANDOFFS"
+$assignDir = "$env:VAULT_ROOT\DEPARTMENTS\CEO\assignments"
+$handoffsDir = "$env:VAULT_ROOT\CLAUDE CODE\HANDOFFS"
 
 if (-not (Test-Path $assignDir)) { exit 0 }
 if (-not (Test-Path $handoffsDir)) { exit 0 }
