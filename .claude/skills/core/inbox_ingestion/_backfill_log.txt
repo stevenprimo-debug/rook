@@ -1,0 +1,102 @@
+2026-05-02 20:37:05 [INFO] Found 50 image(s) to process.
+2026-05-02 20:37:12 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 400 Bad Request"
+2026-05-02 20:37:12 [ERROR] Failed to process (1) Chat.jpeg.png: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'messages.0.content.0.image.source.base64.data: At least one of the image dimensions exceed max allowed size: 8000 pixels'}, 'request_id': 'req_011Caen9kJrfEcMVGBC9ATQx'}
+2026-05-02 20:37:40 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:37:40 [INFO] Processed: Facebook (1).jpeg.png → 2026-05-01-1659-linkedin-post-ai-undetectable-browser-automation-tool.png
+2026-05-02 20:37:58 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:37:58 [INFO] Processed: Facebook.jpeg.png → 2026-05-01-1410-runitself-facebook-ad-ai-board-agency-chatgpt.png
+2026-05-02 20:38:06 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:38:07 [INFO] Processed: IMG_0394.PNG → 2026-04-22-2109-care-com-video-interview-confirmed-childcare-autumn.png
+2026-05-02 20:38:15 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:38:15 [INFO] Processed: IMG_0395.PNG → 2026-04-22-2109-github-ios-simulator-skill-repo-mobile-view.png
+2026-05-02 20:38:23 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:38:23 [INFO] Processed: IMG_0396.PNG → 2026-04-22-2110-github-mobile-repo-file-browser-senior-engineering-folders.png
+2026-05-02 20:38:30 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:38:30 [INFO] Processed: IMG_0397.PNG → 2026-04-22-2110-github-repo-skills-directory-git-worktrees-mobile.png
+2026-05-02 20:38:47 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:38:47 [INFO] Processed: IMG_0398.PNG → 2026-04-22-2110-facebook-post-claude-ai-design-skills-github-repos.png
+2026-05-02 20:39:05 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:39:05 [INFO] Processed: IMG_0399.PNG → 2026-04-22-2110-facebook-post-claude-ai-writing-skills-github-repos.png
+2026-05-02 20:39:19 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:39:20 [INFO] Processed: IMG_0400.PNG → 2026-04-22-2109-facebook-post-claude-ai-marketing-stack-business-growth.png
+2026-05-02 20:39:26 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:39:26 [INFO] Processed: IMG_0612.PNG → 2026-05-02-1735-facebook-reel-anthropic-ultraplan-feature-jens-heitmann.png
+2026-05-02 20:39:32 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:39:32 [INFO] Processed: IMG_0613.PNG → 2026-05-02-1735-facebook-reel-jens-heitmann-anthropic-powerup.png
+2026-05-02 20:39:38 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:39:38 [INFO] Processed: IMG_0614.PNG → 2026-05-02-1735-facebook-reel-anthropic-claude-insights-feature.png
+2026-05-02 20:39:39 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 400 Bad Request"
+2026-05-02 20:39:39 [ERROR] Failed to process IMG_0615.PNG: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'messages.0.content.0.image.source.base64: The image was specified using the image/png media type, but the image appears to be a image/jpeg image'}, 'request_id': 'req_011CaenLf3QihuLxCL5fvQdc'}
+2026-05-02 20:39:41 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 400 Bad Request"
+2026-05-02 20:39:41 [ERROR] Failed to process IMG_0616.PNG: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'messages.0.content.0.image.source.base64: The image was specified using the image/png media type, but the image appears to be a image/jpeg image'}, 'request_id': 'req_011CaenLkkxPxqxsuFMVDeHn'}
+2026-05-02 20:39:42 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 400 Bad Request"
+2026-05-02 20:39:42 [ERROR] Failed to process IMG_0617.PNG: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'messages.0.content.0.image.source.base64: The image was specified using the image/png media type, but the image appears to be a image/jpeg image'}, 'request_id': 'req_011CaenLqBc6ns4VWAadm98F'}
+2026-05-02 20:39:58 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:39:58 [INFO] Processed: IMG_0618.PNG → 2026-05-02-1735-claude-ai-agent-layer3-hooks-infographic-facebook.png
+2026-05-02 20:39:59 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 400 Bad Request"
+2026-05-02 20:39:59 [ERROR] Failed to process IMG_0619.PNG: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'messages.0.content.0.image.source.base64: The image was specified using the image/png media type, but the image appears to be a image/jpeg image'}, 'request_id': 'req_011CaenN8bPbvDDwgasFTpor'}
+2026-05-02 20:40:01 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 400 Bad Request"
+2026-05-02 20:40:01 [ERROR] Failed to process IMG_0620.PNG: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'messages.0.content.0.image.source.base64: The image was specified using the image/png media type, but the image appears to be a image/jpeg image'}, 'request_id': 'req_011CaenNERdBGQ523p6egYxw'}
+2026-05-02 20:40:08 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:40:09 [INFO] Processed: IMG_0621.PNG → 2026-05-02-1735-adventure-media-ai-pricing-money-back-guarantee-mobile.png
+2026-05-02 20:40:16 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:40:16 [INFO] Processed: IMG_0632.PNG → 2026-05-02-1735-entrepreneur-dinner-club-whop-subscription-checkout.png
+2026-05-02 20:40:32 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:40:32 [INFO] Processed: IMG_0643.PNG → 2026-05-02-1736-derek-gray-instagram-realty-firms-a-tier-buyer-leads.png
+2026-05-02 20:40:47 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:40:47 [INFO] Processed: IMG_0644.PNG → 2026-05-02-1736-derek-gray-instagram-lawyers-s-tier-ai-agents-marketing.png
+2026-05-02 20:41:01 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:41:01 [INFO] Processed: IMG_0645.PNG → 2026-05-02-1736-instagram-derek-gray-bathroom-remodeling-business-tip.png
+2026-05-02 20:41:13 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:41:14 [INFO] Processed: IMG_0646.PNG → 2026-05-02-1735-instagram-derek-gray-ai-agent-therapist-lead-generation.png
+2026-05-02 20:41:28 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:41:28 [ERROR] Failed to process IMG_0647.PNG: Expecting ',' delimiter: line 2 column 260 (char 261)
+2026-05-02 20:41:39 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:41:39 [INFO] Processed: IMG_0648.PNG → 2026-05-02-1735-derek-gray-instagram-ai-agents-50k-month-blueprint.png
+2026-05-02 20:41:54 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:41:54 [INFO] Processed: IMG_0650.PNG → 2026-05-02-1736-instagram-ai-agent-tax-deduction-w2-employee-post.png
+2026-05-02 20:42:02 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:42:02 [INFO] Processed: IMG_0653.PNG → 2026-05-02-1735-resolume-7-26-release-announcement-claude-logo.png
+2026-05-02 20:42:22 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:42:22 [INFO] Processed: IMG_0655.PNG → 2026-05-02-1735-obsidian-web-clipper-webpage-to-markdown-reel.png
+2026-05-02 20:42:33 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:42:33 [INFO] Processed: IMG_0656.PNG → 2026-05-02-1735-ui-ux-pro-max-design-intelligence-nextlevelbuilder.png
+2026-05-02 20:42:42 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:42:42 [INFO] Processed: IMG_0657.PNG → 2026-05-02-1735-google-search-claude-ableton-mcp-integration.png
+2026-05-02 20:42:56 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:42:56 [INFO] Processed: IMG_0661.PNG → 2026-05-02-1735-instagram-reel-google-stitch-mcp-ai-design-tool.png
+2026-05-02 20:43:09 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:43:09 [INFO] Processed: IMG_0662.PNG → 2026-05-02-1735-instagram-reel-nano-banana-2-gemini-image-preview-tool.png
+2026-05-02 20:43:18 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:43:18 [INFO] Processed: IMG_0663.PNG → 2026-05-02-1735-instagram-reel-jens-heitmann-21st-dev-asset-library.png
+2026-05-02 20:43:38 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:43:38 [INFO] Processed: img_1_1776909417665.jpg → 2026-04-22-2057-jamie-ai-empire-workflow-orchestration-system-prompt.jpg
+2026-05-02 20:43:45 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 400 Bad Request"
+2026-05-02 20:43:45 [ERROR] Failed to process Maciej Marek  Agentic Engineering.jpeg.png: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'messages.0.content.0.image.source.base64.data: At least one of the image dimensions exceed max allowed size: 8000 pixels'}, 'request_id': 'req_011CaenemFifrXPTseudWNPC'}
+2026-05-02 20:43:53 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:43:53 [INFO] Processed: Screenshot 2026-04-22 at 9.06.49 PM.png → 2026-04-22-2107-mindstudio-ai-agent-bootcamp-luma-event-may2.png
+2026-05-02 20:44:02 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:44:02 [INFO] Processed: Screenshot 2026-04-22 at 9.07.55 PM.png → 2026-04-22-2108-luma-ai-event-ticket-purchase-early-bird.png
+2026-05-02 20:44:12 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:44:12 [INFO] Processed: Screenshot 2026-04-22 at 9.08.21 PM.png → 2026-04-22-2108-luma-ai-workshop-openclaw-claude-code-agents-event.png
+2026-05-02 20:44:19 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:44:19 [INFO] Processed: Screenshot 2026-04-22 at 9.08.55 PM.png → 2026-04-22-2109-greensock-gsap-skills-github-repo-mobile-view.png
+2026-05-02 20:44:42 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:44:42 [INFO] Processed: Screenshot 2026-05-01 at 6.52.02 PM.png → 2026-05-01-1852-dariuslukas-how-to-use-ai-specialists-claude-infographic.png
+2026-05-02 20:44:50 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:44:50 [INFO] Processed: Screenshot 2026-05-01 at 6.59.06 PM.png → 2026-05-01-1859-claude-ai-autodesk-fusion-connector-instagram-post.png
+2026-05-02 20:44:56 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:44:56 [INFO] Processed: Screenshot 2026-05-01 at 7.02.50 PM.png → 2026-05-01-1903-emergent-app-login-page-mobile-screenshot.png
+2026-05-02 20:45:16 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:45:16 [INFO] Processed: Screenshot 2026-05-01 at 7.04.50 PM.png → 2026-05-01-1905-specific-knowledge-excavator-naval-ravikant-prompt.png
+2026-05-02 20:45:26 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:45:26 [INFO] Processed: Screenshot 2026-05-02 at 11.15.58 AM.png → 2026-05-02-1116-mengto-url-to-design-md-tool-aura-build-announcement.png
+2026-05-02 20:45:38 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:45:38 [INFO] Processed: Screenshot 2026-05-02 at 11.27.51 AM.png → 2026-05-02-1128-kevinfremon-elevenlabs-ai-jarvis-build-tutorial-reel.png
+2026-05-02 20:45:48 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:45:48 [INFO] Processed: Screenshot 2026-05-02 at 11.30.10 AM.png → 2026-05-02-1130-sebastianhardy-tiktok-claude-md-obsidian-backlinks-tip.png
+2026-05-02 20:45:59 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:45:59 [INFO] Processed: Screenshot 2026-05-02 at 11.30.38 AM.png → 2026-05-02-1130-sebastianhardy-instagram-claude-code-obsidian-backlinks-tuto.png
+2026-05-02 20:46:15 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:46:15 [INFO] Processed: Screenshot 2026-05-02 at 11.39.03 AM.png → 2026-05-02-1139-instagram-reel-lindy-ai-automation-platform-promo.png
+2026-05-02 20:46:15 [INFO] Pipeline complete: 42 success, 8 failed out of 50 total.

@@ -1,0 +1,72 @@
+{
+  "_comment": "PrimoLabs Stack v1 — canonical hook block. INSTALL.ps1/sh substitutes ${PRIMOLABS_HOOKS_DIR} with the absolute path to PrimoLabs_PoweredByClaude/hooks before merging into ~/.claude/settings.json. Re-running INSTALL is idempotent — it detects an existing PrimoLabs hook entry by command-substring and updates in place rather than duplicating.",
+  "env": {
+    "PRIMOLABS_VAULT_ROOT": "${PRIMOLABS_VAULT_ROOT}",
+    "PRIMOLABS_HOOKS_DIR": "${PRIMOLABS_HOOKS_DIR}",
+    "PRIMOLABS_HARDSTOP_HOUR": "16",
+    "PRIMOLABS_HARDSTOP_ENABLED": "1",
+    "PRIMOLABS_HARDSTOP_TZ": "Central Standard Time",
+    "PRIMOLABS_POSTURE_STALE_DAYS": "7",
+    "PRIMOLABS_LIBRARIAN_CADENCE": "50"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${HOOK_CMD_SUPERPOWERS_INIT}",
+            "timeout": 8
+          },
+          {
+            "type": "command",
+            "command": "${HOOK_CMD_SESSION_PRELUDE}",
+            "timeout": 12
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${HOOK_CMD_ROUTING_ENFORCER}",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "${HOOK_CMD_PREFERENCE_DETECTOR}",
+            "timeout": 8
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${HOOK_CMD_POSTURE_GATE}",
+            "timeout": 6
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${HOOK_CMD_LIBRARIAN_DIGEST}",
+            "timeout": 8
+          }
+        ]
+      }
+    ]
+  }
+}

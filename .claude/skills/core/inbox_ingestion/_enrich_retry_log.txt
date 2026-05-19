@@ -1,0 +1,113 @@
+22:11:56 [INFO] Found 52 markdown file(s) to consider.
+22:11:56 [INFO] [1/52] 2026-04-22-2057-jamie-ai-empire-workflow-orchestration-system-prompt.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [2/52] 2026-04-22-2107-mindstudio-ai-agent-bootcamp-luma-event-may2.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [3/52] 2026-04-22-2108-luma-ai-event-ticket-purchase-early-bird.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [4/52] 2026-04-22-2108-luma-ai-workshop-openclaw-claude-code-agents-event.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [5/52] 2026-04-22-2109-care-com-video-interview-confirmed-childcare-autumn.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [6/52] 2026-04-22-2109-facebook-post-claude-ai-marketing-stack-business-growth.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [7/52] 2026-04-22-2109-github-ios-simulator-skill-repo-mobile-view.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [8/52] 2026-04-22-2109-greensock-gsap-skills-github-repo-mobile-view.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [9/52] 2026-04-22-2110-facebook-post-claude-ai-design-skills-github-repos.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [10/52] 2026-04-22-2110-facebook-post-claude-ai-writing-skills-github-repos.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [11/52] 2026-04-22-2110-github-mobile-repo-file-browser-senior-engineering-folders.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [12/52] 2026-04-22-2110-github-repo-skills-directory-git-worktrees-mobile.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [13/52] 2026-05-01-1410-runitself-facebook-ad-ai-board-agency-chatgpt.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [14/52] 2026-05-01-1412-untitled.md
+22:11:56 [INFO]   skipped: no research targets identified
+22:11:56 [INFO] [15/52] 2026-05-01-1425-untitled.md
+22:11:56 [INFO]   skipped: no research targets identified
+22:11:56 [INFO] [16/52] 2026-05-01-1659-linkedin-post-ai-undetectable-browser-automation-tool.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [17/52] 2026-05-01-1852-dariuslukas-how-to-use-ai-specialists-claude-infographic.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [18/52] 2026-05-01-1859-claude-ai-autodesk-fusion-connector-instagram-post.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [19/52] 2026-05-01-1903-emergent-app-login-page-mobile-screenshot.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [20/52] 2026-05-01-1905-specific-knowledge-excavator-naval-ravikant-prompt.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [21/52] 2026-05-02-1113-brain-dump-knowledge-librarian-ai-app-reel.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [22/52] 2026-05-02-1116-mengto-url-to-design-md-tool-aura-build-announcement.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [23/52] 2026-05-02-1128-kevinfremon-elevenlabs-ai-jarvis-build-tutorial-reel.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [24/52] 2026-05-02-1130-sebastianhardy-instagram-claude-code-obsidian-backlinks-tuto.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [25/52] 2026-05-02-1130-sebastianhardy-tiktok-claude-md-obsidian-backlinks-tip.md
+22:11:56 [INFO]   skipped: already enriched
+22:11:56 [INFO] [26/52] 2026-05-02-1139-instagram-reel-lindy-ai-automation-platform-promo.md
+22:11:59 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:12:50 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:12:50 [INFO]   enriched: 4 targets, 5 searches
+22:12:50 [INFO] [27/52] 2026-05-02-1735-adventure-media-ai-pricing-money-back-guarantee-mobile.md
+22:12:50 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 400 Bad Request"
+22:12:50 [ERROR]   failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CaeuSmgzYyR6X6L3DhKze'}
+22:12:50 [INFO] [28/52] 2026-05-02-1735-agent-dev-kit-five-layer-claude-architecture-diagram.md
+22:12:51 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 400 Bad Request"
+22:12:51 [ERROR]   failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CaeuSp2PetqZWtcMrgjAb'}
+22:12:51 [INFO] [29/52] 2026-05-02-1735-claude-ai-agent-layer3-hooks-infographic-facebook.md
+22:12:51 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 400 Bad Request"
+22:12:51 [ERROR]   failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CaeuSqn4Z277XdQ6a3hBF'}
+22:12:51 [INFO] [30/52] 2026-05-02-1735-claude-layer2-skills-modular-architecture-infographic.md
+22:12:51 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 400 Bad Request"
+22:12:51 [ERROR]   failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CaeuSsMZTN7gXKByAKuhJ'}
+22:12:51 [INFO] [31/52] 2026-05-02-1735-claude-layer4-subagents-architecture-diagram.md
+22:12:51 [INFO]   skipped: already enriched
+22:12:51 [INFO] [32/52] 2026-05-02-1735-claude-md-layer1-agent-constitution-infographic.md
+22:12:51 [INFO]   skipped: already enriched
+22:12:51 [INFO] [33/52] 2026-05-02-1735-derek-gray-instagram-ai-agents-50k-month-blueprint.md
+22:12:51 [INFO]   skipped: already enriched
+22:12:51 [INFO] [34/52] 2026-05-02-1735-entrepreneur-dinner-club-whop-subscription-checkout.md
+22:12:51 [INFO]   skipped: already enriched
+22:12:51 [INFO] [35/52] 2026-05-02-1735-facebook-reel-anthropic-claude-insights-feature.md
+22:12:51 [INFO]   skipped: already enriched
+22:12:51 [INFO] [36/52] 2026-05-02-1735-facebook-reel-anthropic-ultraplan-feature-jens-heitmann.md
+22:12:52 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 400 Bad Request"
+22:12:52 [ERROR]   failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CaeuStpsGRTxjfYJE5c1j'}
+22:12:52 [INFO] [37/52] 2026-05-02-1735-facebook-reel-jens-heitmann-anthropic-powerup.md
+22:12:52 [INFO]   skipped: already enriched
+22:12:52 [INFO] [38/52] 2026-05-02-1735-google-search-claude-ableton-mcp-integration.md
+22:12:52 [INFO]   skipped: already enriched
+22:12:52 [INFO] [39/52] 2026-05-02-1735-instagram-derek-gray-ai-agent-therapist-lead-generation.md
+22:12:52 [INFO]   skipped: already enriched
+22:12:52 [INFO] [40/52] 2026-05-02-1735-instagram-reel-google-stitch-mcp-ai-design-tool.md
+22:12:52 [INFO]   skipped: already enriched
+22:12:52 [INFO] [41/52] 2026-05-02-1735-instagram-reel-jens-heitmann-21st-dev-asset-library.md
+22:12:52 [INFO]   skipped: already enriched
+22:12:52 [INFO] [42/52] 2026-05-02-1735-instagram-reel-nano-banana-2-gemini-image-preview-tool.md
+22:12:52 [INFO]   skipped: already enriched
+22:12:52 [INFO] [43/52] 2026-05-02-1735-layer-5-plugins-claude-agent-framework-infographic.md
+22:12:52 [INFO]   skipped: already enriched
+22:12:52 [INFO] [44/52] 2026-05-02-1735-obsidian-web-clipper-webpage-to-markdown-reel.md
+22:12:52 [INFO]   skipped: already enriched
+22:12:52 [INFO] [45/52] 2026-05-02-1735-resolume-7-26-release-announcement-claude-logo.md
+22:12:52 [INFO]   skipped: already enriched
+22:12:52 [INFO] [46/52] 2026-05-02-1735-ui-ux-pro-max-design-intelligence-nextlevelbuilder.md
+22:12:52 [INFO]   skipped: already enriched
+22:12:52 [INFO] [47/52] 2026-05-02-1736-derek-gray-instagram-auto-repair-shop-s-tier-business.md
+22:12:52 [INFO]   skipped: already enriched
+22:12:52 [INFO] [48/52] 2026-05-02-1736-derek-gray-instagram-lawyers-s-tier-ai-agents-marketing.md
+22:12:52 [INFO]   skipped: already enriched
+22:12:52 [INFO] [49/52] 2026-05-02-1736-derek-gray-instagram-realty-firms-a-tier-buyer-leads.md
+22:12:52 [INFO]   skipped: already enriched
+22:12:52 [INFO] [50/52] 2026-05-02-1736-instagram-ai-agent-tax-deduction-w2-employee-post.md
+22:12:52 [INFO]   skipped: already enriched
+22:12:52 [INFO] [51/52] 2026-05-02-1736-instagram-derek-gray-bathroom-remodeling-business-tip.md
+22:12:52 [INFO]   skipped: already enriched
+22:12:52 [INFO] [52/52] 2026-05-02-2059-instagram-futurewalt-primolabs-finance-tutorial-post.md
+22:12:52 [INFO]   skipped: already enriched
+22:12:52 [INFO] Done: 1 enriched, 46 skipped, 5 failed, 5 total searches

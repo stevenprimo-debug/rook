@@ -1,0 +1,698 @@
+{
+  "_documentation": {
+    "purpose": "Canonical AGENT-keyed routing manifest for v3 architecture. Single source of truth.",
+    "version": 3,
+    "created": "2026-05-14",
+    "supersedes": "v2 dept-keyed manifest at C:/Users/User/Desktop/PRIMOLABS/routing-rules.json",
+    "read_by": [
+      "Customer's local routing-enforcer.ps1 hook (on UserPromptSubmit)",
+      ".claude/agents/*.md (snapshot mirrors)",
+      "departments/*/CLAUDE.md (cross-ref pointers)"
+    ],
+    "edit_pattern": "Edit this file FIRST. Then run resync to push snapshots to agent + dept files. The hook reads this file on every prompt — enforcement is live the moment this file is saved.",
+    "format_choice": "JSON not YAML because PowerShell 5.1 parses JSON natively. Comments live in _comment fields.",
+    "v3_transformation_notes": [
+      "v2 was dept-keyed (17 depts). v3 is agent-keyed (20 agents) with dept context shells for non-agent-routable work.",
+      "PERSONAL dropped from manifest — personal context moves to ~/.claude/CLAUDE.md per v3 lock.",
+      "PRIMOLABS dropped as a dept — public keywords split to chief-of-staff (with PRIMOLABS_PUBLIC chain firing), curriculum to product-manager.",
+      "FINANCE split: trade execution → trading-analyst, deal economics + commission ledger → finance-manager.",
+      "MARKETING split: brand/positioning → marketing-director, SEO+AEO → seo-specialist (AEO folded in 2026-05-14), copy → copywriter.",
+      "SOFTWARE_DEV flattened: FE/BE/SEC/QA sub-depts collapse into software-dev-team with mode hints in enforce_message.",
+      "ABLETON/UNREAL/RESOLUME/HUBSPOT have no dedicated agent yet — in departments_context with agent: TBD.",
+      "2026-05-14 roster change (Primo lock): (1) aeo-specialist folded into seo-specialist as AEO Mode — frees one slot, both benches load in one agent. Archive at _archive/2026-05/aeo-specialist_folded_into_seo/. (2) engineering-lead added — mechanical/CAD engineering domain (AutoCAD automation, BOM extraction, sheet-metal nesting, AV-integration mech drawings, Revit/BIM, manufacturability audits). Distinct from software-dev-team (web/SaaS) and r-and-d-lead (experimental). ENGINEERING removed from departments_context now that it has a dedicated agent."
+    ]
+  },
+
+  "_global_rules": {
+    "comment": "Rules that apply across all agents. Hook respects these.",
+    "main_thread_anti_thesis": "When ANY agent's primary keywords fire AND the user is asking for analysis/verdict (not just informational), the hook reminds Claude: do NOT thesis from main thread. Dispatch the agent. Main thread synthesizes the return into a one-line answer.",
+    "reversibility_gate": "When the dispatch involves an irreversible action (client email, prod change, public post, money), require explicit Primo confirm before DEPLOY. Always.",
+    "false_positive_handling": "If the hook fires but the actual work is hook/infrastructure/discussion ABOUT the agent (not work BY the agent), mark false positive in chat and proceed. The hook overfires by design; the agent decides semantically."
+  },
+
+  "dispatch_chains": {
+    "_comment": "Some agents require upstream dispatch before they can fire. designer cannot ship without creative-director + marketing-director briefs upstream.",
+    "designer": {
+      "upstream": ["creative-director", "marketing-director"],
+      "reason": "designer is visual execution. creative-director owns narrative arc + brand voice. marketing-director owns positioning + funnel logic. Skipping either produces generic output.",
+      "failure_date": "2026-05-08",
+      "enforcement": "BEFORE any Edit/Write to a design/copy/brand file, state whether creative-director and marketing-director were dispatched (Y/N + brief path). If N/N, give explicit skip reason + confirm Primo's awareness."
+    },
+    "marketing-director": {
+      "upstream": ["creative-director"],
+      "reason": "Marketing copy validates against creative-director's brand voice and story spine. Skipping CD = off-brand campaigns.",
+      "enforcement": "Hero copy + campaign positioning requires creative-director brief upstream. Tactical performance reports and pure analytics work do not."
+    },
+    "content-strategist": {
+      "upstream": ["creative-director", "marketing-director"],
+      "reason": "Long-form content (blog, email sequences, landing copy) needs voice (CD) + positioning (MARKETING) before drafting.",
+      "enforcement": "Same gate as designer: state CD + marketing-director dispatch status before writing."
+    },
+    "social-media-manager": {
+      "upstream": ["creative-director", "marketing-director"],
+      "reason": "Short-form needs the same voice + positioning gates as long-form.",
+      "enforcement": "Same gate as content-strategist."
+    },
+    "copywriter": {
+      "upstream": ["creative-director"],
+      "reason": "Copy validates against brand voice. CD owns voice spine.",
+      "enforcement": "State whether creative-director was dispatched (Y/N + brief path) before drafting any brand-facing copy."
+    },
+    "PRIMOLABS_PUBLIC": {
+      "upstream": ["creative-director", "marketing-director"],
+      "reason": "Public-facing PrimoLabs surfaces (curriculum landing, cohort marketing, course copy) need voice + positioning. Internal teaching infrastructure does NOT require this gate.",
+      "scope": "Only applies when work is a PUBLIC PrimoLabs surface (landing page, marketing copy, public Discord post). Internal curriculum dev, student onboarding, infrastructure code = no gate."
+    }
+  },
+
+  "agents": {
+
+    "chief-of-staff": {
+      "role": "Dispatch hub + orchestrator. Classifies + routes via DEPLOY / ASSIGN / PARK. Owns no execution. Also handles PrimoLabs public/marketing keywords (fires PRIMOLABS_PUBLIC chain).",
+      "priority": "META",
+      "primary_keywords": [
+        "spitball", "idea", "dispatch", "deploy", "assign", "delegate", "park this",
+        "what should I do with", "should I", "thinking about", "wondering if",
+        "what if I", "got an idea", "random thought", "voice dump",
+        "while we're at it", "oh also", "actually", "one more thing",
+        "dispatch hub", "chief of staff",
+        "orchestrate", "coordinate agents", "stack-level",
+        "PrimoLabs", "primolabs.ai", "primolabs site",
+        "Run the protocol", "run the protocol"
+      ],
+      "secondary_keywords": [
+        "office hours", "scope check", "elegant solution", "throw subagents at this",
+        "is this worth", "could be a product", "should we build", "autoplan",
+        "plan-ceo-review", "brainstorming", "design spec", "should this be a skill",
+        "where does this go", "park it", "queue it up"
+      ],
+      "excludes": {
+        "draft an email to": "sales-outreach (LMG outreach) or content-strategist (campaign)",
+        "research this": "deep-researcher",
+        "build me X": "software-dev-team / shopify-agent / (ABLETON/UNREAL context)",
+        "design this page": "designer (with CD+marketing-director upstream)",
+        "fix this bug": "software-dev-team (QA mode)",
+        "schedule": "personal context (~/.claude/CLAUDE.md)",
+        "write the BOM": "sales-director (PROMETHEUS sub-flow)",
+        "trade setup": "trading-analyst"
+      },
+      "enforce_message": "Spitball detected. Classify (one-sentence summary), recommend route (DEPLOY/ASSIGN/PARK), check reversibility gate. Do NOT silently start work. Log to idea_log.md regardless of route. PARK requires an idea-specific trigger (never default to Monday Anchor). If keyword match is PrimoLabs PUBLIC surface, fire dispatch_chains.PRIMOLABS_PUBLIC and require creative-director + marketing-director upstream.",
+      "skill_path": "agents/chief-of-staff/SKILL.md"
+    },
+
+    "sales-director": {
+      "role": "LMG deals owner. Pipeline, deal qualification, proposals, PROMETHEUS BOM/SOW/Q360 dispatch. Senior strategist — does not draft cold emails directly.",
+      "priority": "INCOME_BRIDGE",
+      "primary_keywords": [
+        "LMG", "LMG SI", "LMGSI", "Bridgestone", "BSA", "MCC", "Vanderbilt",
+        "Morgan Stanley", "Equinox", "Gener8",
+        "Q360", "PROMETHEUS", "BOM", "SOW", "statement of work",
+        "vendor quote", "vendor BOM",
+        "RFP", "proposal", "client proposal",
+        "pipeline", "deal", "GP margin", "gross profit margin",
+        "qualify this deal", "auto-reject", "deal eval",
+        "follow up with", "follow-up with"
+      ],
+      "secondary_keywords": [
+        "AHS", "Synchrony", "Discover", "NextEra", "Mastercard", "Best Buy", "AT&T",
+        "Cravath", "law firm outreach", "accounting firm outreach",
+        "Fortune 500", "mid-market", "ICP"
+      ],
+      "excludes": {
+        "PrimoLabs marketing": "marketing-director (mission product visibility)",
+        "trading commission": "finance-manager (commission ledger lives there)",
+        "cold email draft": "sales-outreach",
+        "ZoomInfo prospect list": "prospecting-agent"
+      },
+      "enforce_message": "LMG SI sales-director context. Pipeline + qualification + proposal work. For .eml drafting → delegate to sales-outreach. For prospect list-building → delegate to prospecting-agent. Per email rules: .eml files with X-Unsent:1 header, 'Cheers,' sign-off (no name, no emojis), executive tone, no bullet points in client emails. Reversibility gate on any 'send' action. Do NOT carry over acronyms from prior docs; use the name Primo uses verbatim.",
+      "skill_path": "agents/sales-director/SKILL.md"
+    },
+
+    "sales-outreach": {
+      "role": "Cold email + .eml draft specialist. Executes outreach drafts under sales-director direction. NMA-style and LMG SI outreach.",
+      "priority": "INCOME_BRIDGE",
+      "primary_keywords": [
+        "outreach", "cold outreach", "cold email",
+        "email this client", "email to client", "draft an email",
+        ".eml file", "EML file", "X-Unsent",
+        "outreach batch", "batch outreach",
+        "T1 email", "T2 email", "T3 email", "T4 email", "tier 1 outreach"
+      ],
+      "secondary_keywords": [
+        "subject line", "opener", "send-from variation",
+        "follow-up email", "reply-to-thread"
+      ],
+      "enforce_message": "Cold outreach draft work. Output is ALWAYS .eml with X-Unsent:1 header. Sign-off: 'Cheers,' — no name, no emojis. Executive tone, direct, no bullet points. Reversibility gate fires on any 'send' / 'dispatch' / 'actually email' action — confirm before deploying. Per `feedback_no_inferring_entities.md`, do NOT carry over acronyms from prior docs.",
+      "skill_path": "agents/sales-outreach/SKILL.md"
+    },
+
+    "prospecting-agent": {
+      "role": "ZoomInfo + list-building specialist. Builds account + contact lists for sales-director's pipeline and sales-outreach's batch sends.",
+      "priority": "INCOME_BRIDGE",
+      "primary_keywords": [
+        "prospect", "prospecting",
+        "ZoomInfo", "build a list", "build list",
+        "find contacts at", "find companies",
+        "ICP search", "account research",
+        "enrich contact", "enrich company",
+        "similar companies", "lookalike"
+      ],
+      "secondary_keywords": [
+        "Fortune 500 search", "mid-market list",
+        "VP Workplace Tech", "Director Facilities", "CTO list",
+        "decision maker", "buying committee"
+      ],
+      "enforce_message": "Prospecting / list-building work. Use ZoomInfo MCP connector when available. Output: structured contact list with company, title, email, enrichment metadata. Hand off to sales-outreach for .eml generation or sales-director for pipeline addition. Per Primo's ICP: $500K-$8M+ permanent AV/LED integration, VP Workplace Tech / Director Facilities / CTO / CIO contacts.",
+      "skill_path": "agents/prospecting-agent/SKILL.md"
+    },
+
+    "shopify-agent": {
+      "role": "Shopify apps, agentic commerce, custom client builds (NMA first paying engagement). Distinct from software-dev-team — Shopify-specific stack expertise.",
+      "priority": "MISSION_REVENUE",
+      "primary_keywords": [
+        "Shopify", "Shopify app", "Shopify theme", "Liquid",
+        "agentic commerce", "MCP for commerce",
+        "NMA", "Nashville Metal Art", "Phil", "Phillip",
+        "merchant", "store builder", "product page",
+        "checkout customization", "Shopify Plus", "Shopify Functions",
+        "Polaris", "App Bridge"
+      ],
+      "secondary_keywords": [
+        "made-to-order", "MTO", "ecommerce automation",
+        "HubSpot Shopify integration"
+      ],
+      "enforce_message": "Shopify-specific stack. Distinct from software-dev-team (generic web) — Shopify has its own component library (Polaris), embedded-app patterns (App Bridge), and pricing constraints. For NMA / Phil work: load NMA project memory first (Phillip = owner; 7 pillars per 4'×10' sheet; ~93% util — overrides earlier spike numbers).",
+      "skill_path": "agents/shopify-agent/SKILL.md"
+    },
+
+    "marketing-director": {
+      "role": "Brand visibility lead. Positioning, hero copy direction, campaign planning, funnel logic. Delegates execution to content-strategist / social-media-manager / copywriter.",
+      "priority": "GROWTH",
+      "primary_keywords": [
+        "marketing campaign", "campaign plan",
+        "positioning", "hero copy", "headline",
+        "funnel", "conversion funnel",
+        "ICP", "audience segment",
+        "competitor analysis", "competitive brief",
+        "brand visibility", "growth experiment",
+        "channel strategy", "content calendar",
+        "lead magnet", "drip campaign", "HubSpot"
+      ],
+      "secondary_keywords": [
+        "go-to-market", "GTM plan",
+        "positioning statement", "value prop"
+      ],
+      "excludes": {
+        "LMG outreach email": "sales-outreach",
+        "trade chart": "trading-analyst",
+        "internal teaching curriculum": "product-manager (PrimoLabs curriculum is internal)",
+        "SEO-specific work": "seo-specialist",
+        "AEO-specific work": "seo-specialist (AEO Mode — folded in 2026-05-14)",
+        "long-form blog draft": "content-strategist",
+        "social post draft": "social-media-manager",
+        "pure copywriting": "copywriter"
+      },
+      "enforce_message": "marketing-director (visibility lead). Upstream dispatch required per dispatch_chains.marketing-director: creative-director must brief voice/narrative FIRST. State whether CD was dispatched (Y/N + brief path) before writing positioning. For long-form → content-strategist. For short-form multi-platform → social-media-manager. For SEO + AEO → seo-specialist (AEO folded in 2026-05-14, switch by mode parameter). NOT for LMG sales outreach.",
+      "skill_path": "agents/marketing-director/SKILL.md"
+    },
+
+    "content-strategist": {
+      "role": "Long-form content owner. Blog, email sequences, cohort landing pages, newsletter copy. Executes under marketing-director direction.",
+      "priority": "GROWTH",
+      "primary_keywords": [
+        "blog post", "long-form content", "long form content",
+        "email sequence", "newsletter", "drip sequence",
+        "landing copy", "landing page copy",
+        "content brief", "editorial calendar",
+        "cohort landing", "course landing"
+      ],
+      "secondary_keywords": [
+        "headline variations", "subhead",
+        "CTA copy", "form copy"
+      ],
+      "enforce_message": "Long-form content work. Upstream dispatch required per dispatch_chains.content-strategist: creative-director (voice) + marketing-director (positioning) MUST be dispatched first. State Y/N + brief path before drafting. Validate voice spine and ICP wedge alignment before writing.",
+      "skill_path": "agents/content-strategist/SKILL.md"
+    },
+
+    "social-media-manager": {
+      "role": "Short-form, multi-platform. LinkedIn, X/Twitter, Instagram, TikTok, YouTube shorts. Executes under marketing-director direction.",
+      "priority": "GROWTH",
+      "primary_keywords": [
+        "social media", "social post",
+        "LinkedIn", "Twitter", "X.com", "tweet", "thread", "carousel",
+        "Instagram", "IG reel", "IG post", "TikTok", "YouTube short",
+        "short-form", "short form"
+      ],
+      "secondary_keywords": [
+        "hashtag strategy", "platform-native",
+        "repurpose long-form", "clip post"
+      ],
+      "enforce_message": "Short-form social work. Upstream dispatch required per dispatch_chains.social-media-manager: creative-director (voice) + marketing-director (positioning) MUST be dispatched first. State Y/N + brief path. Per channel strategy memo (2026-04-28): LinkedIn primary, Savant Discord bridge, NEW PrimoLabs Discord. X + YouTube deferred to phase 2/3.",
+      "skill_path": "agents/social-media-manager/SKILL.md"
+    },
+
+    "seo-specialist": {
+      "role": "SEO + AEO specialist. Owns BOTH traditional search optimization (organic search, SERP, keywords, backlinks, schema, technical SEO) AND Answer Engine Optimization / AEO Mode (ChatGPT/Claude/Perplexity/Gemini visibility, llms.txt, AI-search optimization, generative engine optimization, citation tracking). AEO folded in 2026-05-14 — two benches load in one agent, mode switch by parameter.",
+      "priority": "GROWTH",
+      "primary_keywords": [
+        "SEO", "SEO audit", "search optimization",
+        "keyword research", "keyword cluster", "keyword clustering",
+        "on-page SEO", "technical SEO",
+        "schema markup", "JSON-LD", "structured data",
+        "internal linking", "broken links",
+        "sitemap", "robots.txt",
+        "Google rankings", "SERP", "backlinks", "backlink strategy",
+        "AEO", "answer engine optimization",
+        "AI visibility", "LLM visibility",
+        "GEO", "generative engine optimization",
+        "ChatGPT mentions", "ChatGPT visibility", "ChatGPT citations",
+        "Claude mentions", "Claude visibility", "Claude citations",
+        "Perplexity citations", "Perplexity visibility",
+        "Gemini visibility",
+        "how does my brand appear in AI",
+        "AI search optimization", "LLM SEO",
+        "llms.txt", "llms-txt"
+      ],
+      "secondary_keywords": [
+        "meta description", "title tag",
+        "canonical URL", "hreflang",
+        "Core Web Vitals", "page speed SEO",
+        "citation tracking", "AI mention monitoring",
+        "answer engine visibility", "LLM citation",
+        "first-party data", "E-E-A-T", "EEAT",
+        "embedding optimization", "semantic density"
+      ],
+      "enforce_message": "SEO + AEO work (folded into one agent 2026-05-14). Mode switches by artifact: traditional SERP/Google → SEO Mode (Fishkin/Dean/Solis bench). LLM citation surfaces → AEO Mode (Ray/Indig/King bench). Per PrimoLabs SEO audit (2026-04-28): site scored 34/100, zero JSON-LD, no sitemap, brand term absent. Per AEO baseline (2026-04-28): zero AEO presence + domain confusion crisis. 3 winnable AEO slots, 4 unowned competitor slots, Anthropic memory launch (2026-04-23) created 30-60 day window. Use searchfit-seo skills (incl. ai-visibility) for execution.",
+      "skill_path": "agents/seo-specialist/SKILL.md"
+    },
+
+    "creative-director": {
+      "role": "Tastemaker. Narrative arc, brand voice, story spine. Upstream of designer + marketing-director + content-strategist + social-media-manager + copywriter. Ships BRIEFS, not visual execution.",
+      "priority": "CROSS_CUTTING",
+      "primary_keywords": [
+        "creative direction", "narrative arc", "story spine",
+        "brand voice", "voice spine",
+        "what feeling should this produce",
+        "what NOT to make it look like",
+        "tastemaker", "taste decision",
+        "visual storyteller"
+      ],
+      "secondary_keywords": [
+        "moodboard", "vibe", "aesthetic direction",
+        "trend awareness", "design trend"
+      ],
+      "enforce_message": "creative-director is UPSTREAM of designer, marketing-director, content-strategist, social-media-manager, copywriter, and public PrimoLabs work. Output is a BRIEF downstream agents read — NOT visual execution. CD ships narrative + voice + 'what NOT to make it look like' instructions. Do not write CSS, do not draft hero copy directly — direct the writers and designers.",
+      "skill_path": "agents/creative-director/SKILL.md"
+    },
+
+    "designer": {
+      "role": "Visual execution. Shared resource — every visual surface in the org routes here. Auto-loads Visual Storyteller 4-pack stack (jiji262/claude-design-skill + ryanthedev/design-for-ai + greensock/gsap-skills + anthropics/frontend-design).",
+      "priority": "SHARED",
+      "primary_keywords": [
+        "design this", "design the", "design system",
+        "mockup", "wireframe",
+        "logo", "wordmark", "tagline",
+        "palette", "color palette",
+        "typography", "font pairing",
+        "layout", "visual layout",
+        "hero section", "landing page design",
+        "deck", "slide deck", "presentation design",
+        "poster", "graphic",
+        "design review", "visual QA"
+      ],
+      "secondary_keywords": [
+        "Figma", "Framer",
+        "UI", "UX", "UI/UX",
+        "Pretext", "Pretext page",
+        "anti-slop", "design polish"
+      ],
+      "excludes": {
+        "Shopify theme design": "shopify-agent",
+        "trade chart design": "trading-analyst (chart annotation)",
+        "internal dashboard mock": "software-dev-team (if scoped to internal tool only)"
+      },
+      "enforce_message": "*** DESIGNER WORK — UPSTREAM DISPATCH MANDATORY ***\\n\\nPer dispatch_chains.designer:\\n  1. creative-director — narrative arc, voice, 'what NOT to make it look like'. Output is a brief.\\n  2. marketing-director — positioning, funnel logic, hero copy validation against wedges.\\n  3. designer — visual execution, ONLY after the two upstream briefs exist.\\n\\nFAILURE MODE (2026-05-08): Agent shipped HTML edits + locked hero copy + saved design-lock note WITHOUT dispatching CD or marketing-director. Primo caught it.\\n\\nBEFORE any Edit/Write to a design/copy/brand file, state:\\n  - Was creative-director dispatched? (Y/N + brief path)\\n  - Was marketing-director dispatched? (Y/N + brief path)\\n  - If N/N: explicit skip reason + confirm Primo's awareness.\\n\\nVisual Storyteller stack auto-loads (4-pack): jiji262/claude-design-skill + ryanthedev/design-for-ai + greensock/gsap-skills + anthropics/frontend-design.",
+      "skill_path": "agents/designer/SKILL.md"
+    },
+
+    "copywriter": {
+      "role": "Pure copy specialist. Hero copy, taglines, CTA copy, microcopy, brand-voice writing. Executes under creative-director's voice spine.",
+      "priority": "GROWTH",
+      "primary_keywords": [
+        "copywrite", "copywriting", "write copy",
+        "tagline", "headline copy",
+        "CTA copy", "button copy", "microcopy",
+        "brand voice writing", "voice-aligned copy",
+        "rewrite this copy", "tighten this copy"
+      ],
+      "secondary_keywords": [
+        "punch up", "shorten this",
+        "subject line", "hook line"
+      ],
+      "enforce_message": "Pure copywriting work. Upstream dispatch required per dispatch_chains.copywriter: creative-director (voice) MUST be dispatched first. State Y/N + brief path. Voice is downstream of CD — do not invent voice from scratch.",
+      "skill_path": "agents/copywriter/SKILL.md"
+    },
+
+    "deep-researcher": {
+      "role": "Cross-cutting intel arm. 'What's true' — competitive audits, market research, trend scans, pre-meeting briefs, name/trademark checks, tool/MCP discovery.",
+      "priority": "CROSS_CUTTING",
+      "primary_keywords": [
+        "research this", "do research on", "look into",
+        "competitor research", "competitive audit", "competitor analysis",
+        "market research",
+        "trend scan", "trend research",
+        "pre-meeting brief",
+        "trademark check", "name check", "naming research",
+        "tool evaluation", "MCP discovery", "tool discovery",
+        "what's out there", "what's the landscape"
+      ],
+      "secondary_keywords": [
+        "due diligence", "company background",
+        "source synthesis", "what does the data say"
+      ],
+      "excludes": {
+        "prototype this": "r-and-d-lead (what's possible)",
+        "should I build this": "product-manager (validation)"
+      },
+      "enforce_message": "deep-researcher = 'what's true' intel arm. Distinct from r-and-d-lead (what's possible) and product-manager (should I build). Deliver intel briefs that inform a build/spend/hire decision. Always cite sources.",
+      "skill_path": "agents/deep-researcher/SKILL.md"
+    },
+
+    "product-manager": {
+      "role": "Idea-to-spec pipeline. Discovery, market research, JTBD, scope, pricing, GTM. Includes PrimoLabs internal curriculum strategy. Dispatches to build agents after spec approval.",
+      "priority": "MISSION",
+      "primary_keywords": [
+        "should I build", "is this worth building", "validate this idea",
+        "product spec", "PRD", "product requirements",
+        "JTBD", "jobs to be done", "user persona",
+        "competitive scan", "market validation",
+        "pricing strategy", "pricing tiers",
+        "GTM", "go to market",
+        "/office-hours", "office hours",
+        "cohort", "course", "curriculum",
+        "boomerang lesson", "cohort lesson",
+        "student", "cohort student"
+      ],
+      "secondary_keywords": [
+        "MVP scope", "feature gating", "free vs paid",
+        "wedge", "ICP",
+        "teaching AI", "AI cohort", "live cohort",
+        "Nashville cohort", "in-person session"
+      ],
+      "excludes": {
+        "PrimoLabs PUBLIC marketing copy": "marketing-director (with PRIMOLABS_PUBLIC chain firing)",
+        "PrimoLabs PUBLIC visual surface": "designer (with CD + marketing-director upstream)"
+      },
+      "enforce_message": "Product strategy + spec work. Strategy lives here; build dispatches to software-dev-team / shopify-agent / (ABLETON/UNREAL context) AFTER spec approval. NEVER skip the design pipeline for new products: /office-hours (validate) → brainstorming (spec) → /plan-ceo-review (pressure-test) → DEPLOY/ASSIGN to build agent. PrimoLabs INTERNAL curriculum (cohort planning, lesson design, student onboarding) routes here. PrimoLabs PUBLIC surfaces route to marketing-director + designer via PRIMOLABS_PUBLIC chain.",
+      "skill_path": "agents/product-manager/SKILL.md"
+    },
+
+    "software-dev-team": {
+      "role": "Web/SaaS unified team. Collapses FE/BE/SEC/QA sub-depts into one agent with mode hints. Default stack: Vercel + Supabase.",
+      "priority": "MISSION_REVENUE",
+      "primary_keywords": [
+        "build a webapp", "build a SaaS", "build a site",
+        "Next.js", "React", "Vercel", "Supabase",
+        "API endpoint", "REST API", "GraphQL",
+        "database schema", "Postgres", "RLS", "row-level security",
+        "auth flow", "authentication",
+        "deploy this", "ship this",
+        "frontend", "backend", "fullstack",
+        "QA this", "test this site", "find bugs",
+        "fix this bug", "debug this", "investigate this error",
+        "security audit", "pre-launch audit", "OWASP"
+      ],
+      "secondary_keywords": [
+        "Tailwind", "shadcn", "TypeScript", "Node",
+        "webhook", "serverless", "edge function",
+        "OAuth", "JWT",
+        "Playwright", "Cypress", "Vitest"
+      ],
+      "excludes": {
+        "Shopify app": "shopify-agent",
+        "Pine Script": "trading-analyst",
+        "Unreal C++": "(UNREAL dept context — no agent yet)",
+        "Max for Live": "(ABLETON dept context — no agent yet)",
+        "Resolume FFGL": "(RESOLUME dept context — no agent yet)"
+      },
+      "enforce_message": "Web/SaaS build context. Canonical stack: Vercel + Supabase. Mode hints by keyword: UI/CSS → FRONT END mode. API/DB/auth → BACKEND mode. Pre-launch audit / OWASP / supply chain → SECURITY mode. Live browser testing / bug finding → QA mode. Use /investigate for debugging (root cause, not patches). Per `feedback_no_patches.md`: never band-aid.",
+      "skill_path": "agents/software-dev-team/SKILL.md"
+    },
+
+    "engineering-lead": {
+      "role": "Mechanical/CAD engineering — AutoCAD automation, drawing set reads, BOM extraction, sheet-metal nesting, AV-integration mech design, CNC/laser-cut prep. Production-grade engineering deliverables for AV, metal-fab, manufacturing, construction clients.",
+      "priority": "INCOME_BRIDGE + MISSION",
+      "primary_keywords": [
+        "AutoCAD", "DWG", "DXF", "drawing set", "drawing review",
+        "BOM extraction", "BOM from drawings", "sheet metal", "nesting",
+        "CNC", "laser cut", "fabrication", "mech design",
+        "Revit", "BIM", "clash detection", "IFC",
+        "CAD automation", "freecad", "vendor spec check",
+        "as-built", "shop drawing"
+      ],
+      "secondary_keywords": [
+        "engineer this", "engineering review",
+        "spec verification", "manufacturability",
+        "Phil's drawings", "NMA drawings",
+        "AV mechanical", "rack elevation"
+      ],
+      "excludes": {
+        "code review": "software-dev-team",
+        "API design": "software-dev-team",
+        "experimental prototype": "r-and-d-lead",
+        "design a landing page": "designer"
+      },
+      "enforce_message": "Mechanical/CAD engineering work. Identify drawing type + units + scale FIRST. For PDFs use PyPDF2 text extraction (NEVER visual reading — model numbers + manufacturers will be wrong). For DWG/DXF use freecad-mcp. Read drawings before quoting work; surface assumptions explicitly.",
+      "skill_path": "agents/engineering-lead/SKILL.md"
+    },
+
+    "r-and-d-lead": {
+      "role": "Experimental sandbox. 'What's possible' — TouchDesigner, StreamDiffusion, prototypes. Nothing ships from R&D; graduates to mission context.",
+      "priority": "LAB",
+      "primary_keywords": [
+        "prototype this", "experiment with",
+        "TouchDesigner", "TD",
+        "StreamDiffusion", "ControlNet",
+        "what if we", "let's try",
+        "tech experiment", "tinker with"
+      ],
+      "secondary_keywords": [
+        "sandbox", "playground",
+        "hackathon project"
+      ],
+      "enforce_message": "r-and-d-lead = experimental sandbox. Nothing ships from here directly. If experiment validates, graduate to mission context (ABLETON / UNREAL / software-dev-team / finance-manager domain). Don't fold production-readiness into the experiment — that defeats the lab purpose.",
+      "skill_path": "agents/r-and-d-lead/SKILL.md"
+    },
+
+    "finance-manager": {
+      "role": "Family-Office CFO. Deal economics, P&L, commission ledger, mission-alignment math, household financial planning, $100K floor tracking.",
+      "priority": "STRATEGIC",
+      "primary_keywords": [
+        "deal economics", "deal eval finance",
+        "ROI", "payback period",
+        "cash flow vs target", "$100K floor",
+        "mission alignment",
+        "PnL", "P&L", "profit and loss",
+        "commission ledger", "LMG commission", "commission paid",
+        "household budget", "personal P&L",
+        "drawdown", "max drawdown account-level"
+      ],
+      "secondary_keywords": [
+        "monthly burn", "runway",
+        "tax planning", "owner draw",
+        "side hustle revenue"
+      ],
+      "excludes": {
+        "trade execution": "trading-analyst",
+        "ticker analysis": "trading-analyst",
+        "chart read": "trading-analyst",
+        "Pine Script": "trading-analyst"
+      },
+      "enforce_message": "Family-office CFO context. Deal economics, household P&L, commission ledger, $100K floor tracking. Distinct from trading-analyst (trade execution). For LMG commission lookups: weekly check-in is imperative per `project_lmg_commission_tracking.md` — LMG has been bad about paying. Surface deltas proactively.",
+      "skill_path": "agents/finance-manager/SKILL.md"
+    },
+
+    "trading-analyst": {
+      "role": "Quant trader. ICT-system trade reads, Pine Script, market analysis. ONE-LINE verdicts on live trades — never main-thread thesis.",
+      "priority": "TRIGGER_GAP_2026-05-14",
+      "primary_keywords": [
+        "should I buy", "should I sell", "should I short", "should I cover",
+        "should I long", "should I exit", "should I add to", "is this a long",
+        "is this a short", "is this a buy", "is this a sell",
+        "entry", "stop loss", "stop", "target", "take profit", "take-profit",
+        "TP", "SL", "R:R", "1R", "2R", "3R", "risk reward", "risk-reward",
+        "position size", "lot size", "share count",
+        "trade setup", "trade idea", "swing", "scalp", "intraday", "day trade",
+        "long bias", "short bias",
+        "FVG", "fair value gap", "OB", "order block", "+OB", "-OB",
+        "ORH", "ORL", "BOS", "CHoCH", "MSS", "BPR", "IPDA", "MMXM",
+        "liquidity grab", "liquidity sweep", "IRL", "ERL", "premium", "discount",
+        "equilibrium", "manipulation", "distribution", "accumulation",
+        "ICT", "smart money", "smart-money", "SMC",
+        "TradingView", "Tradovate", "thinkorswim", "TOS", "Pine Script", "pinescript",
+        "candle", "candlestick", "chart screenshot", "price action",
+        "futures", "options", "calls", "puts", "spread", "iron condor",
+        "watchlist", "scanner",
+        "backtest", "forward test", "sim", "paper trade"
+      ],
+      "secondary_keywords": [
+        "support", "resistance", "trendline", "moving average", "EMA", "SMA",
+        "VWAP", "RSI", "MACD",
+        "volatility", "ATR", "implied vol",
+        "macro", "Fed", "rate cut", "rate hike", "CPI", "PPI", "FOMC", "NFP",
+        "earnings", "guidance", "ER"
+      ],
+      "ticker_patterns": {
+        "_comment": "Tickers are tricky — generic [A-Z]{1,5} overfires on acronyms. Match in trade-context OR with $ prefix.",
+        "explicit_ticker": "\\$[A-Z]{1,5}\\b",
+        "known_tickers": [
+          "SOXL", "SOXS", "TQQQ", "SQQQ", "UPRO", "SPXU",
+          "SPY", "SPX", "QQQ", "IWM", "DIA", "VTI", "VOO",
+          "ES", "NQ", "MES", "MNQ", "YM", "RTY", "CL", "GC", "MGC",
+          "NVDA", "TSLA", "AAPL", "MSFT", "GOOG", "GOOGL", "META", "AMZN",
+          "AMD", "INTC", "AVGO", "ASML", "SMCI", "PLTR", "COIN", "MSTR",
+          "BTC", "ETH", "SOL", "BTCUSD", "ETHUSD", "XAU", "XAUUSD",
+          "USDJPY", "EURUSD", "GBPUSD", "AUDUSD",
+          "VIX", "UVXY", "VXX"
+        ]
+      },
+      "excludes": {
+        "commission ledger lookup": "finance-manager",
+        "deal economics": "finance-manager",
+        "household budget": "finance-manager"
+      },
+      "enforce_message": "*** TRADE / MARKET QUESTION DETECTED ***\\n\\nMANDATORY: DEPLOY trading-analyst subagent. Do NOT thesis from main thread.\\n\\nWhy: trading-analyst has Primo's ICT system + risk rules pre-loaded. Main thread writes generic TA that's off-system AND slower than dispatch. Live trade = ONE-LINE verdict, not 500-word essay.\\n\\nWorkflow:\\n1. STOP analyzing. Name the pivot: 'Pivot: trading-analyst — dispatching for trade read.'\\n2. Spawn trading-analyst subagent with chart + Primo's proposed action.\\n3. Subagent reads its SKILL.md + trading rules → returns one-line verdict.\\n4. Main thread synthesizes to ONE LINE: 'Long valid at X, stop Y, T1 Z. Risk $N.' Done.\\n5. Offer expansion only if Primo asks.\\n\\nRule source: `feedback_trade_questions_route_to_finance.md` (locked 2026-05-14).",
+      "skill_path": "agents/trading-analyst/SKILL.md"
+    },
+
+    "librarian": {
+      "role": "Memory custodian + knowledge architect. Tier-1 peer to chief-of-staff. Autonomous-by-design — runs scheduled audits, surfaces drift, writes librarian_digest.md. Three-pole bench: Vigilance / Pruning / Continuity. Graphify-driven (graph state vs vault state). 3-tier hook autonomy cut: passive (auto) / mutating (soft gate via digest) / blocking (hard gate, explicit Primo approval).",
+      "priority": "TIER_1",
+      "primary_keywords": [
+        "audit memory", "memory audit", "memory hygiene",
+        "library", "librarian", "vault state",
+        "stale memory", "drift", "what's drifted",
+        "compounding append", "contradiction surfacer",
+        "knowledge graph", "graphify state",
+        "what can be archived", "archive candidates",
+        "memory health", "vault audit",
+        "librarian_digest", "digest scan",
+        "find duplicates", "concept duplication"
+      ],
+      "secondary_keywords": [
+        "what compounds", "history is the audit trail",
+        "HEAD block", "TL;DR pinned",
+        "passive hook", "mutating hook", "blocking hook",
+        "resurface", "low-read nodes",
+        "broken edges", "orphan nodes"
+      ],
+      "enforce_message": "Librarian fires for memory hygiene / vault audit work. Autonomous by design — never engages in chat unless explicitly invoked. Default mode: writes librarian_digest.md instead of asking questions. Mutating hooks drafted + run unless Primo rejects in digest (soft gate). Blocking hooks drafted + surfaced for explicit approval (hard gate). Graphify-driven detection: orphan nodes / broken edges / contradiction subgraphs / low-read nodes flagged for archive. Never delete history — only archive to _archive/YYYY-MM/.",
+      "skill_path": "agents/librarian/SKILL.md"
+    }
+
+  },
+
+  "departments_context": {
+    "_comment": "Dept context shells — NOT operational agents, but still carry routing keyword sets for cases where the work IS dept-scoped but not agent-routable yet. When an agent gets scaffolded for one of these, move the block to `agents` and update the hook snapshot. NOTE: ENGINEERING removed 2026-05-14 — now has dedicated agent `engineering-lead`.",
+
+    "ABLETON": {
+      "agent": "TBD",
+      "role": "Stage/playback apps, Max for Live, LiveAPI, Stage Pro, Savant Discord tools.",
+      "priority": "MISSION",
+      "primary_keywords": [
+        "Ableton", "Ableton Live", "Live API",
+        "Max for Live", "M4L", "Max device",
+        "Stage Pro", "Savant Playback",
+        "playback", "stage app", "touring app",
+        "Push", "Push 3",
+        "session view", "arrangement view", "clip launching"
+      ],
+      "secondary_keywords": [
+        "MIDI", "OSC", "ReWire",
+        "VST", "AU plugin",
+        "Discord bot Ableton", "playback engineer"
+      ],
+      "enforce_message": "Ableton/M4L work — mission product (Savant Discord = warm audience). No dedicated agent yet; load `DEPARTMENTS/ABLETON/skills/ableton-master/SKILL.md` for canonical SKILL.md blueprint. M4L devices use LiveAPI.",
+      "claude_md": "DEPARTMENTS/ABLETON/CLAUDE.md",
+      "master_skill": "DEPARTMENTS/ABLETON/skills/ableton-master/SKILL.md"
+    },
+
+    "UNREAL": {
+      "agent": "TBD",
+      "role": "Unreal Engine + C++ for real-time AV content. Revenue bridge via content company contacts.",
+      "priority": "REVENUE",
+      "primary_keywords": [
+        "Unreal", "Unreal Engine", "UE5", "UE5.4", "UE5.5",
+        "Blueprint", "C++ Unreal",
+        "nDisplay", "in-camera VFX", "ICVFX", "virtual production",
+        "LED wall content", "LED volume",
+        "Notch", "NotchFX", "Notch in Unreal"
+      ],
+      "secondary_keywords": [
+        "real-time content", "Lumen", "Nanite",
+        "Sequencer", "MetaHuman",
+        "Cinema 4D", "C4D"
+      ],
+      "enforce_message": "Unreal real-time content pipeline. Revenue bridge work — bills hours via content company contacts while mission SaaS scales. No dedicated agent yet; scope by engagement (retainer vs project), surface deliverable + timeline before quoting.",
+      "claude_md": "DEPARTMENTS/UNREAL/CLAUDE.md"
+    },
+
+    "RESOLUME": {
+      "agent": "TBD",
+      "role": "Resolume Arena/Avenue/Wire, VJ programming, FFGL plugins, projection/pixel mapping, NDI.",
+      "priority": "REVENUE",
+      "primary_keywords": [
+        "Resolume", "Resolume Arena", "Resolume Avenue", "Resolume Wire",
+        "VJ", "VJ deck", "VJ patch",
+        "FFGL", "FFGL plugin",
+        "projection mapping", "pixel mapping",
+        "NDI", "NDI source"
+      ],
+      "secondary_keywords": [
+        "media server", "show runtime", "live show patch",
+        "MIDI to Resolume", "OSC to Resolume"
+      ],
+      "enforce_message": "Resolume / VJ / show runtime work. Different stack from Unreal (UE = generative + virtual prod; Resolume = composited live show + mapping). No dedicated agent yet.",
+      "claude_md": "DEPARTMENTS/RESOLUME/CLAUDE.md"
+    },
+
+    "HUBSPOT": {
+      "agent": "TBD",
+      "role": "CRM + marketing automation + Shopify-bridge agent loops. Integration-shaped.",
+      "priority": "GROWTH",
+      "primary_keywords": [
+        "HubSpot", "HubSpot CRM",
+        "HubSpot workflow", "HubSpot automation",
+        "HubSpot Shopify", "HubSpot integration",
+        "CRM integration", "marketing automation"
+      ],
+      "secondary_keywords": [
+        "lead scoring", "deal pipeline HubSpot",
+        "contact sync", "email automation HubSpot"
+      ],
+      "enforce_message": "HubSpot integration work. No dedicated agent yet (integration-shaped — deferred until volume warrants). Loop via marketing-director for strategy + software-dev-team for technical integration.",
+      "claude_md": "DEPARTMENTS/MARKETING/HUBSPOT/CLAUDE.md"
+    }
+
+  },
+
+  "_future_agents": {
+    "_comment": "Placeholders for agents mentioned in audit but not currently scaffolded.",
+    "legal-counsel": {
+      "role": "Contracts, NDA review, IP, trademark filings, compliance.",
+      "primary_keywords_seed": [
+        "contract", "NDA", "non-disclosure", "MSA", "master services agreement",
+        "review this contract", "legal review",
+        "IP", "intellectual property",
+        "trademark filing", "DocuSign", "execute this agreement"
+      ],
+      "status": "NOT_YET_SCAFFOLDED — currently routes via chief-of-staff + deep-researcher (trademark) + sales-director (vendor agreements). Promote when contract volume warrants."
+    }
+  },
+
+  "_dropped_from_v2": {
+    "_comment": "Tracked for migration audit. These blocks existed in v2 dept-keyed manifest but are intentionally absent in v3.",
+    "PERSONAL": "Personal context (ADHD, schedule, family, EFT, Wealth Creator) moved to ~/.claude/CLAUDE.md per v3 lock. Not a routable agent — it's the always-loaded user profile.",
+    "PRIMOLABS_as_dept": "PrimoLabs is no longer a dept. Public/marketing keywords split to chief-of-staff (fires PRIMOLABS_PUBLIC chain). Internal curriculum/cohort keywords moved to product-manager. Visual surfaces route to designer via PRIMOLABS_PUBLIC chain (CD + marketing-director upstream)."
+  }
+}

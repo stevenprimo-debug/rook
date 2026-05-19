@@ -1,0 +1,81 @@
+# AV/Touring shared keyword pack
+# Inherited by RESOLUME, ABLETON, UNREAL, ENGINEERING
+name: av-touring
+description: Shared AV / touring / show-control / live-event vocabulary across media-server + playback + UE + integration depts
+last_updated: 2026-05-06
+
+keywords:
+  timecode:
+    - smpte
+    - ltc
+    - mtc
+    - linear timecode
+    - midi time code
+    - timecode sync
+
+  show_control:
+    - osc
+    - midi show control
+    - dmx
+    - art-net
+    - sacn
+    - midi over ip
+
+  networking:
+    - ndi
+    - ndi over ip
+    - dante
+    - aes67
+    - audio over ip
+    - spout
+    - syphon
+
+  video_codecs:
+    - dxv
+    - dxv3
+    - hap
+    - hap-q
+    - prores
+    - h.264
+    - h.265
+
+  led_volume:
+    - led wall
+    - led volume
+    - icvfx
+    - in-camera vfx
+    - virtual production
+    - ndisplay
+    - led mapping
+
+  dj_integration:
+    - pioneer pro dj link
+    - cdj
+    - djm
+    - ableton link
+    - dj sync
+
+  show_software:
+    - qlab
+    - showkontrol
+    - bitfocus companion
+    - resolume
+    - madmapper
+    - touchdesigner
+    - notch
+    - notchvfx
+    - disguise
+    - d3
+    - pixera
+    - heavym
+    - smode
+
+  live_event_jargon:
+    - foh
+    - front of house
+    - mon
+    - playback rig
+    - touring tech
+    - load-in
+    - load in
+    - soundcheck

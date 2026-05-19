@@ -1,0 +1,5 @@
+anthropic>=0.40.0
+yt-dlp>=2026.3.17
+youtube-transcript-api>=1.2.4
+faster-whisper>=1.2.1
+python-dotenv>=1.0.0

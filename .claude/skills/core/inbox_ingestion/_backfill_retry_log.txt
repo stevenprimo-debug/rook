@@ -1,0 +1,18 @@
+2026-05-02 20:47:55 [INFO] Found 8 image(s) to process.
+2026-05-02 20:48:28 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:48:28 [INFO] Processed: (1) Chat.jpeg.png → 2026-05-01-1425-untitled.png
+2026-05-02 20:48:42 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:48:42 [INFO] Processed: IMG_0615.PNG → 2026-05-02-1735-agent-dev-kit-five-layer-claude-architecture-diagram.png
+2026-05-02 20:48:51 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:48:51 [INFO] Processed: IMG_0616.PNG → 2026-05-02-1735-claude-md-layer1-agent-constitution-infographic.png
+2026-05-02 20:49:03 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:49:04 [INFO] Processed: IMG_0617.PNG → 2026-05-02-1735-claude-layer2-skills-modular-architecture-infographic.png
+2026-05-02 20:49:15 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:49:16 [INFO] Processed: IMG_0619.PNG → 2026-05-02-1735-claude-layer4-subagents-architecture-diagram.png
+2026-05-02 20:49:27 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:49:27 [INFO] Processed: IMG_0620.PNG → 2026-05-02-1735-layer-5-plugins-claude-agent-framework-infographic.png
+2026-05-02 20:49:38 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:49:38 [INFO] Processed: IMG_0647.PNG → 2026-05-02-1736-derek-gray-instagram-auto-repair-shop-s-tier-business.png
+2026-05-02 20:50:07 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-05-02 20:50:07 [INFO] Processed: Maciej Marek  Agentic Engineering.jpeg.png → 2026-05-01-1412-untitled.png
+2026-05-02 20:50:07 [INFO] Pipeline complete: 8 success, 0 failed out of 8 total.

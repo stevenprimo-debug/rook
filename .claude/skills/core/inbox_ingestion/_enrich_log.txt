@@ -1,0 +1,302 @@
+21:21:07 [INFO] Found 52 markdown file(s) to consider.
+21:21:07 [INFO] [1/52] 2026-04-22-2057-jamie-ai-empire-workflow-orchestration-system-prompt.md
+21:21:09 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:21:32 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:21:32 [INFO]   enriched: 1 targets, 3 searches
+21:21:32 [INFO] [2/52] 2026-04-22-2107-mindstudio-ai-agent-bootcamp-luma-event-may2.md
+21:21:35 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:22:13 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:22:14 [INFO]   enriched: 4 targets, 4 searches
+21:22:14 [INFO] [3/52] 2026-04-22-2108-luma-ai-event-ticket-purchase-early-bird.md
+21:22:14 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:22:14 [INFO] Retrying request to /v1/messages in 14.000000 seconds
+21:22:30 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:22:59 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:22:59 [INFO]   enriched: 2 targets, 2 searches
+21:22:59 [INFO] [4/52] 2026-04-22-2108-luma-ai-workshop-openclaw-claude-code-agents-event.md
+21:23:00 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:23:00 [INFO] Retrying request to /v1/messages in 13.000000 seconds
+21:23:15 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:24:03 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:24:03 [INFO]   enriched: 4 targets, 4 searches
+21:24:03 [INFO] [5/52] 2026-04-22-2109-care-com-video-interview-confirmed-childcare-autumn.md
+21:24:03 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:24:03 [INFO] Retrying request to /v1/messages in 48.000000 seconds
+21:24:53 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:25:26 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:25:26 [INFO]   enriched: 2 targets, 2 searches
+21:25:26 [INFO] [6/52] 2026-04-22-2109-facebook-post-claude-ai-marketing-stack-business-growth.md
+21:25:26 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:25:26 [INFO] Retrying request to /v1/messages in 8.000000 seconds
+21:25:39 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:26:19 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:26:19 [INFO]   enriched: 4 targets, 4 searches
+21:26:19 [INFO] [7/52] 2026-04-22-2109-github-ios-simulator-skill-repo-mobile-view.md
+21:26:20 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:26:20 [INFO] Retrying request to /v1/messages in 59.000000 seconds
+21:27:23 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:27:59 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:27:59 [INFO]   enriched: 3 targets, 3 searches
+21:27:59 [INFO] [8/52] 2026-04-22-2109-greensock-gsap-skills-github-repo-mobile-view.md
+21:27:59 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:27:59 [INFO] Retrying request to /v1/messages in 22.000000 seconds
+21:28:24 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:29:06 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:29:07 [INFO]   enriched: 4 targets, 4 searches
+21:29:07 [INFO] [9/52] 2026-04-22-2110-facebook-post-claude-ai-design-skills-github-repos.md
+21:29:07 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:29:07 [INFO] Retrying request to /v1/messages in 32.000000 seconds
+21:29:42 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:30:21 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:30:22 [INFO]   enriched: 3 targets, 3 searches
+21:30:22 [INFO] [10/52] 2026-04-22-2110-facebook-post-claude-ai-writing-skills-github-repos.md
+21:30:22 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:30:22 [INFO] Retrying request to /v1/messages in 17.000000 seconds
+21:30:41 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:31:21 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:31:21 [INFO]   enriched: 4 targets, 4 searches
+21:31:21 [INFO] [11/52] 2026-04-22-2110-github-mobile-repo-file-browser-senior-engineering-folders.md
+21:31:21 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:31:21 [INFO] Retrying request to /v1/messages in 31.000000 seconds
+21:31:56 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:32:27 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:32:27 [INFO]   enriched: 3 targets, 3 searches
+21:32:27 [INFO] [12/52] 2026-04-22-2110-github-repo-skills-directory-git-worktrees-mobile.md
+21:32:27 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:32:27 [INFO] Retrying request to /v1/messages in 29.000000 seconds
+21:32:59 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:33:45 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:33:45 [INFO]   enriched: 4 targets, 4 searches
+21:33:45 [INFO] [13/52] 2026-05-01-1410-runitself-facebook-ad-ai-board-agency-chatgpt.md
+21:33:46 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:33:46 [INFO] Retrying request to /v1/messages in 47.000000 seconds
+21:34:35 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:35:21 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:35:21 [INFO]   enriched: 3 targets, 4 searches
+21:35:21 [INFO] [14/52] 2026-05-01-1412-untitled.md
+21:35:21 [INFO]   skipped: no research targets identified
+21:35:21 [INFO] [15/52] 2026-05-01-1425-untitled.md
+21:35:21 [INFO]   skipped: no research targets identified
+21:35:21 [INFO] [16/52] 2026-05-01-1659-linkedin-post-ai-undetectable-browser-automation-tool.md
+21:35:21 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:35:21 [INFO] Retrying request to /v1/messages in 50.000000 seconds
+21:36:14 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:36:58 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:36:58 [INFO]   enriched: 4 targets, 4 searches
+21:36:58 [INFO] [17/52] 2026-05-01-1852-dariuslukas-how-to-use-ai-specialists-claude-infographic.md
+21:36:58 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:36:58 [INFO] Retrying request to /v1/messages in 55.000000 seconds
+21:37:56 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:38:33 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:38:33 [INFO]   enriched: 3 targets, 3 searches
+21:38:33 [INFO] [18/52] 2026-05-01-1859-claude-ai-autodesk-fusion-connector-instagram-post.md
+21:38:34 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:38:34 [INFO] Retrying request to /v1/messages in 38.000000 seconds
+21:39:15 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:39:56 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:39:56 [INFO]   enriched: 4 targets, 4 searches
+21:39:56 [INFO] [19/52] 2026-05-01-1903-emergent-app-login-page-mobile-screenshot.md
+21:39:57 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:39:57 [INFO] Retrying request to /v1/messages in 19.000000 seconds
+21:40:18 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:40:48 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:40:48 [INFO]   enriched: 2 targets, 2 searches
+21:40:48 [INFO] [20/52] 2026-05-01-1905-specific-knowledge-excavator-naval-ravikant-prompt.md
+21:40:49 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:40:49 [INFO] Retrying request to /v1/messages in 14.000000 seconds
+21:41:05 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:41:45 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:41:45 [INFO]   enriched: 2 targets, 4 searches
+21:41:45 [INFO] [21/52] 2026-05-02-1113-brain-dump-knowledge-librarian-ai-app-reel.md
+21:41:46 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:41:46 [INFO] Retrying request to /v1/messages in 11.000000 seconds
+21:41:59 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:42:44 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:42:44 [INFO]   enriched: 4 targets, 5 searches
+21:42:44 [INFO] [22/52] 2026-05-02-1116-mengto-url-to-design-md-tool-aura-build-announcement.md
+21:42:45 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:42:45 [INFO] Retrying request to /v1/messages in 41.000000 seconds
+21:43:28 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:44:12 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:44:12 [INFO]   enriched: 4 targets, 3 searches
+21:44:12 [INFO] [23/52] 2026-05-02-1128-kevinfremon-elevenlabs-ai-jarvis-build-tutorial-reel.md
+21:44:12 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:44:12 [INFO] Retrying request to /v1/messages in 3.000000 seconds
+21:44:17 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:44:57 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:44:57 [INFO]   enriched: 4 targets, 4 searches
+21:44:57 [INFO] [24/52] 2026-05-02-1130-sebastianhardy-instagram-claude-code-obsidian-backlinks-tuto.md
+21:44:58 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:44:58 [INFO] Retrying request to /v1/messages in 53.000000 seconds
+21:45:53 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:46:32 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:46:32 [INFO]   enriched: 3 targets, 4 searches
+21:46:32 [INFO] [25/52] 2026-05-02-1130-sebastianhardy-tiktok-claude-md-obsidian-backlinks-tip.md
+21:46:33 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:46:33 [INFO] Retrying request to /v1/messages in 43.000000 seconds
+21:47:18 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:47:58 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:47:58 [INFO]   enriched: 4 targets, 4 searches
+21:47:58 [INFO] [26/52] 2026-05-02-1139-instagram-reel-lindy-ai-automation-platform-promo.md
+21:47:58 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:47:58 [INFO] Retrying request to /v1/messages in 0.422496 seconds
+21:47:59 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:47:59 [INFO] Retrying request to /v1/messages in 0.806432 seconds
+21:48:00 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:48:00 [ERROR]   failed: Error code: 429 - {'type': 'error', 'error': {'type': 'rate_limit_error', 'message': "This request would exceed your organization's rate limit of 30,000 input tokens per minute (org: fcd0a420-4d7f-455a-a3ea-82515c2cd34d, model: claude-sonnet-4-6). For details, refer to: https://docs.claude.com/en/api/rate-limits. You can see the response headers for current usage. Reduce the prompt length or the maximum tokens requested, or try again later. View your current limits at https://console.anthropic.com/settings/limits. To raise this limit, purchase credits to advance to the next usage tier at https://console.anthropic.com/settings/billing."}, 'request_id': 'req_011CaesYwQpbVkqYGX2zpGrm'}
+21:48:00 [INFO] [27/52] 2026-05-02-1735-adventure-media-ai-pricing-money-back-guarantee-mobile.md
+21:48:01 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:48:01 [INFO] Retrying request to /v1/messages in 0.430233 seconds
+21:48:01 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:48:01 [INFO] Retrying request to /v1/messages in 0.809261 seconds
+21:48:02 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:48:02 [ERROR]   failed: Error code: 429 - {'type': 'error', 'error': {'type': 'rate_limit_error', 'message': "This request would exceed your organization's rate limit of 30,000 input tokens per minute (org: fcd0a420-4d7f-455a-a3ea-82515c2cd34d, model: claude-sonnet-4-6). For details, refer to: https://docs.claude.com/en/api/rate-limits. You can see the response headers for current usage. Reduce the prompt length or the maximum tokens requested, or try again later. View your current limits at https://console.anthropic.com/settings/limits. To raise this limit, purchase credits to advance to the next usage tier at https://console.anthropic.com/settings/billing."}, 'request_id': 'req_011CaesZ6R4Mq2QBqVuJKZGF'}
+21:48:02 [INFO] [28/52] 2026-05-02-1735-agent-dev-kit-five-layer-claude-architecture-diagram.md
+21:48:03 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:48:03 [INFO] Retrying request to /v1/messages in 0.388618 seconds
+21:48:03 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:48:03 [INFO] Retrying request to /v1/messages in 0.993929 seconds
+21:48:04 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:48:04 [ERROR]   failed: Error code: 429 - {'type': 'error', 'error': {'type': 'rate_limit_error', 'message': "This request would exceed your organization's rate limit of 30,000 input tokens per minute (org: fcd0a420-4d7f-455a-a3ea-82515c2cd34d, model: claude-sonnet-4-6). For details, refer to: https://docs.claude.com/en/api/rate-limits. You can see the response headers for current usage. Reduce the prompt length or the maximum tokens requested, or try again later. View your current limits at https://console.anthropic.com/settings/limits. To raise this limit, purchase credits to advance to the next usage tier at https://console.anthropic.com/settings/billing."}, 'request_id': 'req_011CaesZG7UFgxXDDu8EhjPK'}
+21:48:04 [INFO] [29/52] 2026-05-02-1735-claude-ai-agent-layer3-hooks-infographic-facebook.md
+21:48:05 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:48:05 [INFO] Retrying request to /v1/messages in 0.464929 seconds
+21:48:06 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:48:06 [INFO] Retrying request to /v1/messages in 0.959211 seconds
+21:48:07 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:48:07 [ERROR]   failed: Error code: 429 - {'type': 'error', 'error': {'type': 'rate_limit_error', 'message': "This request would exceed your organization's rate limit of 30,000 input tokens per minute (org: fcd0a420-4d7f-455a-a3ea-82515c2cd34d, model: claude-sonnet-4-6). For details, refer to: https://docs.claude.com/en/api/rate-limits. You can see the response headers for current usage. Reduce the prompt length or the maximum tokens requested, or try again later. View your current limits at https://console.anthropic.com/settings/limits. To raise this limit, purchase credits to advance to the next usage tier at https://console.anthropic.com/settings/billing."}, 'request_id': 'req_011CaesZS4FgKY3uESq3yE5b'}
+21:48:07 [INFO] [30/52] 2026-05-02-1735-claude-layer2-skills-modular-architecture-infographic.md
+21:48:07 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:48:07 [INFO] Retrying request to /v1/messages in 0.485368 seconds
+21:48:08 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:48:08 [INFO] Retrying request to /v1/messages in 0.772841 seconds
+21:48:09 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:48:09 [ERROR]   failed: Error code: 429 - {'type': 'error', 'error': {'type': 'rate_limit_error', 'message': "This request would exceed your organization's rate limit of 30,000 input tokens per minute (org: fcd0a420-4d7f-455a-a3ea-82515c2cd34d, model: claude-sonnet-4-6). For details, refer to: https://docs.claude.com/en/api/rate-limits. You can see the response headers for current usage. Reduce the prompt length or the maximum tokens requested, or try again later. View your current limits at https://console.anthropic.com/settings/limits. To raise this limit, purchase credits to advance to the next usage tier at https://console.anthropic.com/settings/billing."}, 'request_id': 'req_011CaesZbgStqH2RV1xmBv9y'}
+21:48:09 [INFO] [31/52] 2026-05-02-1735-claude-layer4-subagents-architecture-diagram.md
+21:48:10 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:48:10 [INFO] Retrying request to /v1/messages in 58.000000 seconds
+21:49:10 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:49:50 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:49:50 [INFO]   enriched: 3 targets, 3 searches
+21:49:50 [INFO] [32/52] 2026-05-02-1735-claude-md-layer1-agent-constitution-infographic.md
+21:49:50 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:49:50 [INFO] Retrying request to /v1/messages in 34.000000 seconds
+21:50:26 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:51:02 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:51:02 [INFO]   enriched: 1 targets, 2 searches
+21:51:02 [INFO] [33/52] 2026-05-02-1735-derek-gray-instagram-ai-agents-50k-month-blueprint.md
+21:51:03 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:51:03 [INFO] Retrying request to /v1/messages in 17.000000 seconds
+21:51:23 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:52:14 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:52:14 [INFO]   enriched: 4 targets, 5 searches
+21:52:14 [INFO] [34/52] 2026-05-02-1735-entrepreneur-dinner-club-whop-subscription-checkout.md
+21:52:16 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:52:56 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:52:56 [INFO]   enriched: 3 targets, 3 searches
+21:52:56 [INFO] [35/52] 2026-05-02-1735-facebook-reel-anthropic-claude-insights-feature.md
+21:52:56 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:52:56 [INFO] Retrying request to /v1/messages in 10.000000 seconds
+21:53:09 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:53:59 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:53:59 [INFO]   enriched: 4 targets, 5 searches
+21:53:59 [INFO] [36/52] 2026-05-02-1735-facebook-reel-anthropic-ultraplan-feature-jens-heitmann.md
+21:54:00 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:54:00 [INFO] Retrying request to /v1/messages in 0.387116 seconds
+21:54:00 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:54:00 [INFO] Retrying request to /v1/messages in 0.913856 seconds
+21:54:01 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:54:01 [ERROR]   failed: Error code: 429 - {'type': 'error', 'error': {'type': 'rate_limit_error', 'message': "This request would exceed your organization's rate limit of 30,000 input tokens per minute (org: fcd0a420-4d7f-455a-a3ea-82515c2cd34d, model: claude-sonnet-4-6). For details, refer to: https://docs.claude.com/en/api/rate-limits. You can see the response headers for current usage. Reduce the prompt length or the maximum tokens requested, or try again later. View your current limits at https://console.anthropic.com/settings/limits. To raise this limit, purchase credits to advance to the next usage tier at https://console.anthropic.com/settings/billing."}, 'request_id': 'req_011Caet1aVExyqtbjxCEw82X'}
+21:54:01 [INFO] [37/52] 2026-05-02-1735-facebook-reel-jens-heitmann-anthropic-powerup.md
+21:54:02 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:54:02 [INFO] Retrying request to /v1/messages in 60.000000 seconds
+21:55:04 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:55:41 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:55:41 [INFO]   enriched: 3 targets, 3 searches
+21:55:41 [INFO] [38/52] 2026-05-02-1735-google-search-claude-ableton-mcp-integration.md
+21:55:41 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:55:41 [INFO] Retrying request to /v1/messages in 32.000000 seconds
+21:56:16 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:56:59 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:56:59 [INFO]   enriched: 4 targets, 3 searches
+21:56:59 [INFO] [39/52] 2026-05-02-1735-instagram-derek-gray-ai-agent-therapist-lead-generation.md
+21:57:00 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:57:00 [INFO] Retrying request to /v1/messages in 11.000000 seconds
+21:57:13 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:57:51 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:57:51 [INFO]   enriched: 3 targets, 4 searches
+21:57:51 [INFO] [40/52] 2026-05-02-1735-instagram-reel-google-stitch-mcp-ai-design-tool.md
+21:57:52 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:57:52 [INFO] Retrying request to /v1/messages in 26.000000 seconds
+21:58:20 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:58:59 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+21:58:59 [INFO]   enriched: 3 targets, 3 searches
+21:58:59 [INFO] [41/52] 2026-05-02-1735-instagram-reel-jens-heitmann-21st-dev-asset-library.md
+21:58:59 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+21:58:59 [INFO] Retrying request to /v1/messages in 23.000000 seconds
+21:59:24 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:00:02 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:00:02 [INFO]   enriched: 3 targets, 3 searches
+22:00:02 [INFO] [42/52] 2026-05-02-1735-instagram-reel-nano-banana-2-gemini-image-preview-tool.md
+22:00:03 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+22:00:03 [INFO] Retrying request to /v1/messages in 21.000000 seconds
+22:00:26 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:01:17 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:01:17 [INFO]   enriched: 4 targets, 4 searches
+22:01:17 [INFO] [43/52] 2026-05-02-1735-layer-5-plugins-claude-agent-framework-infographic.md
+22:01:17 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+22:01:17 [INFO] Retrying request to /v1/messages in 24.000000 seconds
+22:01:43 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:02:13 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:02:13 [INFO]   enriched: 2 targets, 2 searches
+22:02:13 [INFO] [44/52] 2026-05-02-1735-obsidian-web-clipper-webpage-to-markdown-reel.md
+22:02:14 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+22:02:14 [INFO] Retrying request to /v1/messages in 17.000000 seconds
+22:02:33 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:03:17 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:03:17 [INFO]   enriched: 4 targets, 5 searches
+22:03:17 [INFO] [45/52] 2026-05-02-1735-resolume-7-26-release-announcement-claude-logo.md
+22:03:18 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+22:03:18 [INFO] Retrying request to /v1/messages in 45.000000 seconds
+22:04:06 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:04:53 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:04:53 [INFO]   enriched: 4 targets, 4 searches
+22:04:53 [INFO] [46/52] 2026-05-02-1735-ui-ux-pro-max-design-intelligence-nextlevelbuilder.md
+22:04:54 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+22:04:54 [INFO] Retrying request to /v1/messages in 31.000000 seconds
+22:05:27 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:05:53 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:05:53 [INFO]   enriched: 2 targets, 2 searches
+22:05:53 [INFO] [47/52] 2026-05-02-1736-derek-gray-instagram-auto-repair-shop-s-tier-business.md
+22:05:53 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+22:05:53 [INFO] Retrying request to /v1/messages in 10.000000 seconds
+22:06:06 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:06:44 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:06:44 [INFO]   enriched: 4 targets, 4 searches
+22:06:44 [INFO] [48/52] 2026-05-02-1736-derek-gray-instagram-lawyers-s-tier-ai-agents-marketing.md
+22:06:45 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+22:06:45 [INFO] Retrying request to /v1/messages in 7.000000 seconds
+22:06:54 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:07:36 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:07:36 [INFO]   enriched: 3 targets, 4 searches
+22:07:36 [INFO] [49/52] 2026-05-02-1736-derek-gray-instagram-realty-firms-a-tier-buyer-leads.md
+22:07:36 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+22:07:36 [INFO] Retrying request to /v1/messages in 28.000000 seconds
+22:08:07 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:08:42 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:08:42 [INFO]   enriched: 3 targets, 3 searches
+22:08:42 [INFO] [50/52] 2026-05-02-1736-instagram-ai-agent-tax-deduction-w2-employee-post.md
+22:08:43 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+22:08:43 [INFO] Retrying request to /v1/messages in 13.000000 seconds
+22:08:58 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:09:44 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:09:44 [INFO]   enriched: 3 targets, 5 searches
+22:09:44 [INFO] [51/52] 2026-05-02-1736-instagram-derek-gray-bathroom-remodeling-business-tip.md
+22:09:44 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 429 Too Many Requests"
+22:09:44 [INFO] Retrying request to /v1/messages in 59.000000 seconds
+22:10:46 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:11:31 [INFO] HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+22:11:31 [INFO]   enriched: 3 targets, 4 searches
+22:11:31 [INFO] [52/52] 2026-05-02-2059-instagram-futurewalt-primolabs-finance-tutorial-post.md
+22:11:31 [INFO]   skipped: already enriched
+22:11:31 [INFO] Done: 43 enriched, 3 skipped, 6 failed, 152 total searches

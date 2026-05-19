@@ -1,0 +1,20 @@
+# OS / IDE
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Future RAG corpus (large embeddings, transcripts — bundle separately when shipping)
+**/rag/embeddings/
+**/rag/cache/
+**/transcripts/raw/
+
+# Local-only memory entries (sensitive)
+**/memory/private/
+
+# Build artifacts (future convert.sh output)
+dist/
+build/
+*.tar.gz
+*.zip
