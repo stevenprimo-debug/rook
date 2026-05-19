@@ -194,6 +194,11 @@ Iterate `.claude/connectors/*/`. For each connector with a `client.py`, attempt
 the smallest read call. For each MCP-backed connector, verify the MCP namespace
 is loaded in the operator's deferred-tools list. Surface dead connectors.
 
+**Also verifies the Anthropic deployment surface** — checks that
+`.claude/anthropic-deployment-notes.md` is current (re-verify quarterly against
+live Anthropic Managed Agents docs, since the beta header value, rate limits,
+and model list change as the API matures).
+
 ### MODE: secret-scan
 
 Scan committed files for credential patterns (API keys, tokens, OAuth secrets).

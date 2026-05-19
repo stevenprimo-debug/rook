@@ -620,6 +620,15 @@ Every response from this skill MUST end with the dispatch section. No exceptions
 [Librarian contradiction report path, if applicable]
 ```
 
+### Deployment context
+
+When deployed via **Anthropic Managed Agents** (vs local Claude Code), the API
+requires the `anthropic-beta: managed-agents-2026-04-01` header. See
+[`.claude/anthropic-deployment-notes.md`](../../.claude/anthropic-deployment-notes.md)
+for the full deployment surface (header, rate limits, billing, supported
+models, scaling pattern). For local Claude Code installs the header is
+irrelevant — Claude Code handles the API layer.
+
 ### Distilled Return rule (Hierarchical Supervisor pattern)
 
 When a dispatched subagent returns, Chief of Staff distills the return before
