@@ -56,6 +56,40 @@ If the roster grows beyond 20, the Anthropic-recommended scaling pattern is **mu
 2. **Hierarchical Supervisor with scoped context** — the customer-facing interface agent receives distilled summaries (1–2K tokens) from worker agents, never raw tool outputs. ROOK's chief-of-staff implements this via the "Distilled Return rule" — see [agents/chief-of-staff/SKILL.md](../agents/chief-of-staff/SKILL.md).
 3. **Boundary guardrails + audit trails** — zero-trust between agents, secret detection on outputs, session segregation via the beta header and distinct `session_id` paths. ROOK implements this via the Reversibility-Discipline pole on every agent, the operator-vs-customer session-mode segregation ([`.claude/session-modes.md`](session-modes.md)), and ops-engineer's contamination-audit mode.
 
+## Security posture for hosted deployment
+
+Three pre-requisites before ROOK deploys via Anthropic Managed Agents (vs local Claude Code). These were surfaced by Perplexity ping-pong red-team 2026-05-19 against the v3.1 ship state. They do NOT block local Claude Code installs; they DO block hosted Managed Agents deployment.
+
+### 1. Cross-Agent Prompt Injection Propagation (CAPP) defense
+
+Subagent returns can carry hidden instructions designed to survive summarization and reach the coordinator as system directives. ROOK's defense: **provenance tagging** in the chief-of-staff Distilled Return rule. Every fact in a distilled return carries an `[Origin: <agent>:<source-type>]` tag. Untrusted-tagged content is reference-only — never executed as instruction. See [`agents/chief-of-staff/SKILL.md`](../agents/chief-of-staff/SKILL.md) § Provenance tagging.
+
+This is a CONVENTION the agent runtime enforces. For Managed Agents hosted deployment, the runtime should additionally tag inbound content from external connectors with `[Origin: untrusted-*]` automatically before passing to any agent.
+
+### 2. Credential isolation via Managed Tool Proxy
+
+Connector credentials (HubSpot API key, Stripe API key, GitHub PAT, etc.) currently read from environment variables. In a sandboxed Managed Agents environment, a compromised agent can read its own process environment and exfiltrate credentials.
+
+**Pattern for hosted deployment:** the agent never holds raw API keys. Instead, calls go through a **tool proxy** (operator-controlled service outside the agent sandbox) that injects credentials server-side and forwards the request. The agent sees only the proxy endpoint; the credentials never enter the sandbox.
+
+ROOK's v1 connector `client.py` implementations read env vars directly — fine for local install (operator's own machine). For hosted deployment, the operator wraps each `client.py` with a proxy layer OR uses Anthropic's managed-credential-injection feature (when available).
+
+**v1.1 task:** stub a reference proxy implementation at `.claude/connectors/_lib/proxy.py` so hosted deployers have a starting point.
+
+### 3. Network egress allowlist
+
+Default-deny on agent network egress. Allow only the specific domains documented at [`.claude/connectors/_egress-allowlist.md`](../.claude/connectors/_egress-allowlist.md). This prevents a compromised agent from exfiltrating vault contents via arbitrary outbound HTTP calls, even if it bypasses the operator-confirm gates on known connectors.
+
+For Managed Agents deployment: paste the egress allowlist domains into the agent network policy at deploy time. For local Claude Code installs: this is the customer's machine; standard local-app security applies.
+
+### Summary table — what these mean for v1 cohort vs hosted
+
+| Risk | Local Claude Code install (v1) | Anthropic Managed Agents (hosted) |
+|---|---|---|
+| Prompt injection | low (customer's own data sources) | HIGH — needs CAPP defense via provenance tags |
+| Credential exposure | low (customer's own env vars) | HIGH — needs tool proxy pattern |
+| Egress exfiltration | low (customer's own network) | HIGH — needs allowlist enforcement |
+
 ## What this means for ROOK agent SKILL.md files
 
 Agents that interact with the Anthropic API directly (rare — most agents use Claude Code's session-level integration, not the raw API) should:
