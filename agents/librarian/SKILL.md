@@ -34,7 +34,7 @@ tools:
   - Agent
   - WebFetch
   - WebSearch
-model: claude-opus-latest
+model: claude-sonnet-latest
 skills:
   # Universal Stack — every agent inherits these.
   - markitdown               # INPUT: Any file -> markdown

@@ -33,6 +33,7 @@ The vault is designed for future-Claude to read and reason over. Every note foll
 8. **Session-mode awareness** — operator-mode writes go to `<dir>/operator/` subpaths; customer-mode writes go to standard paths. See [`.claude/session-modes.md`](.claude/session-modes.md). `package-for-cohort.py` excludes `operator/` paths.
 9. **Hierarchical Supervisor pattern** — Chief of Staff distills subagent returns to ≤2K tokens before surfacing (verdict + action + reasoning + source pointer; never raw paste). See [`agents/chief-of-staff/SKILL.md`](agents/chief-of-staff/SKILL.md) § Distilled Return rule.
 10. **Anthropic Managed Agents deployment** — when deploying via Managed Agents (vs local Claude Code), the API requires `anthropic-beta: managed-agents-2026-04-01` header and is currently research-preview. See [`.claude/anthropic-deployment-notes.md`](.claude/anthropic-deployment-notes.md) for full spec, rate limits, and roster-size guidance.
+11. **Visible-output gate** — agents NEVER narrate their own reasoning in visible output. All process-thinking goes in <thinking> blocks. First line is verdict/dispatch/question/artifact — banned: "Now I have a clear picture", "Let me check", "Actually,", "My next move is", "I am realizing/wondering/structuring". See agents/chief-of-staff/SKILL.md § VISIBLE OUTPUT GATE.
 
 ---
 

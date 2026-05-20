@@ -30,7 +30,7 @@ tools:
   - Agent
   - WebFetch
   - WebSearch
-model: claude-haiku-latest
+model: claude-opus-latest
 skills:
   # Universal Stack — every agent inherits these.
   - markitdown               # INPUT: Any file -> markdown

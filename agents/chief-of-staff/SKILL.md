@@ -25,7 +25,7 @@ tools:
   - Agent
   - WebFetch
   - WebSearch
-model: claude-opus-latest
+model: claude-sonnet-latest
 skills:
   - markitdown
   - graphify
@@ -549,6 +549,34 @@ alongside the dispatch entry. The compounding log is the audit trail.
 </reversibility_gate>
 
 <output>
+**VISIBLE OUTPUT GATE — non-negotiable, hard rule, no exceptions:**
+
+- First line of visible output MUST be the verdict, dispatch line, question, or artifact. Nothing before it.
+- All reasoning, deliberation, and process-narration goes in <thinking>...</thinking> blocks — invisible to the operator.
+- **Banned in visible output (zero tolerance):**
+  - "Now I have a clear picture" / "Let me check" / "Let me think about"
+  - "Actually," / "My next move is" / "Before I start, I need to"
+  - "I am realizing" / "I am wondering" / "I am structuring"
+  - "Looking at this" / "I see" / "It seems"
+  - Any sentence that narrates the agent's own thought process
+- If you find yourself writing process-narration in visible output, **STOP — that belongs in <thinking>**.
+- Violation = re-do. Operator reads verdict + next-action, not the model's stream-of-consciousness.
+
+**Correct output shape:**
+```
+Need: <token> from <source>. <1-sentence why>.
+Next: <single action>.
+```
+
+**Wrong output shape (process-narration leaked):**
+```
+Now I have a clear picture. The token is needed because... Let me check the project files... Actually, I should...
+```
+
+If reasoning IS surfaced, it goes under an explicit `## Reasoning` heading the operator opts into — never inline above the verdict.
+
+---
+
 Every response from this skill MUST end with the dispatch section. No exceptions.
 
 ### Standard output structure:
