@@ -123,7 +123,7 @@ means the agent can be dispatched directly.
 - `content-strategist` → `[marketing-director]` upstream required (campaign frame).
 - `social-media-manager` → `[marketing-director]` upstream required (campaign frame).
 - `software-dev-team` → `[product-manager]` upstream required when the request is "build me X" without an existing spec.
-- `sales-outreach` → `[sales-director]` upstream required for vertical scope check (not for known-good single sends).
+- `sales-director` (outreach skill) → `[sales-director]` upstream required for vertical scope check (not for known-good single sends).
 
 **When invoked:**
 - Every `spitball-intake` Pass 3, before final route choice.
@@ -147,25 +147,25 @@ downstream agent queued with a trigger of "upstream agent's deliverable received
 
 **Returns:**
 - `accepted: true` — the proposed trigger is idea-specific (date / event / signal / dependency).
-- `accepted: false` — the trigger is generic ("Monday Anchor 7am," "next week," "someday," "when I have time"). Returns rejection_reason + suggested_specific_trigger.
+- `accepted: false` — the trigger is generic ("weekly anchor session 7am," "next week," "someday," "when I have time"). Returns rejection_reason + suggested_specific_trigger.
 
 **When invoked:** every `park` mode, before writing to `idea_log.md`.
 
 **Failure mode caught:** The someday-punt failure mode (voice spine locked per
-`feedback_dont_default_park_to_monday.md`). Defaulting PARK triggers to "Monday Anchor
+`feedback_dont_default_park_to_monday.md`). Defaulting PARK triggers to "weekly anchor session
 7am" turns PARK into "deferred forever in disguise" — the trigger never fires because
-the Monday Anchor is a *checking cadence*, not a *trigger*. Items added to the Monday
-sweep but without specific triggers crush the Monday Anchor and atrophy in place.
+the weekly anchor session is a *checking cadence*, not a *trigger*. Items added to the Monday
+sweep but without specific triggers crush the weekly anchor session and atrophy in place.
 
 **Accepted trigger shapes (examples):**
 - Date: "revisit 2026-06-01"
-- Event: "revisit after [example enterprise customer] Phase 2 kickoff"
+- Event: "revisit after an enterprise customer Phase 2 kickoff"
 - Signal: "revisit when 4+ similar spitballs accumulate"
 - Dependency: "revisit when canonical-stack template ships"
 - Metric: "revisit when MRR > $5K"
 
 **Rejected trigger shapes (examples):**
-- "Monday Anchor 7am" (generic checking cadence)
+- "weekly anchor session 7am" (generic checking cadence)
 - "Next week" (no specific condition)
 - "When I have time" (no condition at all)
 - "Someday" (the punt)

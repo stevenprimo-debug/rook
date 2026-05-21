@@ -17,7 +17,7 @@
 $ErrorActionPreference = 'SilentlyContinue'
 
 # ---- CONFIG ---------------------------------------------------------------
-$VaultRoot   = 'C:\Users\User\Desktop\PRIMOLABS'
+$VaultRoot   = if ($env:ROOK_VAULT_ROOT) { $env:ROOK_VAULT_ROOT } else { Split-Path (Split-Path $PSScriptRoot -Parent) -Parent }
 $SearchPaths = @(
     'DEPARTMENTS',
     'Clippings',

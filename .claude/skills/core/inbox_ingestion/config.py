@@ -24,11 +24,13 @@ SOURCE_DIR = Path(os.environ.get(
     r"G:\My Drive"
 ))
 
-# Destination: COWORK INBOX folders
-COWORK_ROOT = Path(os.environ.get(
-    "COWORK_ROOT",
-    r"C:\Users\User\Desktop\PRIMOLABS"
+# Destination: ROOK vault INBOX folders
+ROOK_ROOT = Path(os.environ.get(
+    "ROOK_ROOT",
+    Path(__file__).resolve().parents[4]
 ))
+# Back-compat alias
+COWORK_ROOT = ROOK_ROOT
 
 PROCESSED_MD_DIR = COWORK_ROOT / "INBOX" / "processed"
 PROCESSED_IMG_DIR = COWORK_ROOT / "INBOX" / "processed_images"

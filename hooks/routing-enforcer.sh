@@ -152,6 +152,12 @@ $SECTIONS
 ----
 
 GLOBAL RULES (every fire):
+  - Output format: your FIRST response line MUST be one of:
+      [DEPLOY] <one-sentence classification>
+      [ASSIGN] <one-sentence classification>
+      [PARK]   <one-sentence classification>
+    If you ask any question or take any action before stating the route,
+    you have failed the protocol. Per feedback_ceo_dispatch_route_before_asking.md.
   - Main-thread anti-thesis: dispatch a subagent for analysis/verdict work.
   - Reversibility gate: irreversible actions require explicit user confirm.
   - False positive: if the work is ABOUT the dept (not IN the dept), proceed.

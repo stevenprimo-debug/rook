@@ -54,8 +54,17 @@ try {
         $toolInput = ($data.tool_input | ConvertTo-Json -Depth 5 -Compress 2>$null)
     }
 
-    $tradeKeywords = '(?i)\b(entry|stop loss|target price|take profit|trade plan|trade setup|risk-sized|long this|short this|buy this|sell this|position size)\b'
-    if (-not $inTrading -and ($toolInput -notmatch $tradeKeywords)) {
+    # Phrase-anchored trigger words. Bare "entry" overfires on "index entry" /
+    # "log entry" — require it to be paired with trading semantics
+    # ("entry price", "entry zone", "entry trigger") OR appear inside cwd=trading.
+    $tradeKeywords = '(?i)\b(entry price|entry zone|entry trigger|stop loss|target price|take profit|trade plan|trade setup|risk-sized|long this|short this|buy this|sell this|position size)\b'
+    # Additional context gate: require at least TWO trade-verdict signals in toolInput
+    # when not in trading cwd. Single signal too noisy.
+    $matchCount = 0
+    if ($toolInput) {
+        $matchCount = ([regex]::Matches($toolInput, $tradeKeywords)).Count
+    }
+    if (-not $inTrading -and $matchCount -lt 2) {
         exit 0
     }
 

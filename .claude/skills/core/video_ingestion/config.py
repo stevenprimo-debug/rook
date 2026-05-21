@@ -11,10 +11,12 @@ ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 
 SUMMARY_MODEL = "claude-sonnet-4-6"
 
-COWORK_ROOT = Path(os.environ.get(
-    "COWORK_ROOT",
-    r"C:\Users\User\Desktop\PRIMOLABS"
+ROOK_ROOT = Path(os.environ.get(
+    "ROOK_ROOT",
+    Path(__file__).resolve().parents[4]
 ))
+# Back-compat alias
+COWORK_ROOT = ROOK_ROOT
 
 # Output: same INBOX/processed as image ingest so the existing inbox_routing picks it up
 PROCESSED_MD_DIR = COWORK_ROOT / "INBOX" / "processed"

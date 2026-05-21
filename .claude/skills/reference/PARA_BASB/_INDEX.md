@@ -34,7 +34,7 @@ This folder is the **single source of truth** for Tiago Forte's PARA Method and 
 ## Related routed material
 
 - **LifeOS — Building my second brain with Obsidian (PARA + Periodic Notes + FullCalendar)** — already auto-routed to:
-  - `agents/software-dev-team/context/2026-05/LifeOS - Building my second brain  with Obsidian(PARA MethodPeriodic NotesFullcalendar).md`
+  - `agents/software-dev-team/memory/2026-05/LifeOS - Building my second brain  with Obsidian(PARA MethodPeriodic NotesFullcalendar).md`
   - `agents/context/2026-05/LifeOS - Building my second brain  with Obsidian(PARA MethodPeriodic NotesFullcalendar).md`
   - These stay where the routing engine put them — useful in their lens (SOFTWARE DEV = Obsidian implementation; PRIMOLABS = teachable system). They are derivative, not canonical.
 

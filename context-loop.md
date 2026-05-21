@@ -4,13 +4,14 @@
 
 ROOK is an Agentic OS — the coordination layer above your agents. An Agentic OS manages five things: orchestration (who handles what), memory (what gets remembered), **context** (what each agent knows), specialization (how agents compose), and feedback (how the system gets better). The Context Loop is how ROOK delivers the third pillar — and the fifth, because the loop is self-reinforcing.
 
-The 20 agents are the surface; the Context Loop is the substrate. Every capture you make — a phone screenshot, a voice memo, a web clipping, a PDF — flows through five stages and ends up in the right agent's working memory, where it stays compounded until it stops earning its keep.
+The 20 agents are the surface; the Context Loop is the substrate. Every capture you make — a phone screenshot, a voice memo, a web clipping, a PDF — flows through five stages and ends up indexed in a shared knowledge graph, queryable by any agent, persistent until the librarian quarantines it.
 
 ## The five stages
 
 ```
-1. CAPTURE   ─→   2. INGEST   ─→   3. ROUTE   ─→   4. READ   ─→   5. PRUNE
-   (any input)     (→ markdown)    (→ agent)       (every fire)    (weekly)
+1. CAPTURE   ─→   2. INGEST   ─→   3. ROUTE   ─→   4. QUERY   ─→   5. PRUNE
+   (any input)     (→ markdown)    (→ shelf OR    (graph query     (weekly
+                                    agent memory)  on agent fire)   librarian)
 ```
 
 ### 1. Capture — any input, any device
@@ -31,48 +32,69 @@ Captures land in `inbox/` at the vault root. No tagging required. No "which fold
 
 This is the layer that means **the capture format never determines what comes next.** A screenshot and a voice memo and a PDF all arrive at stage 3 looking identical.
 
-### 3. Route — single primary agent, with explicit fan-out when needed
+### 3. Route — two destinations, decided by content
 
-`inbox-routing` reads each ingested markdown file's content + frontmatter + filename and scores it against each agent's `routing_keywords` (defined in that agent's `SKILL.md` frontmatter).
+`inbox-routing` reads each ingested markdown file's content + frontmatter + filename and classifies it into ONE of two destinations:
 
-**Default behavior:** the highest-scoring agent gets the file. It writes to `agents/<agent>/context/YYYY-MM/<slug>.md`. One file, one home, no duplication.
+**Destination A — Shared shelf (`.claude/reference/<topic>/`):**
+Cross-cutting reference material that ANY agent might need. API docs, contract templates, library references, methodology playbooks, industry intel. Filed by topic (`shopify/`, `tradingview/`, `templates/`, `methodology/`, etc.), not by consuming agent. One file lives in one place; the graph (see Stage 4) makes it findable from any angle.
 
-**Fan-out override:** if you spot a capture that legitimately serves multiple agents (a competitor's pricing screenshot is relevant to sales-director AND deep-researcher AND marketing-director), add this to the file's frontmatter:
+**Destination B — Agent memory (`agents/<agent>/memory/`):**
+Agent-specific learnings, decisions the agent owns, compounding feedback from session-by-session work. The agent's own brain, distinct from the shared institutional library. Compounding-append pattern — versioned, never silently rewritten.
 
-```yaml
-routes-to: [sales-director, deep-researcher, marketing-director]
+**Fan-out is NOT the default.** Each file has one home. The graph handles "which agent should care about this" via semantic query, not via folder duplication. If the customer wants explicit cross-agent visibility, they can add a frontmatter pointer — but the graph alone usually does the work.
+
+### 4. Query — agents read context on demand via the graph
+
+When you invoke any agent, Step 1 of its master skill loads the agent's identity (personality, memory) — that's cheap. For anything in its domain, it then **queries the graph** built by graphify on the shared shelf:
+
+```bash
+graphify query "shopify webhook implementation"
+# → returns the 5 most relevant files across the shelf
 ```
 
-The librarian's next weekly sweep notices the `routes-to:` entry and creates symlinks into each additional agent's `context/` folder. The original file stays single-sourced — only one truth, multiple read paths.
+The agent walks into the session knowing how to find what it needs — and pulls only the files that match its current question. No 50-file folder walks. No stale context dumped into every prompt. Just-in-time loading via graph traversal.
 
-### 4. Read — every agent loads context on session start
+**This is the compounding step.** Every file you add to the shelf becomes a node in the graph. Every agent that reads it leaves a faint usage trace. Six months in, the graph encodes thousands of cross-references — Shopify webhook docs link to operator-confirm gates link to Tradovate order endpoints link to your customer-trust pattern memory. The agent isn't smarter; the graph is denser.
 
-When you invoke any agent, Step 1 of its master skill (the canonical opening of every ROOK agent's SKILL.md) reads:
-
-```
-agents/<agent>/context/    ← human-curated + auto-routed material
-agents/<agent>/memory/     ← agent-written learned state
-```
-
-The agent walks into the session already knowing what's been captured for it. You don't paste, you don't reference — the context is already loaded.
-
-**This is the compounding step.** Every session, the agent reads what's there. Every capture you make adds to what's there. Six months in, the designer agent has read every screenshot of every reference you ever liked, every brand decision you ever wrote down, every voice memo about why the last project failed. The agent isn't smarter — its context is denser.
+**What graphify gives you (the GraphRAG layer):**
+- Knowledge graph with entity + relation extraction
+- Community detection (cross-document patterns you didn't ask for)
+- BFS / DFS traversal for query
+- Multi-hop reasoning (`graphify path "AuthModule" "Database"`)
+- Audit trail (EXTRACTED / INFERRED / AMBIGUOUS labels with confidence scores)
+- Token-budgeted responses (`--budget 1500`)
+- MCP server option for live agent access
+- Incremental updates — only re-extracts changed files
 
 ### 5. Prune — librarian weekly sweep, auto-quarantine, on-demand restore
 
-The vault stays fast and accurate because the librarian agent runs every week and quarantines content that no longer earns its keep.
+The vault stays fast and accurate because the librarian agent runs every week.
 
-**What the librarian does each Sunday night:**
+**What the librarian does each Sunday night (or whatever weekly cadence the customer configures):**
 
-1. Walks every agent's `context/` and `memory/`
-2. Scores each file against the prune policy (see [`agents/librarian/prune-policy.md`](agents/librarian/prune-policy.md))
-3. Moves stale files to `_archive/<YYYY-MM>/pruned/` with a one-line reason in `librarian-log.md`
-4. Reconciles any `routes-to:` frontmatter updates from the last week (creates new symlinks, removes stale ones)
-5. Writes the Monday digest
+1. Runs `graphify update .` — re-indexes any new/changed files (incremental, ~5-10 min)
+2. Walks the shared shelf + every agent's memory
+3. Scores each file against the prune policy (see [`agents/librarian/prune-policy.md`](agents/librarian/prune-policy.md))
+4. Moves stale files to `_archive/<YYYY-MM>/pruned/` with a one-line reason
+5. Surfaces dedup candidates (graph's `semantically_similar_to` edges)
+6. Surfaces shelf-promotion candidates (when 2+ agents have memory entries about the same concept)
+7. Writes the Monday digest to `agents/librarian/digests/<YYYY-MM-DD>-digest.md`
 
-**What you see Monday morning:** a single markdown digest at the vault root. "Quarantined 47 notes last week. 12 from designer/context (>90 days unread), 18 from deep-researcher/context (superseded by newer notes), 17 from copywriter/memory (legacy patterns)." Each entry is one line with a restore command. One scan, three decisions, back to work.
+**What you see Monday morning:** a single digest in `agents/librarian/digests/`. "Quarantined 47 notes last week. 12 from designer/memory (>90 days unread), 18 superseded by newer notes, 17 dedup candidates flagged. Two patterns ready to promote from memory to shelf (designer + creative-director both learned X)." Each entry is one line with a restore command. One scan, three decisions, back to work.
 
 **Quarantine, never delete.** Pruning moves files to `_archive/`. You can restore any file with one command at any time. The history is the audit trail; HEAD is the current best.
+
+---
+
+## The two top-level inboxes
+
+| Folder | What lands here | Direction |
+|---|---|---|
+| `inbox/` | Customer captures — screenshots, voice memos, clippings, PDFs | Customer → ROOK |
+| `_from_rook/` | ROOK artifacts for the customer to read — briefs, plans, digests, reports | ROOK → Customer |
+
+The `_from_rook/` convention (carried over from the operator's workflow): when any agent generates a doc the customer is meant to read later in Obsidian (a session brief, a Monday digest, a research summary, a meeting prep), it writes there with a date-prefixed slug — `_from_rook/2026-05-20-monday-digest.md`. That folder is the customer's reading queue.
 
 ---
 
@@ -82,21 +104,21 @@ Most agent products ship one memory backend and call it a day. ROOK ships four, 
 
 | Tier | Backend | Who runs it | What it stores |
 |---|---|---|---|
-| **1 — Synthesizer** | Vector index + graph subset | chief-of-staff · librarian · deep-researcher | Semantic search across the vault + entity relationships across many files |
+| **1 — Synthesizer** | Vector index + graph subset | chief-of-staff · librarian · deep-researcher | Semantic search across the shelf + entity relationships across many files |
 | **2 — Structured operator** | SQLite | sales-director · finance-manager · trading-analyst · shopify-agent | Deals, transactions, positions, products — anything tabular |
 | **3 — Document reader** | Vectorless, on-demand PDF read | engineering-lead | CAD drawings, spec sheets, long technical PDFs queried per-session |
-| **4 — Default** | Markdown + grep | the other 12 agents | Files ARE the index; no preprocessing |
+| **4 — Default** | Markdown + grep + graph query | the other 12 agents | Files ARE the index (in shared shelf + per-agent memory); graphify is the cross-shelf retrieval layer |
 
-**Why per-agent, not per-query:** the agent's data shape doesn't change every query. The shape is a property of the work, not the question. Sales pipeline data is tabular every day; brand guidelines are markdown every day. Picking the memory architecture per agent (declared once, used for every session) is simpler, cheaper, and explainable.
+**Why per-agent, not per-query:** the agent's data shape doesn't change every query. Sales pipeline data is tabular every day; brand guidelines are markdown every day. Picking the memory architecture per agent (declared once, used for every session) is simpler, cheaper, and explainable.
 
 **How to choose a tier (the lesson, from the IG decision-guide framework):**
 
 1. **What is the shape of this agent's data?** Text blobs → Tier 1 or 4. Numbers + structured fields → Tier 2. Reference PDFs that don't change → Tier 3.
 2. **How dense are the relationships across files?** High → Tier 1 (graph). Low → Tier 4.
 3. **Does the agent need exact lookups?** Yes → Tier 2 (SQL). No → Tier 1 or 4.
-4. **How big does the corpus get?** Stays small (<100 files) → Tier 4 is fine. Grows past that → upgrade to Tier 1.
+4. **How big does the corpus get?** Stays small (<100 files) → Tier 4 is fine. Grows past that → graphify gives Tier-1-style query without a separate vector index.
 
-This is the cohort lesson on memory architecture — when to upgrade an agent from Tier 4 to Tier 1 because the corpus crossed the point markdown alone can serve.
+This is the cohort lesson on memory architecture — when to upgrade an agent's data layer because the corpus crossed the point markdown alone can serve.
 
 ### Tier 1 — vector index location
 
@@ -106,7 +128,7 @@ Each Tier 1 agent has a private vector index at:
 agents/<agent>/memory/.vector-index/
 ```
 
-Git-ignored. Rebuilt by the librarian during the Sunday sweep. Per-agent scope — no agent reads another's index directly; cross-agent context flows through explicit `routes-to:` frontmatter and `context/00-inherited.md` cross-references.
+Git-ignored. Rebuilt by the librarian during the Sunday sweep. The shared graph at `.claude/reference/graphify-out/graph.json` already provides cross-shelf semantic retrieval — Tier 1 vector indexes are only needed for agent-specific fuzzy search beyond what the graph offers.
 
 ### Tier 2 — SQLite schemas
 
@@ -121,13 +143,13 @@ Defaults exist so the agent works on day one. Customer-authored extensions are t
 
 ### Tier 3 — vectorless document reads
 
-Tier 3 agents do NOT preprocess their document corpus. PDFs sit in `agents/<agent>/context/sources/` and get read on agent demand — not in background. Right for engineering-lead because spec sheets and drawings are large, infrequently queried, and don't benefit from vector embedding when only a few sections are needed per session.
+Tier 3 agents do NOT preprocess their document corpus. Reference PDFs live in `.claude/reference/<topic>/sources/` on the shared shelf and get read on agent demand — not in background. Right for engineering-lead because spec sheets and drawings are large, infrequently queried, and don't benefit from vector embedding when only a few sections are needed per session.
 
-### Tier 4 — markdown + grep
+### Tier 4 — markdown + grep + graph query
 
-The default for all 12 remaining agents. Files in `agents/<agent>/context/` and `agents/<agent>/memory/` are the index. Step 1 of the master skill loads them on session start. No preprocessing, no vectors, no DB. Files ARE the corpus.
+The default for all 12 remaining agents. The shared shelf (`.claude/reference/`) + per-agent memory (`agents/<agent>/memory/`) ARE the corpus. Graphify provides cross-shelf semantic retrieval for everyone, regardless of tier. No preprocessing, no embeddings, no separate DB needed for default-tier agents.
 
-This is the right starting tier for any new agent. Upgrade to Tier 1 only when the corpus grows past the point where markdown + grep stops returning useful matches.
+This is the right starting tier for any new agent. Upgrade to Tier 1 (per-agent vector) only when the corpus grows past the point where shared-shelf graph query stops returning useful matches.
 
 ---
 
@@ -135,9 +157,9 @@ This is the right starting tier for any new agent. Upgrade to Tier 1 only when t
 
 Most agent tools ship the agents. ROOK ships the loop the agents run inside.
 
-The loop is what means your agents get smarter over time without you doing anything. The capture habit is the only input you provide. The librarian handles the cleanup. The router handles the filing. The agents handle the work.
+The loop is what means your agents get smarter over time without you doing anything. The capture habit is the only input you provide. The librarian handles the cleanup. The router handles the filing. The graph handles the retrieval. The agents handle the work.
 
-A subscription justifies itself when something runs continuously and produces something you can see. The Monday digest is that artifact. Every week, you can scroll the digest and watch the loop working — what got captured, what got routed where, what got quarantined, what your agents read into context. The proof of the system is visible by design.
+A subscription justifies itself when something runs continuously and produces something you can see. The Monday digest in `_from_rook/` is that artifact. Every week, you can scroll the digest and watch the loop working — what got captured, what got routed where, what got quarantined, what the graph grew, what your agents read into context. The proof of the system is visible by design.
 
 ---
 
@@ -148,26 +170,31 @@ The Context Loop ships with sensible defaults. Customers tune four levers:
 1. **Routing keywords** in `routing-rules.json` and each agent's SKILL.md `routing_keywords` block — what fires what.
 2. **Voice modes** in `agents/<agent>/personality/voice_modes/<custom>.md` — how each agent sounds.
 3. **Prune policy** in `agents/librarian/prune-policy.md` — how aggressive the librarian is.
-4. **Cross-references** in each agent's `context/00-inherited.md` — when one agent should also read another's context.
+4. **Frontmatter on shelf files** — `consumers: [agent1, agent2]`, `last_verified: YYYY-MM-DD`, `status: v1`. The graph reads this metadata; richer frontmatter = sharper queries.
 
-These four files are what the cohort teaches. ROOK ships the system; the cohort teaches you to make it yours.
+These four levers are what the cohort teaches. ROOK ships the system; the cohort teaches you to make it yours.
 
 ---
 
 ## What this is NOT
 
-- **NOT a vector database.** Context lives as markdown files in folders. Agents read files on session start. The librarian builds a graph over time (Phase 3); the substrate is filesystem-first.
-- **NOT a departments-as-folders abstraction.** Each agent owns its own context. When one agent needs another's, it lists the path explicitly in `context/00-inherited.md`. Per-agent + explicit cross-references survives any refactor where agents get swapped, renamed, or replaced.
-- **NOT a multi-route-by-default router.** Routing is single-primary-with-explicit-override. Duplicate-context-everywhere is worse than under-routing — the customer adds `routes-to:` when fan-out is the right call.
-- **NOT a delete-and-forget system.** Pruning is quarantine. History is the audit trail. The compounding-append rule is the moat.
+- **NOT a per-agent context dump.** Agents don't read everything on session start. They query the graph for the relevant 3-5 files. Token-efficient, fast, focused.
+- **NOT a departments-as-folders abstraction.** The shared shelf is organized by topic (Shopify, TradingView, templates), not by consuming agent. Any agent reads any topic via graph query.
+- **NOT a multi-route-by-default router.** Each file lives in one place. The graph makes it findable from any angle — that's the whole point of GraphRAG over folder routing.
+- **NOT a delete-and-forget system.** Pruning is quarantine. History is the audit trail. Compounding-append is the moat.
+- **NOT hybrid vector+graph RAG.** ROOK ships pure-graph GraphRAG (graphify). Entity-driven queries, multi-hop reasoning, community detection. The vector layer is an optional upgrade per agent (Tier 1), not the default.
 
 ---
 
 ## Cross-references
 
-- [`agents/librarian/SKILL.md`](agents/librarian/SKILL.md) — vault custodian; weekly sweep + on-demand restore
+- [`agents/librarian/SKILL.md`](agents/librarian/SKILL.md) — vault custodian; weekly sweep + on-demand restore + graphify rebuild cadence
 - [`agents/librarian/prune-policy.md`](agents/librarian/prune-policy.md) — customer-tunable pruning rules
+- [`.claude/reference/README.md`](.claude/reference/README.md) — the shared shelf inventory
+- [`.claude/reference/graphify-out/graph.json`](.claude/reference/graphify-out/graph.json) — the knowledge graph (machine-queryable)
+- [`.claude/reference/graphify-out/GRAPH_REPORT.md`](.claude/reference/graphify-out/GRAPH_REPORT.md) — the graph audit (god nodes, communities, surprising connections)
 - [`.claude/skills/registry/inbox-routing/SKILL.md`](.claude/skills/registry/inbox-routing/SKILL.md) — the router
 - [`.claude/skills/core/markitdown/SKILL.md`](.claude/skills/core/markitdown/SKILL.md) — the ingestion layer
 - [`vault-provenance.md`](vault-provenance.md) — what's in the box (the receipt)
 - [`agents/_template/SKILL.md`](agents/_template/SKILL.md) — every agent inherits the Step 1 context-load pattern from here
+- [`_CLAUDE.md`](_CLAUDE.md) § rule #12 — the universal context-load gate (graph query before training-data recall)

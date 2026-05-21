@@ -222,7 +222,7 @@ ships the screen within an hour.
 - AMA counterpart: None — component generation is high-context
 - Owner agent: `agents/shopify-agent/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
-- Reference: `agents/shopify-agent/context/2026-05/Shopify App package for React Router.md`,
-  `agents/shopify-agent/context/2026-05/Integrating with the Shopify admin.md`,
+- Reference: `agents/shopify-agent/memory/2026-05/Shopify App package for React Router.md`,
+  `agents/shopify-agent/memory/2026-05/Integrating with the Shopify admin.md`,
   Polaris docs (https://polaris.shopify.com/components)
 - Related skills: `shopify-product-setup`, `agentic-commerce-flow`, `shopify-webhook-builder`

@@ -78,11 +78,9 @@ Save the skill to the operator's CLAUDE_SKILLS_REPO. The repo structure is:
 ```
 CLAUDE_SKILLS_REPO/
 ├── CLAUDE.md
-├── bsa-formatting/
+├── [skill-name-a]/
 │   └── SKILL.md
-├── lmg-email-replies/
-│   └── SKILL.md
-├── lmg-engineering-scope/
+├── [skill-name-b]/
 │   └── SKILL.md
 ├── [other skills]/
 └── [new-skill-name]/
@@ -136,7 +134,7 @@ No lengthy explanations. the operator can read the SKILL.md if he wants details.
 
 These are patterns the operator frequently needs captured. If the current request matches one, use it as a starting point:
 
-**Formatting enforcer** — Rules for how a specific file or file type should look. Include pre-flight checklist. Example: [example enterprise customer] formatting rules.
+**Formatting enforcer** — Rules for how a specific file or file type should look. Include pre-flight checklist. Example: an enterprise customer formatting rules.
 
 **Process workflow** — Multi-step procedure that should be followed the same way every time. Include step numbering and decision points. Example: outreach pipeline.
 

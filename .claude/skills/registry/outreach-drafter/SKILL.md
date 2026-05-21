@@ -32,7 +32,7 @@ inherits:
 
 ## Overview
 
-Owner agent: **sales-outreach**. This skill takes one prospect record (name + title + company +
+Owner agent: **sales-director**. This skill takes one prospect record (name + title + company +
 optional enrichment fields) and returns a 3-5 sentence personalized first-touch email with a
 personalized subject line, an opening anchor (verifiable detail), a value proposition tied to
 the prospect's likely pain, and a soft CTA. Optional: 1-2 fallback variants if the operator
@@ -162,7 +162,7 @@ variants: {variants}
 The deliverable is one markdown response with: 1-3 email variants, each with subject line +
 body + sign-off, plus a notes block naming the anchor and CTA stance used. Each variant should
 be copy-pasteable into the operator's email client or staged as an `.eml` file with
-`X-Unsent: 1` header (per the operator's [your employer] convention).
+`X-Unsent: 1` header (per the operator's your employer convention).
 
 If the operator's `sender_value_prop` is missing and the prospect's title doesn't make pain
 inference straightforward, the skill asks for the value-prop before drafting — generic
@@ -201,7 +201,7 @@ within 5 minutes of generation — no re-edit pass needed.
   `ama-definition.md` (Phase 3 — Outreach Drafter)
 - AMA counterpart 2: `skills/templates/ama-templates/cold-outreach-personalizer/SKILL.md` and
   `ama-definition.md`
-- Owner agent: `agents/sales-outreach/SKILL.md`
+- Owner agent: `agents/sales-director/skills/outreach/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Reference: `Clippings/HubSpot Academy.md` (sales-cadence patterns)
 - Related skills: `first-line-personalizer`, `icp-fit-scorer`, `apollo-prospect-search`

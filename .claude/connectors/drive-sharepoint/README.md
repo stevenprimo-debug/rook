@@ -5,7 +5,7 @@
 ## Consumers
 - `account-manager`
 - `librarian`
-- `inbox-custodian`
+- `inbox-manager`
 
 ## Integration kind
 Anthropic MCP (already wired)

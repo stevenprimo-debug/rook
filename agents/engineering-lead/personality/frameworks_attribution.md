@@ -30,7 +30,7 @@ Ricardo Antunes -- BIM / drawing rigor; modern AutoCAD / Revit / BIM workflows +
 
 ### Cross-pole synthesis
 
-`vendor_spec_audit` and `field_install_check` synthesize from AV-integration practice ([your employer] tradition) + general construction engineering.
+`vendor_spec_audit` and `field_install_check` synthesize from AV-integration practice (your employer tradition) + general construction engineering.
 
 ## Why these three (rationale)
 

@@ -262,6 +262,6 @@ fields the checklist into the admin without re-edits.
 - AMA counterpart: None — product setup is high-context and operator-in-the-loop
 - Owner agent: `agents/shopify-agent/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
-- Reference: `agents/shopify-agent/context/2026-05/Shopify APIs, libraries, and tools.md`,
-  `agents/shopify-agent/context/2026-05/Integrating with the Shopify admin.md`
+- Reference: `agents/shopify-agent/memory/2026-05/Shopify APIs, libraries, and tools.md`,
+  `agents/shopify-agent/memory/2026-05/Integrating with the Shopify admin.md`
 - Related skills: `shopify-polaris-component`, `shopify-webhook-builder`, `agentic-commerce-flow`

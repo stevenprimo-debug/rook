@@ -1,0 +1,27 @@
+{
+  "dedupe": {
+    "ttl_scope": "per_invocation",
+    "comment": "processed_order_ids set lives for one cron sweep only; cross-sweep dedupe via created_at >= last_run_at"
+  },
+  "escalation_tag": "ops-review",
+  "backorder_tag": "backorder",
+  "refund_request_tag": "refund-requested",
+  "refund_approved_tag": "refund-approved",
+  "never_invent": {
+    "customer_first_name": true,
+    "sku": true,
+    "price": true,
+    "address": true,
+    "tracking_number": true,
+    "stripe_charge_id": true,
+    "comment": "If any of these fields are missing from the MCP response, escalate; never synthesize."
+  },
+  "verify_before_write": {
+    "refund_requires_charge_id": true,
+    "fulfillment_requires_tracking_and_carrier": true,
+    "backorder_requires_hard_zero_inventory": true
+  },
+  "max_orders_per_sweep": 200,
+  "log_path": "memory/daily_ops.log",
+  "state_path": "memory/daily_ops_state.json"
+}

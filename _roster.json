@@ -1,0 +1,776 @@
+{
+  "_meta": {
+    "generated_at": "2026-05-21T19:28:35.303466+00:00",
+    "generated_by": "librarian weekly sweep",
+    "version": "1.0",
+    "agent_count": 20
+  },
+  "agents": [
+    {
+      "slug": "account-manager",
+      "name": "Account Manager",
+      "category": "Operations",
+      "status": "operational",
+      "model": "opus",
+      "role_one_line": "The customer custodian of the agent line",
+      "memory": {
+        "primary_tier": 2,
+        "backend": "SQLite",
+        "schema_file": "memory/accounts.db",
+        "rationale_one_line": "Account + renewal data is structured; SQL beats grep at scale",
+        "secondary": [
+          {
+            "tier": 4,
+            "backend": "markdown+grep",
+            "purpose": "narrative learnings, account notes, weekly digest archive"
+          },
+          {
+            "accounts.db                      # SQLite": "account_id × stage × contract_value × renewal_date × owner"
+          },
+          {
+            "account_log.md                   # compounding-append": "weekly digest history"
+          }
+        ],
+        "queries_shared_shelf": true
+      },
+      "connectors": [
+        {
+          "name": "gmail",
+          "purpose": "",
+          "reversibility": "?",
+          "auth_required": "operator-provided",
+          "type": "REST"
+        },
+        {
+          "name": "whatsapp-business",
+          "purpose": "",
+          "reversibility": "?",
+          "auth_required": "operator-provided",
+          "type": "REST"
+        },
+        {
+          "name": "hubspot",
+          "purpose": "",
+          "reversibility": "?",
+          "auth_required": "operator-provided",
+          "type": "REST"
+        },
+        {
+          "name": "shopify",
+          "purpose": "",
+          "reversibility": "?",
+          "auth_required": "operator-provided",
+          "type": "REST"
+        },
+        {
+          "name": "docusign",
+          "purpose": "",
+          "reversibility": "?",
+          "auth_required": "operator-provided",
+          "type": "REST"
+        },
+        {
+          "name": "perplexity",
+          "purpose": "",
+          "reversibility": "?",
+          "auth_required": "operator-provided",
+          "type": "REST"
+        }
+      ],
+      "dispatch": {
+        "upstream_required": null,
+        "downstream_pattern": "returns-to-chief-of-staff"
+      }
+    },
+    {
+      "slug": "chief-of-staff",
+      "name": "Chief of Staff — Router Skill",
+      "category": "Operations",
+      "status": "operational",
+      "model": "opus",
+      "role_one_line": "Dispatcher for the 20-agent roster",
+      "memory": {
+        "primary_tier": 4,
+        "backend": "markdown+grep",
+        "schema_file": null,
+        "rationale_one_line": "Idea log + dispatch log are append-only narrative; no structured queries needed",
+        "secondary": [],
+        "queries_shared_shelf": true
+      },
+      "connectors": [
+        {
+          "name": "perplexity",
+          "purpose": "",
+          "reversibility": "?",
+          "auth_required": "operator-provided",
+          "type": "REST"
+        }
+      ],
+      "dispatch": {
+        "upstream_required": null,
+        "downstream_pattern": "returns-to-chief-of-staff"
+      }
+    },
+    {
+      "slug": "content-strategist",
+      "name": "Content Strategist",
+      "category": "Marketing",
+      "status": "operational",
+      "model": "opus",
+      "role_one_line": "The long-form content agent",
+      "memory": {
+        "primary_tier": 4,
+        "backend": "markdown+grep",
+        "schema_file": null,
+        "rationale_one_line": "Editorial strategy is narrative and slow-moving; grep covers all retrieval patterns",
+        "secondary": [],
+        "queries_shared_shelf": true
+      },
+      "connectors": [],
+      "dispatch": {
+        "upstream_required": [
+          "creative-director",
+          "content-strategist"
+        ],
+        "downstream_pattern": "returns-to-chief-of-staff"
+      }
+    },
+    {
+      "slug": "copywriter",
+      "name": "Copywriter",
+      "category": "Creative",
+      "status": "operational",
+      "model": "sonnet",
+      "role_one_line": "The agent that writes the line",
+      "memory": {
+        "primary_tier": 4,
+        "backend": "markdown+grep",
+        "schema_file": null,
+        "rationale_one_line": "Copy patterns and voice notes are narrative; no structured state needed",
+        "secondary": [],
+        "queries_shared_shelf": true
+      },
+      "connectors": [],
+      "dispatch": {
+        "upstream_required": [
+          "creative-director",
+          "copywriter"
+        ],
+        "downstream_pattern": "returns-to-chief-of-staff"
+      }
+    },
+    {
+      "slug": "creative-director",
+      "name": "Creative Director",
+      "category": "Creative",
+      "status": "operational",
+      "model": "opus",
+      "role_one_line": "The tastemaker",
+      "memory": {
+        "primary_tier": 4,
+        "backend": "markdown+grep",
+        "schema_file": null,
+        "rationale_one_line": "Brand decisions and creative briefs are narrative; history compounds via append",
+        "secondary": [],
+        "queries_shared_shelf": true
+      },
+      "connectors": [],
+      "dispatch": {
+        "upstream_required": null,
+        "downstream_pattern": "returns-to-chief-of-staff"
+      }
+    },
+    {
+      "slug": "deep-researcher",
+      "name": "Deep Researcher",
+      "category": "Research",
+      "status": "operational",
+      "model": "opus",
+      "role_one_line": "The intel arm",
+      "memory": {
+        "primary_tier": 1,
+        "backend": "ChromaDB + graphify",
+        "schema_file": "memory/chroma/",
+        "rationale_one_line": "Cross-cutting concept retrieval over research corpus + shared shelf requires semantic search",
+        "secondary": [
+          {
+            "tier": 4,
+            "backend": "markdown+grep",
+            "purpose": "research notes, source citations, methodology"
+          }
+        ],
+        "queries_shared_shelf": true
+      },
+      "connectors": [
+        {
+          "name": "perplexity",
+          "purpose": "",
+          "reversibility": "?",
+          "auth_required": "operator-provided",
+          "type": "REST"
+        }
+      ],
+      "dispatch": {
+        "upstream_required": null,
+        "downstream_pattern": "returns-to-chief-of-staff"
+      }
+    },
+    {
+      "slug": "designer",
+      "name": "Designer",
+      "category": "Creative",
+      "status": "operational",
+      "model": "opus",
+      "role_one_line": "The visual surface review and production-design agent",
+      "memory": {
+        "primary_tier": 4,
+        "backend": "markdown+grep",
+        "schema_file": null,
+        "rationale_one_line": "Design decisions and UI patterns are narrative; wikilinks handle cross-refs",
+        "secondary": [],
+        "queries_shared_shelf": true
+      },
+      "connectors": [
+        {
+          "name": "figma",
+          "purpose": "Design file access for brand review",
+          "reversibility": "N",
+          "auth_required": "operator-provided API key",
+          "type": "REST"
+        }
+      ],
+      "dispatch": {
+        "upstream_required": [
+          "creative-director",
+          "marketing-director",
+          "designer"
+        ],
+        "downstream_pattern": "returns-to-chief-of-staff"
+      }
+    },
+    {
+      "slug": "engineering-lead",
+      "name": "Engineering Lead",
+      "category": "Build",
+      "status": "operational",
+      "model": "opus",
+      "role_one_line": "The mechanical and CAD engineering automation agent of the this system",
+      "memory": {
+        "primary_tier": 3,
+        "backend": "markitdown + PDF",
+        "schema_file": null,
+        "rationale_one_line": "Reads drawing packs and vendor specs - PDF-in markdown-out no structured state",
+        "secondary": [
+          {
+            "tier": 4,
+            "backend": "markdown+grep",
+            "purpose": "scoping notes, vendor evaluation history"
+          }
+        ],
+        "queries_shared_shelf": true
+      },
+      "connectors": [
+        {
+          "name": "perplexity",
+          "purpose": "",
+          "reversibility": "?",
+          "auth_required": "operator-provided",
+          "type": "REST"
+        }
+      ],
+      "dispatch": {
+        "upstream_required": null,
+        "downstream_pattern": "returns-to-chief-of-staff"
+      }
+    },
+    {
+      "slug": "finance-manager",
+      "name": "Finance Manager",
+      "category": "Finance",
+      "status": "operational",
+      "model": "opus",
+      "role_one_line": "The agent that owns the numbers",
+      "memory": {
+        "primary_tier": 2,
+        "backend": "SQLite",
+        "schema_file": "memory/finance.db",
+        "rationale_one_line": "Invoice + commission data is structured; SQL needed at >100 records",
+        "secondary": [
+          {
+            "tier": 4,
+            "backend": "markdown+grep",
+            "purpose": "deal evaluation narrative, finance strategy notes"
+          },
+          {
+            "path": "memory/transactions.db",
+            "tables": ""
+          }
+        ],
+        "queries_shared_shelf": true
+      },
+      "connectors": [
+        {
+          "name": "perplexity",
+          "purpose": "",
+          "reversibility": "?",
+          "auth_required": "operator-provided",
+          "type": "REST"
+        }
+      ],
+      "dispatch": {
+        "upstream_required": null,
+        "downstream_pattern": "returns-to-chief-of-staff"
+      }
+    },
+    {
+      "slug": "inbox-manager",
+      "name": "Inbox Manager",
+      "category": "Operations",
+      "status": "operational",
+      "model": "opus",
+      "role_one_line": "The correspondence custodian of the agent line",
+      "memory": {
+        "primary_tier": 2,
+        "backend": "SQLite",
+        "schema_file": "memory/messages.db",
+        "rationale_one_line": "Thread + draft state is structured; SQL needed for triage queue and draft approval",
+        "secondary": [
+          {
+            "tier": 4,
+            "backend": "markdown+grep",
+            "purpose": "voice corpus, reply patterns, escalation notes"
+          },
+          {
+            "inbox.db                         # SQLite": "thread_id × channel × sender × status × draft_state × sent_at"
+          },
+          {
+            "voice_corpus.md                  # compounding-append": "prior sent threads that landed; used as voice training signal"
+          }
+        ],
+        "queries_shared_shelf": true
+      },
+      "connectors": [
+        {
+          "name": "gmail",
+          "purpose": "",
+          "reversibility": "?",
+          "auth_required": "operator-provided",
+          "type": "REST"
+        },
+        {
+          "name": "whatsapp-business",
+          "purpose": "",
+          "reversibility": "?",
+          "auth_required": "operator-provided",
+          "type": "REST"
+        }
+      ],
+      "dispatch": {
+        "upstream_required": null,
+        "downstream_pattern": "returns-to-chief-of-staff"
+      }
+    },
+    {
+      "slug": "librarian",
+      "name": "Librarian",
+      "category": "Operations",
+      "status": "operational",
+      "model": "opus",
+      "role_one_line": "The memory custodian of the agent line",
+      "memory": {
+        "primary_tier": 1,
+        "backend": "ChromaDB + graphify",
+        "schema_file": "memory/chroma/",
+        "rationale_one_line": "Full-vault indexing and drift detection requires semantic search + graph traversal",
+        "secondary": [
+          {
+            "tier": 4,
+            "backend": "markdown+grep",
+            "purpose": "audit log, quarantine log, digest archive"
+          }
+        ],
+        "queries_shared_shelf": true
+      },
+      "connectors": [
+        {
+          "name": "graphify",
+          "purpose": "Knowledge graph generation on weekly sweep",
+          "reversibility": "Y",
+          "auth_required": "none",
+          "type": "local-python"
+        }
+      ],
+      "dispatch": {
+        "upstream_required": null,
+        "downstream_pattern": "returns-to-chief-of-staff"
+      }
+    },
+    {
+      "slug": "marketing-director",
+      "name": "Marketing Director",
+      "category": "Marketing",
+      "status": "operational",
+      "model": "sonnet",
+      "role_one_line": "The brand strategy and campaign planning agent",
+      "memory": {
+        "primary_tier": 4,
+        "backend": "markdown+grep",
+        "schema_file": null,
+        "rationale_one_line": "Campaign history and channel strategy are narrative; no structured queries needed",
+        "secondary": [],
+        "queries_shared_shelf": true
+      },
+      "connectors": [
+        {
+          "name": "perplexity",
+          "purpose": "",
+          "reversibility": "?",
+          "auth_required": "operator-provided",
+          "type": "REST"
+        }
+      ],
+      "dispatch": {
+        "upstream_required": null,
+        "downstream_pattern": "returns-to-chief-of-staff"
+      }
+    },
+    {
+      "slug": "product-manager",
+      "name": "Product Manager",
+      "category": "Build",
+      "status": "operational",
+      "model": "sonnet",
+      "role_one_line": "The product scoping agent",
+      "memory": {
+        "primary_tier": 4,
+        "backend": "markdown+grep",
+        "schema_file": null,
+        "rationale_one_line": "Product specs and roadmap decisions are narrative; grep covers all retrieval",
+        "secondary": [],
+        "queries_shared_shelf": true
+      },
+      "connectors": [],
+      "dispatch": {
+        "upstream_required": null,
+        "downstream_pattern": "returns-to-chief-of-staff"
+      }
+    },
+    {
+      "slug": "r-and-d-lead",
+      "name": "R&D Lead",
+      "category": "Lab",
+      "status": "operational",
+      "model": "sonnet",
+      "role_one_line": "The experimental sandbox agent",
+      "memory": {
+        "primary_tier": 4,
+        "backend": "markdown+grep",
+        "schema_file": null,
+        "rationale_one_line": "Experiment logs are narrative and sparse; compounding-append + grep is sufficient",
+        "secondary": [],
+        "queries_shared_shelf": true
+      },
+      "connectors": [],
+      "dispatch": {
+        "upstream_required": null,
+        "downstream_pattern": "returns-to-chief-of-staff"
+      }
+    },
+    {
+      "slug": "sales-director",
+      "name": "Sales Director",
+      "category": "Revenue",
+      "status": "operational",
+      "model": "sonnet",
+      "role_one_line": "The strategy agent above the deal",
+      "memory": {
+        "primary_tier": 2,
+        "backend": "SQLite",
+        "schema_file": "memory/pipeline.db",
+        "rationale_one_line": "Pipeline data is structured; SQL needed for stage filtering and weighted forecast",
+        "secondary": [
+          {
+            "tier": 4,
+            "backend": "markdown+grep",
+            "purpose": "deal narrative, win-loss analysis, coaching notes"
+          },
+          {
+            "path": "memory/pipeline.db",
+            "tables": ""
+          }
+        ],
+        "queries_shared_shelf": true
+      },
+      "connectors": [
+        {
+          "name": "perplexity",
+          "purpose": "Market + competitive intelligence",
+          "reversibility": "Y",
+          "auth_required": "operator-provided API key",
+          "type": "REST"
+        },
+        {
+          "name": "apollo",
+          "purpose": "Prospect search and enrichment",
+          "reversibility": "Y",
+          "auth_required": "operator-provided API key",
+          "type": "REST"
+        }
+      ],
+      "dispatch": {
+        "upstream_required": null,
+        "downstream_pattern": "returns-to-chief-of-staff"
+      }
+    },
+    {
+      "slug": "seo-specialist",
+      "name": "SEO Specialist",
+      "category": "Marketing",
+      "status": "operational",
+      "model": "sonnet",
+      "role_one_line": "The combined SEO + AEO (answer-engine optimization) agent",
+      "memory": {
+        "primary_tier": 4,
+        "backend": "markdown+grep",
+        "schema_file": null,
+        "rationale_one_line": "Keyword maps and AEO baselines are narrative; grep handles all lookup patterns",
+        "secondary": [],
+        "queries_shared_shelf": true
+      },
+      "connectors": [
+        {
+          "name": "perplexity",
+          "purpose": "",
+          "reversibility": "?",
+          "auth_required": "operator-provided",
+          "type": "REST"
+        }
+      ],
+      "dispatch": {
+        "upstream_required": null,
+        "downstream_pattern": "returns-to-chief-of-staff"
+      }
+    },
+    {
+      "slug": "shopify-agent",
+      "name": "Shopify Agent",
+      "category": "Revenue",
+      "status": "operational",
+      "model": "sonnet",
+      "role_one_line": "The Shopify development and operations agent",
+      "memory": {
+        "primary_tier": 2,
+        "backend": "SQLite",
+        "schema_file": "memory/shopify.db",
+        "rationale_one_line": "Order + merchant data grows to 10k+ records; SQL required",
+        "secondary": [
+          {
+            "tier": 4,
+            "backend": "markdown+grep",
+            "purpose": "merchant notes, integration decisions, learnings"
+          }
+        ],
+        "queries_shared_shelf": true
+      },
+      "connectors": [
+        {
+          "name": "shopify-admin-api",
+          "purpose": "Order + product CRUD, webhook subscriptions",
+          "reversibility": "N",
+          "auth_required": "operator-provided API key",
+          "type": "REST"
+        },
+        {
+          "name": "shopify-storefront-api",
+          "purpose": "Storefront read-only queries",
+          "reversibility": "Y",
+          "auth_required": "operator-provided access token",
+          "type": "GraphQL"
+        }
+      ],
+      "dispatch": {
+        "upstream_required": null,
+        "downstream_pattern": "returns-to-chief-of-staff"
+      }
+    },
+    {
+      "slug": "social-media-manager",
+      "name": "Social Media Manager",
+      "category": "Marketing",
+      "status": "operational",
+      "model": "sonnet",
+      "role_one_line": "The short-form distribution agent",
+      "memory": {
+        "primary_tier": 4,
+        "backend": "markdown+grep",
+        "schema_file": null,
+        "rationale_one_line": "Post archive and engagement patterns are narrative; no structured state needed",
+        "secondary": [],
+        "queries_shared_shelf": true
+      },
+      "connectors": [
+        {
+          "name": "buffer",
+          "purpose": "Cross-platform post scheduling",
+          "reversibility": "N",
+          "auth_required": "operator-provided API key",
+          "type": "REST"
+        }
+      ],
+      "dispatch": {
+        "upstream_required": [
+          "creative-director",
+          "marketing-director",
+          "social-media-manager"
+        ],
+        "downstream_pattern": "returns-to-chief-of-staff"
+      }
+    },
+    {
+      "slug": "software-dev-team",
+      "name": "Software Dev Team",
+      "category": "Build",
+      "status": "operational",
+      "model": "opus",
+      "role_one_line": "The agent that ships the code",
+      "memory": {
+        "primary_tier": 4,
+        "backend": "markdown+grep",
+        "schema_file": null,
+        "rationale_one_line": "Architecture decisions and implementation notes are narrative; grep + graphify covers retrieval",
+        "secondary": [],
+        "queries_shared_shelf": true
+      },
+      "connectors": [
+        {
+          "name": "github",
+          "purpose": "PR creation, branch management, issue tracking",
+          "reversibility": "N",
+          "auth_required": "operator-provided PAT",
+          "type": "REST"
+        },
+        {
+          "name": "vercel",
+          "purpose": "Deployment + preview environment management",
+          "reversibility": "N",
+          "auth_required": "operator-provided token",
+          "type": "REST"
+        },
+        {
+          "name": "supabase",
+          "purpose": "Database schema + auth + storage management",
+          "reversibility": "N",
+          "auth_required": "operator-provided service key",
+          "type": "REST"
+        }
+      ],
+      "dispatch": {
+        "upstream_required": null,
+        "downstream_pattern": "returns-to-chief-of-staff"
+      }
+    },
+    {
+      "slug": "trading-analyst",
+      "name": "Trading Analyst",
+      "category": "Finance",
+      "status": "operational",
+      "model": "opus",
+      "role_one_line": "The agent that calls the trade",
+      "memory": {
+        "primary_tier": 2,
+        "backend": "SQLite",
+        "schema_file": "memory/trading.db",
+        "rationale_one_line": "Setup + journal data is structured; SQL needed for posture history and performance queries",
+        "secondary": [
+          {
+            "tier": 4,
+            "backend": "markdown+grep",
+            "purpose": "learnings, market observations, system notes"
+          },
+          {
+            "path": "memory/positions.db",
+            "tables": ""
+          }
+        ],
+        "queries_shared_shelf": true
+      },
+      "connectors": [
+        {
+          "name": "perplexity",
+          "purpose": "",
+          "reversibility": "?",
+          "auth_required": "operator-provided",
+          "type": "REST"
+        }
+      ],
+      "dispatch": {
+        "upstream_required": null,
+        "downstream_pattern": "returns-to-chief-of-staff"
+      }
+    }
+  ],
+  "dispatch_chains": {
+    "designer": [
+      "creative-director",
+      "marketing-director",
+      "designer"
+    ],
+    "copywriter": [
+      "creative-director",
+      "copywriter"
+    ],
+    "content-strategist": [
+      "creative-director",
+      "content-strategist"
+    ],
+    "social-media-manager": [
+      "creative-director",
+      "marketing-director",
+      "social-media-manager"
+    ]
+  },
+  "categories": [
+    "Build",
+    "Creative",
+    "Finance",
+    "Lab",
+    "Marketing",
+    "Operations",
+    "Research",
+    "Revenue"
+  ],
+  "model_distribution": {
+    "opus": 12,
+    "sonnet": 8
+  },
+  "memory_distribution": {
+    "tier_1_vector_graph": [
+      "deep-researcher",
+      "librarian"
+    ],
+    "tier_2_sqlite": [
+      "account-manager",
+      "finance-manager",
+      "inbox-manager",
+      "sales-director",
+      "shopify-agent",
+      "trading-analyst"
+    ],
+    "tier_3_vectorless_pdf": [
+      "engineering-lead"
+    ],
+    "tier_4_markdown": [
+      "chief-of-staff",
+      "content-strategist",
+      "copywriter",
+      "creative-director",
+      "designer",
+      "marketing-director",
+      "product-manager",
+      "r-and-d-lead",
+      "seo-specialist",
+      "social-media-manager",
+      "software-dev-team"
+    ]
+  }
+}

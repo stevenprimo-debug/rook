@@ -23,11 +23,12 @@ That's it. `INSTALL` resolves the absolute install path, merges the hook block i
 | # | Hook | Event | Purpose |
 |---|---|---|---|
 | 1 | `routing-enforcer` | `UserPromptSubmit` | Reads `routing-rules.json`, matches the prompt against each agent's keyword set, injects matching `enforce_message` so main thread dispatches the right subagent. |
-| 2 | `session-prelude` | `SessionStart` | Loads dept/agent context if cwd matches; injects last-24h modified-files list; surfaces protocol checks; runs 4pm hard-stop guard (configurable). |
+| 2 | `session-prelude` | `SessionStart` | Loads dept/agent context if cwd matches; injects last-24h modified-files list; surfaces protocol checks. |
 | 3 | `superpowers-init` | `SessionStart` | Confirms `using-superpowers` skill is invocable; logs the Skill-tool requirement before any response. Falls back gracefully if missing. |
 | 4 | `posture-staleness-gate` | `PreToolUse` | Blocks `trading-analyst` tool calls when `agents/trading-analyst/memory/posture*.md` HEAD `last_verified` is older than `PRIMOLABS_POSTURE_STALE_DAYS` (default 7). Defends against stale-posture trade verdicts. |
 | 5 | `librarian-digest` | `PostToolUse` | Every N tool calls (`PRIMOLABS_LIBRARIAN_CADENCE`, default 50), appends a scan stub to `agents/librarian/memory/librarian_digest.md` with three sections (Findings / Hooks-created / Hooks-proposed). |
 | 6 | `preference-detector` | `UserPromptSubmit` | Pattern-matches spoken preferences ("always do X", "from now on", "never do Y", etc.) and points Claude at the `auto-hook-from-preference` skill so memory rules can be converted to enforced hooks. |
+| 7 | `context-watch-gate` | `UserPromptSubmit` | Proactive context-usage monitor. Silent below 70%, prints a visible chat warning between 70-84%, emits a HARD STOP system-reminder at 85% forcing the model to write a structured handoff before responding. Closes the gap that the harness `PreCompact` (fires near 100%) is too late to save in-flight work. |
 
 Both PowerShell (`.ps1`) and Bash (`.sh`) versions ship for every hook. `INSTALL.ps1` wires the `.ps1`s; `INSTALL.sh` wires the `.sh`s.
 
@@ -56,11 +57,12 @@ hooks/
 |---|---|---|
 | `PRIMOLABS_VAULT_ROOT` | abs path to the stack root | All hooks resolve paths relative to this |
 | `PRIMOLABS_HOOKS_DIR` | abs path to `hooks/` | Routing-enforcer + INSTALL use this |
-| `PRIMOLABS_HARDSTOP_HOUR` | `16` | Hour (24h) for session-prelude hard-stop |
-| `PRIMOLABS_HARDSTOP_ENABLED` | `1` | Set to `0` to disable hard-stop |
-| `PRIMOLABS_HARDSTOP_TZ` | `Central Standard Time` (Win) / `America/Chicago` (Unix) | Timezone for hard-stop |
 | `PRIMOLABS_POSTURE_STALE_DAYS` | `7` | Stale threshold for posture-gate |
 | `PRIMOLABS_LIBRARIAN_CADENCE` | `50` | Tool-call cadence for librarian digest |
+| `ROOK_CONTEXT_WARN_PCT` | `70` | context-watch-gate: pct of context window that triggers the visible chat warning |
+| `ROOK_CONTEXT_HARDSTOP_PCT` | `85` | context-watch-gate: pct that triggers the HARD STOP handoff-required reminder |
+| `ROOK_CONTEXT_WATCH_DISABLED` | unset | context-watch-gate: set to `1` to silence the hook entirely (escape hatch) |
+| `CLAUDE_MAX_CONTEXT_TOKENS` | `200000` | context-watch-gate: override the context window size. Auto-promoted to `1000000` if the session model id includes `[1m]`. |
 
 ## Verifying the install
 

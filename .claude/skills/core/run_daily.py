@@ -1,17 +1,17 @@
-"""Daily COWORK pipeline orchestrator.
+"""Daily ROOK pipeline orchestrator.
 
 Run order is critical — video_ingestion must run BEFORE inbox_routing, because
-the router moves batch files from INBOX/clips/ to dept context/ on every pass.
+the router moves batch files from inbox/clips/ to agent memory/ on every pass.
 
 Usage:
-    cd "C:/Users/User/Desktop/PRIMOLABS/CORE"
+    cd <ROOK_ROOT>/.claude/skills/core
     python run_daily.py
 
 Phases:
-    1. video_ingestion --batch   (IG/YT URLs → transcripts in INBOX/processed/ + VIDEO/)
+    1. video_ingestion --batch   (IG/YT URLs → transcripts in inbox/processed/)
     2. inbox_ingestion           (screenshots/images → processed markdown)
-    3. inbox_routing             (route INBOX/processed/ + clips/ + Clippings/ → dept context/)
-                                 (also calls gen_indexes → per-dept INDEX.md + MASTER_INDEX.md)
+    3. inbox_routing             (route inbox/processed/ + clips/ + Clippings/ → shared shelf or agent memory)
+                                 (also calls gen_indexes → per-agent MEMORY.md + MASTER_INDEX.md)
 """
 
 import logging
@@ -42,7 +42,7 @@ def _run(module: str, *args: str, desc: str) -> bool:
 
 
 def main() -> int:
-    logger.info("=== COWORK Daily Pipeline ===")
+    logger.info("=== ROOK Daily Pipeline ===")
 
     _run("video_ingestion", "--batch", desc="[1/3] video_ingestion  (IG/YT → transcripts)")
     _run("inbox_ingestion",            desc="[2/3] inbox_ingestion  (images → markdown)")

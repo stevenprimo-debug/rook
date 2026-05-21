@@ -110,9 +110,9 @@ Lineage traces through several decades of work in information science and knowle
 
 - **Pull-request / changelog tradition** — the digest is a weekly PR against the operator's attention.
 
-### Monday Anchor anti-pattern check
+### weekly anchor session anti-pattern check
 
-- **[Product Owner]** — `feedback_dont_default_park_to_monday.md` (2026-05-12). The rule that "Monday Anchor is a checking cadence, not a trigger" is the operator's lock.
+- **[Product Owner]** — `feedback_dont_default_park_to_monday.md` (2026-05-12). The rule that "weekly anchor session is a checking cadence, not a trigger" is the operator's lock.
 
 ---
 

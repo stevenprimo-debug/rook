@@ -257,7 +257,7 @@ Analysis only. Not investment advice. Operator owns all risk.
 - **"Looks like an OB" without identifying the displacement.** No displacement = no OB.
 - **Skipping the invalidation level.** Stop anchor is the first thing the trader needs.
 - **"This is a good trade" framing.** Per §11 — patterns + grade + math, never advice.
-- **Defaulting park-triggers to Monday Anchor.**
+- **Defaulting park-triggers to weekly anchor session.**
 - **Forbidden vocabulary** per CD voice-spine § 4.
 - **"User"** — say "the operator," "the trader," "the book."
 - **Naming people from the bench.**

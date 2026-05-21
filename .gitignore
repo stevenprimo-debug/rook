@@ -77,3 +77,11 @@ _scratch/
 .mcp.json
 vault-agents/
 _archive/
+
+# Graphify output — operator-local graph cache containing absolute filesystem paths.
+# Each customer's librarian regenerates this on weekly sweep against THEIR vault.
+.claude/reference/graphify-out/
+agents/*/graphify-out/
+
+# Root-level graphify cache (operator-local; rebuilt by librarian)
+graphify-out-memory/

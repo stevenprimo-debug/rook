@@ -271,7 +271,7 @@ Analysis only. Not investment advice. Operator owns all risk.
 - **Skipping the posture check.** Always route through `posture-reader` first.
 - **Skipping the §2 stop discipline.** Intraday doesn't relax the 8% stop max.
 - **Sizing in this skill.** Sizing is `risk-1pct-calculator`'s job.
-- **Defaulting park-triggers to Monday Anchor.**
+- **Defaulting park-triggers to weekly anchor session.**
 - **Forbidden vocabulary** per CD voice-spine § 4.
 - **"User"** — say "the operator," "the trader," "the book."
 - **Naming people from the bench.**

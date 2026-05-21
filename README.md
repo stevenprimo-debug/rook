@@ -39,7 +39,7 @@ Personal user state (accounts, schedule, family events) lives OUTSIDE this folde
 ## The 20 agents
 
 **Operations:** chief-of-staff · librarian
-**Revenue:** sales-director · sales-outreach · prospecting-agent · shopify-agent
+**Revenue:** sales-director · sales-director/skills/outreach · sales-director/skills/prospecting · shopify-agent
 **Marketing:** marketing-director · content-strategist · social-media-manager · seo-specialist
 **Creative:** creative-director · designer · copywriter
 **Research:** deep-researcher
@@ -65,7 +65,23 @@ Every agent ships with a default voice plus a `personality/voice_modes/` directo
 
 ## Install
 
-[Install instructions — see `INSTALL.md`]
+```bash
+git clone https://github.com/stevenprimo-debug/rook.git
+cd rook
+pip install -r requirements.txt
+
+# Wire ROOK hooks into your Claude Code settings.json:
+#   Windows:  powershell -ExecutionPolicy Bypass -File hooks/INSTALL.ps1
+#   Mac/Linux: bash hooks/INSTALL.sh
+
+# Build your shared-shelf knowledge graph (one-time, then weekly by librarian):
+pip install graphifyy
+python -m graphify .claude/reference/
+```
+
+Open Claude Code in the cloned folder. Smoke test by typing `chief-of-staff what's in this vault?` — expect a one-paragraph orientation, not a placeholder.
+
+Full setup detail (env vars, connector auth, troubleshooting) in [`INSTALL.md`](INSTALL.md).
 
 ## License
 

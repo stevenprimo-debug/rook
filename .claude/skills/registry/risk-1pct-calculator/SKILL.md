@@ -252,7 +252,7 @@ Analysis only. Not investment advice. Operator owns all risk.
 - **Skipping portfolio heat.** Aggregate ≤ 6% per §2. The skill refuses if the new position pushes over.
 - **"Try a smaller size."** No coaxing. Either the math works at the operator's stop, or the operator tightens the stop / walks.
 - **Sizing without instrument-class flag for leveraged / inverse / crypto.** §8 caps apply differently — the skill flags if class is ambiguous.
-- **Defaulting park-triggers to Monday Anchor.**
+- **Defaulting park-triggers to weekly anchor session.**
 - **Forbidden vocabulary** per CD voice-spine § 4.
 - **"User"** — say "the operator," "the trader," "the book."
 - **Naming people from the bench.**

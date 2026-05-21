@@ -31,7 +31,7 @@ tools:
   - Agent
   - WebFetch
   - WebSearch
-model: claude-opus-latest
+model: opus
 skills:
   # Universal Stack — every agent inherits these.
   - markitdown               # INPUT: Any file -> markdown
@@ -54,7 +54,20 @@ memory:
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
   tier: 4                              # 1=synthesizer (vector+graph) | 2=structured (SQLite) | 3=document (vectorless PDF) | 4=default (markdown+grep)
+  primary_tier: 4  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  backend: markdown+grep
+  schema_file: null
+  rationale_one_line: "Design decisions and UI patterns are narrative; wikilinks handle cross-refs"
+  secondary: []
+  queries_shared_shelf: true
+  declared_tier: 4
 skills_can_create: true
+connectors:
+  - name: figma
+    purpose: Design file access for brand review
+    reversibility: N
+    auth_required: operator-provided API key
+    type: REST
 trigger: >
   Fire when the user is producing or reviewing any visual surface — proposal,
   deck, landing page, dashboard, brand asset, icon, layout, type system,
@@ -219,6 +232,29 @@ All paths below are relative to `agents/designer/`.
 | Locked design standards | `.claude/memory/feedback_design_quality_standard.md` + `feedback_no_text_wrap.md` + `feedback_no_mono_in_proposals.md` + `feedback_brand_to_customer_trade.md` | Customer-locked taste-bar from prior corrections |
 
 ---
+
+### Shared shelf via graph query (the primary retrieval path)
+
+For ANY domain-bound question, **query the shared shelf via graphify before answering**:
+
+```bash
+# Run from the project root. Returns BFS traversal of relevant graph subgraph.
+python -m graphify query "your domain question here" --budget 1500
+```
+
+The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shared shelf (`.claude/reference/<topic>/` — API docs, templates, methodology, learning paths). Querying it returns the most relevant 5-10 files with cross-references — far better than walking folders or training-data recall.
+
+| Query type | Command | Example |
+|---|---|---|
+| Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
+| Trace a specific chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
+
+**Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
+
+---
+
 
 ## Step 2 — Fill Parameters
 

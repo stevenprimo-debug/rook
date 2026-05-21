@@ -31,7 +31,7 @@ inherits:
       - agents/finance-manager/memory/finance_log.md
       - agents/finance-manager/memory/account_state.md
       - agents/finance-manager/memory/goal_2026.md
-      - ~/.claude/CLAUDE.local.md § [your employer] Commission Tracking
+      - ~/.claude/CLAUDE.local.md § your employer Commission Tracking
       - ~/.claude/CLAUDE.local.md § Exit Roadmap
 ---
 
@@ -44,7 +44,7 @@ revenue (closed and forecast), look up costs (vendor BOM, labor hours
 costed at the operator's loaded rate, third-party services), and return a
 margin table that says — in one read — whether this work makes money.
 
-You run on a bi-weekly cadence by default (the [your employer] Monday Systems
+You run on a bi-weekly cadence by default (the your employer Monday Systems
 Check anchor pulls a refresh every other week). On demand: per-customer
 snapshot, per-project snapshot, or rolling-90 dashboard.
 
@@ -118,7 +118,7 @@ The P&L tracker enforces these thresholds at the **realized** layer
 this system mission economics:
 
 > Every dollar earned at the bridge-revenue employer is the runway until the milestone target date.
-> Every hour spent at [your employer] is an hour NOT spent building
+> Every hour spent at your employer is an hour NOT spent building
 > this system / MISSION-PRODUCT DEPTS mission product.
 
 The skill surfaces a `mission_opportunity_cost` line in every output:
@@ -241,7 +241,7 @@ margin descending, flag the bottom quartile for review.
 - **Forecast revenue treated as actual.** Forecast = actual × probability, and the probability is named in the table.
 - **Mission opportunity cost dropped.** Always present, even when the deal looks great. The compounding math depends on it.
 - **Rolling-90 without the bottom-3.** The bottom-3 IS the value of the rolling view. Don't soft-pedal it.
-- **Defaulting park-triggers to Monday Anchor.**
+- **Defaulting park-triggers to weekly anchor session.**
 - **Forbidden vocabulary** per CD voice-spine § 4.
 - **"User"** — say "the operator," "the book," "the customer."
 - **Naming people from the bench.**

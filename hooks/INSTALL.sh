@@ -52,6 +52,10 @@ REQUIRED_HOOKS=(
     "posture-staleness-gate.sh"
     "librarian-digest.sh"
     "preference-detector.sh"
+    "session-mode-injector.sh"
+    "pretooluse-routing-enforcer.sh"
+    "preamble-resolver.sh"
+    "context-watch-gate.sh"
 )
 MISSING=0
 for h in "${REQUIRED_HOOKS[@]}"; do
@@ -80,7 +84,9 @@ fi
 build_cmd() { echo "bash \"$HOOKS_DIR/$1\""; }
 
 CMD_ROUTING=$(build_cmd "routing-enforcer.sh")
+CMD_PRETOOLUSE_ROUTING=$(build_cmd "pretooluse-routing-enforcer.sh")
 CMD_PRELUDE=$(build_cmd "session-prelude.sh")
+CMD_PREAMBLE=$(build_cmd "preamble-resolver.sh")
 CMD_VAULT_CTX=$(build_cmd "vault-context-injector.sh")
 CMD_SESSION_END=$(build_cmd "session-end-detect.sh")
 CMD_PRECOMPACT=$(build_cmd "precompact-handoff.sh")
@@ -88,6 +94,8 @@ CMD_SUPERPOWERS=$(build_cmd "superpowers-init.sh")
 CMD_POSTURE=$(build_cmd "posture-staleness-gate.sh")
 CMD_LIBRARIAN=$(build_cmd "librarian-digest.sh")
 CMD_PREFERENCE=$(build_cmd "preference-detector.sh")
+CMD_SESSION_MODE=$(build_cmd "session-mode-injector.sh")
+CMD_CONTEXT_WATCH=$(build_cmd "context-watch-gate.sh")
 
 # ---- Load or initialize settings.json ------------------------------------
 step "Reading $SETTINGS_PATH"
@@ -131,9 +139,6 @@ set_default() {
         ok "$k = $EXISTING (preserved)"
     fi
 }
-set_default PRIMOLABS_HARDSTOP_HOUR     "16"
-set_default PRIMOLABS_HARDSTOP_ENABLED  "1"
-set_default PRIMOLABS_HARDSTOP_TZ       "America/Chicago"
 set_default PRIMOLABS_POSTURE_STALE_DAYS "7"
 set_default PRIMOLABS_LIBRARIAN_CADENCE "50"
 
@@ -188,6 +193,10 @@ SETTINGS=$(echo "$SETTINGS" | jq \
     --arg cmdPost      "$CMD_POSTURE" \
     --arg cmdLib       "$CMD_LIBRARIAN" \
     --arg cmdPref      "$CMD_PREFERENCE" \
+    --arg cmdSessMode  "$CMD_SESSION_MODE" \
+    --arg cmdPreToolUseRouting "$CMD_PRETOOLUSE_ROUTING" \
+    --arg cmdPreamble  "$CMD_PREAMBLE" \
+    --arg cmdCtxWatch  "$CMD_CONTEXT_WATCH" \
 '
 def strip_ours($arr):
     ($arr // [])
@@ -203,15 +212,18 @@ def strip_ours($arr):
 
 .hooks.SessionStart     = strip_ours(.hooks.SessionStart) + [{
     matcher: "", hooks: [
-        {type:"command", command:$cmdSp,      timeout:8},
-        {type:"command", command:$cmdPrelude, timeout:12}
+        {type:"command", command:$cmdSp,        timeout:8},
+        {type:"command", command:$cmdPrelude,   timeout:12},
+        {type:"command", command:$cmdPreamble,  timeout:5},
+        {type:"command", command:$cmdSessMode,  timeout:5}
     ]}]
 | .hooks.UserPromptSubmit = strip_ours(.hooks.UserPromptSubmit) + [{
     matcher: "", hooks: [
-        {type:"command", command:$cmdRouting,  timeout:10},
-        {type:"command", command:$cmdVaultCtx, timeout:8},
-        {type:"command", command:$cmdSessEnd,  timeout:5},
-        {type:"command", command:$cmdPref,     timeout:8}
+        {type:"command", command:$cmdRouting,   timeout:10},
+        {type:"command", command:$cmdPref,      timeout:8},
+        {type:"command", command:$cmdCtxWatch,  timeout:8},
+        {type:"command", command:$cmdVaultCtx,  timeout:8},
+        {type:"command", command:$cmdSessEnd,   timeout:5}
     ]}]
 | .hooks.PreCompact = strip_ours(.hooks.PreCompact) + [{
     matcher: "", hooks: [
@@ -219,7 +231,8 @@ def strip_ours($arr):
     ]}]
 | .hooks.PreToolUse      = strip_ours(.hooks.PreToolUse) + [{
     matcher: "", hooks: [
-        {type:"command", command:$cmdPost, timeout:6}
+        {type:"command", command:$cmdPost,              timeout:6},
+        {type:"command", command:$cmdPreToolUseRouting, timeout:5}
     ]}]
 | .hooks.PostToolUse     = strip_ours(.hooks.PostToolUse) + [{
     matcher: "", hooks: [
@@ -227,8 +240,8 @@ def strip_ours($arr):
     ]}]
 ')
 
-ok "SessionStart :: superpowers-init.sh, session-prelude.sh"
-ok "UserPromptSubmit :: routing-enforcer.sh, vault-context-injector.sh, session-end-detect.sh, preference-detector.sh"
+ok "SessionStart :: superpowers-init.sh, session-prelude.sh, preamble-resolver.sh, session-mode-injector.sh"
+ok "UserPromptSubmit :: routing-enforcer.sh, preference-detector.sh, context-watch-gate.sh, vault-context-injector.sh, session-end-detect.sh"
 ok "PreCompact :: precompact-handoff.sh"
 ok "PreToolUse :: posture-staleness-gate.sh"
 ok "PostToolUse :: librarian-digest.sh"

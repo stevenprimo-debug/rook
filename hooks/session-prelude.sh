@@ -7,9 +7,8 @@
 
 set -u
 
-HARDSTOP_HOUR="${PRIMOLABS_HARDSTOP_HOUR:-16}"
-HARDSTOP_ENABLED="${PRIMOLABS_HARDSTOP_ENABLED:-1}"
-HARDSTOP_TZ="${PRIMOLABS_HARDSTOP_TZ:-America/Chicago}"
+# HARDSTOP env vars removed from ship vault (was operator-personal default).
+# May return as opt-in cohort feature configured during onboarding.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -87,26 +86,9 @@ if [[ -n "$CWD" && -n "$VAULT_ROOT" ]]; then
     fi
 fi
 
-# Time / hard stop
-if [[ "$HARDSTOP_ENABLED" == "1" ]]; then
-    NOW=$(TZ="$HARDSTOP_TZ" date "+%a %Y-%m-%d %I:%M %p")
-    HOUR=$(TZ="$HARDSTOP_TZ" date "+%H")
-    MIN=$(TZ="$HARDSTOP_TZ" date "+%M")
-    HOUR=$((10#$HOUR))
-    MIN=$((10#$MIN))
-
-    append ""
-    append "TIME: $NOW ($HARDSTOP_TZ)"
-
-    if [[ "$HOUR" -ge "$HARDSTOP_HOUR" ]]; then
-        append ""
-        append "*** HARD STOP TRIGGERED ***"
-        append "It is past ${HARDSTOP_HOUR}:00. Suggest closing the laptop."
-    elif [[ "$HOUR" -eq $((HARDSTOP_HOUR - 1)) && "$MIN" -ge 30 ]]; then
-        MINS_LEFT=$(( HARDSTOP_HOUR * 60 - HOUR * 60 - MIN ))
-        append "*** 30-MIN HEADS UP: $MINS_LEFT minutes until hard stop. ***"
-    fi
-fi
+# Time (light, no hard stop — removed from ship vault, may return as opt-in cohort feature)
+append ""
+append "TIME: $(date '+%a %Y-%m-%d %I:%M %p')"
 
 # Recent files
 if [[ -n "$VAULT_ROOT" && -d "$VAULT_ROOT" ]]; then

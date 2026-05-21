@@ -25,7 +25,8 @@ OUR_NAMES=$(jq -n '[
     "superpowers-init.sh","superpowers-init.ps1",
     "posture-staleness-gate.sh","posture-staleness-gate.ps1",
     "librarian-digest.sh","librarian-digest.ps1",
-    "preference-detector.sh","preference-detector.ps1"
+    "preference-detector.sh","preference-detector.ps1",
+    "context-watch-gate.sh","context-watch-gate.ps1"
 ]')
 
 NEW=$(jq --argjson ourNames "$OUR_NAMES" '
@@ -49,8 +50,6 @@ def strip_ours($arr):
 | .hooks.Stop             = strip_ours(.hooks.Stop)
 | .env = (.env // {} | del(
     .PRIMOLABS_VAULT_ROOT, .PRIMOLABS_HOOKS_DIR,
-    .PRIMOLABS_HARDSTOP_HOUR, .PRIMOLABS_HARDSTOP_ENABLED, .PRIMOLABS_HARDSTOP_TZ,
-    .PRIMOLABS_POSTURE_STALE_DAYS, .PRIMOLABS_LIBRARIAN_CADENCE
   ))
 ' "$SETTINGS_PATH")
 

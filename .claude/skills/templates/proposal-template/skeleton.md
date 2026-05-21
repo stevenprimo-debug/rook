@@ -2,7 +2,7 @@
 
 > **Purpose:** Content skeleton for the `proposal-template` skill (Saturday build). Distinct from `sow-template` — proposal is PRE-CONTRACT (pitch + scope options + risks), SOW is POST-CONTRACT (defined scope of work to execute).
 >
-> **Visual frame:** [example enterprise customer] v4 is the canonical HTML template — `agents/sales-director/COMPANIES/[CLIENT_REPO]/[CLIENT_PROJECTS]/[ENTERPRISE_CLIENT]/[ENTERPRISE_CLIENT]/[ENTERPRISE_CLIENT_HQ]/PROPOSAL/[enterprise client]_Proposal_v4.html`. Reference: [`reference_proposal_master_template_bsa_v4.md`](.claude/memory/reference_proposal_master_template_bsa_v4.md). This skeleton defines the CONTENT structure that maps into [example enterprise customer] v4's visual components.
+> **Visual frame:** an enterprise customer v4 is the canonical HTML template — `agents/sales-director/COMPANIES/[CLIENT_REPO]/[CLIENT_PROJECTS]/[ENTERPRISE_CLIENT]/[ENTERPRISE_CLIENT]/[ENTERPRISE_CLIENT_HQ]/PROPOSAL/[enterprise client]_Proposal_v4.html`. Reference: [`reference_proposal_master_template_bsa_v4.md`](.claude/memory/reference_proposal_master_template_bsa_v4.md). This skeleton defines the CONTENT structure that maps into an enterprise customer v4's visual components.
 >
 > **Distinction from SOW:** Proposal = sales pitch (why us, what we propose, what it costs, what could go wrong). SOW = execution scope (what we'll do, on what date, for what price). A signed proposal becomes the basis for an SOW.
 
@@ -22,9 +22,9 @@ If the customer accepts, a separate SOW is drafted from the accepted proposal sc
 
 ---
 
-# Content sections (mapped to [example enterprise customer] v4 visual components)
+# Content sections (mapped to an enterprise customer v4 visual components)
 
-| # | Content section | [example enterprise customer] v4 visual component | Notes |
+| # | Content section | an enterprise customer v4 visual component | Notes |
 |---|---|---|---|
 | 1 | Cover page | `.cover` (dark) | Logo + client name + service line + submitter |
 | 2 | Executive letter | `.letter` (light) | The "Cheers," sign-off pattern; 3-4 paragraphs |
@@ -96,13 +96,13 @@ The HOW. This is where the work gets named without being SOW-detail level.
 - **Phase 2:** `{PHASE_DESCRIPTION}` — outcome: `{PHASE_OUTCOME}`
 - **Phase 3:** `{PHASE_DESCRIPTION}` — outcome: `{PHASE_OUTCOME}`
 
-Use [example enterprise customer] v4 **role groups** to attribute work to specific roles/team members where appropriate. If the team is solo, use one role group titled "Engagement Lead" and own it.
+Use an enterprise customer v4 **role groups** to attribute work to specific roles/team members where appropriate. If the team is solo, use one role group titled "Engagement Lead" and own it.
 
 ## 6. Investment & Options — SCALED PROPOSAL (the key section)
 
 > This is what the operator means by "proposal scale." Customer chooses among 1-3 paths at different investment levels. Each tier has a clear scope delta from the one above/below. Making the choice obvious is the proposal's job.
 
-Render as [example enterprise customer] v4 **tier cards** (good / better / best). The middle (best-fit) tier is the recommended default — visually distinct via the `.best` modifier.
+Render as an enterprise customer v4 **tier cards** (good / better / best). The middle (best-fit) tier is the recommended default — visually distinct via the `.best` modifier.
 
 ### Tier 1 — `{TIER_1_NAME}` (Essentials)
 
@@ -139,7 +139,7 @@ Render as [example enterprise customer] v4 **tier cards** (good / better / best)
 
 ### Investment Callout
 
-Use [example enterprise customer] v4 **investment callout** (dark gradient + light accent text) to anchor the recommended tier's headline number. Visual gravitas.
+Use an enterprise customer v4 **investment callout** (dark gradient + light accent text) to anchor the recommended tier's headline number. Visual gravitas.
 
 ---
 
@@ -180,14 +180,14 @@ This section earns the engagement. NOT a brag sheet — proof.
 
 - **Relevant experience:** `{2-3 specific past engagements similar to this one}` (NDA-permitting; anonymize as needed)
 - **Methodology:** `{specific framework or approach we use that the customer benefits from}`
-- **Team composition:** [example enterprise customer] v4 **bio cards** — headshot + name + role + 2-sentence bio per key person. If solo, one bio card.
+- **Team composition:** an enterprise customer v4 **bio cards** — headshot + name + role + 2-sentence bio per key person. If solo, one bio card.
 - **Differentiators:** What we do that competitors don't (factual, not marketing-claim)
 
-**Optional:** Pull quote from a past customer (using [example enterprise customer] v4 `.pull-quote` component).
+**Optional:** Pull quote from a past customer (using an enterprise customer v4 `.pull-quote` component).
 
 ## 9. Timeline
 
-Use [example enterprise customer] v4 **timeline** (vertical dotted line + date + event) or **gantt** (horizontal bars across phases) depending on engagement complexity.
+Use an enterprise customer v4 **timeline** (vertical dotted line + date + event) or **gantt** (horizontal bars across phases) depending on engagement complexity.
 
 - For ≤3 phases: timeline component
 - For 4+ phases with overlap: gantt component
@@ -208,7 +208,7 @@ Case studies, detailed team bios, references, sample work, supporting research. 
 
 ## 12. Doc Footer
 
-[example enterprise customer] v4 dark footer:
+an enterprise customer v4 dark footer:
 - Logo (semi-opacity)
 - Brand name
 - Tagline: "Powered by Claude" or "Built with this system" or brand-appropriate
@@ -224,7 +224,7 @@ Case studies, detailed team bios, references, sample work, supporting research. 
 | Audience | Decision-maker (often non-technical) | Project team (often technical) |
 | Job | Win the engagement | Execute the engagement |
 | Tone | Persuasive, qualified, scope-flexible | Precise, contractual, scope-locked |
-| Format | Visual ([example enterprise customer] v4 HTML → PDF) | Document (markdown / PDF) |
+| Format | Visual (an enterprise customer v4 HTML → PDF) | Document (markdown / PDF) |
 | Pricing | Tiered options | One locked number |
 | Risks | Surfaced, mitigated, transparent | Out-of-scope rate + change-order process |
 | Timeline | Phases + estimated durations | Exact dates + milestone owners |
@@ -271,7 +271,7 @@ Same skeleton works across industries; sections 5 (Approach), 6 (Investment scal
 
 Pairs with:
 - `sow-template` skill (for the post-proposal contract phase)
-- [example enterprise customer] v4 HTML template (the visual frame this skeleton fills)
+- an enterprise customer v4 HTML template (the visual frame this skeleton fills)
 - `html2pdf` (output — always seamless, never --paginated, per locked rule)
 - `feedback_no_mono_in_proposals.md` (no monospace fonts in client-facing proposals)
 - `feedback_design_quality_standard.md` (anti-AI-slop standards)

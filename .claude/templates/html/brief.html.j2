@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ title }} - {{ brand_name }}</title>
+<style>
+  :root { --primary: {{ primary_color }}; --accent: {{ accent }}; --body-font: {{ body_font }}; --heading-font: {{ heading_font }}; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--body-font); background: #fff; color: #0F172A; line-height: 1.6; padding: 2rem; max-width: 860px; margin: 0 auto; }
+  header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 1.5rem; border-bottom: 2px solid var(--primary); margin-bottom: 2rem; }
+  .brand { font-family: var(--heading-font); font-weight: 700; color: var(--primary); letter-spacing: 0.05em; }
+  h1 { font-family: var(--heading-font); font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
+  h2 { font-family: var(--heading-font); font-size: 1.1rem; font-weight: 600; color: var(--primary); margin: 1.5rem 0 0.75rem; padding-bottom: 0.25rem; border-bottom: 1px solid #E2E8F0; }
+  p { margin-bottom: 1rem; }
+  ul, ol { margin: 0.5rem 0 1rem 1.5rem; }
+  .callout { background: #F8FAFC; border-left: 3px solid var(--accent); padding: 0.75rem 1rem; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th { background: var(--primary); color: #fff; padding: 0.5rem 0.75rem; text-align: left; }
+  td { padding: 0.5rem 0.75rem; border-bottom: 1px solid #E2E8F0; }
+  tr:nth-child(even) td { background: #F8FAFC; }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #E2E8F0; font-size: 0.75rem; color: #94A3B8; text-align: center; }
+</style>
+</head>
+<body>
+<header>
+  <span class="brand">{{ brand_name }}</span>
+  <span style="font-size:0.8rem;color:#64748B;">{{ date }} - {{ agent }}</span>
+</header>
+<h1>{{ title }}</h1>
+{% if subtitle %}<p style="color:#64748B;">{{ subtitle }}</p>{% endif %}
+{{ body }}
+<footer>{{ brand_name }} - {{ date }}</footer>
+</body>
+</html>

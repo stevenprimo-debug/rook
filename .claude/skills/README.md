@@ -115,8 +115,8 @@ See each skill's SKILL.md for full invocation pattern and trigger phrases.
 
 ## Skills NOT shipped (intentional cuts)
 
-- **`lmg-*` skills** (outreach-pipeline, prospecting, sales-ops, cad-reading, email-replies, engineering-scope, prospect-pool-builder) — vendor-specific to one user's AV-integration day job. Not generalizable.
-- **`bsa-formatting`** — formatting enforcer for one specific client's asset registry. Single-tenant.
+- **Vertical-vendor-specific skills** (a sales/CAD/engineering-scope stack built for one user vertical-integration day job) -- single-vendor. Not generalizable.
+- **Client-specific formatting enforcers** — formatting skills wired to one customer's asset registry. Single-tenant.
 - **`cowork-image-ingest` / `inbox-routing` / `cowork-video-ingest`** — internal vault-routing plumbing. Deferred — will ship in a future "Inbox Pack" release.
 - **`obsidian-capture`** — capture-pipeline still being generalized; ships in a future release.
 - **`primo-session-rules`** — operator-personal session enforcement. Not shipped.

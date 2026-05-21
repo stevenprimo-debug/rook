@@ -6,7 +6,7 @@ description: |
   concrete verifiable details, then triggers the appropriate MailerLite
   sequence. Three MCPs (apollo + clay + mailerlite). Distinct from
   lead-to-deal-pipeline (which is full handoff) — this one specializes in
-  the WRITING step at scale. Owner agents: sales-outreach, prospecting-agent.
+  the WRITING step at scale. Owner agents: sales-director, sales-director.
 type: skill
 category: ama-template
 parent: ama-templates
@@ -45,8 +45,8 @@ for the personalization step.
 
 ## Owner agents
 
-- **sales-outreach** — primary owner; the personalization writing is the core sales-outreach work
-- **prospecting-agent** — secondary; some customers run the full Apollo + Clay flow under prospecting-agent before passing to sales-outreach
+- **sales-director** — primary owner; the personalization writing is the core sales-director work
+- **sales-director** — secondary; some customers run the full Apollo + Clay flow under sales-director before passing to sales-director
 
 ## How to use
 
@@ -83,5 +83,5 @@ prospects feel seen, not blasted.
 - Source: Anthropic AMA library reference (2026-05-15)
 - Parent: `skills/templates/ama-templates/README.md`
 - Sister AMAs: sales-triage-squad (inbound), lead-to-deal-pipeline (full outbound handoff)
-- Owner agents: `agents/sales-outreach/SKILL.md`, `agents/prospecting-agent/SKILL.md`
+- Owner agents: `agents/sales-director/skills/outreach/SKILL.md`, `agents/sales-director/skills/prospecting/SKILL.md`
 - 21st.dev catalog reference: cold-outreach-personalizer entry

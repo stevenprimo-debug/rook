@@ -271,7 +271,7 @@ Analysis only. Backtests do not guarantee future results. Past setups do not gua
 - **Stop = fixed % below entry without considering nearest structural level.** The skill notes the operator should override with the structural level.
 - **Widening stops in code.** Trail UP only, never DOWN — per §6.
 - **Generic strategy template.** Every script reflects the operator's specific entry/exit description; no boilerplate "MA crossover" filler.
-- **Defaulting park-triggers to Monday Anchor.**
+- **Defaulting park-triggers to weekly anchor session.**
 - **Forbidden vocabulary** per CD voice-spine § 4.
 - **"User"** — say "the operator," "the trader," "the script."
 - **Naming people from the bench.**

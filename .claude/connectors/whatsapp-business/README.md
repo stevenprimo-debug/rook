@@ -3,7 +3,7 @@
 **Status:** stub — v1.0 ships scaffolding; auth wire-up is per-operator setup.
 
 ## Consumers
-- `inbox-custodian` (read messages, draft replies; voice-preserving)
+- `inbox-manager` (read messages, draft replies; voice-preserving)
 - `account-manager` (read inbound from accounts that message via WhatsApp)
 
 ## Credentials
@@ -32,11 +32,11 @@
 - Template message creation: **Y** (template approval is async, no harm to draft)
 - Template send: **N** — confirm required
 
-## Voice-fidelity note (critical for inbox-custodian)
+## Voice-fidelity note (critical for inbox-manager)
 
 WhatsApp tone is materially different from email tone — shorter, more casual,
 emoji-tolerant on the operator side, no formal sign-offs. The voice corpus
-in `agents/inbox-custodian/memory/voice_corpus.md` MUST sample WhatsApp threads
+in `agents/inbox-manager/memory/voice_corpus.md` MUST sample WhatsApp threads
 separately from email threads. A reply drafted in email-voice on a WhatsApp
 thread reads wrong.
 

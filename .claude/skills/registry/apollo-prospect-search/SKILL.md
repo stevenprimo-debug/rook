@@ -31,7 +31,7 @@ inherits:
 
 ## Overview
 
-Owner agent: **prospecting-agent**. This skill takes ICP criteria and returns a structured
+Owner agent: **sales-director**. This skill takes ICP criteria and returns a structured
 Apollo.io search query — filter set, expected result count band, filter-by-filter rationale,
 and the actual URL parameters or MCP call signature the operator can paste / invoke directly.
 
@@ -215,7 +215,7 @@ the operator pastes either into their tool and gets the prospect list within 5 m
 
 - AMA counterpart: `skills/templates/ama-templates/lead-to-deal-pipeline/SKILL.md` and
   `ama-definition.md` (Phase 1 — Apollo Search)
-- Owner agent: `agents/prospecting-agent/SKILL.md`
+- Owner agent: `agents/sales-director/skills/prospecting/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `icp-fit-scorer` (scores prospects after search), `outreach-drafter` (drafts
   the email for results), `first-line-personalizer`

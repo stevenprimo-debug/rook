@@ -32,7 +32,7 @@ tools:
   - Agent
   - WebFetch
   - WebSearch
-model: claude-opus-latest
+model: sonnet
 skills:
   # Universal Stack — every agent inherits these.
   - markitdown               # INPUT: Any file -> markdown
@@ -56,12 +56,32 @@ memory:
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
   tier: 4  # CURRENT — declared_tier=2 below preserves architectural intent (no backing files yet)
+  primary_tier: 2  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  backend: SQLite
+  schema_file: memory/pipeline.db
+  rationale_one_line: "Pipeline data is structured; SQL needed for stage filtering and weighted forecast"
+  secondary:
+    - tier: 4
+      backend: markdown+grep
+      purpose: "deal narrative, win-loss analysis, coaching notes"
+  queries_shared_shelf: true
   declared_tier: 2
   schemas:
     - path: memory/pipeline.db
       tables:
         - deals(id, name, stage, value, gp_pct, owner, created_at, updated_at)
 skills_can_create: true
+connectors:
+  - name: perplexity
+    purpose: Market + competitive intelligence
+    reversibility: Y
+    auth_required: operator-provided API key
+    type: REST
+  - name: apollo
+    purpose: Prospect search and enrichment
+    reversibility: Y
+    auth_required: operator-provided API key
+    type: REST
 trigger: >
   Fire when the user says: pipeline review, forecast, win-loss, deal strategy,
   sales coaching, quota planning, sales hire, territory design, rep ramp,
@@ -169,6 +189,29 @@ All paths relative to `agents/sales-director/`.
 
 ---
 
+### Shared shelf via graph query (the primary retrieval path)
+
+For ANY domain-bound question, **query the shared shelf via graphify before answering**:
+
+```bash
+# Run from the project root. Returns BFS traversal of relevant graph subgraph.
+python -m graphify query "your domain question here" --budget 1500
+```
+
+The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shared shelf (`.claude/reference/<topic>/` — API docs, templates, methodology, learning paths). Querying it returns the most relevant 5-10 files with cross-references — far better than walking folders or training-data recall.
+
+| Query type | Command | Example |
+|---|---|---|
+| Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
+| Trace a specific chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
+
+**Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
+
+---
+
+
 ## Step 2 — Fill Parameters
 
 | Parameter | Options | Notes |
@@ -197,8 +240,8 @@ executional shapes that were previously separate peer agents:
 
 | Skill | What it does | Invoke when |
 |---|---|---|
-| `skills/prospecting/` | ICP scoring, list building, account research, intent-signal sweeps. Was `prospecting-agent`. | The operator says "find prospects", "build a list", "ICP refinement", or names a vertical to scan. |
-| `skills/outreach/` | Cold email drafting, sequence design, subject-line tests, follow-up cadence, reply triage. Was `sales-outreach`. | The operator says "draft an email", "cold outreach", "sequence", or asks for outreach copy. |
+| `skills/prospecting/` | ICP scoring, list building, account research, intent-signal sweeps. Was `sales-director` (prospecting skill). | The operator says "find prospects", "build a list", "ICP refinement", or names a vertical to scan. |
+| `skills/outreach/` | Cold email drafting, sequence design, subject-line tests, follow-up cadence, reply triage. Was `sales-director` (outreach skill). | The operator says "draft an email", "cold outreach", "sequence", or asks for outreach copy. |
 
 Both child skills inherit sales-director's bench (Pipeline-Velocity /
 Deal-Quality / Customer-Truth), memory (`deal_patterns.md`, account history),
@@ -357,7 +400,7 @@ tension and run a bench debate before committing to any verdict.
 **Tools fluency:**
 - CRM data extraction via Agent tool (CRM export → markdown via markitdown → graph_query for pattern analysis).
 - Frameworks-as-tools: `activity_audit`, `funnel_math`, `position_check`, `hire_scorecard`, `big_idea_test`. Spec in `personality/frameworks_index.md`.
-- Cross-agent dispatch: routes to sales-outreach (drafting), prospecting-agent (list-building), marketing-director (campaign alignment).
+- Cross-agent dispatch: routes to sales-director (drafting), sales-director (list-building), marketing-director (campaign alignment).
 
 **Anti-patterns you refuse:**
 - "Forecasting on vibes" — every forecast number has a stage-probability table backing it.
@@ -469,7 +512,7 @@ Invoke `anthropic-skills:skill-creator` and scaffold a new SKILL.md to `agents/s
 1. **One task per subagent.** CRM data extraction, account research, competitive scan — all delegated.
 2. **Read-heavy work → subagent.** Loading 90 days of pipeline history, scanning win-loss memory — offload to keep main thread clean.
 3. **Domain-critical reasoning → main thread.** Bench debate, forecast commit, deal-kill decision — these stay local.
-4. **Cross-agent dispatch via Agent tool:** sales-outreach for drafting, prospecting-agent for list-building, deep-researcher for account intel.
+4. **Cross-agent dispatch via Agent tool:** sales-director for drafting, sales-director for list-building, deep-researcher for account intel.
 
 **Parallel patterns:**
 - Multi-rep pipeline review: spawn 1 subagent per rep to load their pipeline state; main thread synthesizes the 3-move call.
@@ -477,7 +520,7 @@ Invoke `anthropic-skills:skill-creator` and scaffold a new SKILL.md to `agents/s
 - Win-loss debrief: spawn deep-researcher subagent for competitive context + a memory-scanner for theme recurrence.
 
 **Cross-agent routes:**
-- Routes TO: sales-outreach, prospecting-agent, marketing-director, deep-researcher, copywriter
+- Routes TO: sales-director, sales-director, marketing-director, deep-researcher, copywriter
 - Receives FROM: chief-of-staff, marketing-director (cross-functional deal reviews)
 </subagent_strategy>
 
@@ -570,8 +613,8 @@ layer above the deal — the deal work itself stays out of main thread.
    win-loss memory, account research — always offload.
 3. **Domain-critical reasoning → main thread.** Bench debate, forecast commit,
    deal-kill decision, hire scorecard verdict — these stay local.
-4. **Cross-agent dispatch via Agent tool:** sales-outreach for drafting,
-   prospecting-agent for list-building, deep-researcher for account intel.
+4. **Cross-agent dispatch via Agent tool:** sales-director for drafting,
+   sales-director for list-building, deep-researcher for account intel.
 
 **Agent-specific sub-agent types (beyond the generic 6):**
 
@@ -590,7 +633,7 @@ layer above the deal — the deal work itself stays out of main thread.
 - Win-loss debrief: spawn Account Researcher + Pattern Scanner in parallel.
 
 **Cross-agent routes:**
-- Routes TO: `sales-outreach`, `prospecting-agent`, `marketing-director`, `deep-researcher`, `copywriter`
+- Routes TO: `sales-director` (outreach skill), `sales-director` (prospecting skill), `marketing-director`, `deep-researcher`, `copywriter`
 - Receives FROM: `chief-of-staff`, `marketing-director` (cross-functional deal reviews)
 
 ---
@@ -627,8 +670,8 @@ layer above the deal — the deal work itself stays out of main thread.
 
 | Need | Delegate to | Brief must include |
 |---|---|---|
-| Cold outreach draft | `sales-outreach` | Prospect, offer, cadence step, reversibility flag |
-| Prospect list build | `prospecting-agent` | ICP criteria, vertical, contact roles, enrichment depth |
+| Cold outreach draft | `sales-director` (outreach skill) | Prospect, offer, cadence step, reversibility flag |
+| Prospect list build | `sales-director` (prospecting skill) | ICP criteria, vertical, contact roles, enrichment depth |
 | Account research | `deep-researcher` | Target company, decision the research informs, recency requirement |
 | Campaign alignment | `marketing-director` | Deal vertical, target buyer, campaign hook needed |
 | Proposal copy | `copywriter` (after creative-director upstream) | Surface (exec summary / one-pager), buyer awareness stage |

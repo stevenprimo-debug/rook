@@ -48,14 +48,14 @@ Two auth modes — Custom App (preferred for single-operator use) or Public App
 - DELETE: **N** — always confirm
 - App / theme installation: **N**
 
-## Multi-store note (NMA + other client engagements)
+## Multi-store note (multi-client engagements)
 
-When the operator runs multiple Shopify engagements (NMA + other client
+When the operator runs multiple Shopify engagements (the client + other client
 sites), each store needs its own credentials block. Convention:
 
 ```
 ~/.claude/credentials/shopify/
-  ├── nma.json
+  ├── client-store.json
   ├── client-2.json
   └── client-3.json
 ```

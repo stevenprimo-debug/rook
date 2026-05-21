@@ -386,7 +386,7 @@ Datafeed.getBars({ticker:"NASDAQ:NVDA"}, "D", {from: 1700000000, to: 1730000000,
 - **No reconnect on WebSocket close.** Real-time silently dies.
 - **Hard-coded auth tokens.** Token strategy is the operator's responsibility — surface the hook, don't inline a secret.
 - **Live-trade hooks in this skill.** Datafeed is read-only.
-- **Defaulting park-triggers to Monday Anchor.**
+- **Defaulting park-triggers to weekly anchor session.**
 - **Forbidden vocabulary** per CD voice-spine § 4.
 - **"User"** — say "the operator," "the customer end-user," "the datafeed."
 - **Naming people from the bench.**

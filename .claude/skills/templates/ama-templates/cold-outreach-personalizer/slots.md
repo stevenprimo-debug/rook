@@ -50,6 +50,6 @@ Customer picks composition based on their CRM stack.
 
 ## Upstream dispatch chain
 
-Per `dispatch_chains.MARKETING`: CREATIVE DIRECTOR → MARKETING → sales-outreach
+Per `dispatch_chains.MARKETING`: CREATIVE DIRECTOR → MARKETING → sales-director
 deploys this AMA. CD locks brand voice for the first lines; MARKETING
-validates funnel + audience fit; sales-outreach runs the deployment.
+validates funnel + audience fit; sales-director runs the deployment.

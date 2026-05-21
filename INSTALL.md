@@ -56,17 +56,51 @@ $env:GMAIL_OAUTH_REFRESH_TOKEN = "..."
 # etc — see each connector's README for the env var names
 ```
 
-## Step 4 — Verify the install
+## Step 4 — Build your shared-shelf knowledge graph
 
+The shared shelf at `.claude/reference/` (API docs, templates, methodology, learning paths) is queried by every agent via graphify before answering domain questions. The graph index is per-customer — it lives at `.claude/reference/graphify-out/` and is gitignored, so you build it once on install and the librarian regenerates it weekly.
+
+```bash
+pip install graphifyy
+python -m graphify .claude/reference/
 ```
-# Run the inbox-routing tests
+
+Expect 60-90 seconds the first time. You'll see a node + edge count when it finishes (~600 nodes, ~600 edges for the default shipped shelf).
+
+Verify the graph built:
+
+```bash
+python -m graphify query "shopify webhook auth"
+# → returns 5-10 relevant files from .claude/reference/shopify/
+```
+
+If you see relevant results, the shelf is queryable and every agent's `Step 1 — Load Context` will work.
+
+## Step 5 — Hooks + smoke test
+
+Wire ROOK hooks into your Claude Code settings.json (idempotent — safe to re-run):
+
+```bash
+# Windows
+powershell -ExecutionPolicy Bypass -File hooks/INSTALL.ps1
+
+# Mac/Linux
+bash hooks/INSTALL.sh
+```
+
+Then run the inbox-routing tests:
+
+```bash
 cd .claude/skills/core/inbox_routing
 python -m pytest tests/
-
 # Should print: "27 passed in <N>s"
 ```
 
-If that passes, the vault is correctly installed.
+Finally, the Hello World smoke test — open Claude Code in this directory and type:
+
+> `chief-of-staff what's in this vault?`
+
+Expected response: a one-paragraph orientation listing the 20 agents by category, NOT a placeholder. If you get a placeholder, re-run Step 5 (hooks didn't wire).
 
 ## What you do NOT do during install
 

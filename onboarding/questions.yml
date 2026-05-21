@@ -1,0 +1,113 @@
+# Onboarding interview questions — structured data the SKILL.md reads at runtime.
+# Order matters: 6 sections, ~18 questions, asked one at a time.
+# Each question has: id, prompt, type, default (optional), validates (optional).
+#
+# The onboarding agent reads this file, walks through it sequentially, collects
+# answers into an in-memory dict, shows a confirmation summary, then writes the
+# 6 output files using the templates in setup/onboarding/templates/.
+
+version: "1.0.0"
+sections:
+
+  - id: identity
+    title: Identity
+    questions:
+      - id: name
+        prompt: "What's your name? (Used in greetings + your own personal CLAUDE.md, never in agent prompts.)"
+        type: text
+        validates: non-empty
+
+      - id: role
+        prompt: "What's your primary role? (e.g. founder, sales engineer, marketing director)"
+        type: text
+        validates: non-empty
+
+      - id: mission_sentence
+        prompt: "What's the single sentence that describes what you're trying to build right now?"
+        type: text
+        validates: non-empty
+
+  - id: schedule
+    title: Schedule
+    questions:
+      - id: workday_start
+        prompt: "What time do you usually start work? (24h format, e.g. 08:00)"
+        type: time
+        default: "09:00"
+
+      - id: hard_stop
+        prompt: "What time do you stop work most days? (e.g. 17:00)"
+        type: time
+        default: "17:00"
+
+      - id: off_days
+        prompt: "Which days are off-limits for work? (Comma-separated, e.g. Saturday, Sunday)"
+        type: text
+        default: "Saturday, Sunday"
+
+      - id: timezone
+        prompt: "What's your timezone? (e.g. America/Chicago, America/New_York, Europe/London)"
+        type: text
+        validates: iana-tz
+
+  - id: business
+    title: Business context
+    questions:
+      - id: company_brand
+        prompt: "What's the company or brand you operate under? (Goes in proposals, contracts, signatures.)"
+        type: text
+        validates: non-empty
+
+      - id: industry
+        prompt: "What industry or vertical do you serve?"
+        type: text
+        validates: non-empty
+
+      - id: competitors
+        prompt: "Who are your 2-3 closest competitors? (Comma-separated.)"
+        type: text
+
+      - id: crm_tool
+        prompt: "What CRM or prospecting tool do you use? (HubSpot / Salesforce / Apollo / ZoomInfo / none)"
+        type: text
+        default: "none"
+
+  - id: goals
+    title: Goals
+    questions:
+      - id: revenue_target_12mo
+        prompt: "What's your revenue target for the next 12 months? (Number, e.g. 500000 for $500K)"
+        type: number
+
+      - id: biggest_constraint
+        prompt: "What's the single biggest constraint right now? (cash / time / pipeline / team)"
+        type: enum
+        options: [cash, time, pipeline, team, other]
+
+      - id: target_date
+        prompt: "By when do you need to hit your target? (YYYY-MM-DD)"
+        type: date
+
+  - id: focus
+    title: ADHD and focus preferences
+    questions:
+      - id: hard_stop_reminder
+        prompt: "Do you want agents to flag a hard-stop reminder?"
+        type: bool
+
+      - id: weekly_anchor
+        prompt: "Do you want a weekly Anchor block on a specific day? (e.g. Monday 7am — for weekly planning. Type 'none' if not.)"
+        type: text
+        default: "none"
+
+      - id: drop_polish_when_fast
+        prompt: "Do you want agents to drop polish when you're moving fast / live with a client?"
+        type: bool
+
+  - id: voice
+    title: Voice
+    questions:
+      - id: voice_register
+        prompt: "Describe in 1-2 sentences how you want your agents to sound. Examples: 'Direct, no-fluff, like a senior operator.' or 'Warm and curious, like a thoughtful peer.' or 'Sound like Cal Newport.'"
+        type: text
+        validates: non-empty

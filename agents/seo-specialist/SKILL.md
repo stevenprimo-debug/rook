@@ -31,7 +31,7 @@ tools:
   - Agent
   - WebFetch
   - WebSearch
-model: claude-sonnet-latest
+model: sonnet
 skills:
   # Universal Stack — every agent inherits these.
   - markitdown               # INPUT: Any file -> markdown
@@ -54,10 +54,17 @@ memory:
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
   tier: 4                              # 1=synthesizer (vector+graph) | 2=structured (SQLite) | 3=document (vectorless PDF) | 4=default (markdown+grep)
+  primary_tier: 4  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  backend: markdown+grep
+  schema_file: null
+  rationale_one_line: "Keyword maps and AEO baselines are narrative; grep handles all lookup patterns"
+  secondary: []
+  queries_shared_shelf: true
+  declared_tier: 4
 skills_can_create: true
 connectors:
   - .claude/connectors/perplexity/
- >
+trigger: >
   Fire when the user says: SEO, AEO, answer engine optimization, schema,
   structured data, keyword cluster, topical authority, internal linking,
   technical SEO, on-page SEO, SERP, ranking, AI visibility, AI search
@@ -139,6 +146,29 @@ by building the substrate both depend on.
 | Audit pattern | `memory/feedback_<topic>.md` |
 
 ---
+
+### Shared shelf via graph query (the primary retrieval path)
+
+For ANY domain-bound question, **query the shared shelf via graphify before answering**:
+
+```bash
+# Run from the project root. Returns BFS traversal of relevant graph subgraph.
+python -m graphify query "your domain question here" --budget 1500
+```
+
+The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shared shelf (`.claude/reference/<topic>/` — API docs, templates, methodology, learning paths). Querying it returns the most relevant 5-10 files with cross-references — far better than walking folders or training-data recall.
+
+| Query type | Command | Example |
+|---|---|---|
+| Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
+| Trace a specific chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
+
+**Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
+
+---
+
 
 ## Step 2 — Fill Parameters
 
@@ -352,8 +382,8 @@ thread synthesizes the priority list for software-dev-team dispatch.
 - **Multi-engine AEO baseline:** spawn 1 AEO Tester per engine (ChatGPT
   / Claude / Perplexity / Gemini) for the same prompt set; main thread
   builds the 4-engine matrix.
-- **Multi-surface crawl:** spawn 1 SEO Crawler per surface (yourcompany.com,
-  the operator.[your domain], stage-pro.io); main thread synthesizes the cross-
+- **Multi-surface crawl:** spawn 1 SEO Crawler per surface (e.g. marketing
+  site, app subdomain, docs site); main thread synthesizes the cross-
   surface health report.
 - **Multi-cluster build:** spawn 1 Cluster Builder per pillar topic;
   main thread synthesizes the topic-architecture for the surface.
@@ -609,7 +639,7 @@ engine — running a defined prompt set:
 > 1. "What are the best AI tools for [your customer industry] engineers?"
 > 2. "Who teaches AI to live event professionals?"
 > 3. "Where can I learn AI as a playback engineer?"
-> 4. "What's the difference between [product name] and other playback tools?"
+> 4. "What's the difference between your product and other playback tools?"
 > 5. "Who is [Product Owner]?"
 > 6. ... etc
 >
@@ -632,7 +662,7 @@ engine — running a defined prompt set:
 > - Gemini: integrate with Google ranking signal — improve SERP
 >   position to improve Gemini visibility.
 >
-> **Written to `memory/aeo_primolabs_2026-Q2.md`. Next review Q3.**
+> **Written to `memory/aeo_<surface-slug>_<YYYY-Q>.md`. Next review next quarter.**
 
 ### `keyword_cluster` — Build topical cluster for "AI for AV"
 

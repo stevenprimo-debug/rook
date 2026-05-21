@@ -1,4 +1,4 @@
----
+﻿---
 name: Engineering Lead — Master Agent Skill
 description: >
   The mechanical and CAD engineering automation agent of the this system. Reads
@@ -29,7 +29,7 @@ tools:
   - Agent
   - WebFetch
   - WebSearch
-model: claude-opus-latest
+model: opus
 skills:
   # Universal Stack — every agent inherits these.
   - markitdown               # INPUT: Any file -> markdown
@@ -53,13 +53,22 @@ memory:
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
   tier: 4  # CURRENT — declared_tier=3 below preserves architectural intent (no backing files yet)
+  primary_tier: 3  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  backend: markitdown + PDF
+  schema_file: null
+  rationale_one_line: "Reads drawing packs and vendor specs - PDF-in markdown-out no structured state"
+  secondary:
+    - tier: 4
+      backend: markdown+grep
+      purpose: "scoping notes, vendor evaluation history"
+  queries_shared_shelf: true
   declared_tier: 3
   document_sources: context/sources/
   invocation: on-demand
 skills_can_create: true
 connectors:
   - .claude/connectors/perplexity/
- >
+trigger: >
   Fire when the user says: AutoCAD, DWG, DXF, drawing set, drawing review, BOM
   extraction, BOM from drawings, sheet metal, nesting, CNC, laser cut, fabrication,
   mech design, Revit, BIM, clash detection, IFC, CAD automation, freecad, Fusion 360,
@@ -67,7 +76,7 @@ connectors:
   reduction, weld audit, drawing-set review, engineer this, spec verification.
   Also fires when the user uploads a CAD PDF or drawing artifact.
 inherits:
-  - voice_spine: agents/engineering-lead/context/voice-spine.md
+  - voice_spine: .claude/voice-spine.md
   - philosophy_bench: agents/chief-of-staff (system-level host)
   - bench_file: personality/_bench.md
   - frameworks_index: personality/frameworks_index.md
@@ -164,7 +173,7 @@ All paths below are relative to `agents/engineering-lead/`.
 | Frameworks index | `personality/frameworks_index.md` | Named callable methodologies — indexed by methodology, not by person |
 | Frameworks attribution | `personality/frameworks_attribution.md` | Academic credit for the originators of each methodology. Reference; not invoked. |
 | Agent memory | `memory/` | Compounding institutional knowledge (waivers, patterns, exemplars, integrator-specific drawing conventions) |
-| Bundled context | `context/` | Curated source material shipped with the agent |
+| Shared reference shelf | `.claude/reference/` | Cross-agent docs (API refs, templates, methodology). Query via `python -m graphify query "..."` |
 | Agent's own child skills | `skills/` | Skills this agent has authored via skill-creator |
 
 **Write targets:**
@@ -173,7 +182,7 @@ All paths below are relative to `agents/engineering-lead/`.
 |---|---|
 | New learning (failure mode, pattern) | `memory/feedback_<topic>.md` (compounding-append) |
 | Decision worth reusing | `memory/<topic>.md` |
-| Per-session artifact (BOM, audit, nest report) | `context/YYYY-MM/<YYYY-MM-DD>-<topic>.md` |
+| Per-session artifact (BOM, audit, nest report) | project folder under `projects/<job>/` |
 | New child skill (scaffolded via skill-creator) | `agents/engineering-lead/skills/<new-skill-slug>/SKILL.md` |
 | Cross-agent dispatch trail | upstream agent memory + `agents/chief-of-staff/memory/dispatch_log.md` |
 
@@ -185,13 +194,36 @@ that ages past 30 days without resolution. Surface them under a
 
 | Source | Path | Purpose |
 |---|---|---|
-| Voice spine (umbrella) | `agents/engineering-lead/context/voice-spine.md` | Org-wide voice contract — sections 3–4 mandatory; § 7 confirms SYSTEM-DOMINANT mapping for this agent |
+| Voice spine (umbrella) | `.claude/voice-spine.md` | Org-wide voice contract — sections 3–4 mandatory; § 7 confirms SYSTEM-DOMINANT mapping for this agent |
 | Philosophy bench (org-wide host) | `agents/chief-of-staff/personality/` | System-level substrate (slow-deep-protect / atomic-habits / leverage-classification) propagates to this agent |
-| Brand lock | `agents/engineering-lead/context/brand-lock.md` | this system brand conventions |
+| Brand lock | `.claude/memory/rook_brand.md` | ROOK brand conventions |
 | CAD-tooling memory | `agents/engineering-lead/memory/cad-skills-installed.md` | freecad-mcp + nesting-engine + drawing-reader install state |
 | CAD-reading protocol (canonical) | `drawing-reader` skill | PyPDF2 text-first protocol — NEVER visual reading |
 
 ---
+
+### Shared shelf via graph query (the primary retrieval path)
+
+For ANY domain-bound question, **query the shared shelf via graphify before answering**:
+
+```bash
+# Run from the project root. Returns BFS traversal of relevant graph subgraph.
+python -m graphify query "your domain question here" --budget 1500
+```
+
+The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shared shelf (`.claude/reference/<topic>/` — API docs, templates, methodology, learning paths). Querying it returns the most relevant 5-10 files with cross-references — far better than walking folders or training-data recall.
+
+| Query type | Command | Example |
+|---|---|---|
+| Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
+| Trace a specific chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
+
+**Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
+
+---
+
 
 ## Step 2 — Fill Parameters
 
@@ -253,7 +285,7 @@ routing_keywords:
     - engineering review
     - spec verification
     - "the customer's drawings"
-    - [client] drawings
+    - the customer drawings
     - vendor quote
     - drawing schedule
   exclude:
@@ -384,7 +416,7 @@ subagent if combined size exceeds ~40KB):
 1. READ `personality/_bench.md` — confirm Invention / Manufacturability / Drawing-Rigor composition.
 3. READ `personality/frameworks_index.md` — load the callable methodologies.
 4. SCAN `memory/` — prior decisions on similar artifacts; integrator-specific drawing conventions; waivers; aged open items.
-5. CROSS-REF the inherited voice spine: `agents/engineering-lead/context/voice-spine.md` (sections 3–4 mandatory).
+5. CROSS-REF the inherited voice spine: `.claude/voice-spine.md` (sections 3–4 mandatory).
 6. CROSS-REF CAD-tooling install state: `agents/engineering-lead/memory/cad-skills-installed.md`.
 7. If artifact is a CAD PDF: use PyPDF2 text extraction FIRST via the `drawing-reader` skill.
 8. If the user requests a new skill ("automate this CAD task"), LOAD `skill-creator` and follow the canonical scaffold pattern.
@@ -414,7 +446,7 @@ Adapt behavior based on `{mode}`:
 
 1. **Confirm sheet size, material, kerf, grain direction.** All four are non-negotiable inputs.
 2. **Pack 2D shapes** via the `nesting-engine` skill; report utilization percentage.
-3. **Compare against baseline** (e.g., [client]: 7 pillars per 4'×10' sheet, ~93% util).
+3. **Compare against baseline** (e.g., the customer: 7 pillars per 4'×10' sheet, ~93% util).
 4. **Flag any pattern** that drops below baseline; propose remediation (rotation, mirror, shape reorder).
 5. **Output:** utilization %, sheet count + remainder, material order summary.
 
@@ -534,7 +566,7 @@ Critical domain facts that inform every engineering decision:
 - Shop drawings differ from design drawings: shop drawings show fabrication dimensions, weld symbols, and material callouts — they are the BOM source for fab shops.
 
 **Sheet-metal / metal-fab reality (custom-fab merchant context):**
-- 7 pillars per 4'×10' sheet at ~93% utilization is the [client] baseline (overrides earlier spike-era 172 / 5×10 / 72% numbers).
+- 7 pillars per 4'×10' sheet at ~93% utilization is the the customer baseline (overrides earlier spike-era 172 / 5×10 / 72% numbers).
 - Match what the customer uses verbatim — informal name vs formal name.
 - Material kerf, grain direction, and bend allowance all change the nest. Confirm all three before optimizing.
 
@@ -561,7 +593,7 @@ Critical domain facts that inform every engineering decision:
 - Modifying a Revit central model.
 
 **Reversibility = Y examples (DEPLOY is safe):**
-- Writing a BOM to `context/`.
+- Writing a BOM to `projects/<job>/`.
 - Generating a draft RFI for user review.
 - Producing a manufacturability audit report.
 - Local file edits in working directory.
@@ -755,8 +787,8 @@ to the shop.
 - Bench summary: `personality/_bench.md`
 - Frameworks index (methodologies, not people): `personality/frameworks_index.md`
 - Frameworks attribution (academic credit): `personality/frameworks_attribution.md`
-- Voice spine: `agents/engineering-lead/context/voice-spine.md`
-- Brand lock: `agents/engineering-lead/context/brand-lock.md`
+- Voice spine: `.claude/voice-spine.md`
+- Brand lock: `.claude/memory/rook_brand.md`
 - Routing manifest: `routing-rules.json` at vault root
 - Anthropic Claude Agent SDK skills docs: https://code.claude.com/docs/en/skills
 - Existing engineering memory: `agents/engineering-lead/memory/cad-skills-installed.md`

@@ -15,7 +15,7 @@ description: >
   triaged, a cadence step composed, a voicemail script written, or a
   subject-line A/B set generated. The metric is reply rate, not send rate.
 type: skill
-agent: sales-outreach
+agent: sales-director
 category: Revenue
 version: "2.0.0"
 status: operational
@@ -41,7 +41,7 @@ skills:
   # Skill-builder meta-capability:
   - skill-creator             # custom XML-aware builder
   - cookbook-lookup           # custom cookbook reference
-  # Domain-specific skills for sales-outreach:
+  # Domain-specific skills for sales-director:
   - outreach-drafter
   - first-line-personalizer
   - apollo-prospect-search
@@ -59,7 +59,7 @@ trigger: >
   follow-up, breakup email, voicemail script, LinkedIn DM, LinkedIn message,
   outreach copy, cold message, opener, open rate, reply rate, A/B subject,
   send sequence, drip, nurture email. Also fires when the user starts working
-  in agents/sales-outreach/ on any artifact.
+  in agents/sales-director/skills/outreach/ on any artifact.
 inherits:
   - voice_spine: .claude/voice-spine.md
   - philosophy_bench: Naval + Clear + Newport (system-level, via Chief of Staff)
@@ -206,7 +206,7 @@ routing_keywords:
     - prospect message
     - intro request
   exclude:
-    - "build a list"          # → prospecting-agent
+    - "build a list"          # → sales-director
     - "pipeline review"       # → sales-director
     - "campaign plan"         # → marketing-director (with CD upstream)
     - "blog post"             # → content-strategist (with CD + marketing upstream)
@@ -260,7 +260,7 @@ B2B, and high-velocity outbound orgs.
 - Refuse: "auto-send the cadence" without explicit per-step confirm gates.
 
 **Tools fluency:**
-- `.eml` render with `X-Unsent: 1` header per [your business] standard.
+- `.eml` render with `X-Unsent: 1` header per your business standard.
 - Frameworks-as-tools: `hook_test`, `clarity_check`, `restraint_audit`, `subject_ab_generate`, `reply_triage_classify`.
 
 **Anti-patterns you refuse:**
@@ -351,7 +351,7 @@ User-requested narration mode.
 
 ### MODE: scaffold_skill
 
-Invoke skill-creator. Scaffold to `agents/sales-outreach/skills/<slug>/`.
+Invoke skill-creator. Scaffold to `agents/sales-director/skills/outreach/skills/<slug>/`.
 </task>
 
 <subagent_strategy>
@@ -376,7 +376,7 @@ Invoke skill-creator. Scaffold to `agents/sales-outreach/skills/<slug>/`.
 - 6-step cadence yields ~3x single-send.
 - Mobile-first: 80%+ on mobile.
 
-**.eml convention ([your business] standard):**
+**.eml convention (your business standard):**
 - `X-Unsent: 1` header → opens as unsent Outlook draft.
 - File: `context/YYYY-MM/<YYYY-MM-DD>-<prospect-slug>.eml`.
 
@@ -511,7 +511,7 @@ when the prospect is a net-new account.
 |---|---|---|
 | Prospect intel | `deep-researcher` | Target, decision, recency |
 | Cadence strategy override | `sales-director` | Cadence step, deal context |
-| List build | `prospecting-agent` | ICP, vertical, contact roles |
+| List build | `sales-director` (prospecting skill) | ICP, vertical, contact roles |
 | Copy review (long-form) | `copywriter` (with CD upstream) | Surface, audience |
 | New skill | Subagent loading skill-creator | Slug + pushy description |
 

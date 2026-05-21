@@ -30,7 +30,7 @@ tools:
   - Agent
   - WebFetch
   - WebSearch
-model: claude-opus-latest
+model: sonnet
 skills:
   # Universal Stack — every agent inherits these.
   - markitdown               # INPUT: Any file -> markdown
@@ -52,7 +52,15 @@ memory:
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
   tier: 4                              # 1=synthesizer (vector+graph) | 2=structured (SQLite) | 3=document (vectorless PDF) | 4=default (markdown+grep)
+  primary_tier: 4  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  backend: markdown+grep
+  schema_file: null
+  rationale_one_line: "Product specs and roadmap decisions are narrative; grep covers all retrieval"
+  secondary: []
+  queries_shared_shelf: true
+  declared_tier: 4
 skills_can_create: true
+connectors: []
 trigger: >
   Fire when the user says: PRD, product spec, feature brief, scope, JTBD,
   job-to-be-done, customer discovery, user research synthesis, sprint plan,
@@ -135,6 +143,29 @@ can actually deliver.
 | Scope-cut decision | `memory/feedback_<topic>.md` |
 
 ---
+
+### Shared shelf via graph query (the primary retrieval path)
+
+For ANY domain-bound question, **query the shared shelf via graphify before answering**:
+
+```bash
+# Run from the project root. Returns BFS traversal of relevant graph subgraph.
+python -m graphify query "your domain question here" --budget 1500
+```
+
+The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shared shelf (`.claude/reference/<topic>/` — API docs, templates, methodology, learning paths). Querying it returns the most relevant 5-10 files with cross-references — far better than walking folders or training-data recall.
+
+| Query type | Command | Example |
+|---|---|---|
+| Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
+| Trace a specific chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
+
+**Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
+
+---
+
 
 ## Step 2 — Fill Parameters
 

@@ -48,7 +48,7 @@ Each agent ships with:
 | Category | Agents |
 |---|---|
 | Operations | chief-of-staff · librarian |
-| Revenue | sales-director · sales-outreach · prospecting-agent · shopify-agent |
+| Revenue | sales-director · sales-director · sales-director · shopify-agent |
 | Marketing | marketing-director · content-strategist · social-media-manager · seo-specialist |
 | Creative | creative-director · designer · copywriter |
 | Research | deep-researcher |

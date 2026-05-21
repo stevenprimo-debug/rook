@@ -31,7 +31,7 @@ inherits:
 
 ## Overview
 
-Owner agent: **sales-outreach**. This skill produces 1-3 personalized opening lines for a cold
+Owner agent: **sales-director**. This skill produces 1-3 personalized opening lines for a cold
 email — each under 25 words, anchored to a verifiable detail, conversational in tone, specific
 enough to prove the email wasn't mass-generated. The skill ships only the opener; the operator
 or another skill writes the rest of the email body.
@@ -183,7 +183,7 @@ into an email body and sends within 2 minutes — no re-edit needed.
 
 - AMA counterpart: `skills/templates/ama-templates/cold-outreach-personalizer/SKILL.md` and
   `ama-definition.md` — batch-scale version with Clay + MailerLite
-- Owner agent: `agents/sales-outreach/SKILL.md`
+- Owner agent: `agents/sales-director/skills/outreach/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Pairs with: `outreach-drafter` (this skill produces the opener; that one builds the body
   around it)

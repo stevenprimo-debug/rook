@@ -48,11 +48,11 @@
 
 ## [customer] fit
 
-This AMA is the **Phase 2 capstone** for the [customer-short] engagement. [Customer Name] currently
+This AMA is the **Phase 2 capstone** for the the customer engagement. [Customer Name] currently
 manually triages backlog (Phase 1 = clearance via SOW). Phase 2 deploys this
 AMA + the cost-calc system. Phase 3 = the productized "Custom-Fab Operator
 Dashboard" extending this pattern.
 
-Reference: `out/2026-05-14-nma-sow-draft.md` (Phase 1 scope),
-`agents/shopify-agent/briefs/2026-05-11-nma-cost-calc-system-brief.md` (full
-[customer-short] roadmap).
+Reference: `out/2026-05-14-client-sow-draft.md` (Phase 1 scope),
+`agents/shopify-agent/briefs/2026-05-11-client-cost-calc-system-brief.md` (full
+the customer roadmap).

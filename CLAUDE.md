@@ -57,4 +57,4 @@ Customer-facing agent content must remain neutral and generic. Do NOT include:
 - **Industry-vertical framing** that locks the agent to one industry (use generic role language instead)
 - **Personal finance, commission, or trading specifics** tied to a particular user
 
-Use placeholders like `[Your Company]`, `[Your Industry]`, `[your employer]` when example context is required. Operator-specific state belongs in `~/.claude/CLAUDE.md` (outside this folder), not in agent files.
+Use placeholders like `[Your Company]`, `[Your Industry]`, `your employer` when example context is required. Operator-specific state belongs in `~/.claude/CLAUDE.md` (outside this folder), not in agent files.

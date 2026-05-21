@@ -2,7 +2,7 @@
 """
 html2pdf — Convert standalone HTML files to design-quality PDFs.
 
-Designed for the LMGSI Proposal v5 template family (DM Sans, base64-embedded
+Designed for the generic proposal template family (DM Sans, base64-embedded
 images, full-bleed cover pages, brand colors). Wraps Playwright's headless
 Chromium so output matches what the HTML renders in Chrome — but with
 controlled font loading and viewport sizing.
@@ -63,7 +63,7 @@ PAGE_PIXELS = {
     "Tabloid": (1056, 1632),
 }
 
-# Default viewport for seamless mode. Matches the LMGSI Proposal v5
+# Default viewport for seamless mode. Matches the proposal-Proposal v5
 # .page max-width (850px) so the layout fills the PDF without gray gutters.
 # vh units in the HTML resolve against the height (1100px) BEFORE the PDF
 # is captured, so cover pages with `min-height: 100vh` get a concrete

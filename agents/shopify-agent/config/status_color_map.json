@@ -1,0 +1,21 @@
+{
+  "_comment": "Merchant-specific production status → Excel fill color mapping. Operator fills this per merchant. Hex colors without leading #.",
+  "_format": "status_text_lowercase: hex_color_6_chars",
+  "_example_colors": {
+    "going to cut": "00FF00",
+    "cut to bending": "00FFFF",
+    "in production": "4A86E8",
+    "shipped": "FF0000",
+    "asap": "FF00FF",
+    "need info": "FFFF00",
+    "cancelled": "FF9900",
+    "done": "90EE90"
+  },
+  "_instructions": [
+    "Copy the _example_colors block above and rename to your merchant's actual status values.",
+    "The build_handoff_excel.py script loads this file via SHOPIFY_COLOR_MAP env var.",
+    "Status matching is case-insensitive substring match — 'shipped' matches 'SHIPPED', 'Shipped to customer', etc.",
+    "Chargeback color (light red #FFB3B3) is hardcoded in build_handoff_excel.py — not configurable here.",
+    "Delete this _comment, _format, _example_colors, and _instructions block before committing merchant config."
+  ]
+}

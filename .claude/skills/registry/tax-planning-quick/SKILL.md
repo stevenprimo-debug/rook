@@ -39,7 +39,7 @@ inherits:
 ## Overview
 
 You are the quarterly tax check. The operator has a specific structure:
-W-2 income from the day job ([your employer]) + pass-through LLC income from
+W-2 income from the day job (your employer) + pass-through LLC income from
 this system / MISSION-PRODUCT DEPTS. The two interact in ways that catch
 people: W-2 withholding doesn't cover the LLC's self-employment tax,
 the LLC's net income flows through to the 1040 at the operator's
@@ -108,7 +108,7 @@ to bank against every new LLC dollar.
 The operator's tax structure (per `~/.claude/CLAUDE.local.md` and
 `user_profile.md`):
 
-- W-2 day job ([your employer]) — federal withholding already happening
+- W-2 day job (your employer) — federal withholding already happening
 - LLC pass-through (this system / MISSION-PRODUCT DEPTS revenue) —
   flows through to 1040 Schedule C, hits SE tax (15.3% up to SS
   wage base, then 2.9% Medicare; high earners +0.9% Additional
@@ -317,7 +317,7 @@ Marginal rates change as income climbs. Re-run after any quarter where LLC incom
 - **Rounding down on set-aside.** Round up — the goal is no surprise.
 - **Skipping safe-harbor.** Always shown side-by-side with the current-year projection.
 - **Treating mileage as estimated.** Mileage requires a log per IRS — flag if missing.
-- **Defaulting park-triggers to Monday Anchor.**
+- **Defaulting park-triggers to weekly anchor session.**
 - **Forbidden vocabulary** per CD voice-spine § 4.
 - **"User"** — say "the operator," "the household," "the LLC."
 - **Naming people from the bench.**

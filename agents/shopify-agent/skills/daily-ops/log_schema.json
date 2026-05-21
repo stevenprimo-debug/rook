@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "daily-ops log line",
+  "type": "object",
+  "required": ["timestamp", "order_id", "tool_name", "result_status"],
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 UTC timestamp of the MCP call"
+    },
+    "order_id": {
+      "type": "string",
+      "description": "Shopify order GID or numeric ID; required even on no-op log lines"
+    },
+    "tool_name": {
+      "type": "string",
+      "description": "Name of the MCP tool invoked (e.g., shopify.orders.get, gmail.send, shippo.rate)"
+    },
+    "result_status": {
+      "type": "string",
+      "enum": ["success", "failure", "skipped", "escalated"]
+    },
+    "sub_agent": {
+      "type": "string",
+      "enum": ["inventory", "shipping", "comms", "refunds", "orchestrator"]
+    },
+    "error_message": {
+      "type": "string",
+      "description": "Populated when result_status is failure or escalated"
+    },
+    "duration_ms": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Wall-clock duration of the MCP call in milliseconds"
+    }
+  },
+  "additionalProperties": false
+}

@@ -3,7 +3,7 @@
 **Status:** stub — v1.0 ships scaffolding; auth wire-up is per-operator setup.
 
 ## Consumers
-- `inbox-custodian` (read inbox, write drafts)
+- `inbox-manager` (read inbox, write drafts)
 - `account-manager` (read inbound from accounts; never write)
 - `sales-director/skills/outreach` (write drafts)
 - `sales-director/skills/reply-handling` (read + write drafts)

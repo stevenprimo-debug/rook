@@ -248,7 +248,7 @@ discovery query within an hour.
 - AMA counterpart: None — flow design is high-context
 - Owner agent: `agents/shopify-agent/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
-- Reference: `agents/shopify-agent/context/2026-05/Agentic commerce.md`,
-  `agents/shopify-agent/context/2026-05/Build a Storefront AI agent.md`,
+- Reference: `agents/shopify-agent/memory/2026-05/Agentic commerce.md`,
+  `agents/shopify-agent/memory/2026-05/Build a Storefront AI agent.md`,
   UCP spec (https://ucp.dev/2026-04-08/specification/overview/)
 - Related skills: `shopify-product-setup`, `shopify-webhook-builder`, `shopify-polaris-component`

@@ -27,7 +27,7 @@ tools:
   - Agent
   - WebFetch
   - WebSearch
-model: claude-opus-latest
+model: opus
 skills:
   # Universal Stack — every agent inherits these.
   - markitdown               # INPUT: Any file -> markdown
@@ -49,13 +49,22 @@ memory:
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
   tier: 4  # CURRENT — declared_tier=1 below preserves architectural intent (no backing files yet)
+  primary_tier: 1  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  backend: ChromaDB + graphify
+  schema_file: memory/chroma/
+  rationale_one_line: "Cross-cutting concept retrieval over research corpus + shared shelf requires semantic search"
+  secondary:
+    - tier: 4
+      backend: markdown+grep
+      purpose: "research notes, source citations, methodology"
+  queries_shared_shelf: true
   declared_tier: 1
   vector_index: memory/.vector-index/
   graph_subset: research-corpus
 skills_can_create: true
 connectors:
   - .claude/connectors/perplexity/
- >
+trigger: >
   Fire when the user says: research, competitive brief, market scan, due
   diligence, pre-meeting brief, trademark check, name check, tool
   discovery, MCP discovery, source synthesis, evidence hierarchy, what's
@@ -136,6 +145,29 @@ extracting the pattern that actually matters.
 
 ---
 
+### Shared shelf via graph query (the primary retrieval path)
+
+For ANY domain-bound question, **query the shared shelf via graphify before answering**:
+
+```bash
+# Run from the project root. Returns BFS traversal of relevant graph subgraph.
+python -m graphify query "your domain question here" --budget 1500
+```
+
+The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shared shelf (`.claude/reference/<topic>/` — API docs, templates, methodology, learning paths). Querying it returns the most relevant 5-10 files with cross-references — far better than walking folders or training-data recall.
+
+| Query type | Command | Example |
+|---|---|---|
+| Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
+| Trace a specific chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
+
+**Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
+
+---
+
+
 ## Step 2 — Fill Parameters
 
 | Parameter | Options | Notes |
@@ -177,8 +209,8 @@ routing_keywords:
     - prior art
     - landscape scan
   exclude:
-    - "build a list of prospects"   # → prospecting-agent
-    - "draft an email"              # → sales-outreach
+    - "build a list of prospects"   # → sales-director
+    - "draft an email"              # → sales-director
     - "campaign plan"               # → marketing-director
     - "design this page"            # → designer
 ```

@@ -238,8 +238,8 @@ is live within an hour with HMAC + retries + idempotency all handled.
 - AMA counterpart: None — webhook scaffolds are high-context
 - Owner agent: `agents/shopify-agent/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
-- Reference: `agents/shopify-agent/context/2026-05/About webhooks.md`,
-  `agents/shopify-agent/context/2026-05/About managing webhook subscriptions.md`,
-  `agents/shopify-agent/context/2026-05/Subscribe to a topic using GraphQL Admin API.md`,
-  `agents/shopify-agent/context/2026-05/Subscribe to a webhook topic.md`
+- Reference: `agents/shopify-agent/memory/2026-05/About webhooks.md`,
+  `agents/shopify-agent/memory/2026-05/About managing webhook subscriptions.md`,
+  `agents/shopify-agent/memory/2026-05/Subscribe to a topic using GraphQL Admin API.md`,
+  `agents/shopify-agent/memory/2026-05/Subscribe to a webhook topic.md`
 - Related skills: `shopify-product-setup`, `shopify-polaris-component`, `agentic-commerce-flow`

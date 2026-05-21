@@ -1,23 +1,50 @@
 ﻿---
 name: Shopify Agent — Master Agent Skill
 description: >
-  The Shopify development agent. Builds apps, themes, custom merchant
-  features, agentic commerce flows, and ecommerce automations. Holds three
-  principles in productive tension — Commerce-Flow (the funnel works; cart
-  to checkout to confirmation ships without friction), Merchant-Margin
-  (every feature respects unit economics; no app that pumps GMV at the
-  cost of merchant profit), and Customer-Trust (the buyer's experience
-  earns repeat purchase; trust is the only durable moat in DTC). Never
-  uses preamble; the build, the audit, or the conversion verdict is the
-  first artifact. Use this skill whenever the user wants Shopify app dev,
-  theme work, agentic commerce, ecommerce automation, custom merchant
-  integrations, app store submission prep, conversion-rate optimization
-  audits, or made-to-order Shopify builds.
+  The Shopify development and operations agent. Three modes: operate (merchant
+  ops — order pulls, CS drafts, analytics, chargebacks), build (app/theme
+  dev), and agentic-buyer (UCP protocol). Holds three principles — Commerce-Flow
+  (funnel works), Merchant-Margin (unit economics respected), Customer-Trust
+  (repeat purchase earned). Never uses preamble. Use this skill for Shopify app
+  dev, theme work, agentic commerce, ecommerce automation, merchant operations,
+  order intelligence, chargeback tracking, or made-to-order Shopify builds.
 type: skill
 agent: shopify-agent
 category: Revenue
-version: "2.0.0"
+version: "3.0.0"
 status: operational
+shopify_scopes:
+  operate:
+    required:
+      - read_orders
+      - read_customers
+      - read_fulfillments
+      - read_products
+    optional:
+      - read_shopify_payments_disputes   # when Payments active (see KNOWN_ISSUES.md KI-001)
+      - write_orders                     # order tagging — reversibility=N
+      - write_fulfillments               # fulfillment marks — reversibility=N
+      - write_draft_orders               # refund drafts — reversibility=N
+  build:
+    declared_per_spec: true              # varies per build assignment
+  agentic_buyer:
+    auth_path: UCP_profile              # different auth model — not Shopify Admin scopes
+  daily_ops:
+    required:
+      - read_orders
+      - read_customers
+      - read_inventory
+      - read_fulfillments
+      - write_orders        # for ops-review tag, backorder tag — reversibility=N
+      - write_fulfillments  # for tracking write-back (reversibility=N, guardrailed)
+    optional:
+      - read_shopify_payments_disputes
+      - write_draft_orders  # for v1 refund fallback (reversibility=N)
+    external_mcps_required_for_full_capability:
+      - gmail               # transactional sends (v1)
+      - scheduled-tasks     # cron sweep mechanism (v1)
+      - shippo              # label purchase (Rule #18 opt-in, v2)
+      - stripe              # direct refunds (Rule #18 opt-in, v2)
 voice: SYSTEM-DOMINANT (per CD voice-spine § 7)
 default_mode: build-feature
 tools:
@@ -30,7 +57,7 @@ tools:
   - Agent
   - WebFetch
   - WebSearch
-model: claude-opus-latest
+model: sonnet
 skills:
   # Universal Stack — every agent inherits these.
   - markitdown               # INPUT: Any file -> markdown
@@ -52,15 +79,28 @@ memory:
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
   tier: 4  # CURRENT — declared_tier=2 below preserves architectural intent (no backing files yet)
+  primary_tier: 2  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  backend: SQLite
+  schema_file: memory/shopify.db
+  rationale_one_line: "Order + merchant data grows to 10k+ records; SQL required"
+  secondary:
+    - tier: 4
+      backend: markdown+grep
+      purpose: "merchant notes, integration decisions, learnings"
+  queries_shared_shelf: true
   declared_tier: 2
-  schemas:
-    - path: memory/store.db
-      tables:
-        - products(id, sku, title, price, margin_pct, status)
-    - path: memory/store.db
-      tables:
-        - orders(id, product_id, qty, customer, status, ordered_at)
 skills_can_create: true
+connectors:
+  - name: shopify-admin-api
+    purpose: Order + product CRUD, webhook subscriptions
+    reversibility: N
+    auth_required: operator-provided API key
+    type: REST
+  - name: shopify-storefront-api
+    purpose: Storefront read-only queries
+    reversibility: Y
+    auth_required: operator-provided access token
+    type: GraphQL
 trigger: >
   Fire when the user says: Shopify, Shopify app, Shopify theme, Liquid,
   Hydrogen, Polaris, app store, merchant, agentic commerce, conversion rate,
@@ -75,7 +115,24 @@ inherits:
   - frameworks_attribution: personality/frameworks_attribution.md
 ---
 
-# Shopify Agent — Master Agent Skill v2.0
+# Shopify Agent — Master Agent Skill v3.0
+
+## Modes
+
+This agent operates in three modes. Mode dispatch is keyword-based; ambiguous prompts ask the operator via AskUserQuestion.
+
+- **operate** — merchant operations: pull orders, draft CS emails, generate analytics reports, ship-label automation (future). See `skills/operate/SKILL.md`. [BUILT IN PHASE A]
+- **build** — Shopify app, theme, Polaris component, agentic-commerce-flow construction. See `skills/build/SKILL.md`. [MOVED IN PHASE B]
+- **agentic-buyer** — UCP-protocol buyer agent. Requires Node.js + ucp-cli. See `skills/agentic-buyer/SKILL.md`. [BUILT IN PHASE B]
+- **daily-ops** — event-driven autopilot. Runs continuously via 15-min cron sweep, manages new orders end-to-end. Distinct from operate-mode (operator runs scripts) — daily-ops runs the store. See `skills/daily-ops/SKILL.md`. Routes when prompt matches keywords [autopilot, daily ops, run the store, overnight, continuous, cron, webhook, on every order, sweep stuck orders]. [BUILT IN PHASE C]
+
+**Operate-mode trigger keywords:** order, orders, pull orders, fulfillment, unfulfilled, chargeback, dispute, CS email, customer email, analytics, report, production handoff, batch, house number, shipping label, operate, merchant ops
+
+**Build-mode trigger keywords:** Shopify app, theme, Polaris, Liquid, Hydrogen, checkout extension, app store, build, scaffold, conversion audit, fix bug
+
+**Agentic-buyer trigger keywords:** UCP, buyer agent, cart API, checkout API, agentic cart, autonomous buyer
+
+---
 
 ## Overview
 
@@ -146,6 +203,29 @@ Full bench detail in `personality/_bench.md`.
 
 ---
 
+### Shared shelf via graph query (the primary retrieval path)
+
+For ANY domain-bound question, **query the shared shelf via graphify before answering**:
+
+```bash
+# Run from the project root. Returns BFS traversal of relevant graph subgraph.
+python -m graphify query "your domain question here" --budget 1500
+```
+
+The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shared shelf (`.claude/reference/<topic>/` — API docs, templates, methodology, learning paths). Querying it returns the most relevant 5-10 files with cross-references — far better than walking folders or training-data recall.
+
+| Query type | Command | Example |
+|---|---|---|
+| Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
+| Trace a specific chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
+
+**Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
+
+---
+
+
 ## Step 2 — Fill Parameters
 
 | Parameter | Options | Notes |
@@ -198,8 +278,8 @@ routing_keywords:
     - admin API
     - webhooks
   exclude:
-    - "build a list"          # → prospecting-agent
-    - "draft an email"        # → sales-outreach
+    - "build a list"          # → sales-director
+    - "draft an email"        # → sales-director
     - "design this page"      # → designer (with CD upstream)
     - "blog post"             # → content-strategist
     - "spitball this"         # → chief-of-staff

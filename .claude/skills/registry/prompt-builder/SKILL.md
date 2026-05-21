@@ -159,12 +159,12 @@ Your audience is VP and C-Suite decision-makers at target accounts.
 </role>
 
 <task>
-Write a cold outreach email to a [Decision-Maker Role] at a mid-size target company who has never heard of [your employer].
+Write a cold outreach email to a [Decision-Maker Role] at a mid-size target company who has never heard of your employer.
 Success: They open it, read it in under 30 seconds, and respond or forward it internally.
 </task>
 
 <context>
-[your employer] recently completed an $8M broadcast-grade event space for a major tech campus.
+your employer recently completed an $8M broadcast-grade event space for a major tech campus.
 We specialize in conference rooms, boardrooms, digital signage, and managed AV services.
 Key differentiator: managed services built in from day one — no orphaned systems.
 </context>

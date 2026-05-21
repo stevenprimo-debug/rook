@@ -2,7 +2,7 @@
 name: Proposal Template Generator
 description: |
   Generate a customer-facing proposal — the PRE-CONTRACT pitch document.
-  Maps content to the [example enterprise customer] v4 visual frame (cover → exec letter → exec summary →
+  Maps content to the an enterprise customer v4 visual frame (cover → exec letter → exec summary →
   understanding → approach → investment & options (scaled tier cards) → risks
   & mitigation → why us → timeline → next steps → footer). Outputs branded
   HTML that html2pdf renders seamless. Distinct from `sow-template` (post-
@@ -39,7 +39,7 @@ Proposal = pre-contract pitch. Demonstrates the provider listened, lays out
 real mitigations, articulates why the provider specifically. A signed
 proposal triggers downstream SOW work (use `sow-template`).
 
-**Visual frame is locked: [example enterprise customer] v4 HTML template.** Reference:
+**Visual frame is locked: an enterprise customer v4 HTML template.** Reference:
 `reference_proposal_master_template_bsa_v4.md`. Skill fills content into
 existing visual components — never invents new visual patterns.
 
@@ -51,13 +51,13 @@ existing visual components — never invents new visual patterns.
 4. Skill loads matching variant from `variants/{name}.md`
 5. Skill asks for the three pricing tiers + recommended tier
 6. Skill asks for 3-5 specific risks the customer cares about (not boilerplate)
-7. Skill fills [example enterprise customer] v4 HTML template with content
+7. Skill fills an enterprise customer v4 HTML template with content
 8. Skill writes filled HTML to `out/YYYY-MM-DD-{customer}-proposal.html`
 9. Skill offers html2pdf conversion (seamless, never --paginated)
 
-## 12 content sections mapped to [example enterprise customer] v4 visual components
+## 12 content sections mapped to an enterprise customer v4 visual components
 
-| # | Content | [example enterprise customer] v4 component |
+| # | Content | an enterprise customer v4 component |
 |---|---|---|
 | 1 | Cover page | `.cover` (dark — logo + client name + service line + submitter) |
 | 2 | Executive letter | `.letter` (light, "Cheers," sign-off pattern) |
@@ -83,7 +83,7 @@ Best for: {use case}      Why this: {rationale}       Best for: {bigger use case
 Trade-off: {what's out}                                Best for: {longer horizon}
 ```
 
-Recommended tier is visually distinct ([example enterprise customer] v4 `.best` modifier on the card).
+Recommended tier is visually distinct (an enterprise customer v4 `.best` modifier on the card).
 Don't equalize the three tiers — name the recommendation and explain it.
 
 ## Risks & mitigation pattern (section 7 — the trust-builder)
@@ -108,7 +108,7 @@ mitigated.
 
 ## Output
 
-Filled [example enterprise customer] v4 HTML with content slots replaced + html2pdf seamless conversion.
+Filled an enterprise customer v4 HTML with content slots replaced + html2pdf seamless conversion.
 "Cheers," sign-off on the executive letter (no name, no emojis, plain text per
 the operator email rules).
 

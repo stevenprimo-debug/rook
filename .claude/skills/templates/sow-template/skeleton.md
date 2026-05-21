@@ -2,9 +2,9 @@
 
 > **Purpose:** This is the universal skeleton for the `sow-template` skill (to be built Saturday). It works for any industry; the 3 domain-coded sections (3, 4, 8 sub-headings) get filled by the appropriate variant. Slots are marked `{LIKE_THIS}` and must be filled before sending.
 >
-> **Variants planned:** `av-integration` ([your employer] sample), `shopify-services` (Shopify services engagement), `software-saas`, `consulting-services`, `design-build`, `rfp-response` (add-on modifier — adds RFP section refs to any variant).
+> **Variants planned:** `av-integration` (your employer sample), `shopify-services` (Shopify services engagement), `software-saas`, `consulting-services`, `design-build`, `rfp-response` (add-on modifier — adds RFP section refs to any variant).
 >
-> **Source SOW used to seed this:** 2026-03-24 [Prime Contractor] / [End Customer] [Project Name] RFP response ([your employer]/the operator authored).
+> **Source SOW used to seed this:** 2026-03-24 [Prime Contractor] / [End Customer] [Project Name] RFP response (your employer/the operator authored).
 
 ---
 

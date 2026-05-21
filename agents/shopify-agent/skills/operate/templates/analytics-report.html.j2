@@ -1,0 +1,214 @@
+{% extends ".claude/templates/html/base.html.j2" %}
+{#
+  Shopify Operate-Mode Analytics Report
+  Jinja2 template — rendered by the shopify-agent operate skill.
+
+  Expected context variables:
+    merchant_name      — display name for the merchant
+    date_range         — human-readable date range string (e.g. "May 1–21, 2026")
+    generated_at       — ISO timestamp
+    orders_by_week     — list of {week_label, order_count, revenue}
+    top_products       — list of {title, units_sold, revenue}  (top 10)
+    aov_by_week        — list of {week_label, aov}
+    fulfillment_latency — {avg_days, p50_days, p90_days}
+    financial_status_dist — list of {status, count, pct}  (chargebacks highlighted)
+    repeat_customer_rate  — float (0–1)
+    chargeback_orders     — list of {order_number, amount, status, evidence_due_by}
+
+  Brand layer injected via the base template from .claude/templates/html/
+#}
+
+{% block title %}{{ merchant_name }} — Operations Report | {{ date_range }}{% endblock %}
+
+{% block content %}
+<div class="report-header">
+  <h1>{{ merchant_name }}</h1>
+  <p class="subtitle">Operations Report &mdash; {{ date_range }}</p>
+  <p class="meta">Generated {{ generated_at }}</p>
+</div>
+
+<!-- ── Section 1: Orders by Week ─────────────────────────────────────────── -->
+<section class="report-section">
+  <h2>Orders by Week</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Week</th>
+        <th class="num">Order Count</th>
+        <th class="num">Revenue</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in orders_by_week %}
+      <tr class="{% if loop.index is even %}alt{% endif %}">
+        <td>{{ row.week_label }}</td>
+        <td class="num">{{ row.order_count }}</td>
+        <td class="num">${{ "%.2f"|format(row.revenue) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<!-- ── Section 2: Top 10 Products by Units Sold ───────────────────────────── -->
+<section class="report-section">
+  <h2>Top Products — Units Sold</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th class="num">Units Sold</th>
+        <th class="num">Revenue</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in top_products[:10] %}
+      <tr class="{% if loop.index is even %}alt{% endif %}">
+        <td>{{ product.title }}</td>
+        <td class="num">{{ product.units_sold }}</td>
+        <td class="num">${{ "%.2f"|format(product.revenue) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<!-- ── Section 3: AOV Trend by Week ──────────────────────────────────────── -->
+<section class="report-section">
+  <h2>Average Order Value by Week</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Week</th>
+        <th class="num">AOV</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in aov_by_week %}
+      <tr class="{% if loop.index is even %}alt{% endif %}">
+        <td>{{ row.week_label }}</td>
+        <td class="num">${{ "%.2f"|format(row.aov) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<!-- ── Section 4: Fulfillment Latency ────────────────────────────────────── -->
+<section class="report-section">
+  <h2>Fulfillment Latency</h2>
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <span class="kpi-label">Avg Days</span>
+      <span class="kpi-value">{{ "%.1f"|format(fulfillment_latency.avg_days) }}</span>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-label">Median</span>
+      <span class="kpi-value">{{ "%.1f"|format(fulfillment_latency.p50_days) }}</span>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-label">P90</span>
+      <span class="kpi-value">{{ "%.1f"|format(fulfillment_latency.p90_days) }}</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Section 5: Financial Status Distribution ───────────────────────────── -->
+<section class="report-section">
+  <h2>Financial Status Distribution</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th class="num">Count</th>
+        <th class="num">%</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in financial_status_dist %}
+      <tr class="{% if 'chargeback' in row.status|lower %}chargeback-row{% elif loop.index is even %}alt{% endif %}">
+        <td>{{ row.status }}</td>
+        <td class="num">{{ row.count }}</td>
+        <td class="num">{{ "%.1f"|format(row.pct) }}%</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<!-- ── Section 6: Repeat Customer Rate ───────────────────────────────────── -->
+<section class="report-section">
+  <h2>Repeat Customer Rate</h2>
+  <div class="kpi-row">
+    <div class="kpi-card {% if repeat_customer_rate >= 0.30 %}kpi-good{% elif repeat_customer_rate >= 0.15 %}kpi-warn{% else %}kpi-bad{% endif %}">
+      <span class="kpi-label">Repeat Rate</span>
+      <span class="kpi-value">{{ "%.1f"|format(repeat_customer_rate * 100) }}%</span>
+      <span class="kpi-benchmark">Benchmark: 30%+</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Section 7: Active Chargebacks ─────────────────────────────────────── -->
+{% if chargeback_orders %}
+<section class="report-section chargeback-section">
+  <h2>Active Chargebacks — Action Required</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Order</th>
+        <th class="num">Amount</th>
+        <th>Status</th>
+        <th>Evidence Due</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for cb in chargeback_orders %}
+      <tr class="chargeback-row">
+        <td>{{ cb.order_number }}</td>
+        <td class="num">${{ "%.2f"|format(cb.amount) }}</td>
+        <td>{{ cb.status }}</td>
+        <td>{{ cb.evidence_due_by or "—" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p class="chargeback-note">
+    Chargeback orders should not be processed until disputes are resolved.
+    See KNOWN_ISSUES.md KI-001 if dispute data is missing.
+  </p>
+</section>
+{% endif %}
+
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<style>
+  .report-header { margin-bottom: 2rem; border-bottom: 2px solid var(--primary, #1C1C1C); padding-bottom: 1rem; }
+  .report-header h1 { font-size: 1.8rem; margin: 0; }
+  .subtitle { font-size: 1.1rem; color: var(--muted-text, #555); margin: 0.25rem 0; }
+  .meta { font-size: 0.85rem; color: var(--meta-text, #888); margin: 0; }
+
+  .report-section { margin-bottom: 2.5rem; }
+  .report-section h2 { font-size: 1.2rem; border-bottom: 1px solid var(--rule, #e0e0e0); padding-bottom: 0.4rem; }
+
+  .data-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  .data-table th { background: var(--primary, #1C1C1C); color: #fff; padding: 0.5rem 0.75rem; text-align: left; }
+  .data-table td { padding: 0.4rem 0.75rem; border-bottom: 1px solid var(--rule-light, #f0f0f0); }
+  .data-table tr.alt td { background: var(--row-alt, #f9f9f9); }
+  .num { text-align: right; }
+
+  .kpi-row { display: flex; gap: 1rem; flex-wrap: nowrap; }
+  .kpi-card { flex: 1; background: var(--card-bg, #f5f5f5); border-radius: 6px; padding: 1rem; text-align: center; min-width: 0; }
+  .kpi-label { display: block; font-size: 0.8rem; color: var(--muted-text, #666); text-transform: uppercase; letter-spacing: 0.05em; }
+  .kpi-value { display: block; font-size: 2rem; font-weight: 700; margin: 0.25rem 0; }
+  .kpi-benchmark { display: block; font-size: 0.75rem; color: var(--meta-text, #999); }
+  .kpi-good .kpi-value { color: var(--success, #00A651); }
+  .kpi-warn .kpi-value { color: var(--warn, #FF8C00); }
+  .kpi-bad .kpi-value { color: var(--danger, #CC0000); }
+
+  .chargeback-section { border: 2px solid var(--danger-border, #FFB3B3); border-radius: 6px; padding: 1rem; background: var(--danger-bg, #FFF5F5); }
+  .chargeback-row td { background: var(--danger-row, #FFE8E8); }
+  .chargeback-note { font-size: 0.85rem; color: var(--danger-text, #800000); margin: 0.75rem 0 0; }
+</style>
+{% endblock %}

@@ -11,11 +11,13 @@ This file is the operator's home base in Obsidian. Open this folder as an Obsidi
 ### Operations (meta layer)
 - [[agents/chief-of-staff/SKILL|chief-of-staff]] — dispatcher / router. Every session that doesn't name a specialist starts here.
 - [[agents/librarian/SKILL|librarian]] — memory custodian. Runs weekly sweep + drift audit. Not dispatchable; hand off only.
+- [[agents/inbox-manager/SKILL|inbox-manager]] — email triage + reply drafting + SEND gate. Every outbound email passes through here.
 
 ### Revenue
 - [[agents/sales-director/SKILL|sales-director]] — pipeline strategy, deal review, forecast
-- [[agents/sales-outreach/SKILL|sales-outreach]] — first-touch + follow-up sequences
-- [[agents/prospecting-agent/SKILL|prospecting-agent]] — ICP definition + list building
+- [[agents/sales-director/skills/outreach/SKILL|sales-director/skills/outreach]] — first-touch + follow-up sequences
+- [[agents/sales-director/skills/prospecting/SKILL|sales-director/skills/prospecting]] — ICP definition + list building
+- [[agents/account-manager/SKILL|account-manager]] — post-close customer relationships, renewals, at-risk signal detection
 - [[agents/shopify-agent/SKILL|shopify-agent]] — store ops, theme work, app integration
 - [[agents/finance-manager/SKILL|finance-manager]] — revenue tracking, MRR math, runway
 - [[agents/trading-analyst/SKILL|trading-analyst]] — public market analysis

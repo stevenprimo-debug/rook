@@ -32,7 +32,7 @@ inherits:
 
 ## Overview
 
-Owner agent: **prospecting-agent**. This skill takes one prospect record and one ICP definition
+Owner agent: **sales-director**. This skill takes one prospect record and one ICP definition
 and returns a 0-100 weighted score with tier classification (HOT 75-100 / WARM 50-74 / COLD
 0-49). The output names the specific signals that drove the score so the operator can see why
 the prospect rates where it does.
@@ -215,7 +215,7 @@ verdict — the operator decides "work this prospect" or "drop this prospect" in
 
 - AMA counterpart: `skills/templates/ama-templates/sales-triage-squad/SKILL.md` and
   `ama-definition.md` (Phase 2 — Scoring Agent)
-- Owner agent: `agents/prospecting-agent/SKILL.md`
+- Owner agent: `agents/sales-director/skills/prospecting/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Pairs with: `apollo-prospect-search` (upstream — produces the prospect list), `outreach-drafter`
   (downstream — drafts the email for HOT/WARM prospects)

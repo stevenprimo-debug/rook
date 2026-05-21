@@ -44,8 +44,8 @@ Most agent products ship single agents. this agent ships **turnkey multi-agent p
 | **meta-ads-creative-critic** (single agent) | ✅ Live | marketing-director / social-media-manager | Meta Ads performance analysis → winning pattern extraction → 3-5 variant briefs per winner |
 | **e-commerce-ops-squad** (4-agent multi-agent) | ✅ Live | shopify-agent | Inventory → Shipping (Shippo) → Communications (Klaviyo) → Refunds (Stripe) end-to-end |
 | **research-then-write** (3-phase multi-agent) | ✅ Live | content-strategist / copywriter | Researcher (Exa) → Writer → Editor → publish to Notion as Draft |
-| **lead-to-deal-pipeline** (single agent, 4 MCPs) | ✅ Live | prospecting-agent / sales-outreach | Apollo search → HubSpot enrich + lifecycle → Slack team notify → Calendly booking link |
-| **cold-outreach-personalizer** (single agent, 3 MCPs) | ✅ Live | sales-outreach / prospecting-agent | Apollo + Clay enrichment → hyper-personalized first lines (<25 words) → MailerLite sequence trigger |
+| **lead-to-deal-pipeline** (single agent, 4 MCPs) | ✅ Live | sales-director / sales-director | Apollo search → HubSpot enrich + lifecycle → Slack team notify → Calendly booking link |
+| **cold-outreach-personalizer** (single agent, 3 MCPs) | ✅ Live | sales-director / sales-director | Apollo + Clay enrichment → hyper-personalized first lines (<25 words) → MailerLite sequence trigger |
 | customer-onboarding-squad | 🔴 To build | shopify-agent / chief-of-staff | Signup → provisioning → welcome flow |
 | content-strategy-squad | 🔴 To build | content-strategist / marketing-director | (Subsumed by research-then-write — close as duplicate?) |
 | code-review-squad | 🔴 To build | software-dev-team | Diff analysis → security scan → review comments |

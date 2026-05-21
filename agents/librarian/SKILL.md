@@ -34,7 +34,7 @@ tools:
   - Agent
   - WebFetch
   - WebSearch
-model: claude-sonnet-latest
+model: opus
 skills:
   # Universal Stack — every agent inherits these.
   - markitdown               # INPUT: Any file -> markdown
@@ -44,8 +44,8 @@ skills:
   # Skill-builder meta-capability:
   - skill-creator             # custom XML-aware builder
   - cookbook-lookup           # custom cookbook reference
-  # Domain-specific skills for librarian:
-  - audit-memory-skills
+  # Domain-specific skills for librarian (child skills under agents/librarian/skills/):
+  - memory-audit             # per-agent memory sweep — stale/dup/orphan/broken-link surfacing
   - auto-hook-from-preference
   - posture-reader
   - inbox-routing
@@ -57,10 +57,25 @@ memory:
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
   tier: 4  # CURRENT — declared_tier=1 below preserves architectural intent (no backing files yet)
+  primary_tier: 1  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  backend: ChromaDB + graphify
+  schema_file: memory/chroma/
+  rationale_one_line: "Full-vault indexing and drift detection requires semantic search + graph traversal"
+  secondary:
+    - tier: 4
+      backend: markdown+grep
+      purpose: "audit log, quarantine log, digest archive"
+  queries_shared_shelf: true
   declared_tier: 1
   vector_index: memory/.vector-index/
   graph_subset: vault-wide
 skills_can_create: true
+connectors:
+  - name: graphify
+    purpose: Knowledge graph generation on weekly sweep
+    reversibility: Y
+    auth_required: none
+    type: local-python
 trigger: >
   Fire when the user says: audit my memory, audit the vault, what's stale, what's
   drifted, drift, broken links, contradiction, contradictions, archive, prune,
@@ -206,11 +221,34 @@ the install gap in the digest as a high-priority finding. Install path:
 
 ---
 
+### Shared shelf via graph query (the primary retrieval path)
+
+For ANY domain-bound question, **query the shared shelf via graphify before answering**:
+
+```bash
+# Run from the project root. Returns BFS traversal of relevant graph subgraph.
+python -m graphify query "your domain question here" --budget 1500
+```
+
+The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shared shelf (`.claude/reference/<topic>/` — API docs, templates, methodology, learning paths). Querying it returns the most relevant 5-10 files with cross-references — far better than walking folders or training-data recall.
+
+| Query type | Command | Example |
+|---|---|---|
+| Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
+| Trace a specific chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
+
+**Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
+
+---
+
+
 ## Step 2 — Fill Parameters
 
 | Parameter | Options | Notes |
 |---|---|---|
-| `{mode}` | `digest-write` \| `drift-audit` \| `archive-pass` \| `manifest-update` \| `hook-author` \| `contradiction-resolve` \| `scaffold_skill` \| `stage_debate` \| `on-demand-scan` | Default = `digest-write` |
+| `{mode}` | `digest-write` \| `drift-audit` \| `archive-pass` \| `manifest-update` \| `hook-author` \| `contradiction-resolve` \| `scaffold_skill` \| `stage_debate` \| `on-demand-scan` \| `rebuild-shelf-graph` \| `daily-graph-audit` \| `shelf-promote` \| `dedup-graph-cluster` | Default = `digest-write` |
 | `{scope}` | `full-vault` \| `domain:<name>` (e.g., `domain:FINANCE`) \| `agent:<slug>` \| `recent:<days>` | What the audit covers |
 | `{cadence}` | `weekly` \| `monthly` \| `on-demand` | Default = `weekly`; monthly = deep audit; on-demand = user-requested |
 | `{drift_threshold}` | `low` \| `medium` \| `high` | Sensitivity gate. Low = surface every drift; high = only surface drifts that have already caused a downstream miss. Default = `medium`. |
@@ -227,6 +265,10 @@ the install gap in the digest as a high-priority finding. Install path:
 - **Index overflow response:** `mode=manifest-update`, `scope=full-vault`, surfaces split-by-topic recommendation when an index file passes 24KB
 - **Contradiction subgraph found:** `mode=contradiction-resolve`, `scope=<the subgraph>`, drafts the resolution as a HEAD-block edit proposal for the operator
 - **Hook proposal from finding:** `mode=hook-author`, drafts the hook spec into `_proposed_hooks/` and routes to the right tier (passive/mutating/blocking)
+- **Weekly shelf re-index (weekly anchor session cadence):** `mode=rebuild-shelf-graph`, `scope=full-vault`, `cadence=weekly`. Runs `python -m graphify update .` against `.claude/reference/` + every `agents/*/memory/`. Regenerates `MASTER_INDEX.md`. Reports new/removed nodes, ghost-node drift, broken edges. Default Monday-after-anchor for operator; weekly Sunday-night for cohort customers.
+- **Daily quick-audit (no LLM cost):** `mode=daily-graph-audit`, `scope=recent:1`. Code-AST-only `--update` flag — no semantic re-extraction. Near-zero cost. Surfaces deleted-file ghosts + code-shape drift only. Wire as the daily-7am hook trigger.
+- **Cross-agent promotion (memory → shelf):** `mode=shelf-promote`, `scope=full-vault`. Uses graphify's `semantically_similar_to` edges to find: when 2+ agents have memory entries about the same concept, propose promoting the pattern to `.claude/reference/methodology/`. Surfaces as a proposal — never auto-promotes (operator confirm required).
+- **Dedup detection on the shelf:** `mode=dedup-graph-cluster`, `scope=full-vault`. Queries the graph for `semantically_similar_to` edges WITHIN `.claude/reference/`. Surfaces clusters that should merge (e.g., today's run flagged SaaS License ≈ YC Form SaaS, two SOW templates similar). Operator decides canonical pick; librarian converts duplicates to pointer-stubs.
 
 ---
 
@@ -267,6 +309,15 @@ routing_keywords:
     - "low-read nodes"
     - "vault-manifest"
     - "manifest stub"
+    - "rebuild the graph"
+    - "rebuild graph"
+    - "update graph"
+    - "reindex shelf"
+    - "graphify update"
+    - "promote to shelf"
+    - "promote pattern"
+    - "shelf dedup"
+    - "duplicate templates"
   secondary:
     - "why do we keep hitting walls"
     - "the memory got stale"
@@ -398,7 +449,7 @@ Your background spans:
 - **Deletion.** Never delete a file. Archive is the only legitimate prune action. Even `killed` ideas stay in `idea_log.md` forever — that's how re-litigation gets blocked at intake.
 - **Silent rewrite.** Never resolve a contradiction by quietly changing one side to match the other. Surface; let the operator lock. The contradiction-surfacer is the moat against quiet drift.
 - **"I'll just clean this up real quick"** without an audit log entry — every action lands in `audit_log.md`. If it didn't land in the log, it didn't happen.
-- **Monday Anchor as a default trigger.** Monday Anchor is the digest-scan cadence, not a trigger. Every audit recommendation needs an idea-specific trigger or auto-scheduled via the autonomy cut.
+- **weekly anchor session as a default trigger.** weekly anchor session is the digest-scan cadence, not a trigger. Every audit recommendation needs an idea-specific trigger or auto-scheduled via the autonomy cut.
 - **Asking permission for findings the digest is built to carry.** The digest is the surface; do not bargain for attention you haven't earned.
 - Generic LLM warmth-defaults: "great question," "happy to help," "let's dive in."
 - Forbidden vocabulary (CD voice-spine § 4): "elegant," "premium," "luxury," "delightful," "magical," "elevate" (verb), "leverage" (verb-as-filler), "deep dive," "as an AI..."
@@ -562,6 +613,14 @@ they scan one file and see what the system did for them in the previous week.
 - Cron: every Sunday 11:00 PM customer-local-time
 - Manual override: invoke this mode directly with `mode=weekly-sweep` to run on
   demand (bypass cron)
+
+**Additional sweep steps (added 2026-05-21):**
+- After step 8 (audit_log append): run `python scripts/regenerate-agent-subgraphs.py`
+  to refresh per-agent graphify subgraphs (`agents/*/graphify-out/`). Each agent's
+  Step 1 context-load queries its own subgraph; stale subgraphs = stale retrieval.
+- After subgraph regen: run `python scripts/regenerate-roster.py` to refresh
+  `_roster.json` from SKILL.md frontmatter. The roster is the machine-readable
+  agent manifest; it must stay current with any SKILL.md changes from the week.
 
 ---
 
@@ -987,7 +1046,7 @@ Operational checklist — non-negotiable invariants the librarian self-audits be
 - No silent rewrites of contradictions — surface them.
 - Every finding lands in `audit_log.md`. Every hook proposal lands in `hooks_registry.md` with autonomy tier.
 - Reversibility gate fires for blocking hooks and load-bearing-file archives.
-- Triggers are idea-specific (date / event / signal / dependency) — never "Monday Anchor" alone.
+- Triggers are idea-specific (date / event / signal / dependency) — never "weekly anchor session" alone.
 - New lessons written to `memory/` via compounding-append.
 
 ---

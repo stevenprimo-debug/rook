@@ -5,8 +5,8 @@ Reads GITHUB_TOKEN from environment. Never hardcoded.
 Usage:
     from claude_connectors.github import GitHubClient
     gh = GitHubClient.from_env()
-    repo = gh.get_repo("stevenprimo-debug", "rook")
-    issues = gh.list_issues("stevenprimo-debug", "rook", state="open")
+    repo = gh.get_repo("your-org", "your-repo")
+    issues = gh.list_issues("your-org", "your-repo", state="open")
 
 Reversibility:
 - GET (repo, issues, PRs, commits) are Y

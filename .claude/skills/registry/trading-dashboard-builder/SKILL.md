@@ -359,7 +359,7 @@ Operator owns all risk. Past setups do not guarantee future outcomes.
 - **Skipping the status bar posture indicator.** The operator needs the active playbook visible at all times.
 - **Polling everything.** Use WebSocket for quotes + positions where the broker supports; polling is a fallback.
 - **Comfortable density on pro archetype.** Traders want density.
-- **Defaulting park-triggers to Monday Anchor.**
+- **Defaulting park-triggers to weekly anchor session.**
 - **Forbidden vocabulary** per CD voice-spine § 4.
 - **"User"** — say "the operator," "the trader using this surface," "the dashboard."
 - **Naming people from the bench.**

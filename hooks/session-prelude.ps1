@@ -1,7 +1,7 @@
 # session-prelude.ps1
 # Event: SessionStart (and optionally UserPromptSubmit for time-sensitive injection)
 # Injects critical context Claude must see before composing a response:
-#   1. Current local time + 4pm hard-stop status (configurable cutoff)
+#   1. Current local time (light — no hard-stop in ship vault)
 #   2. Dept master-skill load gate (cwd-aware)
 #   3. Recently modified files in active project dirs (last 24h)
 #   4. Protocol checks
@@ -14,9 +14,7 @@
 $ErrorActionPreference = 'SilentlyContinue'
 
 # === CONFIGURATION (override via env vars) ====================================
-$HardStopHour     = if ($env:PRIMOLABS_HARDSTOP_HOUR) { [int]$env:PRIMOLABS_HARDSTOP_HOUR } else { 16 }   # 4pm default
-$HardStopEnabled  = if ($env:PRIMOLABS_HARDSTOP_ENABLED) { $env:PRIMOLABS_HARDSTOP_ENABLED -eq '1' } else { $true }
-$HardStopTimezone = if ($env:PRIMOLABS_HARDSTOP_TZ) { $env:PRIMOLABS_HARDSTOP_TZ } else { 'Central Standard Time' }
+# Hard-stop logic removed from ship vault. May return as opt-in cohort feature later.
 
 function Resolve-VaultRoot {
     param($cwd)
@@ -115,32 +113,9 @@ try {
         }
     }
 
-    # --- TIME CHECK + HARD STOP ----------------------------------------------
-    if ($HardStopEnabled) {
-        $ct = $null
-        try {
-            $ct = [System.TimeZoneInfo]::ConvertTimeBySystemTimeZone((Get-Date), $HardStopTimezone)
-        } catch {
-            $ct = Get-Date
-        }
-        $ctStr = $ct.ToString("ddd yyyy-MM-dd h:mm tt")
-        $hour = $ct.Hour
-        $minute = $ct.Minute
-
-        $lines += ""
-        $lines += "TIME: $ctStr ($HardStopTimezone)"
-
-        if ($hour -ge $HardStopHour) {
-            $lines += ""
-            $lines += "*** HARD STOP TRIGGERED ***"
-            $lines += "It is past $HardStopHour`:00. Hard stop is for family/recovery time."
-            $lines += "Action: suggest closing the laptop. Do NOT keep working unless user explicitly overrides."
-        } elseif ($hour -eq ($HardStopHour - 1) -and $minute -ge 30) {
-            $minsLeft = ($HardStopHour * 60) - ($hour * 60 + $minute)
-            $lines += "*** 30-MIN HEADS UP: $minsLeft minutes until hard stop. ***"
-            $lines += "Action: wrap the current thread. No new rabbit holes."
-        }
-    }
+    # --- TIME (light, no hard stop) ------------------------------------------
+    $lines += ""
+    $lines += "TIME: $(Get-Date -Format 'ddd yyyy-MM-dd h:mm tt')"
 
     # --- RECENT FILES (last 24h) ---------------------------------------------
     if ($vaultRoot -and (Test-Path $vaultRoot)) {

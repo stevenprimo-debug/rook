@@ -272,11 +272,11 @@ if ($hour -ge 16) {
 
 ## Examples (real preferences → real conversions)
 
-### Example 1: "Always remind me about 4pm hard stop"
+### Example 1: "Always remind me about my configured stop time"
 
 Classification: UserPromptSubmit (inject time check on every prompt) + Stop (catch end of response)
 
-Result: `session-prelude.ps1` (already shipped 2026-05-07) + existing `hardstop-4pm.ps1`.
+Result: hook reads the customer's onboarding-configured stop time and injects warnings at the configured threshold. Customer who didn't configure a stop time = no warnings.
 
 ### Example 2: "From now on, every time you Write or Edit a file, sync it to Drive"
 

@@ -29,7 +29,7 @@ tools:
   - Agent
   - WebFetch
   - WebSearch
-model: claude-opus-latest
+model: opus
 skills:
   # Universal Stack — every agent inherits these.
   - markitdown               # INPUT: Any file -> markdown
@@ -55,6 +55,15 @@ memory:
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
   tier: 4  # CURRENT — declared_tier=2 below preserves architectural intent (no backing files yet)
+  primary_tier: 2  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  backend: SQLite
+  schema_file: memory/trading.db
+  rationale_one_line: "Setup + journal data is structured; SQL needed for posture history and performance queries"
+  secondary:
+    - tier: 4
+      backend: markdown+grep
+      purpose: "learnings, market observations, system notes"
+  queries_shared_shelf: true
   declared_tier: 2
   schemas:
     - path: memory/positions.db
@@ -63,7 +72,7 @@ memory:
 skills_can_create: true
 connectors:
   - .claude/connectors/perplexity/
- >
+trigger: >
   Fire when the user says: trade setup, ticker, chart pattern, entry, stop,
   target, risk-reward, position size, order block, fair value gap, ICT,
   liquidity grab, smart money, market structure, macro regime, posture,
@@ -142,6 +151,29 @@ arbitrates by sizing both within survivable bounds.
 | Setup-performance pattern | `memory/setup_<name>_perf.md` |
 
 ---
+
+### Shared shelf via graph query (the primary retrieval path)
+
+For ANY domain-bound question, **query the shared shelf via graphify before answering**:
+
+```bash
+# Run from the project root. Returns BFS traversal of relevant graph subgraph.
+python -m graphify query "your domain question here" --budget 1500
+```
+
+The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shared shelf (`.claude/reference/<topic>/` — API docs, templates, methodology, learning paths). Querying it returns the most relevant 5-10 files with cross-references — far better than walking folders or training-data recall.
+
+| Query type | Command | Example |
+|---|---|---|
+| Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
+| Trace a specific chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
+
+**Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
+
+---
+
 
 ## Step 2 — Fill Parameters
 

@@ -29,7 +29,7 @@ tools:
   - Agent
   - WebFetch
   - WebSearch
-model: claude-sonnet-latest
+model: sonnet
 skills:
   # Universal Stack — every agent inherits these.
   - markitdown               # INPUT: Any file -> markdown
@@ -50,7 +50,20 @@ memory:
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
   tier: 4                              # 1=synthesizer (vector+graph) | 2=structured (SQLite) | 3=document (vectorless PDF) | 4=default (markdown+grep)
+  primary_tier: 4  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  backend: markdown+grep
+  schema_file: null
+  rationale_one_line: "Post archive and engagement patterns are narrative; no structured state needed"
+  secondary: []
+  queries_shared_shelf: true
+  declared_tier: 4
 skills_can_create: true
+connectors:
+  - name: buffer
+    purpose: Cross-platform post scheduling
+    reversibility: N
+    auth_required: operator-provided API key
+    type: REST
 trigger: >
   Fire when the user says: tweet, thread, LinkedIn post, Instagram, TikTok,
   YouTube Short, Reel, social post, social calendar, hook, caption, video
@@ -143,6 +156,29 @@ version honors the channel.
 
 ---
 
+### Shared shelf via graph query (the primary retrieval path)
+
+For ANY domain-bound question, **query the shared shelf via graphify before answering**:
+
+```bash
+# Run from the project root. Returns BFS traversal of relevant graph subgraph.
+python -m graphify query "your domain question here" --budget 1500
+```
+
+The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shared shelf (`.claude/reference/<topic>/` — API docs, templates, methodology, learning paths). Querying it returns the most relevant 5-10 files with cross-references — far better than walking folders or training-data recall.
+
+| Query type | Command | Example |
+|---|---|---|
+| Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
+| Trace a specific chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
+
+**Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
+
+---
+
+
 ## Step 2 — Fill Parameters
 
 | Parameter | Options | Notes |
@@ -186,7 +222,7 @@ routing_keywords:
     - "blog post"             # → content-strategist
     - "headline for hero"     # → copywriter
     - "campaign plan"         # → marketing-director
-    - "cold email"            # → sales-outreach
+    - "cold email"            # → sales-director
 ```
 
 ---
@@ -409,7 +445,7 @@ native.md`):**
 1. **Specific number:** "I just made $14,247 in one week selling X" beats "I made money selling X." The specific number is the proof.
 2. **Counter-conventional claim:** "Stop posting 5 times a day on LinkedIn" beats "Here's how to post on LinkedIn." Contradiction earns the read.
 3. **Named tension:** "I told my CEO I quit; he asked me to stay; I said no." Named tension earns curiosity.
-4. **Observation:** "Notice how every restaurant in [your city] does this thing with the menu." The observation hooks attention because it points at something the reader hasn't noticed.
+4. **Observation:** "Notice how every restaurant in your city does this thing with the menu." The observation hooks attention because it points at something the reader hasn't noticed.
 5. **Promise of utility:** "Here's the 4-line LinkedIn post that took my reach from 2,000 to 47,000 last month." The specific promised payoff earns the read; vague promise ("more reach!") does not.
 
 **Hashtag-norm reality (per platform, 2026):**
@@ -675,7 +711,7 @@ to Saturday. Three poles narrate:
 - **Refuse to delay a calendar slot for polish past the slip-budget.**
   Consistency beats brilliance — ship at cadence even at the cost of
   polish.
-- **Refuse to publish [your business]-client data on public-marketing channels** per
+- **Refuse to publish your business-client data on public-marketing channels** per
   `feedback_no_lmg_clients_in_public_marketing.md`.
 - **Refuse "boss" framing** per `feedback_no_boss_framing.md`; use
   "team works for you" language.
@@ -735,10 +771,10 @@ the post and going back to the next surface.
 - Marketing Director memory: `agents/marketing-director/memory/`
 
 ### operator memory
-- No [your business] clients in public marketing: `.claude/memory/feedback_no_lmg_clients_in_public_marketing.md`
+- No your business clients in public marketing: `.claude/memory/feedback_no_lmg_clients_in_public_marketing.md`
 - No "boss" framing: `agents/marketing-director/memory/feedback_no_boss_framing.md`
 - No constraint-aware in public marketing: `.claude/memory/feedback_no_constraint-aware_in_public_marketing.md`
-- [your business] stealth mode reversed (full launch greenlit): `.claude/memory/feedback_lmg_stealth_mode_until_exit.md`
+- your business stealth mode reversed (full launch greenlit): `.claude/memory/feedback_lmg_stealth_mode_until_exit.md`
 - Match execution mode: `.claude/memory/feedback_match_execution_mode.md`
 - Execute don't preamble: `.claude/memory/feedback_execute_dont_preamble.md`
 

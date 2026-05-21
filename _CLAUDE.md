@@ -34,6 +34,94 @@ The vault is designed for future-Claude to read and reason over. Every note foll
 9. **Hierarchical Supervisor pattern** — Chief of Staff distills subagent returns to ≤2K tokens before surfacing (verdict + action + reasoning + source pointer; never raw paste). See [`agents/chief-of-staff/SKILL.md`](agents/chief-of-staff/SKILL.md) § Distilled Return rule.
 10. **Anthropic Managed Agents deployment** — when deploying via Managed Agents (vs local Claude Code), the API requires `anthropic-beta: managed-agents-2026-04-01` header and is currently research-preview. See [`.claude/anthropic-deployment-notes.md`](.claude/anthropic-deployment-notes.md) for full spec, rate limits, and roster-size guidance.
 11. **Visible-output gate** — agents NEVER narrate their own reasoning in visible output. All process-thinking goes in <thinking> blocks. First line is verdict/dispatch/question/artifact — banned: "Now I have a clear picture", "Let me check", "Actually,", "My next move is", "I am realizing/wondering/structuring". See agents/chief-of-staff/SKILL.md § VISIBLE OUTPUT GATE.
+12. **Context-load gate (universal — every agent, every invocation)** — BEFORE answering anything substantive in its domain, an agent MUST load its own context surfaces. The router does NOT pre-fetch everything; load-on-demand is the rule. Failure mode: agent goes straight to trial-and-error because it didn't read the docs already in the vault (Shopify token saga 2026-05-20, 1 hour wasted). Discipline:
+    - **Step 1 of every domain-bound response:** read the agent's own `memory/MEMORY.md` (per-agent catalog) and the root `MASTER_INDEX.md` (cross-agent catalog).
+    - **Step 2:** query the shared shelf via graphify, then read the specific files the question maps to. Three shelves to know:
+        - **Connector question** → `.claude/connectors/<service>/README.md` + `api-reference.md` (MCP-backed OR clean-REST + shared creds)
+        - **Shared reference (the canonical cross-cutting shelf)** → `.claude/reference/`:
+            - `.claude/reference/<service>/` — API + library docs (TradingView, Tradovate, Schwab, etc.)
+            - `.claude/reference/templates/<category>/` — NDA, contracts, SOW, SaaS, partnerships
+            - `.claude/reference/sops/` — operator SOPs (operator vault only)
+        - **Agent-internal** → `agents/<agent>/memory/` — compounding learnings, decisions, feedback (versioned-append, per-agent). Captures land in root `inbox/` and the router moves them to ONE home (shared shelf OR agent memory) — never duplicated.
+    - **Step 3 (only after 1 + 2):** answer / execute / dispatch.
+    - **Banned:** answering from training-data recall when vault context exists. If the vault has it, the vault wins.
+    - **Banned:** the router or chief-of-staff trying to pre-fetch all context for a downstream agent. The downstream agent loads what it needs; the router only routes.
+    - **`.claude/reference/` is SHARED** — any agent can read any subfolder there. Don't hide cross-cutting material (API docs, contract templates, SOPs, methodology playbooks shared across agents) inside one agent's `memory/`. If two or more agents could need it, it goes on the shared shelf.
+    - **What stays agent-scoped:** ONLY the agent's voice/personality bench, its own SKILL.md modes, the agent-specific methodology (not the shared playbooks), and the agent's compounding `memory/` (versioned-append history). Everything else cross-cutting → shared shelf.
+    - **Pattern source:** `CLAUDE CODE/MEMORY/feedback_load_shopify_context_at_session_start.md` (locked 2026-05-20).
+
+16. **Rule #16 — Cross-model verification on reversibility=N decisions**: Before executing any irreversible action (client email, prod push, public post, money, force-push), the executing agent MUST surface the decision via `codex-cross-verify` — a Opus subagent adversarial review that returns AGREE / DISAGREE-WITH-REASON / NEEDS-MORE-CONTEXT. If the response is DISAGREE or NEEDS-MORE-CONTEXT, the action is held and the operator sees both verdicts via `AskUserQuestion` before anything executes. Synthesis line required: "Sonnet says X. Opus says Y. My call is Z because [specific reason]." Skill: `.claude/skills/codex-cross-verify/SKILL.md`. Locked 2026-05-21.
+
+17. **Rule #17 — Output format: HTML default for human-eyes artifacts.** ROOK outputs default to HTML for any artifact a human will see outside the vault (customer deliverables, `_from_rook/` reading inbox, anything that becomes a PDF, dashboard artifacts, briefs, plans, proposals, reports). Markdown stays for internal-only: memory files, SKILL.md, CLAUDE.md, README.md, routing manifests, system files. **Email exception:** customer-facing emails are plain text — "Hello [First Name]," opener, clear concise bullet points, customizable voice via inbox-manager templates. Brand injection applies to all HTML outputs — colors, fonts, logo pulled from `.claude/memory/rook_brand.md` (or operator-config when in operator-mode). Templates live at `.claude/templates/html/`. The brand-loader at `.claude/templates/html/brand-loader.py` emits a JSON dict consumed by every Jinja2 template. The operator-personal `.eml + X-Unsent: 1 + Cheers,` pattern is a LOCAL override in operator vault config, not part of the ROOK shipped product. Locked 2026-05-21.
+
+13. **Rule #13 — Model-tier routing**: chief-of-staff, librarian, inbox-manager, and 9 other Opus-tier agents run on Opus model. Per-agent assignment locked in `hooks/routing-rules.json` (model field per agent slug). Reason: Sonnet rationalizes past routing-enforcer text; Opus follows it. Locked 2026-05-21. Full roster: account-manager, chief-of-staff, content-strategist, creative-director, deep-researcher, designer, engineering-lead, finance-manager, inbox-manager, librarian, software-dev-team (all child skills), trading-analyst = Opus. All others = Sonnet.
+
+14. **Rule #14 — AskUserQuestion-only operator input**: Zero prose questions for operator input. All discrete choices AND open-input go via AskUserQuestion tool ("Other" option handles free text). One question per tool call. Decision-brief format required: header chip ≤12 chars, question ending in `?`, 2-4 options each ≥40 chars, one option flagged "(Recommended)", effort-bearing options dual-scaled "(human: ~N days / CC: ~N min)". Violation = re-do. Source: GStack decision-brief format borrow, locked 2026-05-21.
+
+15. **Rule #15 — Distillation applies to main-thread → operator boundary**: Main thread response ≤2K visible tokens. Long artifacts (briefs, plans, full subagent returns) are saved to `_FROM_CLAUDE/` (operator vault reading inbox) or `agents/<slug>/memory/` (ship vault compounding layer) with a pointer in chat — never pasted inline. Decisions are surfaced via AskUserQuestion, not prose. Self-check before emitting any response ≥2K visible tokens: is this the distilled verdict + action + reasoning + pointer? If not, distill first. Source: morning verbose-return failure mode, locked 2026-05-21.
+
+---
+
+## Section 0.1 — Memory Architecture (ship-safe)
+
+### The 4-tier model
+
+| Tier | Backend | When to use | Cost | Offline |
+|---|---|---|---|---|
+| **1 — Vector + Graph** | ChromaDB (local) + graphify | Cross-cutting synthesizers whose job is concept retrieval across 1K+ docs | $0 — local CPU | Yes |
+| **2 — SQLite** | stdlib sqlite3, WAL mode | Structured state that needs SQL (deals, orders, threads, setups) — grows past what grep handles reliably | $0 — stdlib | Yes |
+| **3 — PDF/vectorless** | markitdown → markdown | Drawing packs, vendor specs, PDFs the agent reads but doesn't store structured state from | $0 — markitdown | Yes |
+| **4 — Markdown + grep** | Files + ripgrep/glob | All other agents — knowledge is narrative, sparse, or slow-moving. Compounding-append + graphify query on the shared shelf covers 80% of retrieval needs | $0 — stdlib | Yes |
+
+### Per-agent tier assignments
+
+| Agent | Tier | Backend | Notes |
+|---|---|---|---|
+| librarian | 1 | ChromaDB + graphify | Indexes full vault weekly |
+| deep-researcher | 1 | ChromaDB + graphify | Indexes research corpus + shared shelf |
+| account-manager | 2 | SQLite (`accounts.db`) | Accounts, deals, renewals, at_risk_signals |
+| finance-manager | 2 | SQLite (`finance.db`) | Invoices, commissions, deal_economics |
+| sales-director | 2 | SQLite (`pipeline.db`) | Prospects, deals, stage_transitions, outreach_log |
+| shopify-agent | 2 | SQLite (`shopify.db`) | Orders, line_items, customers, merchants, fulfillment |
+| trading-analyst | 2 | SQLite (`trading.db`) | Setups, posture_history, journal, learnings |
+| inbox-manager | 2 | SQLite (`messages.db`) | Threads, messages, drafts, escalations, triage_status |
+| engineering-lead | 3 | markitdown + PDF | Drawing packs, vendor specs — read-only |
+| chief-of-staff | 4 | Markdown + grep | Idea log, dispatch log, assignment briefs |
+| content-strategist | 4 | Markdown + grep | Editorial strategy, brief archive |
+| copywriter | 4 | Markdown + grep | Copy patterns, voice notes |
+| creative-director | 4 | Markdown + grep | Brand decisions, direction history |
+| designer | 4 | Markdown + grep | Design decisions, UI patterns |
+| marketing-director | 4 | Markdown + grep | Campaign history, channel strategy |
+| product-manager | 4 | Markdown + grep | Product specs, roadmap decisions |
+| r-and-d-lead | 4 | Markdown + grep | Experiment logs, prototype notes |
+| seo-specialist | 4 | Markdown + grep | Keyword maps, AEO baselines |
+| social-media-manager | 4 | Markdown + grep | Post archive, engagement patterns |
+| software-dev-team | 4 | Markdown + grep | Architecture decisions, implementation notes |
+
+### Cross-agent communication patterns
+
+- **Shared shelf** (`.claude/reference/`) — primary read path for any cross-cutting knowledge. Any agent reads any subfolder. Written by librarian's weekly sweep.
+- **graphify query** — every agent's Step 1 queries the shared shelf graph (`python -m graphify query "..." --budget 1500`) before answering substantive questions. Faster than walking folders; returns only matching files.
+- **Per-agent subgraph** — each agent's `graphify-out/` is an index over its own `memory/`. Regenerated weekly by `scripts/regenerate-agent-subgraphs.py`.
+- **Chief-of-staff dispatch** — cross-agent work flows via chief-of-staff assignment briefs (`agents/chief-of-staff/assignments/`). Agents do not read each other's memory directly.
+- **Inbox routing** — captures land in `inbox/` and are routed by the router to ONE home: shared shelf or agent memory. Never duplicated.
+
+### Cost picture
+
+- **$0/month** — no cloud services, no API subscriptions, no hosted databases.
+- **ZERO API keys** required for base operation. Optional: operator may provide Shopify, Gmail, or other connector credentials in operator-mode config.
+- **Works offline** — ChromaDB is local (PersistentClient, no server). sentence-transformers runs on CPU. sqlite3 is stdlib. graphify is local Python.
+- **One-time model download** — librarian + deep-researcher download `all-MiniLM-L6-v2` (~200MB) on first `embed.py index` run. Cached to `~/.cache/huggingface/`. All subsequent runs are offline.
+
+### Upgrade path (operator/cohort versions)
+
+| From | To | When | How |
+|---|---|---|---|
+| Tier 4 (markdown) | Tier 2 (SQLite) | Agent accumulates structured state that grep struggles with (>500 records) | Write `schema.sql` + `db.py`, update SKILL.md Step 1 |
+| Tier 1 local Chroma | Tier 1 hosted Chroma | Multi-user cohort, shared retrieval across operator instances | Swap `chromadb.PersistentClient` for `chromadb.HttpClient`, set `CHROMA_HOST` env var |
+| Local embedder | OpenAI `text-embedding-3-small` | Operator wants higher-quality embeddings and accepts API cost | Swap `SentenceTransformerEmbeddingFunction` for `OpenAIEmbeddingFunction` in `embed.py` — gated by `OPENAI_API_KEY` env var |
+
+Tier downgrades are never automatic. Tier upgrades require operator approval (reversibility gate).
 
 ---
 
@@ -50,17 +138,19 @@ PrimoLabs_PoweredByClaude/
 │       ├── CLAUDE.md         ← agent routing scope
 │       ├── README.md         ← human-facing description
 │       ├── personality/      ← _bench.md + frameworks index
-│       ├── memory/           ← agent learned state (versioned-append)
-│       ├── context/          ← human-curated reference + auto-routed captures
-│       └── graphify-out/     ← per-agent synthesis (librarian regenerates)
+│       └── memory/           ← agent learned state (versioned-append; per-agent)
+├── .claude/
+│   ├── reference/            ← SHARED shelf (API docs, templates, SOPs, methodology — readable by ALL agents)
+│   ├── reference/graphify-out/  ← graphify index over the shelf (librarian regenerates weekly)
+│   └── connectors/           ← MCP-backed + clean-REST service clients with shared creds
 ├── projects/                 ← customer's job-shaped work
 ├── hooks/                    ← runtime enforcement (.ps1 + .sh + routing-rules.json)
 ├── scripts/                  ← maintenance scripts (regenerate-routing-rules.py, etc.)
-├── inbox/                    ← capture landing zone (router moves files out)
+├── inbox/                    ← capture landing zone (router moves files out to shelf OR agent memory)
 └── _archive/                 ← librarian-quarantined content (append-only, never deleted)
 ```
 
-**Per-agent context-loading pattern:** every agent's Step 1 reads its OWN `context/` + `memory/` folders on session start. Cross-agent reads happen via explicit handoff to librarian, NOT by reading another agent's memory directly.
+**Per-agent context-loading pattern:** every agent's Step 1 reads its OWN `memory/MEMORY.md` (catalog) + relevant `memory/` files on session start. Domain-bound questions then **query the shared shelf via graphify** (`python -m graphify query "..." --budget 1500`) — the graph indexes `.claude/reference/` so the agent pulls only matching files instead of walking folders. Cross-agent reads happen via explicit handoff to librarian, NOT by reading another agent's memory directly.
 
 ---
 
@@ -68,12 +158,12 @@ PrimoLabs_PoweredByClaude/
 
 | Class | Path | Behavior |
 |---|---|---|
-| Routed captures | `agents/*/context/YYYY-MM/*.md` | IMMUTABLE — operator voice preserved verbatim. Cross-ref via NEW files; never edit the source. |
+| Routed captures | `inbox/` (pre-route) and dated routed files under `.claude/reference/<topic>/` or `agents/<agent>/memory/captures/` | IMMUTABLE — operator voice preserved verbatim. Cross-ref via NEW files; never edit the source. |
 | Idea log | `agents/chief-of-staff/memory/idea_log.md` | APPEND-ONLY ledger. New entries at the bottom; never rewrite existing. |
 | Dispatch log | `agents/chief-of-staff/memory/dispatch_log.md` | APPEND-ONLY table. Add rows; never edit existing rows. |
 | Session handoffs | `_archive/HANDOFFS/session-*.md` | APPEND-ONLY. Auto-generated. |
 | `MASTER_INDEX.md` | repo root | AUTO-GENERATED by librarian's weekly sweep. Never hand-edit. |
-| Per-agent context INDEX | `agents/*/context/INDEX.md` | AUTO-GENERATED. Never hand-edit. |
+| Per-agent context INDEX | `agents/*/memory/MEMORY.md` | AUTO-GENERATED. Never hand-edit. |
 | Routing-rules.json keyword arrays | `hooks/routing-rules.json` (primary/secondary) | AUTO-MIRRORED from each agent's SKILL.md `## Routing Keywords` block. Edit SKILL.md and run `python scripts/regenerate-routing-rules.py`. |
 | `_template_memory.md` | every `memory/` folder | TEMPLATE. Update canonical at agent root; mirror to dept folders if needed. |
 

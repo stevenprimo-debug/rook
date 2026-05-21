@@ -327,7 +327,7 @@ it directly — see `tradingview-datafeed-implementation` skill.
 - **Theme overrides not matched to brand.** Pull from `brand_palette`; if unclear, route to DESIGN for the palette.
 - **Skipping the `onChartReady` callback.** Runtime control runs INSIDE the callback, never before.
 - **Embedding the library script inline.** Use the `<script src=...>` load; never paste the whole library.
-- **Defaulting park-triggers to Monday Anchor.**
+- **Defaulting park-triggers to weekly anchor session.**
 - **Forbidden vocabulary** per CD voice-spine § 4.
 - **"User"** — say "the operator," "the customer end-user," "the embed surface."
 - **Naming people from the bench.**

@@ -44,7 +44,7 @@ orphan_check: strict
 # - aggressive: memory/ stale threshold drops to half (45 days at default)
 memory_handling: same
 
-# What to do with files in agents/<agent>/context/YYYY-MM/
+# What to do with files in agents/<agent>/
 # - same: standard rules (default)
 # - keep_recent: never quarantine current month + last 2 months even if stale
 context_handling: keep_recent
@@ -88,8 +88,8 @@ Default rule of thumb: if you'd put it in a personal library shelf rather than y
 The librarian writes one entry per file per sweep action:
 
 ```
-2026-05-18 | quarantined | agents/designer/context/2026-02/random-screenshot.md | reason: stale 113d, 0 inbound | restore: librarian restore random-screenshot
-2026-05-18 | reconciled  | agents/sales-director/context/2026-05/competitor-pricing.md | routes-to: [marketing-director, deep-researcher] | symlinks created
+2026-05-18 | quarantined | .claude/reference/uncategorized/random-screenshot.md | reason: stale 113d, 0 inbound | restore: librarian restore random-screenshot
+2026-05-18 | reconciled  | .claude/reference/research/competitor-pricing.md | routes-to: [marketing-director, deep-researcher] | graph edges refreshed
 2026-05-18 | refreshed   | agents/copywriter/memory/voice-patterns.md | last read: 2026-05-12 | counter reset
 ```
 
@@ -131,7 +131,7 @@ Scan it Monday morning, hit a few restores if anything looks wrong, close it. Th
 
 **Files that were just created:** never quarantined within the first 14 days, regardless of read activity. Lets fresh captures sit and accumulate inbound links before being judged.
 
-**Files with `routes-to:` frontmatter:** quarantined based on the PRIMARY agent's context folder. Symlinks in other agents' folders are removed when the primary file is quarantined. If you restore the file, symlinks rebuild on the next sweep.
+**Files with `routes-to:` frontmatter:** quarantined based on the canonical home (shared shelf or primary agent's `memory/`). Graph edges to the file are refreshed when the file is quarantined. If you restore the file, edges rebuild on the next graphify sweep.
 
 **Empty or near-empty files:** `<200 chars and no frontmatter` quarantined regardless of age. These are usually accidental captures that didn't get content written into them.
 
@@ -142,7 +142,7 @@ Scan it Monday morning, hit a few restores if anything looks wrong, close it. Th
 - Delete files (only quarantine to `_archive/`)
 - Run git operations
 - Modify file content (read-only on every file it touches)
-- Touch files outside `agents/*/context/`, `agents/*/memory/`, and the vault inbox
+- Touch files outside `.claude/reference/`, `agents/*/memory/`, and the vault inbox
 - Quarantine `_template/` content (those are scaffolding)
 - Quarantine `SKILL.md`, `CLAUDE.md`, or `README.md` files (those are agent contracts)
 

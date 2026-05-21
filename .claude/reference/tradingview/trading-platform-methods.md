@@ -1,0 +1,1 @@
+> **Cross-reference.** Primary capture filed under `SOFTWARE DEV`. See [[DEPARTMENTS/SOFTWARE DEV/context/2026-05/Trading Platform methods  Advanced Charts Documentation|Trading Platform methods  Advanced Charts Documentation]].

@@ -72,7 +72,7 @@ Every connector classifies its operations:
   external publishing. Agents NEVER invoke without explicit operator confirm.
 
 Inbox Custodian's `send` actions are the canonical example of N — the
-Reversibility-Discipline-Pole in inbox-custodian's bench enforces per-item
+Reversibility-Discipline-Pole in inbox-manager's bench enforces per-item
 operator confirm before any external send. Same pattern applies to
 sales-director/skills/outreach when it sends, sales-director/skills/closing
 when it triggers a DocuSign or Adobe Sign envelope, finance-manager when it

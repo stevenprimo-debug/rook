@@ -16,7 +16,7 @@ description: >
   list scored, lead enrichment, intent-signal ranking, ICP refinement, or a
   list quality audit.
 type: skill
-agent: prospecting-agent
+agent: sales-director
 category: Revenue
 version: "2.0.0"
 status: operational
@@ -42,7 +42,7 @@ skills:
   # Skill-builder meta-capability:
   - skill-creator             # custom XML-aware builder
   - cookbook-lookup           # custom cookbook reference
-  # Domain-specific skills for prospecting-agent:
+  # Domain-specific skills for sales-director:
   - icp-fit-scorer
   - apollo-prospect-search
   - first-line-personalizer
@@ -61,7 +61,7 @@ trigger: >
   enrich contacts, [your prospecting tool], Apollo, Sales Navigator, intent signal, buying
   signal, account scoring, ICP refinement, list quality, lead enrichment,
   contact enrichment, vertical scan. Also fires when the user starts working
-  in agents/prospecting-agent/ on any artifact.
+  in agents/sales-director/skills/prospecting/ on any artifact.
 inherits:
   - voice_spine: .claude/voice-spine.md
   - philosophy_bench: Naval + Clear + Newport (system-level, via Chief of Staff)
@@ -201,7 +201,7 @@ routing_keywords:
     - target accounts
     - high-intent
   exclude:
-    - "draft an email"        # → sales-outreach
+    - "draft an email"        # → sales-director
     - "pipeline review"       # → sales-director
     - "competitor research"   # → deep-researcher
     - "campaign plan"         # → marketing-director (with CD upstream)
@@ -328,21 +328,21 @@ depth: {depth}
 User-requested narration mode.
 
 ### MODE: scaffold_skill
-Invoke skill-creator; scaffold to `agents/prospecting-agent/skills/<slug>/`.
+Invoke skill-creator; scaffold to `agents/sales-director/skills/prospecting/skills/<slug>/`.
 </task>
 
 <subagent_strategy>
 1. **One task per subagent.** Vertical scan, signal enrichment, role-change check — separate dispatches.
 2. **Read-heavy work → subagent.** Loading 500-row CSV exports, scanning LinkedIn for role changes — offload.
 3. **Domain-critical reasoning → main thread.** ICP refinement, scoring synthesis, fit/signal/scale debate.
-4. **Cross-agent dispatch:** deep-researcher for company intel; sales-outreach (downstream) receives the ranked list.
+4. **Cross-agent dispatch:** deep-researcher for company intel; sales-director (downstream) receives the ranked list.
 
 **Parallel patterns:**
 - Multi-vertical scan: spawn 1 subagent per vertical; main thread aggregates.
 - Signal-source-multiplexing: spawn parallel subagents for funding / role-change / tech-stack sources.
 
 **Routes:**
-- TO: sales-outreach (downstream list handoff), deep-researcher (company intel)
+- TO: sales-director (downstream list handoff), deep-researcher (company intel)
 - FROM: sales-director, chief-of-staff, marketing-director
 </subagent_strategy>
 
@@ -392,7 +392,7 @@ ICP applied: <one-sentence ICP>
 [Table: signal type | count | freshness]
 
 ## Next step
-[Single sentence — handoff to sales-outreach.]
+[Single sentence — handoff to sales-director.]
 ```
 
 ### If mode = dossier:
@@ -430,7 +430,7 @@ Context window discipline is NON-NEGOTIABLE.
 1. **One task per subagent.** Vertical scan, signal enrichment, role-change check — separate dispatches.
 2. **Read-heavy work → subagent.** Loading 500-row CSV exports, scanning LinkedIn for role changes, multi-source dedup — always offload.
 3. **Domain-critical reasoning → main thread.** ICP refinement, scoring synthesis, fit/signal/cadence debate — stay local.
-4. **Cross-agent dispatch via Agent tool:** deep-researcher for company intel; sales-outreach (downstream) receives the ranked list.
+4. **Cross-agent dispatch via Agent tool:** deep-researcher for company intel; sales-director (downstream) receives the ranked list.
 
 **Agent-specific sub-agent types (beyond generic 6):**
 
@@ -448,7 +448,7 @@ Context window discipline is NON-NEGOTIABLE.
 - Signal-source multiplexing: spawn parallel Funding Tracker + Role-Change Tracker + Tech-Stack Scanner; main thread synthesizes the priority list.
 
 **Cross-agent routes:**
-- Routes TO: `sales-outreach` (downstream list handoff), `deep-researcher` (company intel)
+- Routes TO: `sales-director` (outreach skill) (downstream list handoff), `deep-researcher` (company intel)
 - Receives FROM: `sales-director`, `chief-of-staff`, `marketing-director`
 
 ---
@@ -479,14 +479,14 @@ Context window discipline is NON-NEGOTIABLE.
 
 - **Bench origin:** Signal-Density / ICP-Fit / Cadence-Discipline covers the three failure modes of prospecting: ranking on bad signal, wrong-sized list for the motion, low-fit dilution.
 - **The wedge:** Other prospecting tools rank on demographics. This agent ranks on observable signal and refuses to call demographic guesswork "intent."
-- **Tab-closure metric:** A ranked list that ships to sales-outreach in one read.
+- **Tab-closure metric:** A ranked list that ships to sales-director in one read.
 
 ## Delegation Quick-Reference
 
 | Need | Delegate to | Brief must include |
 |---|---|---|
 | Company intel | `deep-researcher` | Target, decision, recency |
-| Outreach drafting | `sales-outreach` (downstream) | Ranked list + ICP context |
+| Outreach drafting | `sales-director` (outreach skill) (downstream) | Ranked list + ICP context |
 | Pipeline strategy | `sales-director` | Vertical, ICP, cadence design |
 | New skill | Subagent loading skill-creator | Slug + pushy description |
 
@@ -501,7 +501,7 @@ Engagement is the failure mode. Tab-closure is the win.
 For Prospecting Agent specifically: a ranked list shipped to outreach in one
 read returns the user to the next call. The cleanest output is the ranked
 CSV + the top-10 dossier + the signal distribution — and the handoff to
-sales-outreach in the same artifact.
+sales-director in the same artifact.
 
 ---
 

@@ -259,7 +259,7 @@ on STALE-* before continuing.
 - **Skipping the scope check.** A fresh HEAD that describes the wrong mode is just as bad as a stale HEAD that describes the right one.
 - **Defaulting the freshness threshold to 30 days for live trades.** Live trades demand 7-day freshness; monthly audits can use 30.
 - **Reading the SWING file (trading_rules.md) without the posture overlay.** trading_rules.md has a scope-note preamble pointing to the posture file — honor it.
-- **Defaulting park-triggers to Monday Anchor.**
+- **Defaulting park-triggers to weekly anchor session.**
 - **Forbidden vocabulary** per CD voice-spine § 4.
 - **"User"** — say "the operator," "the trader," "the book."
 - **Naming people from the bench.**

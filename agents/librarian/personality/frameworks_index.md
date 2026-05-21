@@ -174,10 +174,10 @@ version: "2.0.0"
 ### `monday_anchor_anti_pattern_check(trigger)`
 
 **Signature:** `monday_anchor_anti_pattern_check(trigger: str) -> {valid: bool, reason: str}`
-**Returns:** Pass/fail. Refuses "Monday Anchor" as a default trigger.
+**Returns:** Pass/fail. Refuses "weekly anchor session" as a default trigger.
 **When invoked:** Every time the librarian proposes a trigger for an audit recommendation.
-**Failure mode caught:** Default-to-Monday-Anchor is the someday-punt failure mode (per `feedback_dont_default_park_to_monday.md`). Monday Anchor is the digest-scan cadence, NOT a trigger.
-**Mechanism:** Reject if trigger is "Monday Anchor" or any variant. Require date / event / signal / dependency.
+**Failure mode caught:** Default-to-weekly-anchor-session is the someday-punt failure mode (per `feedback_dont_default_park_to_monday.md`). weekly anchor session is the digest-scan cadence, NOT a trigger.
+**Mechanism:** Reject if trigger is "weekly anchor session" or any variant. Require date / event / signal / dependency.
 
 ---
 

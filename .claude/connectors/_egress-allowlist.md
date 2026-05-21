@@ -41,6 +41,19 @@ The allowlist is the second line of defense — the agent's runtime simply canno
 | `supabase` | `*.supabase.co`, `api.supabase.com` |
 | `drive-sharepoint` | `www.googleapis.com` (Drive), `graph.microsoft.com` (SharePoint) |
 | `obsidian` | (local-only — no egress required; wraps obsidian-cli reading filesystem) |
+| `calcom` | `api.cal.com`, `app.cal.com` |
+
+## Shared reference shelf API surfaces (NOT connectors, but still egress)
+
+These services don't have an MCP and aren't vault-level connectors — they're API references that live on the **shared shelf at `.claude/reference/<service>/`**, readable by any agent. Each agent writes its own client code against the docs. Egress still has to be allowlisted at the runtime layer.
+
+| Service | Primary consuming agents | Required domains |
+|---|---|---|
+| `tradingview` (Advanced Charts library, webhooks) | `trading-analyst`, `r-and-d-lead`, `designer` | `s3.tradingview.com`, `www.tradingview.com`, `charting-library.tradingview.com` |
+| `tradovate` (futures REST + WS) | `trading-analyst`, `finance-manager` | `demo.tradovateapi.com`, `live.tradovateapi.com`, `md.tradovateapi.com` |
+| `schwab` (equities/options Trader API) | `trading-analyst`, `finance-manager` | `api.schwabapi.com` |
+
+When adding a new shared-shelf reference: drop docs at `.claude/reference/<service>/`, add the egress row above, no entry in the Connectors table.
 
 ## What's NOT on the allowlist (must remain blocked)
 

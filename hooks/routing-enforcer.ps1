@@ -180,6 +180,12 @@ $body
 ----
 
 GLOBAL RULES (every fire):
+  - Output format: your FIRST response line MUST be one of:
+      [DEPLOY] <one-sentence classification>
+      [ASSIGN] <one-sentence classification>
+      [PARK]   <one-sentence classification>
+    If you ask any question or take any action before stating the route,
+    you have failed the protocol. Per feedback_ceo_dispatch_route_before_asking.md.
   - Main-thread anti-thesis: when an analysis/verdict dept fires, do NOT
     thesis from main thread. Dispatch a subagent. Main thread synthesizes
     the return into a one-line answer.

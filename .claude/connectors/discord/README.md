@@ -3,7 +3,7 @@
 **Status:** v1 stub — README + api-reference scaffolded; API-direct (Bot token).
 
 ## Consumers
-- `inbox-custodian`
+- `inbox-manager`
 - `marketing-director`
 - `creative-director`
 

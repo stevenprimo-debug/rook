@@ -121,7 +121,7 @@ through different framings.
 **Origin lineage:**
 - **Internal vault learning** — voice spine locked per
   `feedback_dont_default_park_to_monday.md`. Not borrowed; codified from a specific
-  failure pattern (defaulting PARK triggers to the Monday Anchor turned PARK into a
+  failure pattern (defaulting PARK triggers to the weekly anchor session turned PARK into a
   someday-punt).
 - **James Clear** (*Atomic Habits*) — habit-stack triggers must be specific and
   proximate; generic triggers fail to fire. The methodology generalizes Clear's

@@ -1,63 +1,62 @@
 # SHOPIFY | SERVICES SCOPE
-## [Customer Company] — Backlog Clearance & Shopify Optimization
+## [CUSTOMER COMPANY] — Shopify Services Engagement
 
-**[Customer Company] ([customer-short]) / this system**
-Shopify storefront optimization, order backlog clearance, and operational handoff.
-Target: clear active order backlog + stabilize storefront operations to support $2.88M/yr annualized run-rate.
+**[CUSTOMER COMPANY] (the customer) / [PROVIDER]**
+Shopify storefront, app, or operational engagement.
+Target: [ONE-LINE GOAL — e.g., "ship feature X by date Y" or "clear N-order backlog by date Y"]
 
-Prepared by **this system**
-[CONFIRM WITH PHIL: PRIMOLABS ADDRESS — defaulting to [your city], TN unless otherwise provided]
+Prepared by **[PROVIDER]**
+[PROVIDER BUSINESS ADDRESS]
 
-May 14, 2026
+[DATE — YYYY-MM-DD]
 
 Document Version 1.0 — Services Scope (Phase 1)
-Presented By: [Product Owner] | you@example.com
+Presented By: [PROVIDER POINT-OF-CONTACT NAME] | [PROVIDER EMAIL]
 
 ---
 
 # 1. Project Overview
 
-This Statement of Work defines the scope and deliverables for the initial Phase 1 engagement between **this system** ("Provider") and **[Customer Company]** ("Customer," "[customer-short]"). The engagement focuses on clearing [customer-short]'s active order backlog and stabilizing the Shopify storefront to support continued growth.
+This Statement of Work defines the scope and deliverables for a Phase 1 engagement between **[PROVIDER]** ("Provider") and **[CUSTOMER COMPANY]** ("Customer," "the customer"). The engagement focuses on [SCOPE SUMMARY — one sentence].
 
-this system provides Shopify development services, operational optimization, and technical advisory. [Customer Company] is a custom metal-art fabrication business operating at a ~$2.88M/yr annualized run-rate, with custom DXF-cut sheet-metal products sold direct-to-consumer through a Shopify storefront.
+[PROVIDER] provides Shopify development services, operational optimization, and technical advisory. [CUSTOMER COMPANY] is [ONE-SENTENCE BUSINESS DESCRIPTION — vertical + business model + Shopify role].
 
 **Parties:**
-- **this system** — Provider; Shopify development, operational optimization, technical advisory
-- **[Customer Company]** — Customer; custom-fab merchant, business owner-operated by [Customer Owner] [CONFIRM_LAST_NAME]
+- **[PROVIDER]** — Provider; Shopify development, operational optimization, technical advisory
+- **[CUSTOMER COMPANY]** — Customer; [VERTICAL], owner-operated by [CUSTOMER OWNER NAME]
 
 **Engagement model:** Fixed-fee services engagement (Phase 1)
 
-**Pricing model:** $10,000 fixed-fee. $5,000 deposit received 2026-05-14; $5,000 due on Phase 1 acceptance.
+**Pricing model:** $[AMOUNT] fixed-fee. $[DEPOSIT] deposit due on signature; $[REMAINDER] due on Phase 1 acceptance.
 
-**Out of scope for Phase 1 (separately engaged):** The full Cost-Calc System (material + labor + ad-spend per-order P&L, three-tier design from the 2026-05-11 brief) is a separate engagement to be scoped after Phase 1 completes. This SOW covers backlog clearance only.
+**Out of scope for Phase 1 (separately engaged):** [ANY DEFERRED WORK — name it; future-scope it; price separately when reached.]
 
 ---
 
 # 2. Approach & Methodology
 
-this system operates as [customer-short]'s embedded technical partner for Phase 1. Engagement follows a three-stage approach:
+[PROVIDER] operates as the customer's embedded technical partner for Phase 1. Engagement follows a three-stage approach:
 
 ## 2.1 Discovery (Days 1-3)
 
-- Audit current Shopify storefront state — products, variants, order backlog, payment configuration, fulfillment workflow
-- Inventory the current backlog: what's open, what's blocked, what's at-risk
+- Audit current Shopify storefront state — products, variants, order workflow, payment configuration, fulfillment workflow
+- Inventory current open work / blockers / at-risk items
 - Identify quick wins vs. structural blockers
-- Confirm fulfillment workflow with [Customer Owner] — CNC schedule, finishing capacity, packaging, shipping cadence
+- Confirm fulfillment workflow with [CUSTOMER OWNER NAME]
 
 ## 2.2 Execution (Days 4-N)
 
-- Backlog clearance work in priority order (oldest + highest-value first)
+- Phase 1 work in priority order (operator-confirmed sequence)
 - Storefront fixes / optimizations identified during discovery
-- Order workflow improvements (where they can be made without disrupting active fulfillment)
 - Customer communications for any orders requiring outreach
 
-## 2.3 Handoff (Days N+1 to N+5)
+## 2.3 Handoff (Final 3-5 days)
 
 - Operational documentation — what was done, how to maintain it
-- Training walkthrough with [Customer Owner] — any new workflows or tools
+- Training walkthrough with [CUSTOMER OWNER NAME] — any new workflows or tools
 - Open-questions log for Phase 2 conversation
 
-[CONFIRM TIMELINE: N depends on backlog size. [Customer Owner] to confirm number of open orders.]
+[CONFIRM TIMELINE: N depends on scope size. CUSTOMER OWNER to confirm.]
 
 ---
 
@@ -65,23 +64,23 @@ this system operates as [customer-short]'s embedded technical partner for Phase 
 
 | # | Deliverable | Acceptance Criteria | Format |
 |---|---|---|---|
-| 3.1 | Backlog audit report | Comprehensive list of every open order with status, blocker, and recommended action | Markdown / PDF, shared via Drive |
-| 3.2 | Backlog clearance | All Phase 1 backlog orders either (a) fulfilled, (b) refunded with customer notified, or (c) explicitly parked with [Customer Owner]'s approval | Tracked in Shopify; cross-referenced in audit report |
-| 3.3 | Storefront stabilization fixes | Phase-1-scope fixes to product configuration, payment, shipping zones, inventory tracking | Live on the Shopify storefront |
+| 3.1 | Discovery audit report | Comprehensive findings list with status, blocker, and recommended action | Markdown / PDF |
+| 3.2 | Phase 1 execution | All Phase 1 scope items either (a) shipped, (b) explicitly deferred with CUSTOMER OWNER's approval | Tracked in shared project doc |
+| 3.3 | Storefront stabilization fixes | Phase-1-scope fixes deployed to live storefront | Live on Shopify |
 | 3.4 | Customer communications | All affected customers contacted with status updates where required | Sent via Shopify or email; logged in audit report |
-| 3.5 | Operational handoff doc | Single document [Customer Owner] can reference — what was changed, how to operate going forward, what to watch | Markdown / PDF, shared via Drive |
-| 3.6 | Phase 2 recommendations | One-page summary of recommended Phase 2 scope (cost-calc system, agent infrastructure, app marketplace listing) | Markdown / PDF |
+| 3.5 | Operational handoff doc | Single document CUSTOMER OWNER can reference — what was changed, how to operate going forward, what to watch | Markdown / PDF |
+| 3.6 | Phase 2 recommendations | One-page summary of recommended Phase 2 scope | Markdown / PDF |
 
 ---
 
-# 4. Customer-Side Dependencies ([customer-short] Responsibility)
+# 4. Customer-Side Dependencies (the customer Responsibility)
 
-For Phase 1 to complete on time, [customer-short] provides:
+For Phase 1 to complete on time, the customer provides:
 
-- **Shopify admin access** with Staff-level permission for this system (or App-installer access if [Customer Owner] prefers app-mediated work)
-- **Fulfillment workflow context** — [Customer Owner]'s time for ~3 discovery conversations (30-60 min each) plus ad-hoc questions
-- **Decision authority** — [Customer Owner] (or designated decision-maker) available within 24 hours for blocker decisions (refund approval, customer message tone, etc.)
-- **Payment processor access** if refunds are in scope — read at minimum, write if refunds will be executed by Provider
+- **Shopify admin access** with Staff-level permission (or App-installer access if preferred)
+- **Workflow context** — CUSTOMER OWNER's time for ~3 discovery conversations (30-60 min each) plus ad-hoc questions
+- **Decision authority** — CUSTOMER OWNER (or designated decision-maker) available within 24 hours for blocker decisions
+- **Payment processor access** if refunds are in scope — read at minimum, write only if refunds will be executed by Provider
 - **Brand guidelines / customer communication tone** — even a 1-paragraph "how we sound" note is enough
 
 ---
@@ -90,35 +89,35 @@ For Phase 1 to complete on time, [customer-short] provides:
 
 ## 5.1 Scope Included
 
-this system shall provide the following:
+[PROVIDER] shall provide the following:
 
-- Comprehensive backlog audit and prioritization
-- Order-by-order backlog clearance for the current open queue as of 2026-05-14
-- Customer communications for affected orders (subject to [Customer Owner]'s approval on tone)
-- Shopify storefront stabilization fixes identified during discovery and approved by [Customer Owner]
+- Comprehensive Phase 1 discovery and prioritization
+- [LIST PHASE-1-SCOPE ITEMS — be specific. Bullet each.]
+- Customer communications for affected orders (subject to CUSTOMER OWNER's approval on tone)
+- Storefront stabilization fixes identified during discovery and approved by CUSTOMER OWNER
 - Operational handoff documentation
 - Phase 2 recommendation summary
-- Up to **two 1-hour review sessions** with [Customer Owner] during the engagement
-- Weekly status update via email or Slack ([Customer Owner]'s preference)
+- Up to **two 1-hour review sessions** with CUSTOMER OWNER during the engagement
+- Weekly status update via email or Slack (CUSTOMER OWNER's preference)
 
 ## 5.2 Scope Explicitly Excluded
 
 The following are NOT included in this Phase 1 engagement:
 
-**Out-of-scope Shopify work (deferred to Phase 2 or later):**
-- Cost-Calc System build (material + labor + ad-spend P&L) — separate engagement per the 2026-05-11 brief
+**Out-of-scope work (deferred to Phase 2 or later):**
+- [LIST DEFERRED WORK — each line should match a real candidate scope item]
 - New custom Shopify Functions or Apps
-- HubSpot CRM integration or HubSpot custom objects
+- CRM integrations or custom objects in third-party systems
 - New product launches or major product-line restructuring
 - Custom theme development (only configuration/stabilization of existing theme)
-- Ad-spend management (Meta / Google / TikTok platform work)
+- Paid-ad management (Meta / Google / TikTok)
 - Email-marketing campaign builds (Klaviyo / Mailchimp / etc.)
 
-**Customer-side responsibilities ([customer-short] owns):**
-- Physical fulfillment — CNC cutting, finishing, packaging, shipping
-- Inventory of raw sheet stock
+**Customer-side responsibilities (the customer owns):**
+- Physical fulfillment — picking, packing, shipping
+- Inventory of raw materials
 - Tax filing, accounting, payroll
-- Customer service for non-backlog orders (orders placed after 2026-05-14 outside Phase 1 scope)
+- Customer service for non-Phase-1 orders
 
 **Other exclusions:**
 - Ongoing maintenance or service contracts beyond the warranty period
@@ -131,24 +130,24 @@ The following are NOT included in this Phase 1 engagement:
 
 ## 6.1 Pre-Engagement (Days 1-3)
 
-- Kickoff conversation with [Customer Owner] — confirm priorities, blocker list, communication cadence
+- Kickoff conversation with CUSTOMER OWNER — confirm priorities, blocker list, communication cadence
 - Shopify admin access provisioning
-- Initial backlog audit complete; report shared with [Customer Owner]
-- Phase 1 priority order confirmed with [Customer Owner]
+- Initial discovery audit complete; report shared with CUSTOMER OWNER
+- Phase 1 priority order confirmed with CUSTOMER OWNER
 
 ## 6.2 Execution (Days 4-N)
 
-- Order-by-order backlog clearance
+- Phase 1 execution per agreed sequence
 - Customer communications as needed
 - Storefront stabilization fixes pushed as identified
-- Mid-engagement review session with [Customer Owner] (~halfway through Phase 1)
+- Mid-engagement review session with CUSTOMER OWNER (~halfway through Phase 1)
 
 ## 6.3 Handoff (Final 3-5 days)
 
-- Final audit + status report shared with [Customer Owner]
+- Final audit + status report shared with CUSTOMER OWNER
 - Operational handoff doc delivered
 - Phase 2 recommendations delivered
-- Final review session with [Customer Owner]
+- Final review session with CUSTOMER OWNER
 - Acceptance + sign-off
 
 ---
@@ -157,132 +156,81 @@ The following are NOT included in this Phase 1 engagement:
 
 ## 7.1 Total Phase 1 Fee
 
-**$10,000 USD** — fixed-fee.
+**$[AMOUNT] USD** — fixed-fee.
 
 ## 7.2 Payment Schedule
 
-| Milestone | Amount | Trigger | Status |
+- $[DEPOSIT] due on contract signature (deposit)
+- $[REMAINDER] due on Phase 1 acceptance (per Section 11)
+
+Payment methods: ACH transfer, wire, or check. Invoices issued via [INVOICING SYSTEM] with NET-7 payment terms.
+
+## 7.3 Expenses
+
+This engagement is remote. No travel or on-site expenses billable.
+
+If unusual third-party costs arise (paid plugins, special integrations), Provider will surface in advance and obtain CUSTOMER OWNER's written approval before incurring.
+
+---
+
+# 8. Timeline & Milestones
+
+| M# | Milestone | Target | Owner |
 |---|---|---|---|
-| Deposit | $5,000 | On engagement start | ✅ Received 2026-05-14 |
-| Final | $5,000 | On Phase 1 acceptance | Due Net 15 from acceptance |
+| M1 | Kickoff + admin access | Day 1 | the customer + Provider |
+| M2 | Discovery audit delivered | Day 3 | Provider |
+| M3 | Phase 1 priority order confirmed | Day 3 | CUSTOMER OWNER |
+| M4 | Mid-engagement review | [~Halfway] | the customer + Provider |
+| M5 | Handoff doc + Phase 2 recommendations delivered | [CONFIRM DATE] | Provider |
+| M6 | Acceptance + final payment | M5 + 5 business days | the customer + Provider |
 
-## 7.3 Out-of-Scope Changes
-
-Changes outside the defined Phase 1 scope are billed at **$200/hour** with a written change-order required before work begins. No work happens without [Customer Owner]'s sign-off; no surprise invoices.
-
-## 7.4 Reimbursable Expenses
-
-None expected. Any third-party tooling or service costs required to complete Phase 1 (e.g., paid Shopify app subscription) will be pre-approved by [Customer Owner] before purchase.
+[CONFIRM ALL DATES WITH CUSTOMER — these are placeholders pending discovery sizing.]
 
 ---
 
-# 8. Training & Knowledge Transfer
-
-Phase 1 ends with a handoff session covering:
-
-- What was changed on the storefront, why, and how to revert if needed
-- Any new operational workflows (e.g., updated fulfillment cadence, customer communication templates)
-- Where the handoff doc lives and how to use it as reference
-- Open questions and recommendations for Phase 2
-
-**Format:** One 60-minute live session (video call) + written handoff doc.
-
-**Recipient:** [Customer Owner] [CONFIRM_LAST_NAME], or designated [customer-short] staff if [Customer Owner] delegates.
-
----
-
-# 9. Support, Warranty & SLA
-
-## 9.1 Warranty
-
-this system warrants Phase 1 deliverables for **30 days** from acceptance. Defects in workmanship — Shopify configuration errors traceable to this system work, broken customer communications, etc. — are corrected at no additional charge during the warranty period.
-
-## 9.2 Third-Party Warranties
-
-Shopify platform reliability is per Shopify's own SLA. Third-party apps used during Phase 1 are warranted by their respective providers, not this system.
-
-## 9.3 Post-Phase-1 Support
-
-Phase 2 (Cost-Calc System and beyond) is a separate engagement. Ad-hoc questions or fixes outside warranty scope are billed at **$200/hour** with no minimum commitment.
-
-## 9.4 Single Point of Contact
-
-**[Product Owner]** — you@example.com — primary contact for all engagement questions, change orders, and warranty matters.
-
----
-
-# 10. Timeline & Milestones
-
-| # | Milestone | Target Date | Owner |
-|---|---|---|---|
-| M1 | Engagement start + deposit received | 2026-05-14 | ✅ Complete |
-| M2 | Discovery complete + backlog audit shared | [CONFIRM: 2026-05-17?] | this system |
-| M3 | Mid-engagement review with [Customer Owner] | [CONFIRM: 2026-05-21?] | Shared |
-| M4 | Backlog cleared + storefront fixes pushed | [CONFIRM: 2026-05-28?] | this system |
-| M5 | Handoff doc + Phase 2 recommendations delivered | [CONFIRM: 2026-05-30?] | this system |
-| M6 | Acceptance + final payment | M5 + 5 business days | [customer-short] → this system |
-
-[CONFIRM ALL DATES WITH PHIL — these are placeholders pending discovery sizing.]
-
----
-
-# 11. Acceptance & Sign-Off
+# 9. Acceptance & Sign-Off
 
 Phase 1 is accepted when:
-- All deliverables in Section 3 are complete and meet their stated acceptance criteria
-- [Customer Owner] signs the acceptance form below, OR
-- 5 business days pass after Phase 1 closing report is sent with no written acceptance issues raised
 
-Acceptance triggers the final payment per Section 7.2.
+1. All Section 3 deliverables are produced and CUSTOMER OWNER has reviewed each
+2. Phase 1 priority list is closed (all items either shipped, deferred, or refunded with explicit approval)
+3. Handoff doc has been walked through with CUSTOMER OWNER live
+4. Final invoice ($[REMAINDER] balance) is issued and paid
 
----
-
-# 12. Disclaimer
-
-This document is prepared for the Phase 1 services engagement scope only. Specifications, timelines, and operational parameters herein are based on the 2026-05-11 [customer-short] cost-calc design brief, the 2026-05-14 backlog conversation with [Customer Owner], and preliminary review of [customer-short]'s Shopify storefront. Final scope and milestones may be revised after the Day 1-3 discovery phase.
-
-No verbal or assumed differences apply. Changes to the backlog scope, [customer-short]'s fulfillment capacity, or storefront state may result in scope adjustments — handled via the change-order process in Section 7.3.
+If acceptance is not signed within 14 days of M5 delivery and no objections are raised in writing, acceptance is assumed.
 
 ---
 
-# Sign-Off
+# 10. Warranty & Support
 
-**For this system:**
+**90-day warranty** on Phase 1 work:
+- Any deliverable that does not meet Section 3 acceptance criteria will be remediated by Provider at no cost within the warranty window
+- Warranty does not cover: customer-introduced changes, third-party platform changes, fulfillment-side issues (Customer-owned)
 
-___________________________
-[Product Owner], Sales Director
-Date: ___________
-
-**For [Customer Company]:**
-
-___________________________
-[Customer Owner] [CONFIRM_LAST_NAME], Owner
-Date: ___________
+**Beyond 90 days:** Provider available for follow-on work under a new SOW. No retainer obligation.
 
 ---
 
-## Open Items to Confirm With [Customer Owner]
+# 11. Standard Terms
 
-Before sending, fill these in:
+- **Confidentiality:** Both parties treat the other's non-public information as confidential
+- **IP ownership:** All work product produced under this SOW is Customer property on payment
+- **Provider IP:** Provider's pre-existing tools, frameworks, and methodologies remain Provider property; licensed to Customer for use within the engagement
+- **Limitation of liability:** Provider's liability capped at the total fee paid under this SOW
+- **Termination:** Either party may terminate with 14 days written notice; Customer pays for work completed to termination date
 
-1. ✅ **[Customer Owner]'s last name** — for the sign-off block
-2. ✅ **[customer-short]'s legal entity name** — "[Customer Company]" or "[Customer Company] LLC" or other?
-3. ✅ **this system address** — what to put as the provider address
-4. ✅ **Backlog size** — number of open orders → determines N in timeline
-5. ✅ **[Customer Owner]'s preferred communication cadence** — Slack? Email? Weekly call?
-6. ✅ **Refund authority** — does this system execute refunds directly, or always via [Customer Owner]?
-7. ✅ **Theme work** — is theme work in scope or strictly out? (current draft: strictly out)
-8. ✅ **Customer communications tone** — [Customer Owner]'s voice or this system drafting on his behalf?
-9. ✅ **Date confirmations** — M2 / M3 / M4 / M5 placeholder dates need real targets
+---
 
-## Notes for the operator
+# 12. Signatures
 
-This is the **shopify-services variant seed** of the SOW template — Saturday's `sow-template` skill build copies this structure into `variants/shopify-services.md` (sanitized of [Customer Owner]-specifics; the slot-pattern stays).
+**[PROVIDER]**
 
-When you send this to [Customer Owner]:
-1. Fill the 9 open items above
-2. Convert to PDF via html2pdf (NEVER --paginated)
-3. Send via DocuSign or email-with-signature-required
-4. File the executed version in `agents/shopify-agent/COMPANIES/<customer-slug>/` (create folder if needed)
+Signed by: ________________________
+Name: ________________________
+Date: ________________________
 
-[Customer Owner] already paid $5K. This document gives him the paper that the $5K was against, and the path to the second $5K.
+**[CUSTOMER COMPANY]**
+
+Signed by: ________________________
+Name: ________________________
+Date: ________________________

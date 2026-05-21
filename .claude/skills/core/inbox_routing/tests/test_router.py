@@ -150,7 +150,7 @@ class TestDecideRoute:
         rules = load_dept_rules(fake_workspace / "DEPARTMENTS")
         f = fake_workspace / "INBOX" / "processed" / "x.md"
         # FINANCE: 3 hits; MEDIA: 2 hits  →  MEDIA ratio = 67% but hits < 4
-        f.write_text("---\n---\n\nTradingView OKLO ThinkOrSwim. [your platform] widget.\n")
+        f.write_text("---\n---\n\nTradingView OKLO ThinkOrSwim. your runtime platform widget.\n")
         decision = decide_route(f, rules)
         assert decision.primary == "FINANCE"
         assert "MEDIA" not in decision.secondaries

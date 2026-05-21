@@ -6,7 +6,7 @@ description: |
   lifecycle stage → Slack sales-team notification → Calendly booking link
   to prospect. Single agent, 4 MCPs (apollo + hubspot + slack + calendly).
   Distinct from sales-triage-squad (inbound enrichment) — this is OUTBOUND
-  prospecting end-to-end. Owner agents: prospecting-agent, sales-outreach.
+  prospecting end-to-end. Owner agents: sales-director, sales-director.
 type: skill
 category: ama-template
 parent: ama-templates
@@ -45,8 +45,8 @@ A customer with both inbound + outbound flows deploys BOTH templates.
 
 ## Owner agents
 
-- **prospecting-agent** — primary owner; runs the search-to-pipeline work
-- **sales-outreach** — secondary; handles the booking-link follow-up if prospect doesn't respond to initial Calendly invite
+- **sales-director** — primary owner; runs the search-to-pipeline work
+- **sales-director** — secondary; handles the booking-link follow-up if prospect doesn't respond to initial Calendly invite
 
 ## How to use
 
@@ -82,5 +82,5 @@ team's only job: take the booking call.
 - Source: Anthropic AMA library reference (2026-05-15)
 - Parent: `skills/templates/ama-templates/README.md`
 - Sister AMA: `sales-triage-squad` (inbound counterpart)
-- Owner agents: `agents/prospecting-agent/SKILL.md`, `agents/sales-outreach/SKILL.md`
+- Owner agents: `agents/sales-director/skills/prospecting/SKILL.md`, `agents/sales-director/skills/outreach/SKILL.md`
 - Original spec source: 21st.dev "Lead-to-Deal Pipeline Agent" (Hakobyan, also archived in `.claude/memory/reference_21st_dev_catalog_2026-05-13.md`)

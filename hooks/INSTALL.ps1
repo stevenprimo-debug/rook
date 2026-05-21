@@ -51,7 +51,10 @@ $RequiredHooks = @(
     'superpowers-init.ps1',
     'posture-staleness-gate.ps1',
     'librarian-digest.ps1',
-    'preference-detector.ps1'
+    'preference-detector.ps1',
+    'pretooluse-routing-enforcer.ps1',
+    'preamble-resolver.ps1',
+    'context-watch-gate.ps1'
 )
 $missing = @()
 foreach ($h in $RequiredHooks) {
@@ -83,15 +86,31 @@ function Build-HookCmd {
     return "powershell -NoProfile -NonInteractive -File `"$abs`""
 }
 
-$cmdRouting     = Build-HookCmd 'routing-enforcer.ps1'
-$cmdPrelude     = Build-HookCmd 'session-prelude.ps1'
-$cmdVaultCtx    = Build-HookCmd 'vault-context-injector.ps1'
-$cmdSessionEnd  = Build-HookCmd 'session-end-detect.ps1'
-$cmdPreCompact  = Build-HookCmd 'precompact-handoff.ps1'
-$cmdSuperpowers = Build-HookCmd 'superpowers-init.ps1'
-$cmdPosture     = Build-HookCmd 'posture-staleness-gate.ps1'
-$cmdLibrarian   = Build-HookCmd 'librarian-digest.ps1'
-$cmdPreference  = Build-HookCmd 'preference-detector.ps1'
+# Spawn-detach wrapper: returns immediately, launches the target script as a
+# hidden background process that survives the SessionEnd hook return.
+# Used for librarian-digest so the 5-10 min sweep runs without blocking
+# the customer's session exit.
+function Build-BackgroundHookCmd {
+    param([string]$scriptName)
+    $abs = Join-Path $HooksDir $scriptName
+    # PowerShell-escaped inner command: launches $abs hidden, returns immediately
+    $inner = "Start-Process powershell -ArgumentList '-NoProfile','-WindowStyle','Hidden','-File','$abs' -WindowStyle Hidden | Out-Null"
+    return "powershell -NoProfile -NonInteractive -Command `"$inner`""
+}
+
+$cmdRouting              = Build-HookCmd 'routing-enforcer.ps1'
+$cmdPreToolUseRouting    = Build-HookCmd 'pretooluse-routing-enforcer.ps1'
+$cmdPrelude              = Build-HookCmd 'session-prelude.ps1'
+$cmdPreamble             = Build-HookCmd 'preamble-resolver.ps1'
+$cmdVaultCtx             = Build-HookCmd 'vault-context-injector.ps1'
+$cmdSessionEnd           = Build-HookCmd 'session-end-detect.ps1'
+$cmdPreCompact           = Build-HookCmd 'precompact-handoff.ps1'
+$cmdSuperpowers          = Build-HookCmd 'superpowers-init.ps1'
+$cmdPosture              = Build-HookCmd 'posture-staleness-gate.ps1'
+$cmdLibrarianBackground  = Build-BackgroundHookCmd 'librarian-digest.ps1'
+$cmdPreference           = Build-HookCmd 'preference-detector.ps1'
+$cmdSessionMode          = Build-HookCmd 'session-mode-injector.ps1'
+$cmdContextWatch         = Build-HookCmd 'context-watch-gate.ps1'
 
 # ---- LOAD OR CREATE settings.json ------------------------------------------
 Write-Step "Reading $SettingsPath"
@@ -128,11 +147,7 @@ $envBlock = $settings.env
 $envDefaults = @{
     PRIMOLABS_VAULT_ROOT          = $VaultRoot
     PRIMOLABS_HOOKS_DIR           = $HooksDir
-    PRIMOLABS_HARDSTOP_HOUR       = '16'
-    PRIMOLABS_HARDSTOP_ENABLED    = '1'
-    PRIMOLABS_HARDSTOP_TZ         = 'Central Standard Time'
     PRIMOLABS_POSTURE_STALE_DAYS  = '7'
-    PRIMOLABS_LIBRARIAN_CADENCE   = '50'
 }
 
 foreach ($k in $envDefaults.Keys) {
@@ -164,23 +179,30 @@ $hooksBlock = $settings.hooks
 # Spec for each event: list of (hook-script-name, command-string, timeout)
 $hookSpec = [ordered]@{
     'SessionStart' = @(
-        @{ name = 'superpowers-init.ps1';      cmd = $cmdSuperpowers; timeout = 8;  matcher = '' },
-        @{ name = 'session-prelude.ps1';       cmd = $cmdPrelude;     timeout = 12; matcher = '' }
+        @{ name = 'superpowers-init.ps1';         cmd = $cmdSuperpowers; timeout = 8;  matcher = '' },
+        @{ name = 'session-prelude.ps1';          cmd = $cmdPrelude;     timeout = 12; matcher = '' },
+        @{ name = 'preamble-resolver.ps1';        cmd = $cmdPreamble;    timeout = 5;  matcher = '' },
+        @{ name = 'session-mode-injector.ps1';    cmd = $cmdSessionMode; timeout = 5;  matcher = '' }
     )
     'UserPromptSubmit' = @(
-        @{ name = 'routing-enforcer.ps1';        cmd = $cmdRouting;     timeout = 10; matcher = '' },
-        @{ name = 'vault-context-injector.ps1';  cmd = $cmdVaultCtx;    timeout = 8;  matcher = '' },
-        @{ name = 'session-end-detect.ps1';      cmd = $cmdSessionEnd;  timeout = 5;  matcher = '' },
-        @{ name = 'preference-detector.ps1';     cmd = $cmdPreference;  timeout = 8;  matcher = '' }
+        @{ name = 'routing-enforcer.ps1';        cmd = $cmdRouting;      timeout = 10; matcher = '' },
+        @{ name = 'preference-detector.ps1';     cmd = $cmdPreference;   timeout = 8;  matcher = '' },
+        @{ name = 'context-watch-gate.ps1';      cmd = $cmdContextWatch; timeout = 8;  matcher = '' },
+        @{ name = 'vault-context-injector.ps1';  cmd = $cmdVaultCtx;     timeout = 8;  matcher = '' },
+        @{ name = 'session-end-detect.ps1';      cmd = $cmdSessionEnd;   timeout = 5;  matcher = '' }
     )
     'PreCompact' = @(
         @{ name = 'precompact-handoff.ps1';      cmd = $cmdPreCompact;  timeout = 5;  matcher = '' }
     )
     'PreToolUse' = @(
-        @{ name = 'posture-staleness-gate.ps1'; cmd = $cmdPosture;    timeout = 6;  matcher = '' }
+        @{ name = 'posture-staleness-gate.ps1';         cmd = $cmdPosture;          timeout = 6;  matcher = '' },
+        @{ name = 'pretooluse-routing-enforcer.ps1';    cmd = $cmdPreToolUseRouting; timeout = 5;  matcher = '' }
     )
-    'PostToolUse' = @(
-        @{ name = 'librarian-digest.ps1';      cmd = $cmdLibrarian;   timeout = 8;  matcher = '' }
+    'SessionEnd' = @(
+        # Spawn-detached: hook returns in <1s; librarian-digest.ps1 keeps running
+        # in background for 5-10 min. Survives session exit but NOT computer shutdown.
+        # Computer-shutdown resilience requires the Task Scheduler safety net (see below).
+        @{ name = 'librarian-digest.ps1';      cmd = $cmdLibrarianBackground; timeout = 5;  matcher = '' }
     )
 }
 
@@ -248,6 +270,58 @@ foreach ($event in $hookSpec.Keys) {
     $hooksBlock.$event = $cleaned
 }
 
+# ---- TASK SCHEDULER: shutdown-resilience safety net -------------------------
+# Registers a Windows Task Scheduler entry that runs librarian-digest at user
+# login (delayed 5 min). If the SessionEnd spawn-detached run got killed by a
+# laptop-close / shutdown / crash, this catches it on next boot.
+# The task checks for a recent digest before running; if librarian wrote a
+# digest in the last 24h, it exits early.
+Write-Step "Registering Task Scheduler safety net for librarian"
+$TaskName = 'PrimoLabsLibrarianDailySweep'
+$LibrarianAbs = Join-Path $HooksDir 'librarian-digest.ps1'
+
+try {
+    # Unregister any prior version (idempotent re-install)
+    Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue | Unregister-ScheduledTask -Confirm:$false -ErrorAction SilentlyContinue
+
+    # Action: run librarian-digest.ps1 hidden, with PRIMOLABS_LIBRARIAN_BACKUP=1
+    # (the script checks this env var + last-digest timestamp to decide whether to run)
+    $action = New-ScheduledTaskAction `
+        -Execute 'powershell.exe' `
+        -Argument "-NoProfile -WindowStyle Hidden -File `"$LibrarianAbs`""
+
+    # Trigger: at user logon, delayed 5 min (let login complete first)
+    $trigger = New-ScheduledTaskTrigger -AtLogOn
+    $trigger.Delay = 'PT5M'
+
+    # Settings: catch-up if missed (computer was off), allow run on battery, stop after 15 min
+    $settingsTask = New-ScheduledTaskSettingsSet `
+        -StartWhenAvailable `
+        -AllowStartIfOnBatteries `
+        -DontStopIfGoingOnBatteries `
+        -ExecutionTimeLimit (New-TimeSpan -Minutes 15)
+
+    # Register under current user, no elevation needed
+    $principal = New-ScheduledTaskPrincipal `
+        -UserId "$env:USERDOMAIN\$env:USERNAME" `
+        -LogonType Interactive `
+        -RunLevel Limited
+
+    Register-ScheduledTask `
+        -TaskName $TaskName `
+        -Description 'PrimoLabs ROOK: catches missed librarian-digest runs after laptop close / shutdown. Runs at user login + 5 min, skips if digest was written in last 24h.' `
+        -Action $action `
+        -Trigger $trigger `
+        -Settings $settingsTask `
+        -Principal $principal `
+        -Force | Out-Null
+
+    Write-OK "Task Scheduler entry registered: $TaskName (runs at login + 5 min delay)"
+} catch {
+    Write-Warn "Could not register Task Scheduler entry: $($_.Exception.Message)"
+    Write-Warn "Shutdown-resilience disabled. SessionEnd hook still works while computer is on."
+}
+
 # ---- WRITE -----------------------------------------------------------------
 Write-Step "Writing settings.json"
 if ($DryRun) {
@@ -263,7 +337,8 @@ if ($DryRun) {
 
     $json = $settings | ConvertTo-Json -Depth 10
     # ConvertTo-Json renders & etc.; settings.json is happy with literal Unicode.
-    Set-Content -Path $SettingsPath -Value $json -Encoding UTF8
+    # Use WriteAllText with no-BOM UTF-8 encoding so python json.load() doesn't choke on BOM.
+    [System.IO.File]::WriteAllText($SettingsPath, $json, [System.Text.UTF8Encoding]::new($false))
     Write-OK "Wrote $SettingsPath"
 }
 

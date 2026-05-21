@@ -71,7 +71,7 @@ For each of the four pillars, deliver:
 - Niagara audio-reactive modules (sampling MetaSound output into particle params)
 - Material Parameter Collections for global audio-driven shader params
 - Baked audio curves vs live input (tradeoffs for tour reliability)
-- Sync strategies: SMPTE LTC, MIDI clock, [your platform] Link, timecode-locked playback
+- Sync strategies: SMPTE LTC, MIDI clock, your runtime platform Link, timecode-locked playback
 - Fab assets worth starting from (identify 3–5 concrete packs)
 - C++ custom analyzer nodes when MetaSounds isn't enough
 
@@ -81,7 +81,7 @@ For each of the four pillars, deliver:
 - DMX Library and Fixture Patch workflow
 - Driving materials, Niagara, and Sequencer from DMX input
 - Sending DMX OUT to control physical lighting from UE
-- OSC as a sidecar protocol (TouchOSC, QLab, [your platform] integration)
+- OSC as a sidecar protocol (TouchOSC, QLab, your runtime platform integration)
 - Failover and redundancy for live shows (primary/backup nodes)
 - Timecode-locked DMX playback via Sequencer
 

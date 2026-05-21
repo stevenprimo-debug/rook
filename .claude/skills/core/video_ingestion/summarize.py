@@ -12,11 +12,9 @@ logger = logging.getLogger(__name__)
 
 
 SUMMARY_SYSTEM_PROMPT = """\
-You are a research analyst summarizing video transcripts for the operator's personal knowledge vault.
-the operator runs PRIMOLABS — a 12-department org for his solo business: AV sales ([your business] bridge), [your platform]
-playback tools, PrimoLabs (AI teaching/cohort), Unreal services, software dev, finance/trading,
-marketing, design, R&D, personal/family. He's exiting his day job by [your target date] and prioritizes
-content that compounds toward that exit.
+You are a research analyst summarizing video transcripts for the operator's ROOK knowledge vault.
+ROOK is a 20-agent Agentic OS. The operator routes captured content to the agent(s) most likely
+to act on it. Prioritize specificity — what's actually claimed, what could actually be built.
 
 For each transcript you receive, return a JSON object with this exact shape:
 
@@ -25,7 +23,7 @@ For each transcript you receive, return a JSON object with this exact shape:
   "summary": "2-3 sentence summary of what the video actually says.",
   "key_quotes": ["quote 1 verbatim from transcript", "quote 2 verbatim from transcript"],
   "tags": ["tag1", "tag2", "tag3"],
-  "dept_hints": ["DEPT_NAME"],
+  "agent_hints": ["agent-slug"],
   "ways_to_implement": [
     "One short sentence: what the operator could build/use/test from this. Imperative tense.",
     "Another short sentence."
@@ -38,13 +36,13 @@ Rules:
 - `summary`: ≤3 sentences. What's actually claimed in the video, not meta-commentary.
 - `key_quotes`: 1-3 verbatim lines from the transcript that capture the substance. Empty list OK.
 - `tags`: 3-6 lowercase kebab-case tags for the inbox routing system to score.
-- `dept_hints`: which COWORK depts care about this content. Pick from: SALES, ENGINEERING,
-  SOFTWARE DEV, [YOUR PLATFORM], UNREAL, PRIMOLABS, MARKETING, RND, FINANCE, DESIGN, PERSONAL.
-  Multiple OK if cross-relevant. Be honest — a finance video isn't suddenly "PRIMOLABS" because the operator
-  could teach it.
+- `agent_hints`: which ROOK agents care about this content. Pick from the agent slugs:
+  account-manager, chief-of-staff, content-strategist, copywriter, creative-director, deep-researcher,
+  designer, engineering-lead, finance-manager, inbox-manager, librarian, marketing-director,
+  product-manager, r-and-d-lead, sales-director, seo-specialist, shopify-agent, social-media-manager,
+  software-dev-team, trading-analyst. Multiple OK if cross-relevant. Be honest about scope.
 - `ways_to_implement`: VERY SHORT (≤2 sentences each), 0-3 items. Concrete actions the operator could take.
-  Examples: "Add this prompt pattern to PrimoLabs cohort module 3." "Test this tool against current
-  Whisper pipeline." Skip if nothing actionable — empty list is correct.
+  Skip if nothing actionable — empty list is correct.
 - `priority_signals`: from this list ONLY: ["yc", "anthropic-launch", "karpathy", "sequoia-ai",
   "garry-tan"]. Empty list if none apply. The system uses these to auto-flag priority.
 
@@ -57,7 +55,7 @@ class SummaryResult:
     summary: str
     key_quotes: list[str]
     tags: list[str]
-    dept_hints: list[str]
+    agent_hints: list[str]
     ways_to_implement: list[str]
     priority_signals: list[str]
 
@@ -97,7 +95,7 @@ TRANSCRIPT:
         summary=data.get("summary", ""),
         key_quotes=data.get("key_quotes", []),
         tags=data.get("tags", []),
-        dept_hints=data.get("dept_hints", []),
+        agent_hints=data.get("agent_hints", data.get("dept_hints", [])),
         ways_to_implement=data.get("ways_to_implement", []),
         priority_signals=data.get("priority_signals", []),
     )

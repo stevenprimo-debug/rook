@@ -112,7 +112,7 @@ Methodologies indexed by name, not by person. Originators in
 - `wrong-person` — referral candidate; draft polite re-routing ask.
 - `unsubscribe-style` — remove; draft confirmation.
 - `aggressive-pushback` — no-move; let it sit, do not escalate.
-- `silent-bounce` — auto-responder or address-deliverability failure; flag for prospecting-agent.
+- `silent-bounce` — auto-responder or address-deliverability failure; flag for sales-director.
 
 **When invoked:** `reply-triage` mode.
 

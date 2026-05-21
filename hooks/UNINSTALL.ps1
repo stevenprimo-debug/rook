@@ -24,7 +24,8 @@ $ourHooks = @(
     'superpowers-init.ps1',
     'posture-staleness-gate.ps1',
     'librarian-digest.ps1',
-    'preference-detector.ps1'
+    'preference-detector.ps1',
+    'context-watch-gate.ps1'
 )
 
 $settings = Get-Content -Raw -Path $SettingsPath -Encoding UTF8 | ConvertFrom-Json
@@ -62,7 +63,7 @@ if ($settings.hooks) {
 
 # Strip env vars too
 if ($settings.env) {
-    $envVars = @('PRIMOLABS_VAULT_ROOT','PRIMOLABS_HOOKS_DIR','PRIMOLABS_HARDSTOP_HOUR','PRIMOLABS_HARDSTOP_ENABLED','PRIMOLABS_HARDSTOP_TZ','PRIMOLABS_POSTURE_STALE_DAYS','PRIMOLABS_LIBRARIAN_CADENCE')
+    $envVars = @('PRIMOLABS_VAULT_ROOT','PRIMOLABS_HOOKS_DIR','PRIMOLABS_POSTURE_STALE_DAYS')
     foreach ($v in $envVars) {
         if ($settings.env.PSObject.Properties.Name -contains $v) {
             $settings.env.PSObject.Properties.Remove($v)
@@ -73,8 +74,18 @@ if ($settings.env) {
 $json = $settings | ConvertTo-Json -Depth 10
 Set-Content -Path $SettingsPath -Value $json -Encoding UTF8
 
+# Remove Task Scheduler safety net (shutdown-resilience for librarian)
+$TaskName = 'PrimoLabsLibrarianDailySweep'
+try {
+    Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue | Unregister-ScheduledTask -Confirm:$false -ErrorAction SilentlyContinue
+    Write-OK "Task Scheduler entry removed: $TaskName"
+} catch {
+    # task may not exist; silent pass
+}
+
 Write-Step "Uninstall complete"
 Write-OK "PrimoLabs hooks and env vars removed from $SettingsPath"
+Write-OK "Task Scheduler safety net removed"
 Write-OK "Other hooks/env preserved"
 Write-Host ""
 Write-Host "To re-install: pwsh ./hooks/INSTALL.ps1"

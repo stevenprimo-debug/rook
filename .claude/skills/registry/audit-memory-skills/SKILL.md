@@ -38,19 +38,17 @@ You are performing a recursive integrity audit on the operator's Claude ecosyste
 - If no backup mechanism exists at all, flag as **P0** and recommend: `git init` at `SKILLS\` with pre-commit hook (preferred, gives diffs + rollback) OR daily `robocopy` to `SKILLS_BACKUP\YYYY-MM-DD\`.
 
 ### 3. Org-chart folder framework scan
-the operator heard a podcast describing a structure where the top-level is a `CLAUDE.md`-rooted folder, and subfolders are modeled like a company org chart — each department folder (Sales, Engineering, [example enterprise customer], Email, Personal, Core) contains its own sub-agents, skills, and memory scoped to that department's work.
+the operator heard a podcast describing a structure where the top-level is a `CLAUDE.md`-rooted folder, and subfolders are modeled like a company org chart — each department folder (Sales, Engineering, an enterprise customer, Email, Personal, Core) contains its own sub-agents, skills, and memory scoped to that department's work.
 
 - Map the current `PRIMOLABS\` folder tree (2 levels deep).
 - Compare to the org-chart ideal.
-- Identify: (a) which [your employer] functions already have dedicated folders, (b) which are missing, (c) which existing skills/memories should be relocated for better scoping.
-- Propose a target tree. Reference departments for the operator/[your employer]:
-  - `SALES\` — lmg-sales-ops, lmg-outreach-pipeline, lmg-t1-email-template, account memory
-  - `ENGINEERING\` — drawing-reader, freecad-mcp
-  - `[example enterprise customer]\` — bsa-formatting, project_bsa memory (dedicated to flagship account)
-  - `EMAIL\` — lmg-email-replies
-  - `PERSONAL\` — primo-session-rules, user_profile, feedback_workflow
-  - `CORE\` — pdf, docx, pptx, xlsx, skill-creator, prompt-builder, cookbook-lookup, frontend-design, auto-skill-builder
-- Each department folder should have `skills\`, `agents\`, `memory\`, and its own scoping `CLAUDE.md`.
+- Identify: (a) which your employer functions already have dedicated folders, (b) which are missing, (c) which existing skills/memories should be relocated for better scoping.
+- Propose a target tree organized by agent surface area. Example shape:
+  - `agents/<agent-slug>/skills/` — per-agent skill folders
+  - `agents/<agent-slug>/memory/` — per-agent compounding learnings
+  - `.claude/reference/` — shared shelf (API docs, templates, methodology — readable by all agents)
+  - `.claude/skills/core/` — universal capabilities (pdf, docx, pptx, xlsx, skill-creator, prompt-builder)
+- Each agent folder has `SKILL.md`, `CLAUDE.md`, `personality/`, `memory/`, and (optionally) child `skills/`.
 
 ### 4. Handoff & compounding loop check
 - Read every file in `CLAUDE CODE\HANDOFFS\`.

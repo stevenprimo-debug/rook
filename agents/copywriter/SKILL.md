@@ -31,7 +31,7 @@ tools:
   - Agent
   - WebFetch
   - WebSearch
-model: claude-sonnet-latest
+model: sonnet
 skills:
   # Universal Stack — every agent inherits these.
   - markitdown               # INPUT: Any file -> markdown
@@ -52,7 +52,15 @@ memory:
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
   tier: 4                              # 1=synthesizer (vector+graph) | 2=structured (SQLite) | 3=document (vectorless PDF) | 4=default (markdown+grep)
+  primary_tier: 4  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  backend: markdown+grep
+  schema_file: null
+  rationale_one_line: "Copy patterns and voice notes are narrative; no structured state needed"
+  secondary: []
+  queries_shared_shelf: true
+  declared_tier: 4
 skills_can_create: true
+connectors: []
 trigger: >
   Fire when the user says: write me a headline, copy, body copy, ad, sales
   letter, email subject, landing copy, tagline, headline, CTA, button text,
@@ -194,6 +202,29 @@ All paths below are relative to `agents/copywriter/`.
 
 ---
 
+### Shared shelf via graph query (the primary retrieval path)
+
+For ANY domain-bound question, **query the shared shelf via graphify before answering**:
+
+```bash
+# Run from the project root. Returns BFS traversal of relevant graph subgraph.
+python -m graphify query "your domain question here" --budget 1500
+```
+
+The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shared shelf (`.claude/reference/<topic>/` — API docs, templates, methodology, learning paths). Querying it returns the most relevant 5-10 files with cross-references — far better than walking folders or training-data recall.
+
+| Query type | Command | Example |
+|---|---|---|
+| Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
+| Trace a specific chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
+
+**Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
+
+---
+
+
 ## Step 2 — Fill Parameters
 
 | Parameter | Options | Notes |
@@ -252,7 +283,7 @@ routing_keywords:
     - "write a blog post"             # → content-strategist (after CD brief)
     - "write a tweet thread"          # → social-media-manager (after CD brief)
     - "write the press release"       # → marketing-director
-    - "cold email to a prospect"      # → sales-outreach
+    - "cold email to a prospect"      # → sales-director
     - "campaign plan"                 # → marketing-director (with CD upstream)
     - "brand voice spine"             # → creative-director
 ```
@@ -468,7 +499,7 @@ Full long-form DR letter with awareness-stage calibration.
 
 ### MODE: email_subject
 
-8 variants across hook archetypes. Mirror sales-outreach subject-AB pattern.
+8 variants across hook archetypes. Mirror sales-director subject-AB pattern.
 
 1. Generate 8 variants: specific-number, named-person, observation, question, contrarian, shared-context, vulnerability, no-trick.
 2. 40-character mobile-render check.
@@ -522,7 +553,7 @@ Invoke skill-creator; scaffold to `agents/copywriter/skills/<slug>/`.
 
 **Cross-agent routes:**
 - Routes TO: `creative-director` (upstream — brief), `designer` (when copy sits on a visual surface)
-- Receives FROM: `creative-director`, `marketing-director`, `social-media-manager`, `content-strategist`, `sales-outreach` (cross-pollination on cold copy patterns), `chief-of-staff`
+- Receives FROM: `creative-director`, `marketing-director`, `social-media-manager`, `content-strategist`, `sales-director` (outreach skill) (cross-pollination on cold copy patterns), `chief-of-staff`
 </subagent_strategy>
 
 <domain_knowledge>
@@ -653,7 +684,7 @@ Context window discipline is NON-NEGOTIABLE.
 
 **Cross-agent routes:**
 - Routes TO: `creative-director` (upstream — brief), `designer` (when copy sits on a visual surface)
-- Receives FROM: `creative-director`, `marketing-director`, `social-media-manager`, `content-strategist`, `sales-outreach`, `chief-of-staff`
+- Receives FROM: `creative-director`, `marketing-director`, `social-media-manager`, `content-strategist`, `sales-director` (outreach skill), `chief-of-staff`
 
 ---
 

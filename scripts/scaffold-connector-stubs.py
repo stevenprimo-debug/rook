@@ -29,7 +29,7 @@ SERVICES = [
     ("quickbooks", "QuickBooks Online", "API-direct", ["finance-manager"],
      "OAuth2 flow. Env vars QBO_CLIENT_ID, QBO_CLIENT_SECRET, QBO_REFRESH_TOKEN, QBO_REALM_ID.",
      "All POST/PUT/DELETE (journal entries, invoices, bills) are N. Reads are Y."),
-    ("discord", "Discord", "API-direct (Bot token)", ["inbox-custodian", "marketing-director", "creative-director"],
+    ("discord", "Discord", "API-direct (Bot token)", ["inbox-manager", "marketing-director", "creative-director"],
      "Bot token from Developer Portal. Env var DISCORD_BOT_TOKEN. Bot must be invited to the server with required intents.",
      "Sending messages, role changes, kicks, bans are N. Reads (channel history, member list) are Y. WhatsApp-style voice-fidelity rule applies to drafts."),
     ("adobe-acrobat", "Adobe Acrobat / PDF Services API", "API-direct", ["sales-director", "account-manager", "designer"],
@@ -70,7 +70,7 @@ SERVICES = [
      "Reads (repo / issue / PR / commit) are Y. Writes (commits, PRs, merges, releases, issue creation) are N. The github-ops child skill enforces this gate."),
 
     # ---- MCP-reference only (no client.py needed) ----
-    ("google-calendar", "Google Calendar", "Anthropic MCP (already wired)", ["account-manager", "inbox-custodian", "chief-of-staff"],
+    ("google-calendar", "Google Calendar", "Anthropic MCP (already wired)", ["account-manager", "inbox-manager", "chief-of-staff"],
      "Wired via Anthropic MCP setup. No new credentials needed — use the existing MCP namespace.",
      "Event creation / update / delete are N (external state change). Reads are Y."),
     ("zoominfo", "ZoomInfo", "Anthropic MCP (already wired)", ["sales-director/skills/prospecting"],
@@ -85,7 +85,7 @@ SERVICES = [
     ("supabase", "Supabase", "Anthropic MCP (already wired)", ["software-dev-team"],
      "Wired via Anthropic MCP setup.",
      "apply_migration, execute_sql with mutations, branch creation are N. Reads (list_tables, get_logs, search_docs) are Y."),
-    ("drive-sharepoint", "Google Drive / SharePoint", "Anthropic MCP (already wired)", ["account-manager", "librarian", "inbox-custodian"],
+    ("drive-sharepoint", "Google Drive / SharePoint", "Anthropic MCP (already wired)", ["account-manager", "librarian", "inbox-manager"],
      "Wired via Anthropic MCP setup.",
      "File create / overwrite / delete are N. Reads (search, list, read_file_content) are Y."),
 ]

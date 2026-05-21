@@ -20,7 +20,11 @@ IN_TRADING=0
 [[ "$CWD" == *"agents/trading-analyst"* ]] && IN_TRADING=1
 
 if [[ "$IN_TRADING" -eq 0 ]]; then
-    if ! echo "$TOOL_INPUT" | grep -qiE '\b(entry|stop loss|target price|take profit|trade plan|trade setup|risk-sized|long this|short this|buy this|sell this|position size)\b'; then
+    # Phrase-anchored. Bare "entry" overfires on "index entry"/"log entry" — require
+    # trading-specific phrasing. Require 2+ matches outside trading cwd to suppress
+    # accidental single-keyword fires in infra/spec discussions.
+    MATCH_COUNT=$(echo "$TOOL_INPUT" | grep -ioE '\b(entry price|entry zone|entry trigger|stop loss|target price|take profit|trade plan|trade setup|risk-sized|long this|short this|buy this|sell this|position size)\b' | wc -l | tr -d ' ')
+    if [[ "${MATCH_COUNT:-0}" -lt 2 ]]; then
         exit 0
     fi
 fi

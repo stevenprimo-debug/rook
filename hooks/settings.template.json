@@ -3,11 +3,8 @@
   "env": {
     "PRIMOLABS_VAULT_ROOT": "${PRIMOLABS_VAULT_ROOT}",
     "PRIMOLABS_HOOKS_DIR": "${PRIMOLABS_HOOKS_DIR}",
-    "PRIMOLABS_HARDSTOP_HOUR": "16",
-    "PRIMOLABS_HARDSTOP_ENABLED": "1",
-    "PRIMOLABS_HARDSTOP_TZ": "Central Standard Time",
     "PRIMOLABS_POSTURE_STALE_DAYS": "7",
-    "PRIMOLABS_LIBRARIAN_CADENCE": "50"
+    "PRIMOLABS_LIBRARIAN_BACKGROUND": "1"
   },
   "hooks": {
     "SessionStart": [
@@ -23,6 +20,11 @@
             "type": "command",
             "command": "${HOOK_CMD_SESSION_PRELUDE}",
             "timeout": 12
+          },
+          {
+            "type": "command",
+            "command": "${HOOK_CMD_SESSION_MODE_INJECTOR}",
+            "timeout": 6
           }
         ]
       }
@@ -40,6 +42,21 @@
             "type": "command",
             "command": "${HOOK_CMD_PREFERENCE_DETECTOR}",
             "timeout": 8
+          },
+          {
+            "type": "command",
+            "command": "${HOOK_CMD_CONTEXT_WATCH_GATE}",
+            "timeout": 8
+          },
+          {
+            "type": "command",
+            "command": "${HOOK_CMD_VAULT_CONTEXT_INJECTOR}",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "${HOOK_CMD_SESSION_END_DETECT}",
+            "timeout": 6
           }
         ]
       }
@@ -56,17 +73,30 @@
         ]
       }
     ],
-    "PostToolUse": [
+    "PreCompact": [
       {
         "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "${HOOK_CMD_LIBRARIAN_DIGEST}",
-            "timeout": 8
+            "command": "${HOOK_CMD_PRECOMPACT_HANDOFF}",
+            "timeout": 20
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${HOOK_CMD_LIBRARIAN_DIGEST_BACKGROUND}",
+            "timeout": 5
           }
         ]
       }
     ]
-  }
+  },
+  "_librarian_runtime_note": "HOOK_CMD_LIBRARIAN_DIGEST_BACKGROUND is a wrapper that spawn-detaches the librarian-digest.ps1/.sh process so the SessionEnd event returns immediately. The librarian then grinds for 5-10 min in the background — running graphify update, walking the shelf + agent memory, writing the digest to agents/librarian/digests/YYYY-MM-DD-digest.md, and quarantining stale files to _archive/YYYY-MM/. INSTALL.ps1/.sh sets up the wrapper using Start-Process -WindowStyle Hidden on Windows or nohup + disown on bash. A nightly Task Scheduler / cron entry (also installed by INSTALL) catches users who don't end-session for >7 days."
 }

@@ -112,7 +112,7 @@ Full bench detail (frameworks, tension axis, swap candidates, rationale for prin
 Before ANY work, load institutional knowledge in this order. Delegate reads to a subagent if
 the combined context load would consume >15% of the main window.
 
-### 1a. Agent context (read + write access)
+### 1a. Agent identity (read + write access)
 
 All paths below are relative to `agents/<agent-slug>/`.
 
@@ -121,9 +121,8 @@ All paths below are relative to `agents/<agent-slug>/`.
 | Bench index | `personality/_bench.md` | The 3 principle-named poles + tension axis + frameworks list |
 | Frameworks index | `personality/frameworks_index.md` | Named callable methodologies the agent invokes — indexed by methodology, not by person |
 | Frameworks attribution | `personality/frameworks_attribution.md` | Academic credit for the originators of each framework. Reference; not invoked. |
-| Agent memory | `memory/` | Compounding institutional knowledge (waivers, patterns, exemplars, failure modes) |
-| Bundled context | `context/` | Curated source material shipped with the agent |
-| Agent's own child skills | `skills/` | Skills this agent has authored via `skill-creator` (see Master Skill as Skill-Builder section) |
+| Agent memory | `memory/` | THIS agent's compounding learnings (waivers, patterns, exemplars, failure modes) — starts empty in fresh install, fills as the customer uses ROOK |
+| Agent's own child skills | `skills/` (if present) | Skills this agent has authored via `skill-creator` (see Master Skill as Skill-Builder section) |
 
 **Write targets:**
 
@@ -132,10 +131,43 @@ All paths below are relative to `agents/<agent-slug>/`.
 | New learning (failure mode, pattern) | `memory/feedback_<topic>.md` (compounding-append pattern) |
 | Decision worth reusing | `memory/<topic>.md` |
 | Cross-agent dispatch trail | upstream agent memory + `agents/chief-of-staff/memory/dispatch_log.md` |
-| Per-session artifact | `context/YYYY-MM/<YYYY-MM-DD>-<topic>.md` with frontmatter |
 | New child skill (scaffolded via skill-creator) | `agents/<this-agent>/skills/<new-skill-slug>/SKILL.md` |
 
-### 1b. ROOK voice spine + system inheritance
+### 1a.2 Shared shelf via graph query (the primary retrieval path)
+
+For ANY domain-bound question, **query the shared shelf via graphify before answering**:
+
+```bash
+# Run from the project root. Returns BFS traversal of relevant graph subgraph.
+python -m graphify query "your domain question here" --budget 1500
+```
+
+The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shared shelf (`.claude/reference/<topic>/` — API docs, templates, methodology, learning paths). Querying it returns the most relevant 5-10 files with their cross-references — far better than walking folders or relying on training-data recall.
+
+| Query type | Pattern | Example |
+|---|---|---|
+| Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
+| Trace a specific concept chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
+
+**Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
+
+### 1b. External-service docs (load-on-demand — when about to use any external service)
+
+Whenever this agent is about to invoke an external service, **read the relevant shelf first**. Two shelves to know:
+
+| Shelf | Path | What lives here | When to load |
+|---|---|---|---|
+| **Connectors** (operational) | `.claude/connectors/<service>/` | MCP-backed services + clean-REST APIs with shared creds (Gmail, Cal.com, Stripe, HubSpot) | Before any call — read `README.md` + `api-reference.md` |
+| **Reference** (shared shelf) | `.claude/reference/<service>/` | API docs + library refs for services without MCP and without shared client (TradingView, Tradovate, Schwab) | Before any build against the service — read `README.md` |
+| Egress allowlist | `.claude/connectors/_egress-allowlist.md` | Both shelves' egress rules (Connectors table + "Agent-implemented API surfaces" table) | When deploying via Anthropic Managed Agents — verify domain is allowlisted |
+
+`.claude/reference/` is **shared across all agents**. Any agent can read any subfolder. Don't duplicate refs into agent-scoped `context/` — promote to `.claude/reference/` when two or more agents need the same docs.
+
+**The failure mode this prevents:** going straight to trial-and-error API calls because the agent didn't read the docs already in the vault (Shopify token saga, 2026-05-20 — 1 hour wasted on token-format confusion that was documented in the vault all along). Per `_CLAUDE.md` § 0 rule #12, the vault wins over training-data recall.
+
+### 1c. ROOK voice spine + system inheritance
 
 | Source | Path | Purpose |
 |---|---|---|
@@ -597,6 +629,27 @@ distinguishable by the question they asked]
 | New skill scaffold | Subagent loading `anthropic-skills:skill-creator` | Skill name + description (pushy) + trigger phrases + expected output + test prompts |
 | Web research | Explore subagent | Specific question; <500 word structured summary expected |
 | Context loading | Read-only subagent | File paths; "summarize in <N> words" |
+
+---
+
+## Interactive questions — UX contract
+
+ALL operator questions use `AskUserQuestion`. Zero prose questions. Ever.
+
+Every AskUserQuestion call follows the GStack decision-brief format:
+- Header: short label chip (≤12 chars)
+- Question: full question ending in `?`
+- Options: 2-4 labeled options, each with a description (≥40 chars)
+- One option flagged with "(Recommended)" — always present, even for taste calls
+- For effort-bearing options, dual-scale label: "(human: ~2 days / CC: ~15 min)"
+- "Other" auto-included by the tool — handles open-input cases
+
+Self-check before emitting:
+- [ ] Each option ≥40 chars description
+- [ ] (recommended) on one option
+- [ ] Effort labels dual-scale where applicable
+- [ ] Header chip ≤12 chars
+- [ ] You're calling the TOOL, not writing prose
 
 ---
 

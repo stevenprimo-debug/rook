@@ -9,6 +9,12 @@ playwright                    # used by .claude/skills/core/html-to-pdf/ for sea
 weasyprint                    # fallback PDF renderer
 pypdf2                        # PDF text extraction (engineering-lead drawing-reader skill)
 
+# Vector search (librarian + deep-researcher semantic indexing)
+# First run: downloads ~200MB model to HuggingFace cache (~/.cache/huggingface/)
+# Subsequent runs: uses cached model — works offline. NO API keys required.
+chromadb                      # persistent vector DB (local, no server needed)
+sentence-transformers         # local embedder — sentence-transformers/all-MiniLM-L6-v2
+
 # YAML + dataclasses (Python stdlib + light deps)
 pyyaml                        # YAML parsing in routing manifests, frontmatter
 

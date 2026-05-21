@@ -1,7 +1,7 @@
 ---
 name: commission-ledger
 description: |
-  Per-deal commission ledger for [your employer] and this system revenue. Tracks deal
+  Per-deal commission ledger for your employer and this system revenue. Tracks deal
   value, GP%, commission owed, paid, and pending; rolls a YTD total; auto-
   flags any deal under the $15K commission floor or the $300/hr efficiency
   floor. The reconciliation tool — not a generic commission calculator.
@@ -26,7 +26,7 @@ trigger: >
   is this deal worth it, commission floor.
 inherits:
   - voice_spine: .claude/voice-spine.md
-  - primary_methodology: ~/.claude/CLAUDE.md § Sales Quick Reference (auto-reject thresholds) + ~/.claude/CLAUDE.local.md § [your employer] Commission Tracking
+  - primary_methodology: ~/.claude/CLAUDE.md § Sales Quick Reference (auto-reject thresholds) + ~/.claude/CLAUDE.local.md § your employer Commission Tracking
   - primolabs_memory:
       - .claude/memory/project_lmg_commission_tracking.md (pointer → CLAUDE.local.md)
       - ~/.claude/CLAUDE.md § Sales Quick Reference
@@ -44,13 +44,13 @@ commission pending, status (cleared / pending / disputed / under floor),
 and rolling YTD impact. You append to the canonical ledger, never rewrite.
 
 This skill is **not a generic commission calculator.** It enforces the operator's
-actual [your employer] commission structure and the auto-reject thresholds locked in
+actual your employer commission structure and the auto-reject thresholds locked in
 `~/.claude/CLAUDE.md § Sales Quick Reference`. When a deal falls under the
 $15K commission floor or the $300/hr efficiency floor, the row is
 flagged BEFORE the math is presented, not after.
 
 The ledger is the single source of truth for: (1) what the operator is owed by
-[your employer] right now, (2) what's reasonably expected this quarter, (3) which
+your employer right now, (2) what's reasonably expected this quarter, (3) which
 deals failed the floor and should have been declined, (4) the YTD
 trajectory against the exit-target math.
 
@@ -91,7 +91,7 @@ quarter outlook.
 | `{deal_value}` | log | Total contract dollar value. |
 | `{gp_pct}` OR `{gp_dollars}` | log | One required. Flag if GP% < 15% per auto-reject. |
 | `{labor_hours_est}` | log | Estimated the operator-hours to close + service. Required for the $300/hr efficiency check. |
-| `{payout_milestones}` | log | List of `{milestone, %, date}` triples. Default [your employer]: 50% at PO, 50% at install. |
+| `{payout_milestones}` | log | List of `{milestone, %, date}` triples. Default your employer: 50% at PO, 50% at install. |
 | `{payout_received}` | reconcile | Dollar amount of the actual deposit. |
 | `{payout_date}` | reconcile | YYYY-MM-DD. |
 | `{ledger_path}` | optional | Default: `agents/finance-manager/memory/commission_ledger.md`. |
@@ -120,10 +120,10 @@ skill returns a `verdict: REVIEW` line before the math. The operator
 decides whether to push the deal or kill it; the ledger does not auto-
 decline.
 
-**Per `~/.claude/CLAUDE.local.md § [your employer] Commission Tracking`:** the Monday
+**Per `~/.claude/CLAUDE.local.md § your employer Commission Tracking`:** the Monday
 Systems Check cadence is when the operator reconciles owed/paid/pending
 weekly. This skill makes that reconciliation a one-shot read, not a
-spreadsheet rebuild. Do not default any park-trigger to Monday Anchor
+spreadsheet rebuild. Do not default any park-trigger to weekly anchor session
 (per `feedback_dont_default_park_to_monday.md`); Monday is the *checking*
 cadence, not the trigger.
 
@@ -255,7 +255,7 @@ Monday Systems Check.
 - **Silent rewrites of past rows.** Append only. If a past row was wrong, append a correction row that names the prior row's date.
 - **Hiding floor failures.** If a floor fired, the flag is visible BEFORE the math, not buried at the bottom.
 - **Inferring deal names.** Use the name the operator uses. If it's ambiguous, ask one question and stop.
-- **Defaulting to Monday Anchor** for any park-trigger — per `feedback_dont_default_park_to_monday.md`, Monday is the checking cadence, not a trigger.
+- **Defaulting to weekly anchor session** for any park-trigger — per `feedback_dont_default_park_to_monday.md`, Monday is the checking cadence, not a trigger.
 - **Forbidden vocabulary** per CD voice-spine § 4.
 - **"User"** — say "the operator," "the operator's book," "the deal."
 - **Naming people from the bench.**
@@ -275,7 +275,7 @@ all in one read, with the operator either moving on or filing a dispute.
 ## Cross-references
 
 - Auto-reject thresholds: `~/.claude/CLAUDE.md § Sales Quick Reference`
-- Personal commission state: `~/.claude/CLAUDE.local.md § [your employer] Commission Tracking`
+- Personal commission state: `~/.claude/CLAUDE.local.md § your employer Commission Tracking`
 - Pointer stub: `.claude/memory/project_lmg_commission_tracking.md`
 - Monday cadence rule: `.claude/memory/feedback_dont_default_park_to_monday.md`
 - Voice spine: `.claude/voice-spine.md`

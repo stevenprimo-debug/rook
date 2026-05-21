@@ -4,7 +4,7 @@ Why this exists: the same ROOK vault is run in two materially different contexts
 
 | Mode | Who runs it | Where their data lives | What ships to cohort |
 |---|---|---|---|
-| **operator** | The person who built ROOK (Primo) | `memory/operator/`, `context/operator/` | NEVER — excluded from `package-for-cohort.py` |
+| **operator** | The person who built ROOK (the operator) | `memory/operator/`, `context/operator/` | NEVER — excluded from `package-for-cohort.py` |
 | **customer** | A cohort member who installed ROOK | `memory/`, `context/` (default paths) | NOT APPLICABLE — they don't ship anything; this is their working vault |
 
 The point: when the operator uses ROOK for their own work, that work accumulates in the same vault that's also the source-of-truth for what ships to cohort. Without segregation, every cohort release requires hand-sanitization to strip the operator's accumulated personal/client data.

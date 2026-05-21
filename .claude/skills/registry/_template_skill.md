@@ -301,7 +301,7 @@ Critical domain facts that inform every engagement:
 - <Specific fact / rule / pattern>
 - <Specific fact / rule / pattern>
 
-**<PRIMO-SPECIFIC CONTEXT>:**
+**<OPERATOR-SPECIFIC CONTEXT>:**
 - <How this dept fits into the operator's broader mission / goals>
 - <What signals to watch for from his side>
 

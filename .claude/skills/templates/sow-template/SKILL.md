@@ -132,7 +132,7 @@ ChatGPT-style sense) is the failure mode.
 - Universal skeleton: `references/skeleton.md` (the master 12-section frame)
 - Sister skill: `proposal-template` (pre-contract pitch this SOW is downstream of)
 - Sister skill: `msa-template` (Master Services Agreement this SOW can reference if customer has one signed)
-- [example enterprise customer] v4 visual frame: `agents/sales-director/COMPANIES/[CLIENT_REPO]/[CLIENT_PROJECTS]/[ENTERPRISE_CLIENT]/[ENTERPRISE_CLIENT]/[ENTERPRISE_CLIENT_HQ]/PROPOSAL/[enterprise client]_Proposal_v4.html` (if customer wants branded SOW cover)
+- an enterprise customer v4 visual frame: `agents/sales-director/COMPANIES/[CLIENT_REPO]/[CLIENT_PROJECTS]/[ENTERPRISE_CLIENT]/[ENTERPRISE_CLIENT]/[ENTERPRISE_CLIENT_HQ]/PROPOSAL/[enterprise client]_Proposal_v4.html` (if customer wants branded SOW cover)
 - Shopify-services SOW seed pattern: customer engagement template
 - SOW skeleton seed: `out/2026-05-14-sow-template-skeleton.md`
 - Anti-pattern source: `.claude/memory/feedback_no_mono_in_proposals.md`, `feedback_design_quality_standard.md`, `feedback_html2pdf_always_seamless.md`

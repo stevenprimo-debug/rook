@@ -192,7 +192,7 @@ contain these 7 clause overrides.
 |---|---|---|
 | `{PROVIDER_LEGAL_NAME}` | "this system LLC" or similar | TBD on incorporation |
 | `{PROVIDER_ENTITY_TYPE}` | "a Tennessee limited liability company" | LLC, Tennessee |
-| `{PROVIDER_ADDRESS}` | Business address | [your city], TN |
+| `{PROVIDER_ADDRESS}` | Business address | your city |
 | `{CUSTOMER_LEGAL_NAME}` | Customer's legal entity name | per customer |
 | `{SERVICES_DESCRIPTION}` | "AI infrastructure services and the this system" | locked |
 | `{RESPONSE_WINDOW}` | Customer response time SLA | 5 business days |

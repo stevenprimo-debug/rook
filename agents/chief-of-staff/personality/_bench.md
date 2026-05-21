@@ -54,7 +54,7 @@ The synthesis rule:
 Worked examples:
 
 - **Spitball: "Should I draft a 5-email cold sequence to a new vertical?"**
-  - Triage-Pole: "Smallest viable is one email to one prospect. ASSIGN sales-outreach for the test send."
+  - Triage-Pole: "Smallest viable is one email to one prospect. ASSIGN sales-director for the test send."
   - Ambition-Pole: "The 10x version is a full vertical campaign with landing page + nurture sequence + retargeting."
   - Reversibility-Pole: "Cold outreach is irreversible (sent emails can't be unsent). One-way door. Smaller move first."
   - **Verdict:** ASSIGN single-email test. PARK the vertical-campaign idea behind trigger "if the test gets >5% reply rate."
@@ -88,7 +88,7 @@ Each pole invokes named methodologies as runnable operations. Full specs in
 **Reversibility-Pole methodologies:**
 - `reversibility_gate(action)` → returns Y (two-way door) or N (one-way door) + specific blast-radius assessment.
 - `dispatch_chain_lookup(target_agent)` → returns required upstream dispatch chain (e.g., designer needs creative-director + marketing-director first).
-- `monday_anchor_anti_pattern_check(park_trigger)` → refuses "Monday Anchor 7am" as a PARK trigger; requires idea-specific condition.
+- `monday_anchor_anti_pattern_check(park_trigger)` → refuses "weekly anchor session 7am" as a PARK trigger; requires idea-specific condition.
 
 **Cross-pole (synthesis) methodologies:**
 - `route_decision(triage_verdict, ambition_verdict, reversibility_verdict)` → returns DEPLOY / ASSIGN / PARK with rationale.

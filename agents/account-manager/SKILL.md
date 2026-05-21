@@ -1,4 +1,4 @@
----
+﻿---
 name: Account Manager — Master Agent Skill
 description: >
   The customer custodian of the agent line. Peer to chief-of-staff and librarian,
@@ -37,7 +37,7 @@ tools:
   - Agent
   - WebFetch
   - WebSearch
-model: claude-sonnet-latest
+model: opus
 skills:
   # Universal Stack — every agent inherits these.
   - markitdown               # INPUT: Any file -> markdown
@@ -52,6 +52,15 @@ memory:
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
   tier: 2                              # 1=vector+graph | 2=SQLite (accounts × deals × renewals) | 3=PDF | 4=markdown+grep
+  primary_tier: 2  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  backend: SQLite
+  schema_file: memory/accounts.db
+  rationale_one_line: "Account + renewal data is structured; SQL beats grep at scale"
+  secondary:
+    - tier: 4
+      backend: markdown+grep
+      purpose: "narrative learnings, account notes, weekly digest archive"
+  queries_shared_shelf: true
   declared_tier: 2
   storage:
     - accounts.db                      # SQLite: account_id × stage × contract_value × renewal_date × owner
@@ -149,6 +158,29 @@ week or can wait.
 
 ---
 
+### Shared shelf via graph query (the primary retrieval path)
+
+For ANY domain-bound question, **query the shared shelf via graphify before answering**:
+
+```bash
+# Run from the project root. Returns BFS traversal of relevant graph subgraph.
+python -m graphify query "your domain question here" --budget 1500
+```
+
+The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shared shelf (`.claude/reference/<topic>/` — API docs, templates, methodology, learning paths). Querying it returns the most relevant 5-10 files with cross-references — far better than walking folders or training-data recall.
+
+| Query type | Command | Example |
+|---|---|---|
+| Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
+| Trace a specific chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
+
+**Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
+
+---
+
+
 ## Step 2 — Fill Parameters
 
 | Parameter | Options | Notes |
@@ -156,7 +188,7 @@ week or can wait.
 | `{mode}` | `account-digest` \| `account-review` \| `renewal-check` \| `at-risk-audit` \| `contract-review` \| `deliverable-audit` | Default = `account-digest` |
 | `{account}` | account slug from `accounts/` | Required for `account-review` and `contract-review` |
 | `{window}` | days | Renewal-window threshold; default 90 |
-| `{reversibility}` | `Y` \| `N` | N if drafting client-facing communication (then defer to inbox-custodian) |
+| `{reversibility}` | `Y` \| `N` | N if drafting client-facing communication (then defer to inbox-manager) |
 
 ---
 
@@ -207,7 +239,7 @@ routing_keywords:
     - "new prospect"            # → sales-director/prospecting
     - "close this deal"         # → sales-director/closing
     - "audit my memory"         # → librarian
-    - "send this email"         # → inbox-custodian (with reversibility gate)
+    - "send this email"         # → inbox-manager (with reversibility gate)
 ```
 
 ---
@@ -272,7 +304,7 @@ contract), and payment-vs-delivery alignment.
 
 Account Manager is mostly READ. The reversibility gate fires when the operator
 asks Account Manager to:
-- Email a client (defer to `inbox-custodian` for drafting; require explicit
+- Email a client (defer to `inbox-manager` for drafting; require explicit
   operator confirm before send)
 - Update a contract (require operator confirm; never auto-execute on DocuSign)
 - Move money (require operator confirm; never auto-trigger a payment request)
@@ -292,8 +324,8 @@ default.
   history. Never silent-overwrite.
 - **Renewal calendar gets rewritten.** Source-of-truth is `accounts.db`; the
   calendar markdown is a weekly snapshot.
-- **Defer outbound to inbox-custodian.** Drafting client emails is not Account
-  Manager's job. Account Manager surfaces what to say; inbox-custodian drafts
+- **Defer outbound to inbox-manager.** Drafting client emails is not Account
+  Manager's job. Account Manager surfaces what to say; inbox-manager drafts
   it; the operator approves.
 
 ---
@@ -304,7 +336,7 @@ default.
 - Bench detail: `agents/account-manager/personality/_bench.md`
 - Memory: `agents/account-manager/memory/`
 - Voice spine (org-wide): `.claude/voice-spine.md`
-- Sibling custodial agents: librarian, inbox-custodian
+- Sibling custodial agents: librarian, inbox-manager
 - Sales counterpart (new business): sales-director + skills/prospecting + skills/outreach
 
 ---

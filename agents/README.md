@@ -1,4 +1,4 @@
-﻿# [your product] / Agents
+﻿# your product / Agents
 
 The 20 shippable agents that make up the/ROOK product line.
 
@@ -43,7 +43,7 @@ All 20 agents inherit the ROOK voice spine:
 
 ## Relationship to agents/
 `agents/` is the operator's internal workspace and stays unchanged.
-`Agents/` is the shippable product. Master-skill PATTERNS may be borrowed from `agents/`; raw content ([your employer] client data, personal context) does NOT cross over.
+`Agents/` is the shippable product. Master-skill PATTERNS may be borrowed from `agents/`; raw content (your employer client data, personal context) does NOT cross over.
 
 ## License
 MIT — curated catalog. Fork freely; external contributions not accepted (per the no-contribution lock, 2026-05-12).

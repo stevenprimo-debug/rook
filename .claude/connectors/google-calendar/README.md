@@ -4,7 +4,7 @@
 
 ## Consumers
 - `account-manager`
-- `inbox-custodian`
+- `inbox-manager`
 - `chief-of-staff`
 
 ## Integration kind
