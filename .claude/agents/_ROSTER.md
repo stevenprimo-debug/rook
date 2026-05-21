@@ -7,7 +7,7 @@ _Last updated: 2026-05-19_
 | 1 | Chief of Staff | chief-of-staff.md | agents/chief-of-staff/ |
 | 2 | Librarian | librarian.md | agents/librarian/ |
 | 3 | Account Manager | account-manager.md | agents/account-manager/ |
-| 4 | Inbox Custodian | inbox-manager.md | agents/inbox-manager/ |
+| 4 | Inbox Manager | inbox-manager.md | agents/inbox-manager/ |
 | 5 | Sales Director | sales-director.md | agents/sales-director/ |
 | 6 | Marketing Director | marketing-director.md | agents/marketing-director/ |
 | 7 | Creative Director | creative-director.md | agents/creative-director/ |
