@@ -1,0 +1,722 @@
+{
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\account-manager\\memory\\db.py": {
+    "mtime": 1779378733.2256098,
+    "hash": "2ce134d59ffcc79e92a6f8324c0a1ac2"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\account-manager\\memory\\schema.sql": {
+    "mtime": 1779378719.8946404,
+    "hash": "4536f2b0f33cd701a8d17060ee1825ab"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\deep-researcher\\memory\\embed.py": {
+    "mtime": 1779378936.4042618,
+    "hash": "5d97ec6ee0d143ab91f6d5ab70462a5c"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\finance-manager\\memory\\db.py": {
+    "mtime": 1779378756.7585793,
+    "hash": "56795f386a8b51f335e2fa54dfb70d9b"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\finance-manager\\memory\\schema.sql": {
+    "mtime": 1779378744.0051734,
+    "hash": "c86881045c1207578f940a0d8b7e73aa"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\inbox-manager\\memory\\db.py": {
+    "mtime": 1779378892.2106352,
+    "hash": "a28b6a451ac3cb59087ff3cccddb1167"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\inbox-manager\\memory\\schema.sql": {
+    "mtime": 1779378879.9119203,
+    "hash": "a396fc49622eb9022784e75aec6107b4"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\librarian\\memory\\embed.py": {
+    "mtime": 1779378918.6729896,
+    "hash": "8fde803c9c8e08949664045a31425336"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\sales-director\\memory\\db.py": {
+    "mtime": 1779378807.482384,
+    "hash": "94bc15358cf5d5c00cab2d1ce9eea335"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\sales-director\\memory\\schema.sql": {
+    "mtime": 1779378793.9002452,
+    "hash": "6d3dac79126d9a5261c81922f22ccedd"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\memory\\db.py": {
+    "mtime": 1779382798.9125488,
+    "hash": "01ae0a15f974aeedb82051cf5e35ead2"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\memory\\schema.sql": {
+    "mtime": 1779382777.0922208,
+    "hash": "e32ecba77a5749b2afcdcf5d3dc394be"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\skills\\operate\\scripts\\batch_by_size.py": {
+    "mtime": 1779383067.6926413,
+    "hash": "e5128e182f779010791ed4acd23d3a33"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\skills\\operate\\scripts\\build_handoff_excel.py": {
+    "mtime": 1779383013.4172947,
+    "hash": "7a7a935e719026bc3004256160e65807"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\skills\\operate\\scripts\\enrich_orders_and_batch.py": {
+    "mtime": 1779382985.8776252,
+    "hash": "7376a4cdfd4396f70d690dfebed79ead"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\skills\\operate\\scripts\\ingest_archive.py": {
+    "mtime": 1779383040.3136773,
+    "hash": "d2c1b08b85fa40c275f1df68dc10b241"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\skills\\operate\\scripts\\parse_disputes.py": {
+    "mtime": 1779382925.6906388,
+    "hash": "8411da3260e546b3dd18bb93945b71e1"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\skills\\operate\\scripts\\parse_gsheet.py": {
+    "mtime": 1779382953.1231506,
+    "hash": "77d1a1ae809515270273d3973a952d73"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\skills\\operate\\scripts\\shopify_order_pull.py": {
+    "mtime": 1779382891.9825757,
+    "hash": "17f61f5ae3b3f69c8f8d8b224fc5571e"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\trading-analyst\\memory\\db.py": {
+    "mtime": 1779378867.3397155,
+    "hash": "ab1298c2a8d1d49e90f342dcffa14d91"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\trading-analyst\\memory\\schema.sql": {
+    "mtime": 1779378845.74098,
+    "hash": "1d99c086b7831d0883d5dc54193470ed"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\README.md": {
+    "mtime": 1779321546.1081996,
+    "hash": "6474ad21ea78180a83a030659d02112c"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\_methodology-coverage.md": {
+    "mtime": 1779397201.5866768,
+    "hash": "c05d218ab55b4c07ded220c78ec3b601"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\account-manager\\CLAUDE.md": {
+    "mtime": 1779378508.256474,
+    "hash": "3a23ae96dc7d63ccab4a1bebcfcf9ebe"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\account-manager\\README.md": {
+    "mtime": 1779378508.256474,
+    "hash": "baabfa0cda28f00e0e6d12ba039e3f13"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\account-manager\\SKILL.md": {
+    "mtime": 1779379552.8076746,
+    "hash": "195c9d0bc75f400b3ef506cc5937ab14"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\account-manager\\personality\\frameworks_attribution.md": {
+    "mtime": 1779216861.6239097,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\account-manager\\personality\\frameworks_index.md": {
+    "mtime": 1779216861.6236963,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\account-manager\\personality\\_bench.md": {
+    "mtime": 1779216861.5967824,
+    "hash": "e7740885da2e17540da1518e86350416"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\chief-of-staff\\CLAUDE.md": {
+    "mtime": 1778877710.0,
+    "hash": "d80a1438ae3a3448f313064f0e3b6e1d"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\chief-of-staff\\README.md": {
+    "mtime": 1779378690.5840461,
+    "hash": "560519261647bba024cb47ef8fe84601"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\chief-of-staff\\SKILL.md": {
+    "mtime": 1779392318.3030205,
+    "hash": "5858c71d529f9e5aeeece3a79c098320"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\chief-of-staff\\assignments\\2026-05-21-capability-upgrade-optin-pattern.md": {
+    "mtime": 1779380408.9517002,
+    "hash": "87559452789e5c33effe223dd1e707df"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\chief-of-staff\\assignments\\2026-05-21-memory-architecture-html-defaults.md": {
+    "mtime": 1779378508.25798,
+    "hash": "89c12ae19fd60e95c3bc5aa3a5bf7820"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\chief-of-staff\\assignments\\2026-05-21-shopify-app-backend-spec.md": {
+    "mtime": 1779394120.3168137,
+    "hash": "2d1e9ed0907f8bb6132da710e280b8b8"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\chief-of-staff\\assignments\\2026-05-21-shopify-app-frontend-spec.md": {
+    "mtime": 1779394120.371201,
+    "hash": "a66d8ec699b156c2fc21156a97d74006"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\chief-of-staff\\memory\\dispatch_log.md": {
+    "mtime": 1779395196.7650688,
+    "hash": "749ea38fec37282776c7b12f996cddbc"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\chief-of-staff\\memory\\idea_log.md": {
+    "mtime": 1779394494.7360768,
+    "hash": "e832e76396dede773875d27ac3a78634"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\chief-of-staff\\personality\\frameworks_attribution.md": {
+    "mtime": 1779311175.2490566,
+    "hash": "5edb3e19194f890f431e0093bdc9683c"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\chief-of-staff\\personality\\frameworks_index.md": {
+    "mtime": 1779321546.8582222,
+    "hash": "85c2fa1cf4e89a4a508b511c4ff4512c"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\chief-of-staff\\personality\\_bench.md": {
+    "mtime": 1779321545.616846,
+    "hash": "6a9202be95d3b3fd554344bdbba65474"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\content-strategist\\CLAUDE.md": {
+    "mtime": 1778877710.0,
+    "hash": "7c7d2a60f60077875b9e85491df212be"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\content-strategist\\README.md": {
+    "mtime": 1779378569.0936801,
+    "hash": "7dc21b091fc4ddce16c13a1325f416a2"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\content-strategist\\SKILL.md": {
+    "mtime": 1779391727.1973755,
+    "hash": "ea6add025c641c583d5b26b911c1c33f"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\content-strategist\\personality\\frameworks_attribution.md": {
+    "mtime": 1778877710.0,
+    "hash": "e2306ca358c2a71a2c5766d8d1057e1b"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\content-strategist\\personality\\frameworks_index.md": {
+    "mtime": 1778877710.0,
+    "hash": "dca01a2f86eaddf24eb0cf02cf4dba71"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\content-strategist\\personality\\_bench.md": {
+    "mtime": 1779137535.841733,
+    "hash": "5a053f1fc35188902371c9ecc0c6de2b"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\copywriter\\CLAUDE.md": {
+    "mtime": 1778877710.0,
+    "hash": "a30c602f0116ebc3d6671f106d89d0af"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\copywriter\\README.md": {
+    "mtime": 1779378579.9644177,
+    "hash": "d2f6980c3eb8e527e8a5170de9b32653"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\copywriter\\SKILL.md": {
+    "mtime": 1779391727.2003758,
+    "hash": "b8f536e025e51657abd8dab072fa7d54"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\copywriter\\personality\\frameworks_attribution.md": {
+    "mtime": 1778877712.0,
+    "hash": "f5fad2140fdd412d3ad52f0ae693a49e"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\copywriter\\personality\\frameworks_index.md": {
+    "mtime": 1778877712.0,
+    "hash": "11bad931973627fd927751bb873554e7"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\copywriter\\personality\\_bench.md": {
+    "mtime": 1779137535.8457325,
+    "hash": "df23f909fe07f0140f5eca036bbe9591"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\creative-director\\CLAUDE.md": {
+    "mtime": 1778877712.0,
+    "hash": "5cca8af115c9dfaf6503d3779240d3a6"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\creative-director\\README.md": {
+    "mtime": 1779378603.3959234,
+    "hash": "48f404a0e387b0cc64ba42f8e0043677"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\creative-director\\SKILL.md": {
+    "mtime": 1779391727.2033758,
+    "hash": "bd0259d3cce993ce9cd2dca6f25783b4"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\creative-director\\memory\\returns\\2026-05-21-music-city-cuts-position.md": {
+    "mtime": 1779395177.9508631,
+    "hash": "a2823b4720725cf06aa288534524a815"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\creative-director\\personality\\frameworks_attribution.md": {
+    "mtime": 1778877712.0,
+    "hash": "5a6b2bccf32322481bd78541b2b29503"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\creative-director\\personality\\frameworks_index.md": {
+    "mtime": 1778877712.0,
+    "hash": "d269b95f1c85112438e70fa3dedb8f32"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\creative-director\\personality\\_bench.md": {
+    "mtime": 1779137535.8497338,
+    "hash": "ea040b4d5a4e00d323aab8dda5e0bbb2"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\deep-researcher\\CLAUDE.md": {
+    "mtime": 1778877712.0,
+    "hash": "cc5cc8bb78f30045f71c191f326d3162"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\deep-researcher\\README.md": {
+    "mtime": 1779323565.6881459,
+    "hash": "3ecdbc6e059f46f0618fcbfaf62763d5"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\deep-researcher\\SKILL.md": {
+    "mtime": 1779391685.0021696,
+    "hash": "3b066ab62dbff9a380012e7bbd9867a4"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\deep-researcher\\memory\\returns\\2026-05-21-music-city-cuts-competitive-scan.md": {
+    "mtime": 1779395104.3200443,
+    "hash": "7bc94eea5e74cbd3a75b2f2c692613f4"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\deep-researcher\\personality\\frameworks_attribution.md": {
+    "mtime": 1778877712.0,
+    "hash": "6acc402881e6aa2ec25d265aa19c6563"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\deep-researcher\\personality\\frameworks_index.md": {
+    "mtime": 1778877712.0,
+    "hash": "c1657f11eeb59a841683a9dc3037ca5d"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\deep-researcher\\personality\\_bench.md": {
+    "mtime": 1779137535.8517256,
+    "hash": "b3a79be8e37b34a8a4cc53937212ddcd"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\designer\\CLAUDE.md": {
+    "mtime": 1778877712.0,
+    "hash": "a5bed59437a0ae09fcbf6c7e6644133c"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\designer\\README.md": {
+    "mtime": 1779323438.490407,
+    "hash": "743bf70626dee571dac7cecf41e34ef7"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\designer\\SKILL.md": {
+    "mtime": 1779391727.207886,
+    "hash": "a59a8c35e00c8e45be7981138f85c767"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\designer\\memory\\returns\\2026-05-21-music-city-cuts-identity.md": {
+    "mtime": 1779396548.0894923,
+    "hash": "2f5fdc8ffcb0f8d4459c4b621b595402"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\designer\\personality\\frameworks_attribution.md": {
+    "mtime": 1778877712.0,
+    "hash": "d1ab777a015a3b337f72adb451759cb1"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\designer\\personality\\frameworks_index.md": {
+    "mtime": 1778877712.0,
+    "hash": "c43075569ff3692557451246e83f1597"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\designer\\personality\\_bench.md": {
+    "mtime": 1779137535.8552344,
+    "hash": "5f94ddc1b8dfce022d7de324ce8d4723"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\engineering-lead\\CLAUDE.md": {
+    "mtime": 1779213926.884864,
+    "hash": "947c89e0343302c6ec57385d7c9a11ea"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\engineering-lead\\README.md": {
+    "mtime": 1779323611.6666505,
+    "hash": "39d37dddd3d1b03145b196f3e83e0353"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\engineering-lead\\SKILL.md": {
+    "mtime": 1779391685.0031712,
+    "hash": "219317e5263fe81a5ad08f54e8da972f"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\engineering-lead\\personality\\frameworks_attribution.md": {
+    "mtime": 1779321546.8161678,
+    "hash": "0c2f277f10cb8b58d00feb77379f5a5f"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\engineering-lead\\personality\\frameworks_index.md": {
+    "mtime": 1778877714.0,
+    "hash": "3b79a5250e9c0a09037f8c3b26320b60"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\engineering-lead\\personality\\_bench.md": {
+    "mtime": 1779137535.8582456,
+    "hash": "59a0bab0f74193df8383dbebf8720dd9"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\finance-manager\\CLAUDE.md": {
+    "mtime": 1778877714.0,
+    "hash": "b980e59cad8001bb963a52f77c29bceb"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\finance-manager\\README.md": {
+    "mtime": 1779378616.792919,
+    "hash": "218a4e8c9adceff1abb98646fb830e2d"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\finance-manager\\SKILL.md": {
+    "mtime": 1779391685.0031712,
+    "hash": "c6e79e5eb2ae5c191ed9a03ffc571c82"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\finance-manager\\personality\\frameworks_attribution.md": {
+    "mtime": 1778877714.0,
+    "hash": "705c785534ee2a75ccbca5d9d1d0250e"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\finance-manager\\personality\\frameworks_index.md": {
+    "mtime": 1778877714.0,
+    "hash": "664f17a453f3940386970b4897efb2a7"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\finance-manager\\personality\\_bench.md": {
+    "mtime": 1779137535.861251,
+    "hash": "edd7074ae3e86f3b79ed5b586117bd76"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\inbox-manager\\CLAUDE.md": {
+    "mtime": 1779378487.5806844,
+    "hash": "08b367a6d8ec3841c2ea9e63bc29bd28"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\inbox-manager\\README.md": {
+    "mtime": 1779378705.1790397,
+    "hash": "f8990e116ebeffbdd48fd5113be847aa"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\inbox-manager\\SKILL.md": {
+    "mtime": 1779379552.8121831,
+    "hash": "ff56351927352f95775fb23917e914f6"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\inbox-manager\\personality\\frameworks_attribution.md": {
+    "mtime": 1779216938.3765788,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\inbox-manager\\personality\\frameworks_index.md": {
+    "mtime": 1779216938.376277,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\inbox-manager\\personality\\_bench.md": {
+    "mtime": 1779216938.3561635,
+    "hash": "2896f275f2b95de26992512ce845b18e"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\inbox-manager\\templates\\default-email.md": {
+    "mtime": 1779379391.9523866,
+    "hash": "6b2e7c68cae762c3c4bc205dddf98271"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\librarian\\CLAUDE.md": {
+    "mtime": 1779129438.1980827,
+    "hash": "d23ddbfdc43ceb2df504e503ac6d56e1"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\librarian\\prune-policy.md": {
+    "mtime": 1779314073.7662618,
+    "hash": "81c24cdce58a60765c6898f873cd28b5"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\librarian\\README.md": {
+    "mtime": 1779379873.533967,
+    "hash": "19d7c9b27bfb2b8e5de40b614a871cfb"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\librarian\\SKILL.md": {
+    "mtime": 1779380014.1625123,
+    "hash": "c4679a70d01ad3669c2fb55aa37d1be3"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\librarian\\digests\\2026-05-21-evening-digest.md": {
+    "mtime": 1779396630.0572565,
+    "hash": "23597f7ea8d13fcb981cde225c07a46b"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\librarian\\personality\\frameworks_attribution.md": {
+    "mtime": 1779311175.5966227,
+    "hash": "219c21263096b626339a2e06f0752ae5"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\librarian\\personality\\frameworks_index.md": {
+    "mtime": 1779311175.723463,
+    "hash": "38be8450a400ca9ef4db35d55f199150"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\librarian\\personality\\_bench.md": {
+    "mtime": 1779137535.864244,
+    "hash": "02ed5cee30955fa195d7d9e887efcacf"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\librarian\\skills\\memory-audit\\SKILL.md": {
+    "mtime": 1779316387.165153,
+    "hash": "9e5635ba9546f3e1df684deb90df1381"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\marketing-director\\CLAUDE.md": {
+    "mtime": 1778877714.0,
+    "hash": "658abecb4e850679a19ca5dd99cd9977"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\marketing-director\\README.md": {
+    "mtime": 1779323841.2966087,
+    "hash": "f6c8ac8dca2d8ed9d2a60a0d8df2d775"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\marketing-director\\SKILL.md": {
+    "mtime": 1779391727.2203891,
+    "hash": "95524e8184599b4fc5a1b8c5abc33414"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\marketing-director\\personality\\frameworks_attribution.md": {
+    "mtime": 1778877714.0,
+    "hash": "14b12696262350a0366c15ac8e334dcc"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\marketing-director\\personality\\frameworks_index.md": {
+    "mtime": 1778877714.0,
+    "hash": "842a6fa8c3e3d6e33b4480146e68adfa"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\marketing-director\\personality\\_bench.md": {
+    "mtime": 1779137535.8682466,
+    "hash": "16d7ade887ae4390277684ca10f7529a"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\product-manager\\CLAUDE.md": {
+    "mtime": 1778877716.0,
+    "hash": "0afd6b1e18a921c1513fd876a05e3076"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\product-manager\\README.md": {
+    "mtime": 1779323899.2480767,
+    "hash": "27d9bca28e468dbae59090e862ac7232"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\product-manager\\SKILL.md": {
+    "mtime": 1779391727.2233927,
+    "hash": "e1eaf8319b7c1d28ebad6d808e9ddac3"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\product-manager\\personality\\frameworks_attribution.md": {
+    "mtime": 1778877716.0,
+    "hash": "bbd3b08c9a90f6fd19a281a662238214"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\product-manager\\personality\\frameworks_index.md": {
+    "mtime": 1778877716.0,
+    "hash": "82f99f1920669fc773b1f9d74644da49"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\product-manager\\personality\\_bench.md": {
+    "mtime": 1779137535.8712392,
+    "hash": "0f60c7955551a4dc50c044cc96f081ed"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\r-and-d-lead\\CLAUDE.md": {
+    "mtime": 1778877716.0,
+    "hash": "2c0253637206ccb15e693012e15d1899"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\r-and-d-lead\\README.md": {
+    "mtime": 1779323923.4003804,
+    "hash": "0a310f3cba1ee2260d5e04707a9e8ce6"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\r-and-d-lead\\SKILL.md": {
+    "mtime": 1779391727.2253928,
+    "hash": "ccf1c09d2c07c062570767c16851db56"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\r-and-d-lead\\personality\\frameworks_attribution.md": {
+    "mtime": 1778877716.0,
+    "hash": "0b5177476717e210d291d8fa1b24ad0d"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\r-and-d-lead\\personality\\frameworks_index.md": {
+    "mtime": 1778877716.0,
+    "hash": "ce4603e95724730bbd98f4b481d99a08"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\r-and-d-lead\\personality\\_bench.md": {
+    "mtime": 1779214802.4756975,
+    "hash": "38131627d25eae7e1f32baff4b65ba7b"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\sales-director\\CLAUDE.md": {
+    "mtime": 1778877716.0,
+    "hash": "4f7e9713da543e85bb80881a7fe2f45c"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\sales-director\\README.md": {
+    "mtime": 1779378508.2659898,
+    "hash": "5c17af1ce7b6a9074b0bb5e52bc6f71b"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\sales-director\\SKILL.md": {
+    "mtime": 1779380014.1635175,
+    "hash": "c110c2fcc41628cfa9eb572ea7e6f95f"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\sales-director\\personality\\frameworks_attribution.md": {
+    "mtime": 1778877716.0,
+    "hash": "1727a1ead6dd494a8d5ef868a40c1ad5"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\sales-director\\personality\\frameworks_index.md": {
+    "mtime": 1778877718.0,
+    "hash": "ed8678f688295f6dfa1b1719b06c1433"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\sales-director\\personality\\_bench.md": {
+    "mtime": 1779137535.8793254,
+    "hash": "c23f129003847c34181d03a97cfc015c"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\sales-director\\skills\\outreach\\README.md": {
+    "mtime": 1779378508.2659898,
+    "hash": "209c015104577ca4376edb1b405f732a"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\sales-director\\skills\\outreach\\SKILL.md": {
+    "mtime": 1779321546.7439158,
+    "hash": "63dd733c4a1d04bd1e77153021cd6d23"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\sales-director\\skills\\outreach\\personality\\frameworks_attribution.md": {
+    "mtime": 1779130141.3181908,
+    "hash": "87ba0ab1463eb022b9a7dfed0ccc271c"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\sales-director\\skills\\outreach\\personality\\frameworks_index.md": {
+    "mtime": 1779321545.6058347,
+    "hash": "f5dfe7cfc8544c2b047f4890392066ef"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\sales-director\\skills\\outreach\\personality\\_bench.md": {
+    "mtime": 1779137535.8833191,
+    "hash": "d7b7f06d9823db14b4d3cddfa850e76e"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\sales-director\\skills\\prospecting\\README.md": {
+    "mtime": 1779321548.9786527,
+    "hash": "7bbe240bc6d163be25f169a80bb00553"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\sales-director\\skills\\prospecting\\SKILL.md": {
+    "mtime": 1779321545.6038325,
+    "hash": "3b5993c597e476d4cf3dc19bd71d782e"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\sales-director\\skills\\prospecting\\personality\\frameworks_attribution.md": {
+    "mtime": 1778877716.0,
+    "hash": "af55a611b7b8c38816891df1d7a4c5bd"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\sales-director\\skills\\prospecting\\personality\\frameworks_index.md": {
+    "mtime": 1778877716.0,
+    "hash": "f38210b1921293c6de8424b3a2cd4eff"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\sales-director\\skills\\prospecting\\personality\\_bench.md": {
+    "mtime": 1779137535.8743186,
+    "hash": "2739692a7e0851b99ee0f459fc586994"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\seo-specialist\\CLAUDE.md": {
+    "mtime": 1778877718.0,
+    "hash": "ad044aa217dd801a490603bca1573253"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\seo-specialist\\README.md": {
+    "mtime": 1779323950.6059685,
+    "hash": "ada53ab979d6819f1b5272ed64f07932"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\seo-specialist\\SKILL.md": {
+    "mtime": 1779391727.2313926,
+    "hash": "211d62d682ba07ee84595738d4218c75"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\seo-specialist\\personality\\frameworks_attribution.md": {
+    "mtime": 1778877718.0,
+    "hash": "4b7d539df7a62453fecb98ea41a1026e"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\seo-specialist\\personality\\frameworks_index.md": {
+    "mtime": 1778877718.0,
+    "hash": "85a4790b9b71feebea6772adf9bab371"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\seo-specialist\\personality\\_bench.md": {
+    "mtime": 1779137535.8863254,
+    "hash": "d22930ddc5d5b0b19526dd9f539119a4"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\CLAUDE.md": {
+    "mtime": 1778877718.0,
+    "hash": "917e6bbb0b4b2a5ac556e4d3aa96eee1"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\KNOWN_ISSUES.md": {
+    "mtime": 1779382818.242059,
+    "hash": "5322d06d02c40841cd3008068c9e19e9"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\README.md": {
+    "mtime": 1779323977.538113,
+    "hash": "5f654d4f574fa7589bbf5ec567acb446"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\SKILL.md": {
+    "mtime": 1779385570.0269978,
+    "hash": "2d9934463584e5940e04a80ed108105b"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\personality\\frameworks_attribution.md": {
+    "mtime": 1778877718.0,
+    "hash": "d516f7c9552b8f97129bda17ccbbd979"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\personality\\frameworks_index.md": {
+    "mtime": 1778877718.0,
+    "hash": "c3ccc863a12e5dc3ab82a2ff3f65beff"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\personality\\_bench.md": {
+    "mtime": 1779137535.889734,
+    "hash": "d242364830e68d6c532d027d5353408e"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\skills\\daily-ops\\RUNTIME.md": {
+    "mtime": 1779385541.787768,
+    "hash": "acff094795ca0228427024d94849c01e"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\skills\\daily-ops\\SKILL.md": {
+    "mtime": 1779385541.787768,
+    "hash": "e85b65a939f884ee5b193a0a84ff5064"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\skills\\daily-ops\\skills\\comms\\SKILL.md": {
+    "mtime": 1779385541.7907777,
+    "hash": "8367dc61c5be0d9d203181eb760e6b2c"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\skills\\daily-ops\\skills\\inventory\\SKILL.md": {
+    "mtime": 1779385541.78982,
+    "hash": "4e5e0d0cf93bcf818014fe73d0f2bbc4"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\skills\\daily-ops\\skills\\refunds\\SKILL.md": {
+    "mtime": 1779385541.7907777,
+    "hash": "3e3a74e09da0c5b7d65c195111a153b7"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\skills\\daily-ops\\skills\\shipping\\SKILL.md": {
+    "mtime": 1779385541.78982,
+    "hash": "c10ecb52b5a3cc5336164cb2bb8cd2d4"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\skills\\operate\\SKILL.md": {
+    "mtime": 1779383165.3217351,
+    "hash": "c4ae1bbf8f976d0c1380541608a647b5"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\shopify-agent\\skills\\operate\\templates\\cs-email-default.md": {
+    "mtime": 1779383083.0077765,
+    "hash": "76084c7418c1ceafed9fb5ce1b5897ff"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\social-media-manager\\CLAUDE.md": {
+    "mtime": 1778877718.0,
+    "hash": "7fd41d6713427db1c4cc395ce4d1f28f"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\social-media-manager\\README.md": {
+    "mtime": 1779378636.5649517,
+    "hash": "af480eef9ca8062377cc77f33fd56082"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\social-media-manager\\SKILL.md": {
+    "mtime": 1779391727.2379005,
+    "hash": "830f2de2665fc2a0965b5f3d7f084ada"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\social-media-manager\\personality\\frameworks_attribution.md": {
+    "mtime": 1778877720.0,
+    "hash": "76cdc3067e1ab618cd1e4517aff3ccb1"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\social-media-manager\\personality\\frameworks_index.md": {
+    "mtime": 1778877720.0,
+    "hash": "c68a92d30ade502f9e18d9d190786414"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\social-media-manager\\personality\\_bench.md": {
+    "mtime": 1779137535.8927329,
+    "hash": "383471ed2c05151924c3863fb8ef7d54"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\software-dev-team\\CLAUDE.md": {
+    "mtime": 1778877720.0,
+    "hash": "5295c1b4f113f133f15db6feb0e02d2c"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\software-dev-team\\README.md": {
+    "mtime": 1779378658.7772014,
+    "hash": "9734d91cd918b55661c4b52017636cc2"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\software-dev-team\\SKILL.md": {
+    "mtime": 1779391727.2409008,
+    "hash": "77a3c1b645947f9e24f1c3b2544b0c80"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\software-dev-team\\personality\\frameworks_attribution.md": {
+    "mtime": 1778877720.0,
+    "hash": "a8d89c2cfb0e4cf833a8b0dab7235131"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\software-dev-team\\personality\\frameworks_index.md": {
+    "mtime": 1778877720.0,
+    "hash": "0033e3882d7401ea272dd224f4d83ea1"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\software-dev-team\\personality\\_bench.md": {
+    "mtime": 1779137535.8957398,
+    "hash": "72be003276f8dc0bd47b03aa0549d9cd"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\software-dev-team\\skills\\github-ops\\SKILL.md": {
+    "mtime": 1779375448.4835262,
+    "hash": "2fd0aed59744e36f4408273090cd5b21"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\trading-analyst\\CLAUDE.md": {
+    "mtime": 1778877720.0,
+    "hash": "0d74ae6d84658b1a86aeeadeb3868cd5"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\trading-analyst\\README.md": {
+    "mtime": 1779378673.2690895,
+    "hash": "9763742105b92e57959f11e16eea24fc"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\trading-analyst\\SKILL.md": {
+    "mtime": 1779391685.0053372,
+    "hash": "12a11dee5d20807a9722dad08e56f142"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\trading-analyst\\personality\\frameworks_attribution.md": {
+    "mtime": 1779130398.6689713,
+    "hash": "3c58c4297a6308e4e31fc618d6101938"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\trading-analyst\\personality\\frameworks_index.md": {
+    "mtime": 1778877722.0,
+    "hash": "86a137b3ead05d6e547cba9ee9636028"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\trading-analyst\\personality\\_bench.md": {
+    "mtime": 1779137535.900741,
+    "hash": "49d8b1fe2d5aad7ce12c44d4903de627"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\_template\\CLAUDE.md": {
+    "mtime": 1778877722.0,
+    "hash": "2926ec794e4b8dc6c9af7244a31d3c49"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\_template\\README.md": {
+    "mtime": 1779208582.0010538,
+    "hash": "48e057d9101ce434afa66145b4f16454"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\_template\\SKILL.md": {
+    "mtime": 1779375640.4708922,
+    "hash": "4fa96bd2c9903eee8c0968e4f731d2f5"
+  },
+  "C:\\Users\\User\\Desktop\\PrimoLabs_PoweredByClaude\\agents\\_template\\personality\\_bench.md": {
+    "mtime": 1779124558.7466452,
+    "hash": "3dd159b62be96fcbc5fb8dc2c7c37feb"
+  }
+}
