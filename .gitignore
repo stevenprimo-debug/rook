@@ -85,3 +85,6 @@ agents/*/graphify-out/
 
 # Root-level graphify cache (operator-local; rebuilt by librarian)
 graphify-out-memory/
+
+# Operator-local Claude Code settings (never ships)
+.claude/settings.local.json
