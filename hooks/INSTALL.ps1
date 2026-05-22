@@ -55,7 +55,8 @@ $RequiredHooks = @(
     'pretooluse-routing-enforcer.ps1',
     'preamble-resolver.ps1',
     'context-watch-gate.ps1',
-    'dispatch-budget-watchdog.ps1'
+    'dispatch-budget-watchdog.ps1',
+    'graphify-weekly-rebuild.ps1'
 )
 $missing = @()
 foreach ($h in $RequiredHooks) {
@@ -326,6 +327,51 @@ try {
 } catch {
     Write-Warn "Could not register Task Scheduler entry: $($_.Exception.Message)"
     Write-Warn "Shutdown-resilience disabled. SessionEnd hook still works while computer is on."
+}
+
+# ---- WEEKLY GRAPHIFY REBUILD (Task Scheduler) -------------------------------
+# Runs `python -m graphify update` on agents/ and .claude/reference/ once a week.
+# AST-only re-extraction (no LLM tokens, no API key needed). Keeps the semantic
+# graph fresh as new memory accumulates. For full LLM-semantic re-extract, the
+# operator runs `graphify extract` manually.
+Write-Step "Registering Task Scheduler entry for weekly graphify rebuild"
+$GraphifyTaskName = 'PrimoLabsGraphifyWeeklyRebuild'
+$GraphifyScriptAbs = Join-Path $HooksDir 'graphify-weekly-rebuild.ps1'
+
+try {
+    Get-ScheduledTask -TaskName $GraphifyTaskName -ErrorAction SilentlyContinue | Unregister-ScheduledTask -Confirm:$false -ErrorAction SilentlyContinue
+
+    $graphifyAction = New-ScheduledTaskAction `
+        -Execute 'powershell.exe' `
+        -Argument "-NoProfile -WindowStyle Hidden -File `"$GraphifyScriptAbs`""
+
+    # Trigger: weekly, Sunday 3:15 AM local time (quiet hours)
+    $graphifyTrigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek Sunday -At 3:15AM
+
+    $graphifySettings = New-ScheduledTaskSettingsSet `
+        -StartWhenAvailable `
+        -AllowStartIfOnBatteries `
+        -DontStopIfGoingOnBatteries `
+        -ExecutionTimeLimit (New-TimeSpan -Minutes 30)
+
+    $graphifyPrincipal = New-ScheduledTaskPrincipal `
+        -UserId "$env:USERDOMAIN\$env:USERNAME" `
+        -LogonType Interactive `
+        -RunLevel Limited
+
+    Register-ScheduledTask `
+        -TaskName $GraphifyTaskName `
+        -Description 'PrimoLabs ROOK: weekly graphify update on agents/ and .claude/reference/. AST-only re-extraction (no LLM cost). Sunday 3:15am. Operator runs graphify extract manually for full LLM semantic rebuild.' `
+        -Action $graphifyAction `
+        -Trigger $graphifyTrigger `
+        -Settings $graphifySettings `
+        -Principal $graphifyPrincipal `
+        -Force | Out-Null
+
+    Write-OK "Task Scheduler entry registered: $GraphifyTaskName (runs Sundays at 3:15 AM)"
+} catch {
+    Write-Warn "Could not register graphify weekly rebuild: $($_.Exception.Message)"
+    Write-Warn "Weekly rebuild disabled. Operator can still run 'python -m graphify update <path>' manually."
 }
 
 # ---- WRITE -----------------------------------------------------------------

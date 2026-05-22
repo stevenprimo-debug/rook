@@ -56,6 +56,7 @@ REQUIRED_HOOKS=(
     "preamble-resolver.sh"
     "context-watch-gate.sh"
     "dispatch-budget-watchdog.sh"
+    "graphify-weekly-rebuild.sh"
 )
 MISSING=0
 for h in "${REQUIRED_HOOKS[@]}"; do
