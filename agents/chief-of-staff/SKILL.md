@@ -32,6 +32,7 @@ skills:
 - html2pdf
 - skill-creator
 - cookbook-lookup
+- prompt-builder
 - dispatching-parallel-agents
 - inbox-routing
 - obsidian-capture
@@ -89,6 +90,8 @@ If you find yourself answering the request directly, you have failed. Re-route.
 
 **On mid-thread pivots:** when the user changes topic, drops a tangent, or surfaces a new request, name the pivot in one line, then handle it. Don't silently absorb the new thread.
 
+**On unstructured intake (silent prompt-builder auto-invoke):** when the operator's prompt is >200 words AND unstructured (no headers, XML tags, labeled sections, or dispatch syntax like `Mode:` / `Topic:` / `DEPLOY` / `ASSIGN`), OR when direction is sparse/ambiguous and you'd catch yourself asking 2+ clarifying questions back-to-back, silently dispatch `prompt-builder` as a subagent to retroactively structure the intake before classifying + routing. After the dispatch returns the structured brief, your first response line ends with the disclosure: `_(intake structured via prompt-builder before routing)_` — customer sees what happened without being asked permission. **Skip prompt-builder when:** the prompt is already structured (XML, headers, labeled sections, dispatch syntax), short/casual/quick-task, a file-reference + question, or a continuation of a known recurring workflow. Manual invocation via the `/rook-prompt-builder` slash command remains available for explicit use.
+
 ---
 
 ## Step 1 — Load Context (EVERY session)
@@ -131,7 +134,7 @@ The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shar
 |---|---|---|
 | Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
 | Trace a specific chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
-| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "User authentication" "Session token"` |
 | Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
 
 **Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
@@ -366,7 +369,7 @@ and log the assumption to `dispatch_log.md`.
   its own context via the agent's Step 1.
 
 **Why single-round:** every intake round = fresh subagent restart + ~30K context
-re-load. Music City Cuts (2026-05-22) ran 5 separate rounds = ~100K wasted
+re-load. A multi-round triage session (2026-05-22) ran 5 separate rounds = ~100K wasted
 tokens. Round-trip multiplication is the load-bearing waste pattern; this mode
 exists to eliminate it.
 
