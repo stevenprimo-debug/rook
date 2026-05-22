@@ -37,7 +37,7 @@ This is the layer that means **the capture format never determines what comes ne
 `inbox-routing` reads each ingested markdown file's content + frontmatter + filename and classifies it into ONE of two destinations:
 
 **Destination A — Shared shelf (`.claude/reference/<topic>/`):**
-Cross-cutting reference material that ANY agent might need. API docs, contract templates, library references, methodology playbooks, industry intel. Filed by topic (`shopify/`, `tradingview/`, `templates/`, `methodology/`, etc.), not by consuming agent. One file lives in one place; the graph (see Stage 4) makes it findable from any angle.
+Cross-cutting reference material that ANY agent might need. API docs, contract templates, library references, doc clippings, vendor SDKs, methodology snapshots. Filed by topic (`shopify/`, `tradingview/`, `contract-templates/`, `anthropic/`, `creative-design/`, etc.), not by consuming agent. One file lives in one place; the graph (see Stage 4) makes it findable from any angle. (Cross-cutting `methodology/` is reserved as a promotion target — librarian moves multi-agent patterns there via `shelf-promote` mode.)
 
 **Destination B — Agent memory (`agents/<agent>/memory/`):**
 Agent-specific learnings, decisions the agent owns, compounding feedback from session-by-session work. The agent's own brain, distinct from the shared institutional library. Compounding-append pattern — versioned, never silently rewritten.
@@ -104,10 +104,10 @@ Most agent products ship one memory backend and call it a day. ROOK ships four, 
 
 | Tier | Backend | Who runs it | What it stores |
 |---|---|---|---|
-| **1 — Synthesizer** | Vector index + graph subset | chief-of-staff · librarian · deep-researcher | Semantic search across the shelf + entity relationships across many files |
-| **2 — Structured operator** | SQLite | sales-director · finance-manager · trading-analyst · shopify-agent | Deals, transactions, positions, products — anything tabular |
+| **1 — Synthesizer** | Vector index + graph subset | librarian · deep-researcher | Semantic search across the shelf + entity relationships across many files |
+| **2 — Structured operator** | SQLite | account-manager · sales-director · finance-manager · trading-analyst · shopify-agent · inbox-manager | Accounts, deals, invoices, positions, orders, threads — anything tabular |
 | **3 — Document reader** | Vectorless, on-demand PDF read | engineering-lead | CAD drawings, spec sheets, long technical PDFs queried per-session |
-| **4 — Default** | Markdown + grep + graph query | the other 12 agents | Files ARE the index (in shared shelf + per-agent memory); graphify is the cross-shelf retrieval layer |
+| **4 — Default** | Markdown + grep + graph query | the other 11 agents (chief-of-staff + 10 others) | Files ARE the index (in shared shelf + per-agent memory); graphify is the cross-shelf retrieval layer |
 
 **Why per-agent, not per-query:** the agent's data shape doesn't change every query. Sales pipeline data is tabular every day; brand guidelines are markdown every day. Picking the memory architecture per agent (declared once, used for every session) is simpler, cheaper, and explainable.
 
@@ -134,10 +134,12 @@ Git-ignored. Rebuilt by the librarian during the Sunday sweep. The shared graph 
 
 Each Tier 2 agent ships with a minimal default schema in its `memory/` folder. The customer extends with `ALTER TABLE` as their work grows. Defaults:
 
-- **sales-director** — `memory/pipeline.db` → `deals(id, name, stage, value, gp_pct, owner, created_at, updated_at)`
-- **finance-manager** — `memory/transactions.db` → `transactions(id, date, type, amount, category, notes)`
-- **trading-analyst** — `memory/positions.db` → `positions(id, ticker, side, entry, stop, target, size, status, opened_at, closed_at)`
-- **shopify-agent** — `memory/store.db` → `products(id, sku, title, price, margin_pct, status)` + `orders(id, product_id, qty, customer, status, ordered_at)`
+- **account-manager** — `memory/accounts.db` → `accounts`, `deals`, `renewals`, `at_risk_signals`
+- **sales-director** — `memory/pipeline.db` → `prospects`, `deals`, `stage_transitions`, `outreach_log`
+- **finance-manager** — `memory/finance.db` → `invoices`, `commissions`, `deal_economics`
+- **trading-analyst** — `memory/trading.db` → `setups`, `posture_history`, `journal`, `learnings`
+- **shopify-agent** — `memory/shopify.db` → `orders`, `line_items`, `customers`, `merchants`, `fulfillment`
+- **inbox-manager** — `memory/messages.db` → `threads`, `messages`, `drafts`, `escalations`, `triage_status`
 
 Defaults exist so the agent works on day one. Customer-authored extensions are the moat the cohort teaches.
 

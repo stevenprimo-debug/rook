@@ -1,49 +1,62 @@
-﻿# your product / Agents
+# ROOK / Agents
 
-The 20 shippable agents that make up the/ROOK product line.
+The 20 shippable agents that make up the ROOK product line.
 
-## Categories (matching yourcompany.com/agents)
+## The 20 agents (by category)
 
-- **Operations** — Chief of Staff
-- **Revenue** — Sales Outreach, Prospecting Agent, Sales Director, Shopify Agent
-- **Marketing** — Marketing Director, Content Strategist, Social Media Manager, SEO Specialist, AEO Specialist
-- **Creative** — Creative Director, Designer, Copywriter
-- **Research** — Deep Researcher
-- **Build** — Product Manager, Software Dev Team
-- **Lab** — R&D Lead
-- **Finance** — Finance Manager, Trading Analyst
-- **Platform** — GitHub Expert (internal/operational — not on website)
+- **Operations** — chief-of-staff · librarian · account-manager · inbox-manager
+- **Revenue** — sales-director · shopify-agent
+- **Marketing** — marketing-director · content-strategist · social-media-manager · seo-specialist
+- **Creative** — creative-director · designer · copywriter
+- **Research** — deep-researcher
+- **Build** — product-manager · software-dev-team · engineering-lead
+- **Lab** — r-and-d-lead
+- **Finance** — finance-manager · trading-analyst
 
-## Custom Roles
-Custom Roles is a **website CTA** (contact form), not an agent folder.
+Authoritative roster: [.claude/agents/_ROSTER.md](../.claude/agents/_ROSTER.md) (and the filesystem children of this folder). If this list disagrees with `_ROSTER.md`, `_ROSTER.md` wins.
 
-## Architecture
+## Sub-skills (not peer agents)
 
-Each agent follows the same shape:
-- `CLAUDE.md` — routing + scope
-- `SKILL.md` — master skill with modes (operational)
-- `personality/` — 3-tastemaker bench (polar + polar + middle); each figure has `_profile.md`, `frameworks.md`, `quotes.md`, `speak_as.md`
-- `context/` — bundled curated knowledge (RAG corpus later)
-- `memory/` — compounding institutional knowledge per agent
-- `README.md` — public-facing description
+`sales-director/skills/outreach/` and `sales-director/skills/prospecting/` are child skills under sales-director — not standalone agents. Outreach generates cold emails; prospecting builds account lists. Both are invoked from inside sales-director's `closing` and `discovery` modes.
+
+## Per-agent contract (5 required items)
+
+Each agent ships with:
+
+1. `CLAUDE.md` — routing scope (load-on-demand context rules + cross-dept delegation)
+2. `SKILL.md` — master skill body (3-pole bench, parameters, routing keywords, the prompt, worked examples)
+3. `personality/_bench.md` — 3-pole principle bench (depersonified — named by principle, not by figure)
+4. `personality/frameworks_index.md` — methodology references the agent invokes
+5. `personality/frameworks_attribution.md` — academic credit for borrowed methodology
+6. `memory/` — agent-written learned state (librarian-audited via weekly sweep)
+7. `context/` — optional human-curated reference material (loaded on session start)
+8. `README.md` — public-facing description
+
+AEO was folded into seo-specialist on 2026-05-14 — one agent, two benches (SEO mode + AEO mode), parameter-switched.
 
 ## Voice umbrella
-All 20 agents inherit the ROOK voice spine:
-`.claude/voice-spine.md`
 
-## Philosophy bench (system-level, inherited via Chief of Staff)
-- **Naval Ravikant** — leverage, specific knowledge, long-term games
-- **James Clear** — atomic habits, identity-based change, systems > goals
-- **Cal Newport** — deep work, slow productivity, "do less, deeper"
+All 20 agents inherit the ROOK voice spine: [.claude/voice-spine.md](../.claude/voice-spine.md). Banned vocabulary, lead-with-the-move discipline, no-preamble rule, anti-AI-slop posture all locked there.
 
-## Build status
-- [x] Skeleton — folders + stubs for all 20 agents (2026-05-12)
-- [ ] Designer — first complete agent (reference build, in progress)
-- [ ] Remaining 19 — populated per-agent over time
+## Routing
 
-## Relationship to agents/
-`agents/` is the operator's internal workspace and stays unchanged.
-`Agents/` is the shippable product. Master-skill PATTERNS may be borrowed from `agents/`; raw content (your employer client data, personal context) does NOT cross over.
+The cross-agent routing manifest is at [hooks/routing-rules.json](../hooks/routing-rules.json). Each agent's `## Routing Keywords` block in their SKILL.md is the canonical source — the manifest is an auto-mirror. Edit SKILL.md, run `python scripts/regenerate-routing-rules.py`.
+
+## Master template
+
+Every agent inherits the **ROOK Master Skill Template v2** at [_template/SKILL.md](_template/SKILL.md). New agents scaffold from this template (or invoke the bundled `skill-creator` at `.claude/skills/core/skills/skill-creator/`). Full positioning doc at [_template/README.md](_template/README.md).
+
+## Cross-references
+
+- [`.claude/agents/_ROSTER.md`](../.claude/agents/_ROSTER.md) — authoritative agent slug list
+- [`.claude/voice-spine.md`](../.claude/voice-spine.md) — org-wide voice contract
+- [`hooks/routing-rules.json`](../hooks/routing-rules.json) — routing manifest (auto-mirrored from each agent's SKILL.md)
+- [`agents/_template/SKILL.md`](_template/SKILL.md) — Master Skill Template v2 (every agent inherits)
 
 ## License
+
 MIT — curated catalog. Fork freely; external contributions not accepted (per the no-contribution lock, 2026-05-12).
+
+---
+
+<sub>Powered by [Claude](https://www.anthropic.com/claude) · Built by [PrimoLabs](https://primolabs.ai)</sub>

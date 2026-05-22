@@ -1,6 +1,6 @@
-# this system — Skills Library
+# ROOK — Skills Library
 
-> Every this agent ships with this curated library of operator-grade skills. Agents invoke them automatically; you can also call them directly as slash commands in Claude Code.
+> Every ROOK agent ships with this curated library of operator-grade skills. Agents invoke them automatically; you can also call them directly as slash commands in Claude Code.
 
 Skills are progressive-disclosure tools — small SKILL.md files with metadata that load only when their triggers fire. They turn recurring patterns into reusable capabilities so you (and the agents) never re-solve the same problem.
 
@@ -8,7 +8,7 @@ Skills are progressive-disclosure tools — small SKILL.md files with metadata t
 
 ## Universal Stack (every agent inherits these 4)
 
-Every agent shipped with this system declares these four skills in its frontmatter. They form the input-synthesis-output loop the agents rely on.
+Every agent shipped with ROOK declares these four skills in its frontmatter. They form the input-synthesis-output loop the agents rely on.
 
 | Skill | Path | What it does | When an agent uses it |
 |---|---|---|---|
@@ -80,7 +80,7 @@ The full obra/superpowers pack — engineering discipline as skills. Agents on t
 
 ## Meta-Capability (the skills that build skills)
 
-These are the skills that extend this system itself.
+These are the skills that extend ROOK itself.
 
 | Skill | Path | What it unlocks |
 |---|---|---|
@@ -106,7 +106,8 @@ Most skills are invocable as slash commands in Claude Code. Type `/` and the reg
 
 - `/audit-memory-skills` — run the memory audit
 - `/auto-skill-builder` — capture a new skill from a pattern
-- `/prompt-builder` — structure a long prompt
+- `/rook-prompt-builder` — structure a long prompt
+- `/rook-skill-creator` — scaffold a new skill against the Master Template v2
 - `/brainstorming` — kick off structured ideation
 
 See each skill's SKILL.md for full invocation pattern and trigger phrases.
@@ -125,3 +126,7 @@ See each skill's SKILL.md for full invocation pattern and trigger phrases.
 - **`copywriter` / `social-media`** — currently scoped to one specific brand voice. Will ship as templates in a future release.
 
 The cuts above stay in the source repo for the author's personal use but are not part of the customer-shipped Stack.
+
+---
+
+<sub>Powered by [Claude](https://www.anthropic.com/claude) · Built by [PrimoLabs](https://primolabs.ai)</sub>
