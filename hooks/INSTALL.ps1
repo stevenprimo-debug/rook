@@ -110,7 +110,6 @@ $cmdSuperpowers          = Build-HookCmd 'superpowers-init.ps1'
 $cmdPosture              = Build-HookCmd 'posture-staleness-gate.ps1'
 $cmdLibrarianBackground  = Build-BackgroundHookCmd 'librarian-digest.ps1'
 $cmdPreference           = Build-HookCmd 'preference-detector.ps1'
-$cmdSessionMode          = Build-HookCmd 'session-mode-injector.ps1'
 $cmdContextWatch         = Build-HookCmd 'context-watch-gate.ps1'
 $cmdDispatchBudget       = Build-HookCmd 'dispatch-budget-watchdog.ps1'
 
@@ -184,7 +183,6 @@ $hookSpec = [ordered]@{
         @{ name = 'superpowers-init.ps1';         cmd = $cmdSuperpowers;     timeout = 8;  matcher = '' },
         @{ name = 'session-prelude.ps1';          cmd = $cmdPrelude;         timeout = 12; matcher = '' },
         @{ name = 'preamble-resolver.ps1';        cmd = $cmdPreamble;        timeout = 5;  matcher = '' },
-        @{ name = 'session-mode-injector.ps1';    cmd = $cmdSessionMode;     timeout = 5;  matcher = '' },
         @{ name = 'dispatch-budget-watchdog.ps1'; cmd = $cmdDispatchBudget;  timeout = 4;  matcher = '' }
     )
     'UserPromptSubmit' = @(

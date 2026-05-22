@@ -52,7 +52,6 @@ REQUIRED_HOOKS=(
     "posture-staleness-gate.sh"
     "librarian-digest.sh"
     "preference-detector.sh"
-    "session-mode-injector.sh"
     "pretooluse-routing-enforcer.sh"
     "preamble-resolver.sh"
     "context-watch-gate.sh"
@@ -95,7 +94,6 @@ CMD_SUPERPOWERS=$(build_cmd "superpowers-init.sh")
 CMD_POSTURE=$(build_cmd "posture-staleness-gate.sh")
 CMD_LIBRARIAN=$(build_cmd "librarian-digest.sh")
 CMD_PREFERENCE=$(build_cmd "preference-detector.sh")
-CMD_SESSION_MODE=$(build_cmd "session-mode-injector.sh")
 CMD_CONTEXT_WATCH=$(build_cmd "context-watch-gate.sh")
 CMD_DISPATCH_BUDGET=$(build_cmd "dispatch-budget-watchdog.sh")
 
@@ -195,7 +193,6 @@ SETTINGS=$(echo "$SETTINGS" | jq \
     --arg cmdPost      "$CMD_POSTURE" \
     --arg cmdLib       "$CMD_LIBRARIAN" \
     --arg cmdPref      "$CMD_PREFERENCE" \
-    --arg cmdSessMode  "$CMD_SESSION_MODE" \
     --arg cmdPreToolUseRouting "$CMD_PRETOOLUSE_ROUTING" \
     --arg cmdPreamble  "$CMD_PREAMBLE" \
     --arg cmdCtxWatch  "$CMD_CONTEXT_WATCH" \
@@ -218,7 +215,6 @@ def strip_ours($arr):
         {type:"command", command:$cmdSp,         timeout:8},
         {type:"command", command:$cmdPrelude,    timeout:12},
         {type:"command", command:$cmdPreamble,   timeout:5},
-        {type:"command", command:$cmdSessMode,   timeout:5},
         {type:"command", command:$cmdDispBudget, timeout:4}
     ]}]
 | .hooks.UserPromptSubmit = strip_ours(.hooks.UserPromptSubmit) + [{
@@ -248,7 +244,7 @@ def strip_ours($arr):
     ]}]
 ')
 
-ok "SessionStart :: superpowers-init.sh, session-prelude.sh, preamble-resolver.sh, session-mode-injector.sh, dispatch-budget-watchdog.sh"
+ok "SessionStart :: superpowers-init.sh, session-prelude.sh, preamble-resolver.sh, dispatch-budget-watchdog.sh"
 ok "UserPromptSubmit :: routing-enforcer.sh, preference-detector.sh, context-watch-gate.sh, vault-context-injector.sh, session-end-detect.sh"
 ok "PreCompact :: precompact-handoff.sh"
 ok "PreToolUse :: posture-staleness-gate.sh, pretooluse-routing-enforcer.sh, dispatch-budget-watchdog.sh [matcher=Task|Agent]"

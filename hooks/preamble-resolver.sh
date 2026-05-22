@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # preamble-resolver.sh -- ROOK Tiered Preamble Resolver (macOS / Linux)
 # ---------------------------------------------------------------------------
-# Fires on SessionStart (after session-prelude.sh, before session-mode-injector.sh).
+# Fires on SessionStart (after session-prelude.sh).
 # Loads tiered preamble content from .claude/preamble/T1.md through T4.md
 # and injects into the session system-reminder.
 #

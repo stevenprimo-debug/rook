@@ -36,10 +36,13 @@ def regenerate_subgraph(slug: str) -> bool:
 
     output_dir.mkdir(parents=True, exist_ok=True)
 
+    # graphify CLI requires `extract` subcommand. `--out` flag (not `--output`).
+    # extract writes to <out>/graphify-out/, so we point at the agent dir, not output_dir.
     cmd = [
-        sys.executable, "-m", "graphify",
+        sys.executable, "-m", "graphify", "extract",
         str(memory_dir),
-        "--output", str(output_dir),
+        "--out", str(agent_dir),
+        "--no-cluster",
     ]
 
     try:
@@ -51,7 +54,7 @@ def regenerate_subgraph(slug: str) -> bool:
             cwd=str(VAULT_ROOT),
         )
         if result.returncode == 0:
-            print(f"  OK  {slug} → {output_dir.relative_to(VAULT_ROOT)}")
+            print(f"  OK  {slug} -> {output_dir.relative_to(VAULT_ROOT)}")
             return True
         else:
             # graphify may not be installed in this env — write a stub so the path exists

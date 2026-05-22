@@ -1,13 +1,12 @@
 # preamble-resolver.ps1 -- ROOK Tiered Preamble Resolver (Windows)
 # ---------------------------------------------------------------------------
-# Fires on SessionStart (after session-prelude.ps1, before session-mode-injector.ps1).
+# Fires on SessionStart (after session-prelude.ps1).
 # Loads tiered preamble content from .claude/preamble/T1.md through T4.md
 # and injects into the session system-reminder.
 #
 # Tier selection: reads $env:ROOK_PREAMBLE_TIER (default 2 if unset).
 # Agents declare their tier in their SKILL.md frontmatter (preamble-tier: 1|2|3|4).
-# The session-mode-injector or superpowers-init sets $env:ROOK_PREAMBLE_TIER
-# based on the detected agent. If unset, T1+T2 fires (safe default for all agents).
+# If unset, T1+T2 fires (safe default for all agents).
 #
 # Output: writes preamble block to stdout so Claude Code picks it up as
 # a system-reminder injection (same pattern as session-prelude.ps1).

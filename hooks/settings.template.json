@@ -23,11 +23,6 @@
           },
           {
             "type": "command",
-            "command": "${HOOK_CMD_SESSION_MODE_INJECTOR}",
-            "timeout": 6
-          },
-          {
-            "type": "command",
             "command": "${HOOK_CMD_DISPATCH_BUDGET_WATCHDOG}",
             "timeout": 4
           }

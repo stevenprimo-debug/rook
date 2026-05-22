@@ -104,20 +104,11 @@ Expected response: a one-paragraph orientation listing the 20 agents by category
 
 ## What you do NOT do during install
 
-- **Do NOT** set `ROOK_SESSION_MODE=operator` — that's a build-time flag for the operator who built ROOK. As a cohort customer, you stay in default (`customer`) mode, and your memory writes go to standard paths.
 - **Do NOT** commit your `.claude/credentials/` to git — it's in `.gitignore` for a reason.
 
 ## First-run
 
-Open Claude Code in this directory. The session-mode injector will surface:
-
-```
-===== ROOK SESSION MODE: CUSTOMER =====
-Active mode: CUSTOMER (default — operator did not set ROOK_SESSION_MODE)
-Memory writes go to: agents/<agent>/memory/<file> (shipped paths)
-```
-
-That's the signal everything is wired up correctly. Start with:
+Open Claude Code in this directory. The session-prelude hook will surface a one-paragraph orientation listing the 20 agents. That's the signal everything is wired up correctly. Start with:
 
 > "Hey chief-of-staff, what's in this vault?"
 
