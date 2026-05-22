@@ -88,6 +88,8 @@ budget:
   time_budget_minutes: 8
   token_budget: 50000
   max_dispatch_depth: 1
+graphify_rebuild_cadence: weekly
+audit_engine: .claude/skills/registry/audit-memory-skills/SKILL.md
 ---
 
 # Librarian — Master Agent Skill v2.0
