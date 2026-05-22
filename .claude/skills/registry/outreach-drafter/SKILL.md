@@ -3,8 +3,7 @@ name: outreach-drafter
 description: |
   Single-turn personalized first-touch email drafter. Operator supplies prospect info; the skill
   returns a 3-5 sentence email with personalized subject line, opening anchor, soft CTA, and
-  optional fallback variants. Never uses preamble. The email is the first artifact. In-session
-  counterpart to Phase 3 of the sales-triage-squad AMA and to the cold-outreach-personalizer AMA.
+  optional fallback variants. Never uses preamble. The email is the first artifact.
 type: skill
 category: sales
 version: "1.0.0"
@@ -24,8 +23,6 @@ trigger: >
   "first-line for this prospect," or pastes a prospect record expecting an email draft.
 inherits:
   - voice_spine: .claude/voice-spine.md
-  - ama_counterpart: skills/templates/ama-templates/sales-triage-squad/ama-definition.md (Phase 3)
-  - ama_counterpart_alt: skills/templates/ama-templates/cold-outreach-personalizer/ama-definition.md
 ---
 
 # Outreach Drafter
@@ -38,11 +35,11 @@ personalized subject line, an opening anchor (verifiable detail), a value propos
 the prospect's likely pain, and a soft CTA. Optional: 1-2 fallback variants if the operator
 wants A/B options.
 
-How this differs from the AMA counterparts: the sales-triage-squad AMA runs the full pipeline
-(enrich → score → draft) and stages drafts in HubSpot / AgentMail; the cold-outreach-
-personalizer AMA produces personalization at batch scale. This skill runs one draft, in chat,
-for the moment the operator wants one email now — a single high-stakes prospect, or a quick
-manual draft outside the batch pipeline.
+This skill runs one draft, in chat, for the moment the operator wants one email now — a single
+high-stakes prospect, or a quick manual draft outside any batch pipeline. For autonomous
+batch-scale outreach personalization (HubSpot / AgentMail / MailerLite routing), see the
+[21st-dev AI agents catalog](../../../reference/21st-dev-ai-agents/) — ROOK does not bundle
+hosted-agent pipeline templates by default.
 
 The skill enforces four rules: (1) the opening line anchors to a verifiable detail — never
 generic flattery; (2) email is 3-5 sentences max — anything longer is the operator drafting,
@@ -197,10 +194,7 @@ within 5 minutes of generation — no re-edit pass needed.
 
 ## Cross-references
 
-- AMA counterpart 1: `skills/templates/ama-templates/sales-triage-squad/SKILL.md` and
-  `ama-definition.md` (Phase 3 — Outreach Drafter)
-- AMA counterpart 2: `skills/templates/ama-templates/cold-outreach-personalizer/SKILL.md` and
-  `ama-definition.md`
+- Autonomous pipeline counterpart: [21st-dev AI agents catalog](../../../reference/21st-dev-ai-agents/) (downloadable, not bundled)
 - Owner agent: `agents/sales-director/skills/outreach/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Reference: `Clippings/HubSpot Academy.md` (sales-cadence patterns)

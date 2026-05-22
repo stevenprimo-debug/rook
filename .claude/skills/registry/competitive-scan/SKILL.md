@@ -1,10 +1,9 @@
----
+﻿---
 name: competitive-scan
 description: |
   Quick competitive landscape scan in one turn. Operator supplies a market or product category;
   the skill returns 5-8 competitors with positioning, differentiators, pricing posture, and
   category-level whitespace. Never uses preamble. The competitor table is the first artifact.
-  No AMA counterpart.
 type: skill
 category: research
 version: "1.0.0"
@@ -24,7 +23,6 @@ trigger: >
   "differentiators in the X market," "white space in X."
 inherits:
   - voice_spine: .claude/voice-spine.md
-  - ama_counterpart: None
 ---
 
 # Competitive Scan
@@ -42,9 +40,7 @@ loses the strategic shape.
 
 The skill also returns category-level whitespace — gaps in the competitive landscape where no
 listed competitor sits — because that's the operator's strategic surface, not the comparison
-itself.
-
-No AMA counterpart. Competitive scans benefit from operator scope-setting (which axes matter,
+itself. Competitive scans benefit from operator scope-setting (which axes matter,
 which competitors are real vs. theoretical) and one-shot scoping is the right pattern.
 
 ## How to use
@@ -188,7 +184,6 @@ gaps — the operator decides where to play within an hour of receiving the scan
 
 ## Cross-references
 
-- AMA counterpart: None — competitive scans benefit from operator scope-setting
 - Owner agent: `agents/deep-researcher/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `research-brief-quick`, `source-credibility-check`, `icp-fit-scorer` (when scan

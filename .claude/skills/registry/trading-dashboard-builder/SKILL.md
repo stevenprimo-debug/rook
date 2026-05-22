@@ -1,4 +1,4 @@
----
+﻿---
 name: trading-dashboard-builder
 description: |
   Generate a trading dashboard UI surface — positions, P&L, watchlist,
@@ -385,4 +385,3 @@ build straight from this spec.
 - Related skills: `tradingview-widget-builder` (chart panel), `tradingview-datafeed-implementation` (chart data), `risk-1pct-calculator` (trading-panel gate), `posture-reader` (status-bar indicator + trading-panel gate)
 - Cross-agent: designer agent's `frontend-design`, `claude-design-skill`, `design-for-ai` for taste enforcement on the implemented surface.
 - Owning agent: `trading-analyst`
-- No AMA counterpart — the operator-locked in-house skill (cohort + customer product surface). The broker integration itself (Schwab OAuth, order submission) IS an AMA candidate, separately scoped.

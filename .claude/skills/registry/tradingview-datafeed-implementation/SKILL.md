@@ -1,4 +1,4 @@
----
+﻿---
 name: tradingview-datafeed-implementation
 description: |
   Build a custom JavaScript Datafeed for TradingView Advanced Charts.
@@ -410,4 +410,3 @@ test harness — one paste, the chart renders real data.
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `tradingview-widget-builder` (the consumer of this Datafeed), `trading-dashboard-builder` (the surrounding UI), `pine-script-template` (strategy logic drawn on charts powered by this feed)
 - Owning agent: `trading-analyst`
-- No AMA counterpart — the operator-locked in-house skill.

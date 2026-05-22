@@ -1,10 +1,9 @@
----
+﻿---
 name: on-page-quick-check
 description: |
   Page-level on-page SEO checklist + fix recommendations in one turn. Narrower scope than
   seo-audit-quick — focuses on copy and structural fixes a writer or editor can apply directly,
-  no developer required. Never uses preamble. The pass/fail checklist is the first artifact. No
-  AMA counterpart.
+  no developer required. Never uses preamble. The pass/fail checklist is the first artifact.
 type: skill
 category: marketing
 version: "1.0.0"
@@ -24,7 +23,6 @@ trigger: >
   draft expecting on-page optimization feedback.
 inherits:
   - voice_spine: .claude/voice-spine.md
-  - ama_counterpart: None
 ---
 
 # On-Page Quick Check
@@ -39,9 +37,7 @@ placement). The output is a pass / fail / fix table the operator can work throug
 This skill is the "before-I-publish" gate. The operator runs it after the draft is written and
 before the page goes live. It catches the high-frequency copy-level misses: keyword-stuffed
 titles, missing H1, no internal links to pillar, alt text written as filenames, FAQ section
-that doesn't carry FAQ schema.
-
-No AMA counterpart. The check is operator-in-the-loop by design — the writer applies the fixes
+that doesn't carry FAQ schema. The check is operator-in-the-loop by design — the writer applies the fixes
 mid-draft.
 
 ## How to use
@@ -167,7 +163,6 @@ or the FIX FIRST verdict with 3 named fixes the writer can apply in 15 minutes b
 
 ## Cross-references
 
-- AMA counterpart: None — writer-level on-page checks are in-session-only
 - Owner agent: `agents/seo-specialist/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `seo-audit-quick` (developer-level), `keyword-cluster-quick` (upstream of

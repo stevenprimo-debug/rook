@@ -6,7 +6,9 @@ published: []
 created: 2026-05-12
 description: Structure
 tags: [clippings]
-dept_secondary: [FINANCE]
+category: vendor-api-reference
+rook-relevance: high
+rook-consumers: trading-analyst, software-dev-team
 ---
 ## Structure
 

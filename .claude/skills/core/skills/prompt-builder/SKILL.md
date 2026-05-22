@@ -112,11 +112,7 @@ Wrap your output in <result> tags.
 </output>
 ```
 
-**Prefill trick:** You can also add a prefill line after the prompt to skip Claude's preamble:
-```
-Start your response with exactly this: {"analysis":
-```
-Claude will continue from there, skipping any setup language.
+**Structured-output guidance:** To bypass preamble and lock output shape, use **Structured Outputs API** (`response_format` with JSON schema) for guaranteed schema conformance, or use **system-prompt instructions** that specify the exact opening — e.g., "Begin your response with `{\"analysis\":`". Prefilling the assistant turn is **deprecated** on current Opus, Sonnet, and Haiku models — the API returns a 400 error. Use the structured-output path instead.
 
 ---
 

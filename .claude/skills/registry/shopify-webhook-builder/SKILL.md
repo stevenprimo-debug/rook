@@ -1,10 +1,10 @@
----
+﻿---
 name: shopify-webhook-builder
 description: |
   Single-turn Shopify webhook scaffolder. Operator names a webhook topic (orders/create,
   fulfillments/create, refunds/create, etc.); the skill returns subscription config, HMAC
   verification handler, payload schema reference, idempotency pattern, and retry-handling logic.
-  Never uses preamble. The handler stub is the first artifact. No AMA counterpart.
+  Never uses preamble. The handler stub is the first artifact.
 type: skill
 category: shopify
 version: "1.0.0"
@@ -24,7 +24,6 @@ trigger: >
   webhook handler," or names any Shopify webhook topic expecting setup help.
 inherits:
   - voice_spine: .claude/voice-spine.md
-  - ama_counterpart: None
 ---
 
 # Shopify Webhook Builder
@@ -47,9 +46,7 @@ The skill enforces four rules: (1) HMAC verification is non-optional — Shopify
 unverified handlers; (2) the handler returns 200 fast and offloads work to a queue, because
 Shopify's retry policy is aggressive; (3) idempotency key (X-Shopify-Webhook-Id header) is
 recorded before processing to prevent duplicate execution; (4) payload schema is referenced,
-not assumed.
-
-No AMA counterpart. Webhook scaffolds are high-context per topic + downstream system.
+not assumed. Webhook scaffolds are high-context per topic + downstream system.
 
 ## How to use
 
@@ -235,7 +232,6 @@ is live within an hour with HMAC + retries + idempotency all handled.
 
 ## Cross-references
 
-- AMA counterpart: None — webhook scaffolds are high-context
 - Owner agent: `agents/shopify-agent/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Reference: `agents/shopify-agent/memory/2026-05/About webhooks.md`,

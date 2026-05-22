@@ -4,7 +4,7 @@ description: |
   Single-turn research brief. Operator supplies a question; the skill decomposes into 3-5
   sub-questions, runs targeted searches, reads sources in full, and returns a structured brief
   with inline citations + confidence-and-gaps note. Never uses preamble. The decomposition is
-  the first artifact. In-session counterpart to the deep-researcher AMA template.
+  the first artifact.
 type: skill
 category: research
 version: "1.0.0"
@@ -24,22 +24,21 @@ trigger: >
   true about X," "synthesize what's known about X."
 inherits:
   - voice_spine: .claude/voice-spine.md
-  - ama_counterpart: skills/templates/ama-templates/deep-researcher/ama-definition.md
 ---
 
 # Research Brief Quick
 
 ## Overview
 
-Owner agent: **deep-researcher**. This skill collapses the deep-researcher AMA into a single chat
-turn. Operator gives a question; the skill (1) decomposes it into 3-5 concrete sub-questions
-that together cover the topic, (2) runs targeted searches for each sub-question, (3) reads
-sources in full and extracts specific claims with attribution, (4) synthesizes a structured brief
-with inline citations and a confidence-and-gaps section.
+Owner agent: **deep-researcher**. Operator gives a question; the skill (1) decomposes it into
+3-5 concrete sub-questions that together cover the topic, (2) runs targeted searches for each
+sub-question, (3) reads sources in full and extracts specific claims with attribution,
+(4) synthesizes a structured brief with inline citations and a confidence-and-gaps section.
 
-How this differs from the AMA counterpart: the AMA is the operator's standing chat-UI research
-console, with multi-turn drill-down support. This skill runs once, returns the brief, and is
-meant for the moment the operator needs a sourced answer now and will iterate later if needed.
+This skill runs once, returns the brief, and is meant for the moment the operator needs a
+sourced answer now and will iterate later if needed. For a standing multi-turn chat-UI research
+console, see the [21st-dev AI agents catalog](../../../reference/21st-dev-ai-agents/) — ROOK
+does not bundle hosted-agent pipeline templates by default.
 
 The skill enforces three rules: (1) sources read in full, not skimmed — extracted claims must
 be load-bearing in the source; (2) skepticism is the default — if sources conflict, the brief
@@ -191,8 +190,7 @@ re-reading the source material.
 
 ## Cross-references
 
-- AMA counterpart: `skills/templates/ama-templates/deep-researcher/SKILL.md` and
-  `ama-definition.md` — autonomous chat-UI version
+- Autonomous pipeline counterpart: [21st-dev AI agents catalog](../../../reference/21st-dev-ai-agents/) (downloadable, not bundled)
 - Owner agent: `agents/deep-researcher/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `source-credibility-check`, `competitive-scan`, `content-pipeline-builder`

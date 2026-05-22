@@ -1,10 +1,10 @@
----
+﻿---
 name: agentic-commerce-flow
 description: |
   Single-turn agentic commerce flow designer for Shopify's Universal Commerce Protocol (UCP).
   Operator describes the buyer journey; the skill returns a complete flow design — agent profile,
   discovery / cart / checkout sequence, MCP tool calls, fallback paths, and trust-tier
-  considerations. Never uses preamble. The flow diagram is the first artifact. No AMA counterpart.
+  considerations. Never uses preamble. The flow diagram is the first artifact.
 type: skill
 category: shopify
 version: "1.0.0"
@@ -24,7 +24,6 @@ trigger: >
   "AI shopping flow," "agent cart."
 inherits:
   - voice_spine: .claude/voice-spine.md
-  - ama_counterpart: None
 ---
 
 # Agentic Commerce Flow
@@ -48,9 +47,7 @@ The skill enforces three rules: (1) every flow names the trust-tier requirement 
 direct-checkout requires higher tier than discovery-only; (2) MCP tool calls are real (matching
 Shopify's published Catalog MCP tool signatures), not invented; (3) every flow has a fallback
 for the trust-tier-insufficient case — usually "redirect to merchant storefront for checkout
-completion."
-
-No AMA counterpart. Flow design is high-context per agent's product domain and trust posture.
+completion." Flow design is high-context per agent's product domain and trust posture.
 
 ## How to use
 
@@ -245,7 +242,6 @@ discovery query within an hour.
 
 ## Cross-references
 
-- AMA counterpart: None — flow design is high-context
 - Owner agent: `agents/shopify-agent/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Reference: `agents/shopify-agent/memory/2026-05/Agentic commerce.md`,

@@ -4,7 +4,6 @@ description: |
   Single-turn Apollo.io search query builder. Operator supplies ICP criteria; the skill returns
   a structured Apollo search query with projected result count, filter rationale, and
   ready-to-paste Apollo URL parameters. Never uses preamble. The query is the first artifact.
-  In-session counterpart to Phase 1 of the lead-to-deal-pipeline AMA.
 type: skill
 category: sales
 version: "1.0.0"
@@ -24,7 +23,6 @@ trigger: >
   describes ICP criteria expecting an Apollo query in return.
 inherits:
   - voice_spine: .claude/voice-spine.md
-  - ama_counterpart: skills/templates/ama-templates/lead-to-deal-pipeline/ama-definition.md (Phase 1)
 ---
 
 # Apollo Prospect Search
@@ -41,10 +39,11 @@ and most operators end up with either over-filtered (50 results, half irrelevant
 under-filtered (10,000 results, scoring needed) searches. This skill produces the right-sized
 query in one turn.
 
-How this differs from the AMA counterpart: the lead-to-deal-pipeline AMA runs the full Apollo →
-HubSpot → Slack → Calendly pipeline autonomously per batch. This skill produces just Phase 1's
-search query, in chat, for the operator who wants to review the query before running it — or
-who's using a different downstream system (manual export, custom CRM, in-house pipeline).
+This skill produces just the search query, in chat, for the operator who wants to review the
+query before running it — or who's using a different downstream system (manual export, custom
+CRM, in-house pipeline). For a fully autonomous Apollo → HubSpot → Slack → Calendly pipeline,
+see the [21st-dev AI agents catalog](../../../reference/21st-dev-ai-agents/) (lead-to-deal-pipeline
+agent by reapollo) — ROOK does not bundle hosted-agent pipeline templates by default.
 
 The skill enforces three rules: (1) the query is ICP-tight — projected result count between
 50-500 is the sweet spot; (2) every filter has a rationale tied to the ICP; (3) the output
@@ -213,8 +212,7 @@ the operator pastes either into their tool and gets the prospect list within 5 m
 
 ## Cross-references
 
-- AMA counterpart: `skills/templates/ama-templates/lead-to-deal-pipeline/SKILL.md` and
-  `ama-definition.md` (Phase 1 — Apollo Search)
+- Autonomous pipeline counterpart: [21st-dev lead-to-deal-pipeline agent](../../../reference/21st-dev-ai-agents/) (downloadable, not bundled)
 - Owner agent: `agents/sales-director/skills/prospecting/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `icp-fit-scorer` (scores prospects after search), `outreach-drafter` (drafts

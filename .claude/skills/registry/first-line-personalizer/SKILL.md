@@ -3,8 +3,7 @@ name: first-line-personalizer
 description: |
   Just the opening line — hyper-personalized, under 25 words, anchored to a verifiable detail.
   Operator supplies prospect info; the skill returns 1-3 alternate first lines proving the email
-  wasn't mass-generated. Never uses preamble. The first line is the first artifact. In-session
-  counterpart to the cold-outreach-personalizer AMA scoped to just the opening.
+  wasn't mass-generated. Never uses preamble. The first line is the first artifact.
 type: skill
 category: sales
 version: "1.0.0"
@@ -24,7 +23,6 @@ trigger: >
   pastes a prospect record asking for just the opening (not the whole email).
 inherits:
   - voice_spine: .claude/voice-spine.md
-  - ama_counterpart: skills/templates/ama-templates/cold-outreach-personalizer/ama-definition.md
 ---
 
 # First-Line Personalizer
@@ -41,9 +39,10 @@ A good opener buys 5 more seconds of attention; a generic opener kills the email
 preview pane. Splitting this from the full draft lets operators iterate on openers
 independently and slot them into different body templates.
 
-How this differs from the AMA counterpart: the cold-outreach-personalizer AMA personalizes
-first lines at batch scale and routes prospects into MailerLite sequences. This skill produces
-one or two first lines for one prospect in one chat turn — the surgical version.
+This skill produces one or two first lines for one prospect in one chat turn — the surgical
+version. For batch-scale first-line personalization with MailerLite routing, see the [21st-dev
+AI agents catalog](../../../reference/21st-dev-ai-agents/) — ROOK does not bundle hosted-agent
+pipeline templates by default.
 
 The skill enforces three rules: (1) anchor must be verifiable and specific (recent post,
 funding round, role move, product launch, content they wrote, podcast they were on) — never
@@ -181,8 +180,7 @@ into an email body and sends within 2 minutes — no re-edit needed.
 
 ## Cross-references
 
-- AMA counterpart: `skills/templates/ama-templates/cold-outreach-personalizer/SKILL.md` and
-  `ama-definition.md` — batch-scale version with Clay + MailerLite
+- Autonomous pipeline counterpart: [21st-dev AI agents catalog](../../../reference/21st-dev-ai-agents/) (downloadable, not bundled)
 - Owner agent: `agents/sales-director/skills/outreach/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Pairs with: `outreach-drafter` (this skill produces the opener; that one builds the body

@@ -6,7 +6,9 @@ published: []
 created: 2026-05-11
 description: Create and manage your webhook subscriptions using the GraphQL Admin API.
 tags: [clippings]
-dept_secondary: [SOFTWARE DEV]
+category: vendor-api-reference
+rook-relevance: high
+rook-consumers: shopify-agent, software-dev-team
 ---
 
 To configure shop-specific subscriptions, use the GraphQL Admin API. Shopify recommends using your app configuration file in most instances, and when configuring app-specific subscriptions. Refer to the tutorial for [setting up a subscription](https://shopify.dev/docs/apps/build/webhooks/subscribe/get-started) to learn how.

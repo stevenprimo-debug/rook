@@ -58,8 +58,8 @@ Tie-breaking: alphabetical by dept name.
 
 ```yaml
 dept_routed: MARKETING
-dept_secondary: [PRIMOLABS, CEO]
-routing_score: "CEO=2, MARKETING=12, PRIMOLABS=5"
+dept_secondary: [OPERATIONS, MARKETING]
+routing_score: "OPERATIONS=2, MARKETING=12, SALES=5"
 ```
 
 ## Indexes generated automatically

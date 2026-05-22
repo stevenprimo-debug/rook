@@ -4,8 +4,7 @@ description: |
   Single-turn ICP scoring. Operator supplies a prospect record + ICP definition; the skill
   returns a 0-100 weighted score across title seniority, company size, industry match, and
   tech overlap — plus a tier (HOT / WARM / COLD) and the specific signals that drove the score.
-  Never uses preamble. The score is the first artifact. In-session counterpart to Phase 2 of
-  the sales-triage-squad AMA.
+  Never uses preamble. The score is the first artifact.
 type: skill
 category: sales
 version: "1.0.0"
@@ -25,7 +24,6 @@ trigger: >
   or pastes a prospect record expecting a fit-score.
 inherits:
   - voice_spine: .claude/voice-spine.md
-  - ama_counterpart: skills/templates/ama-templates/sales-triage-squad/ama-definition.md (Phase 2)
 ---
 
 # ICP Fit Scorer
@@ -37,12 +35,13 @@ and returns a 0-100 weighted score with tier classification (HOT 75-100 / WARM 5
 0-49). The output names the specific signals that drove the score so the operator can see why
 the prospect rates where it does.
 
-How this differs from the AMA counterpart: the sales-triage-squad AMA Phase 2 scores prospects
-in batch and writes back to HubSpot on custom properties. This skill scores one prospect in
-chat — for the operator manually triaging a high-stakes prospect, evaluating an inbound demo
-request, or sense-checking a referred contact before working it.
+This skill scores one prospect in chat — for the operator manually triaging a high-stakes
+prospect, evaluating an inbound demo request, or sense-checking a referred contact before
+working it. For autonomous batch scoring with HubSpot write-back, see the [21st-dev AI agents
+catalog](../../../reference/21st-dev-ai-agents/) — ROOK does not bundle hosted-agent pipeline
+templates by default.
 
-The scoring rubric mirrors the AMA's weighting:
+The scoring rubric weighting:
 - Title seniority: 30%
 - Company size fit: 25%
 - Industry match: 20%
@@ -213,8 +212,7 @@ verdict — the operator decides "work this prospect" or "drop this prospect" in
 
 ## Cross-references
 
-- AMA counterpart: `skills/templates/ama-templates/sales-triage-squad/SKILL.md` and
-  `ama-definition.md` (Phase 2 — Scoring Agent)
+- Autonomous pipeline counterpart: [21st-dev AI agents catalog](../../../reference/21st-dev-ai-agents/) (downloadable, not bundled)
 - Owner agent: `agents/sales-director/skills/prospecting/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Pairs with: `apollo-prospect-search` (upstream — produces the prospect list), `outreach-drafter`

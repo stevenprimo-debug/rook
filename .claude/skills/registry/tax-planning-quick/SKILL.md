@@ -1,4 +1,4 @@
----
+﻿---
 name: tax-planning-quick
 description: |
   Pass-through tax planning for an LLC owner with a W-2 day-job plus
@@ -81,8 +81,9 @@ that looks unsubstantiated.
 
 **Mode C — Set-aside rate.** Operator asks "what % of LLC income
 should I set aside." Skill computes the effective marginal rate
-across federal + SE tax + state (Tennessee = 0% personal income tax
-but check Hall-tax / franchise-tax) and returns a single percentage
+across federal + SE tax + your state (find your treatment via your
+state tax authority lookup; some states with 0% personal income tax
+still levy franchise/excise tax on LLCs) and returns a single percentage
 to bank against every new LLC dollar.
 
 ---
@@ -97,7 +98,7 @@ to bank against every new LLC dollar.
 | `{ytd_llc_net}` | quarterly/set_aside | LLC net income YTD (revenue - business expenses). |
 | `{filing_status}` | optional | Default `MFJ` (married filing jointly — operator's structure per `~/.claude/CLAUDE.local.md`). |
 | `{prior_year_total_tax}` | optional | For safe-harbor calc. |
-| `{state}` | optional | Default TN (no state income tax). |
+| `{state}` | optional | Default `[your_state]` (configure in `~/.claude/CLAUDE.md`). |
 | `{expense_log}` | deductions | List of `{date, vendor, amount, category, note}` rows. |
 | `{deduction_categories}` | optional | Default set: vehicle, home_office, supplies, subscriptions, contract_labor, education, travel, meals_50, other. |
 
@@ -113,8 +114,10 @@ The operator's tax structure (per `~/.claude/CLAUDE.local.md` and
   flows through to 1040 Schedule C, hits SE tax (15.3% up to SS
   wage base, then 2.9% Medicare; high earners +0.9% Additional
   Medicare Tax)
-- State: Tennessee — no personal income tax; check franchise tax
-  on the LLC (Tennessee Franchise & Excise Tax may apply)
+- State: [Your State] — look up your treatment. Some states have
+  franchise/excise tax on LLCs even with 0% personal income tax.
+  If you're an LLC/S-corp, confirm your state's pass-through taxation
+  with a CPA.
 - Filing: MFJ (married filing jointly)
 
 **SE tax math (the surprise everyone misses):**
@@ -343,4 +346,3 @@ transfer or schedules the CPA call.
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `pnl-tracker` (LLC net feeds), `budget-and-forecast` (cash flow timing), `commission-ledger` (W-2 source)
 - Owning agent: `finance-manager`
-- No AMA counterpart — the operator-locked in-house skill.

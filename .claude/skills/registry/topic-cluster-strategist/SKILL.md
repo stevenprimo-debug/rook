@@ -1,10 +1,10 @@
----
+﻿---
 name: topic-cluster-strategist
 description: |
   Builds a hub-and-spoke topic cluster from a single pillar topic — pillar piece (3000-5000 words)
   + 8-12 spoke pieces (1000-1500 words each) + internal-link map. Never uses preamble. The
   cluster table is the first artifact. Pairs with seo-specialist's keyword-cluster-quick for
-  keyword mapping. No AMA counterpart.
+  keyword mapping.
 type: skill
 category: marketing
 version: "1.0.0"
@@ -24,7 +24,6 @@ trigger: >
   spoke map," "what should I link to."
 inherits:
   - voice_spine: .claude/voice-spine.md
-  - ama_counterpart: None
 ---
 
 # Topic Cluster Strategist
@@ -42,9 +41,7 @@ right, the cluster compounds. Done wrong, it's a content dump with no link strat
 
 The skill pairs with **keyword-cluster-quick** (owned by seo-specialist) — that skill produces
 the keyword universe; this skill maps keywords to pillar + spoke pieces with the link graph
-attached. Operators usually run keyword-cluster-quick first, then this skill.
-
-No AMA counterpart. The cluster decision is high-context (depends on existing site architecture,
+attached. Operators usually run keyword-cluster-quick first, then this skill. The cluster decision is high-context (depends on existing site architecture,
 current rankings, audience awareness stages) and benefits from operator-in-the-loop iteration.
 
 ## How to use
@@ -191,7 +188,6 @@ spoke #1) to a writer that afternoon.
 
 ## Cross-references
 
-- AMA counterpart: None — in-session-only surface
 - Owner agent: `agents/content-strategist/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Pairs with: `keyword-cluster-quick` (seo-specialist owns) — run that first for keyword universe,

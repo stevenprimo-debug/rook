@@ -1,4 +1,4 @@
----
+﻿---
 name: pnl-tracker
 description: |
   Bi-weekly profit-and-loss tracker per project and per customer. Logs
@@ -31,11 +31,25 @@ inherits:
       - agents/finance-manager/memory/finance_log.md
       - agents/finance-manager/memory/account_state.md
       - agents/finance-manager/memory/goal_2026.md
-      - ~/.claude/CLAUDE.local.md § your employer Commission Tracking
+      - ~/.claude/CLAUDE.local.md § Commission Tracking
       - ~/.claude/CLAUDE.local.md § Exit Roadmap
 ---
 
 # pnl-tracker
+
+## Customer Configuration
+
+Before this skill is operational, fill in the following placeholders in `~/.claude/CLAUDE.md` (or your customer config file). The skill reads them from there at runtime; if any are unset, it will surface the missing config rather than guess.
+
+| Placeholder | What to put there |
+|---|---|
+| `[your_min_deal_value]` | Minimum deal value to pursue (auto-reject floor). |
+| `[your_min_gp_percent]` | Minimum acceptable gross-profit percent at the realized layer. |
+| `[your_min_commission]` | Minimum acceptable commission per deal. |
+| `[your_min_hourly_rate]` | Minimum acceptable efficiency (commission ÷ hours). |
+| `[your_macro_target]` | Multi-year macro revenue target. |
+| `[your_target_margin]` | Target gross margin for the macro plan. |
+| `[your_loaded_hourly_rate]` | Internal labor cost per hour (used to cost project labor against revenue). |
 
 ## Overview
 
@@ -44,7 +58,7 @@ revenue (closed and forecast), look up costs (vendor BOM, labor hours
 costed at the operator's loaded rate, third-party services), and return a
 margin table that says — in one read — whether this work makes money.
 
-You run on a bi-weekly cadence by default (the your employer Monday Systems
+You run on a bi-weekly cadence by default (the operator's Monday Systems
 Check anchor pulls a refresh every other week). On demand: per-customer
 snapshot, per-project snapshot, or rolling-90 dashboard.
 
@@ -88,7 +102,7 @@ contribution margin, flags any project where CM < 10% of revenue as
 | `{revenue_actual}`, `{revenue_forecast}` | yes | Booked + pipeline dollars. |
 | `{cogs_vendor}` | yes | Vendor BOM dollars. |
 | `{cogs_labor_hours}` | yes | the operator hours on this project. |
-| `{loaded_rate}` | optional | Default $300/hr per efficiency floor — but flag if actual hours × rate ≠ what the deal pays. |
+| `{loaded_rate}` | optional | Default `[your_loaded_hourly_rate]` per efficiency floor — but flag if actual hours × rate ≠ what the deal pays. |
 | `{deal_specific_costs}` | optional | Travel, demo gear, custom eng — for CM. |
 | `{overhead_allocation_pct}` | optional | Default 10% of revenue as fixed-overhead share. |
 
@@ -98,19 +112,19 @@ contribution margin, flags any project where CM < 10% of revenue as
 
 Quoted from `~/.claude/CLAUDE.md § Sales Quick Reference`:
 
-> **Macro:** $30M at 30% margin
-> **Auto-reject:** <$100K value, <15% GP, <$15K commission, <$300/hr efficiency
+> **Macro:** [your_macro_target] at [your_target_margin]
+> **Auto-reject:** <[your_min_deal_value], <[your_min_gp_percent], <[your_min_commission], <[your_min_hourly_rate]
 
 The P&L tracker enforces these thresholds at the **realized** layer
 (not just the proposed layer that `deal-economics` checks):
 
-- **GM < 15% on a closed deal** = UNDERPERFORMER. Surface the variance
+- **GM < `[your_min_gp_percent]` on a closed deal** = UNDERPERFORMER. Surface the variance
   vs the deal-economics estimate and ask what slipped (vendor markup
   drift, labor overrun, scope creep).
 - **CM < 10% on a closed deal** = INCOME-PUMPING. The deal makes
   bookings look good but doesn't build runway. Flag for the next
   pricing conversation.
-- **Efficiency < $300/hr realized** = the deal violated the floor in
+- **Efficiency < `[your_min_hourly_rate]` realized** = the deal violated the floor in
   reality even if it cleared the floor on paper. Update the
   `deal-economics` model: hours estimates run hot for this customer
   type.
@@ -123,7 +137,7 @@ this system mission economics:
 
 The skill surfaces a `mission_opportunity_cost` line in every output:
 the dollar value of the the operator-hours on this project at the mission's
-forecast hourly rate (typically lower than $300/hr today, but with
+forecast hourly rate (typically lower than `[your_min_hourly_rate]` today, but with
 multiplier effects per the revenue-pillars doctrine).
 
 ---
@@ -188,9 +202,9 @@ margin descending, flag the bottom quartile for review.
 {OVERPERFORMER | IN-LINE | UNDERPERFORMER}
 
 ## Floor checks (realized)
-- GM ≥ 15%: {Y/N}
+- GM ≥ `[your_min_gp_percent]`: {Y/N}
 - CM ≥ 10%: {Y/N}
-- Realized $/hr: ${eff} ({≥$300/hr Y/N})
+- Realized $/hr: ${eff} ({≥`[your_min_hourly_rate]` Y/N})
 
 ## Mission opportunity cost
 {the operator-hours on this project} hrs = ${mission_dollars_lost} of mission-product time.
@@ -237,7 +251,7 @@ margin descending, flag the bottom quartile for review.
 
 - **Preamble.** Table first.
 - **Gross margin reported without contribution margin.** Both, every time. GM alone hides the income-pumping trap.
-- **Loaded-rate fudging.** Don't lower the rate to make the deal look better. The rate is $300/hr per the efficiency floor unless the operator explicitly overrides.
+- **Loaded-rate fudging.** Don't lower the rate to make the deal look better. The rate is `[your_loaded_hourly_rate]` per the efficiency floor unless the operator explicitly overrides.
 - **Forecast revenue treated as actual.** Forecast = actual × probability, and the probability is named in the table.
 - **Mission opportunity cost dropped.** Always present, even when the deal looks great. The compounding math depends on it.
 - **Rolling-90 without the bottom-3.** The bottom-3 IS the value of the rolling view. Don't soft-pedal it.
@@ -266,4 +280,3 @@ moves on.
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `commission-ledger`, `deal-economics`, `budget-and-forecast`
 - Owning agent: `finance-manager`
-- No AMA counterpart — the operator-locked in-house skill.

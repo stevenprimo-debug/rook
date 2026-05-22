@@ -78,7 +78,7 @@ Three files to draft (some may not apply):
 
 #### A) Hook script (PowerShell, Windows)
 
-Location: `C:\Users\User\.claude\hooks\<descriptive-name>.ps1`
+Location: `$env:USERPROFILE\.claude\hooks\<descriptive-name>.ps1`
 
 Template structure:
 
@@ -105,7 +105,7 @@ try { $data = $raw | ConvertFrom-Json } catch { $data = $null }
 
 #### B) settings.json edit
 
-Location: `C:\Users\User\.claude\settings.json` (user-global) or `<project>/.claude/settings.json` (project-scoped).
+Location: `$env:USERPROFILE\.claude\settings.json` (user-global) or `<project>/.claude/settings.json` (project-scoped).
 
 Default to user-global unless the operator specifies project-scoped.
 
@@ -120,7 +120,7 @@ Schema (matches existing structure):
         "hooks": [
           {
             "type": "command",
-            "command": "powershell -NoProfile -NonInteractive -File \"C:\\Users\\User\\.claude\\hooks\\<name>.ps1\"",
+            "command": "powershell -NoProfile -NonInteractive -File \"%USERPROFILE%\\.claude\\hooks\\<name>.ps1\"",
             "timeout": <seconds>
           }
         ]
@@ -144,7 +144,7 @@ name: <Rule name>
 description: <one-line>
 type: feedback
 hook_enforced: true
-hook_path: C:\Users\User\.claude\hooks\<name>.ps1
+hook_path: $env:USERPROFILE\.claude\hooks\<name>.ps1
 hook_event: <event>
 ---
 
@@ -170,9 +170,9 @@ Preference: "<verbatim the operator quote>"
 Classification: <event> hook (or scheduled task / memory-only)
 
 Files I'll create/edit:
-  + C:\Users\User\.claude\hooks\<name>.ps1 (NEW, <X> lines)
-  ~ C:\Users\User\.claude\settings.json (add <event> entry)
-  + PRIMOLABS\CLAUDE CODE\MEMORY\feedback_<name>.md (NEW)
+  + $env:USERPROFILE\.claude\hooks\<name>.ps1 (NEW, <X> lines)
+  ~ $env:USERPROFILE\.claude\settings.json (add <event> entry)
+  + <vault-root>\CLAUDE CODE\MEMORY\feedback_<name>.md (NEW)
 
 Hook does: <one-sentence behavior>
 Fires when: <trigger condition>

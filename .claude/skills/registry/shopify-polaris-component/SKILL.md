@@ -1,10 +1,10 @@
----
+﻿---
 name: shopify-polaris-component
 description: |
   Single-turn Polaris component pattern generator for Shopify embedded apps. Operator describes
   the UI need; the skill returns a complete React component using Polaris primitives (Page, Card,
   IndexTable, ResourceList, FormLayout, etc.) with proper App Bridge integration. Never uses
-  preamble. The component code is the first artifact. No AMA counterpart.
+  preamble. The component code is the first artifact.
 type: skill
 category: shopify
 version: "1.0.0"
@@ -24,7 +24,6 @@ trigger: >
   or describes a Shopify admin UI surface expecting Polaris React code.
 inherits:
   - voice_spine: .claude/voice-spine.md
-  - ama_counterpart: None
 ---
 
 # Shopify Polaris Component
@@ -45,9 +44,7 @@ The skill enforces three rules: (1) the output is real React JSX using actual Po
 APIs (`<Page>`, `<Card>`, `<IndexTable>`, `<ResourceList>`, `<FormLayout>`, etc.) — never
 hand-rolled styling; (2) App Bridge hooks are used where the component needs admin-level
 navigation, toasts, or modals; (3) the component is responsive (mobile / desktop) and
-accessible by default.
-
-No AMA counterpart. Component generation is high-context — the operator's app architecture,
+accessible by default. Component generation is high-context — the operator's app architecture,
 state-management choice, and data-shape vary every time.
 
 ## How to use
@@ -219,7 +216,6 @@ ships the screen within an hour.
 
 ## Cross-references
 
-- AMA counterpart: None — component generation is high-context
 - Owner agent: `agents/shopify-agent/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Reference: `agents/shopify-agent/memory/2026-05/Shopify App package for React Router.md`,

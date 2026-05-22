@@ -1,4 +1,4 @@
----
+﻿---
 name: deal-economics
 description: |
   Pre-deal go/no-go math. Runs the operator's locked auto-reject thresholds
@@ -30,12 +30,26 @@ inherits:
   - primary_methodology: ~/.claude/CLAUDE.md § Sales Quick Reference (auto-reject thresholds)
   - primolabs_memory:
       - ~/.claude/CLAUDE.md § Sales Quick Reference
-      - .claude/memory/project_exit_roadmap.md (pointer → CLAUDE.local.md + PRIMOLABS doctrine)
+      - .claude/memory/project_exit_roadmap.md (pointer → CLAUDE.local.md + mission-product doctrine)
       - agents/memory/doctrine_exit_strategy_4_pillars.md
       - .claude/memory/feedback_sixty_minute_rule.md
 ---
 
 # deal-economics
+
+## Customer Configuration
+
+Before this skill is operational, fill in the following placeholders in `~/.claude/CLAUDE.md` (or your customer config file). The skill reads them from there at runtime; if any are unset, it will surface the missing config rather than guess.
+
+| Placeholder | What to put there |
+|---|---|
+| `[your_min_deal_value]` | Minimum deal value to pursue (auto-reject floor). |
+| `[your_min_gp_percent]` | Minimum acceptable gross-profit percent. |
+| `[your_min_commission]` | Minimum acceptable commission per deal. |
+| `[your_min_hourly_rate]` | Minimum acceptable efficiency (commission ÷ hours). |
+| `[your_commission_rate]` | Commission as a decimal of GP (e.g., `0.10` for 10% of GP). |
+| `[your_commission_floor]` | Numeric floor for `if commission_owed < ...` flag. |
+| `[your_priority_dept_list]` | Optional — names of the operator's mission depts that should be favored over bridge work. |
 
 ## Overview
 
@@ -95,17 +109,17 @@ The full math takes <60 seconds. If the deal can't be made to pass in
 
 Quoted directly from `~/.claude/CLAUDE.md § Sales Quick Reference`:
 
-> **Auto-reject:** <$100K value, <15% GP, <$15K commission, <$300/hr efficiency
+> **Auto-reject:** <[your_min_deal_value], <[your_min_gp_percent], <[your_min_commission], <[your_min_hourly_rate]
 
 These four floors are non-negotiable. The skill never lowers them. It
 either reports the deal as REJECT (all-stop), or NEGOTIATE with the
 specific lever that would raise the failing metric above the floor.
 
 Additional mission-alignment context from `project_exit_roadmap.md`
-(canonical content in CLAUDE.local.md) and the PRIMOLABS doctrine:
+(canonical content in CLAUDE.local.md) and the mission-product doctrine:
 
-> **Mission > your employer.** When resources are constrained, favor PRIMOLABS /
-> MISSION-PRODUCT DEPTS over your employer bridge-revenue work; milestone target
+> **Mission > bridge.** When resources are constrained, favor `[your_priority_dept_list]`
+> over employer / bridge-revenue work; milestone target
 > [milestone target date].
 
 The mission-alignment score (0-3) modifies how the skill talks about a
@@ -128,14 +142,14 @@ to evaluate — gather first, then return.
 
 ```
 gp_dollars         = gp_pct ? (deal_value × gp_pct) : gp_dollars_provided
-commission         = gp_dollars × 0.10
+commission         = gp_dollars × [your_commission_rate]
 efficiency         = commission / labor_hours_est
 
 # Hard floors (any failure = potential REJECT)
-floor_value        = deal_value     >= 100_000
-floor_gp           = gp_pct         >= 0.15
-floor_commission   = commission     >= 15_000
-floor_efficiency   = efficiency     >= 300
+floor_value        = deal_value     >= [your_min_deal_value]
+floor_gp           = gp_pct         >= [your_min_gp_percent]
+floor_commission   = commission     >= [your_commission_floor]
+floor_efficiency   = efficiency     >= [your_min_hourly_rate]
 
 floors_passed      = floor_value & floor_gp & floor_commission & floor_efficiency
 
@@ -174,10 +188,10 @@ elif floors_passed && mission_score < 2:
 
 | Floor             | Required | Actual | Pass? |
 |-------------------|----------|--------|-------|
-| Deal value        | ≥$100K   | ${dv}  | {Y/N} |
-| GP %              | ≥15%     | {gp}%  | {Y/N} |
-| Commission owed   | ≥$15K    | ${com} | {Y/N} |
-| Efficiency        | ≥$300/hr | ${eff}/hr | {Y/N} |
+| Deal value        | ≥[your_min_deal_value]   | ${dv}  | {Y/N} |
+| GP %              | ≥[your_min_gp_percent]   | {gp}%  | {Y/N} |
+| Commission owed   | ≥[your_commission_floor] | ${com} | {Y/N} |
+| Efficiency        | ≥[your_min_hourly_rate]  | ${eff}/hr | {Y/N} |
 
 ## Mission alignment
 Score: {0-3}/3 — {one-sentence reason}
@@ -192,7 +206,7 @@ Score: {0-3}/3 — {one-sentence reason}
 {The floor that killed it + the gap in dollars. No prose about "maybe next time" — clean break.}
 
 ## Opportunity cost
-{One sentence — what the operator's hours buy if NOT this deal. Default to mission work in PRIMOLABS / MISSION-PRODUCT DEPTS per exit-target target.}
+{One sentence — what the operator's hours buy if NOT this deal. Default to mission work in `[your_priority_dept_list]` per runway target.}
 ```
 
 ---
@@ -229,4 +243,3 @@ any) — one read, operator either pushes back on price or walks.
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `commission-ledger` (post-accept tracking), `pnl-tracker` (margin tracking), `budget-and-forecast` (exit-target trajectory)
 - Owning agent: `finance-manager`
-- No AMA counterpart — the operator-locked in-house skill.

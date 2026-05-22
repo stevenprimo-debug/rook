@@ -1,10 +1,10 @@
----
+﻿---
 name: source-credibility-check
 description: |
   Single-turn source vetting. Operator supplies a URL or claim; the skill returns an authority
   rating (primary / reputable secondary / expert blog / aggregator / unreliable) + specific
   credibility flags + recommendation on whether to cite. Never uses preamble. The rating is the
-  first artifact. No AMA counterpart.
+  first artifact.
 type: skill
 category: research
 version: "1.0.0"
@@ -24,7 +24,6 @@ trigger: >
   "primary or secondary," "is X a real expert."
 inherits:
   - voice_spine: .claude/voice-spine.md
-  - ama_counterpart: None
 ---
 
 # Source Credibility Check
@@ -45,9 +44,7 @@ The rating maps to action:
 
 The skill enforces specific flagging: every rating includes what triggered it (author
 credentials, publication record, citation density, conflict-of-interest signals, recency,
-domain reputation) — vague "this looks credible" is refused.
-
-No AMA counterpart. Source vetting is high-context and one-shot — the operator hits a source
+domain reputation) — vague "this looks credible" is refused. Source vetting is high-context and one-shot — the operator hits a source
 mid-research and needs an immediate read.
 
 ## How to use
@@ -187,7 +184,6 @@ the operator decides CITE or REPLACE in under a minute and goes back to writing.
 
 ## Cross-references
 
-- AMA counterpart: None — source vetting is one-shot
 - Owner agent: `agents/deep-researcher/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `research-brief-quick` (upstream — uses this skill when vetting Phase 1

@@ -6,7 +6,9 @@ published: []
 created: 2026-05-11
 description: Create an AI-powered shopping assistant that helps customers find products and complete purchases.
 tags: [clippings]
-dept_secondary: [PERSONAL]
+category: doc-clipping
+rook-relevance: high
+rook-consumers: shopify-agent, software-dev-team
 ---
 
 Build an AI chat agent that helps shoppers find products faster and complete purchases through natural conversation. The agent can answer questions about products, shipping policies, and manage shopping carts using the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) to connect with Shopify's commerce features.

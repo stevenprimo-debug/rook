@@ -1,4 +1,4 @@
----
+﻿---
 name: posture-reader
 description: |
   Pre-trade memory-staleness gate. Reads the current trading posture
@@ -285,4 +285,3 @@ operator either confirms the playbook or refreshes the HEAD.
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `ict-pattern-detector` (calls this skill pre-call), `risk-1pct-calculator` (calls this skill pre-sizing), `intraday-leveraged-etf-rules` (instrument rules gated by posture)
 - Owning agent: `trading-analyst`
-- No AMA counterpart — the operator-locked in-house skill defending against a the operator-specific failure mode.

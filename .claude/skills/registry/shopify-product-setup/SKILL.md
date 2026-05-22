@@ -1,11 +1,10 @@
----
+﻿---
 name: shopify-product-setup
 description: |
   Single-turn Shopify product configuration walkthrough. Operator supplies product info; the skill
   returns a structured setup checklist covering title, description, variants, options, pricing,
   inventory, SEO fields, metafields, and tag structure — ready to paste into the Shopify admin
-  or invoke via Admin GraphQL API. Never uses preamble. The checklist is the first artifact. No
-  AMA counterpart.
+  or invoke via Admin GraphQL API. Never uses preamble. The checklist is the first artifact.
 type: skill
 category: shopify
 version: "1.0.0"
@@ -25,7 +24,6 @@ trigger: >
   description," "product metafields," or pastes a product spec expecting setup guidance.
 inherits:
   - voice_spine: .claude/voice-spine.md
-  - ama_counterpart: None
 ---
 
 # Shopify Product Setup
@@ -40,9 +38,7 @@ and collection assignments.
 
 The output is structured for two invocation paths: (1) a human-readable checklist the operator
 can paste into the Shopify admin field-by-field, or (2) an Admin GraphQL mutation payload the
-operator can run via the Shopify CLI / Admin API.
-
-No AMA counterpart. Product setup is high-context (vendor specs vary, store-specific metafield
+operator can run via the Shopify CLI / Admin API. Product setup is high-context (vendor specs vary, store-specific metafield
 conventions, brand-voice description tone) and benefits from operator-in-the-loop iteration.
 
 The skill enforces three rules: (1) descriptions are HTML-ready and brand-voiced — no LLM
@@ -259,7 +255,6 @@ fields the checklist into the admin without re-edits.
 
 ## Cross-references
 
-- AMA counterpart: None — product setup is high-context and operator-in-the-loop
 - Owner agent: `agents/shopify-agent/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Reference: `agents/shopify-agent/memory/2026-05/Shopify APIs, libraries, and tools.md`,

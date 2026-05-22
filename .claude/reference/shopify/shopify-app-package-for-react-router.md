@@ -6,7 +6,9 @@ published: []
 created: 2026-05-11
 description: The @shopify/shopify-app-react-router package enables React Router apps to authenticate with Shopify and make API calls.
 tags: [clippings]
-dept_secondary: [SOFTWARE DEV]
+category: vendor-sdks
+rook-relevance: high
+rook-consumers: shopify-agent, software-dev-team
 ---
 
 ## Anchor to Quick startQuick start

@@ -1,10 +1,10 @@
----
+﻿---
 name: aeo-gap-finder
 description: |
   Answer Engine Optimization (AEO) — identifies how a brand appears in AI-generated responses
   across ChatGPT, Claude, Gemini, and Perplexity. Flags queries where competitors are cited and
   the brand is not. Returns a structured gap report with the specific content moves to close
-  each gap. Never uses preamble. The gap table is the first artifact. No AMA counterpart.
+  each gap. Never uses preamble. The gap table is the first artifact.
 type: skill
 category: marketing
 version: "1.0.0"
@@ -25,7 +25,6 @@ trigger: >
   "AI citation gap."
 inherits:
   - voice_spine: .claude/voice-spine.md
-  - ama_counterpart: None
 ---
 
 # AEO Gap Finder
@@ -41,9 +40,7 @@ Why this matters: traditional SEO ranks pages on a SERP; AEO determines whether 
 in the generated answer. The two are correlated but not identical. A page can rank #1 on Google
 and still be absent from ChatGPT's answer because the page lacks the structural signals AI
 engines reward (question-format H2s, direct-answer paragraphs, FAQ schema, author E-A-T, citation
-density).
-
-No AMA counterpart. AEO testing is operator-driven by query selection and brand-context
+density). AEO testing is operator-driven by query selection and brand-context
 nuance — autonomous runs miss the strategic queries that matter most.
 
 ## How to use
@@ -206,7 +203,6 @@ fixes — the operator can ship the highest-impact fix the same day and start cl
 
 ## Cross-references
 
-- AMA counterpart: None — AEO testing is operator-curated by design
 - Owner agent: `agents/seo-specialist/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `seo-audit-quick`, `keyword-cluster-quick`, `on-page-quick-check`,

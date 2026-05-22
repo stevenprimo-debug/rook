@@ -6,7 +6,9 @@ published: []
 created: 2026-05-11
 description: Learn how to configure webhook subscription using the app config file, Shopify's recommended method and format for subscription management, and compares this method to subscriptions using the Admin API. Also provides guidance for custom apps subscribing to webhook topics.
 tags: [clippings]
-dept_secondary: [SOFTWARE DEV]
+category: doc-clipping
+rook-relevance: high
+rook-consumers: shopify-agent, software-dev-team
 ---
 
 You can configure your app to subscribe to webhook topics in the following ways:

@@ -1,9 +1,9 @@
----
+﻿---
 name: commission-ledger
 description: |
-  Per-deal commission ledger for your employer and this system revenue. Tracks deal
+  Per-deal commission ledger for employer and product revenue. Tracks deal
   value, GP%, commission owed, paid, and pending; rolls a YTD total; auto-
-  flags any deal under the $15K commission floor or the $300/hr efficiency
+  flags any deal under the configured commission floor or hourly efficiency
   floor. The reconciliation tool — not a generic commission calculator.
   Never uses preamble; the ledger row is the first artifact.
 type: skill
@@ -26,15 +26,33 @@ trigger: >
   is this deal worth it, commission floor.
 inherits:
   - voice_spine: .claude/voice-spine.md
-  - primary_methodology: ~/.claude/CLAUDE.md § Sales Quick Reference (auto-reject thresholds) + ~/.claude/CLAUDE.local.md § your employer Commission Tracking
+  - primary_methodology: ~/.claude/CLAUDE.md § Sales Quick Reference (auto-reject thresholds) + ~/.claude/CLAUDE.local.md § Commission Tracking
   - primolabs_memory:
-      - .claude/memory/project_lmg_commission_tracking.md (pointer → CLAUDE.local.md)
+      - .claude/memory/project_commission_tracking.md (pointer → CLAUDE.local.md)
       - ~/.claude/CLAUDE.md § Sales Quick Reference
       - agents/finance-manager/memory/finance_log.md
       - agents/finance-manager/memory/account_state.md
 ---
 
 # commission-ledger
+
+## Customer Configuration
+
+Before this skill is operational, fill in the following placeholders in `~/.claude/CLAUDE.md` (or your customer config file). The skill reads them from there at runtime; if any are unset, it will surface the missing config rather than guess.
+
+| Placeholder | What to put there |
+|---|---|
+| `[your_annual_target]` | Annual revenue or commission target (e.g., "$5M revenue" or "$500K commission"). |
+| `[your_stretch_target]` | Stretch annual target above the base. |
+| `[your_macro_target]` | Multi-year macro target (e.g., "$30M over 5 years"). |
+| `[your_target_margin]` | Target gross margin for the macro plan (e.g., "30%"). |
+| `[your_min_deal_value]` | Minimum deal value to pursue (auto-reject floor). |
+| `[your_min_gp_percent]` | Minimum acceptable gross-profit percent. |
+| `[your_min_commission]` | Minimum acceptable commission per deal. |
+| `[your_min_hourly_rate]` | Minimum acceptable efficiency (commission ÷ hours). |
+| `[your_commission_rate]` | Commission as a decimal of GP (e.g., `0.10` for 10% of GP). |
+| `[your_commission_floor]` | Numeric floor for `if commission_owed < ...` flag. |
+| `[your_priority_segment]` | Optional — preferred deal type or industry band. |
 
 ## Overview
 
@@ -44,15 +62,15 @@ commission pending, status (cleared / pending / disputed / under floor),
 and rolling YTD impact. You append to the canonical ledger, never rewrite.
 
 This skill is **not a generic commission calculator.** It enforces the operator's
-actual your employer commission structure and the auto-reject thresholds locked in
+actual employer commission structure and the auto-reject thresholds locked in
 `~/.claude/CLAUDE.md § Sales Quick Reference`. When a deal falls under the
-$15K commission floor or the $300/hr efficiency floor, the row is
+`[your_commission_floor]` or the `[your_min_hourly_rate]` efficiency floor, the row is
 flagged BEFORE the math is presented, not after.
 
 The ledger is the single source of truth for: (1) what the operator is owed by
-your employer right now, (2) what's reasonably expected this quarter, (3) which
+the employer right now, (2) what's reasonably expected this quarter, (3) which
 deals failed the floor and should have been declined, (4) the YTD
-trajectory against the exit-target math.
+trajectory against the operator's runway math.
 
 **No preamble.** The row is the first artifact.
 
@@ -91,7 +109,7 @@ quarter outlook.
 | `{deal_value}` | log | Total contract dollar value. |
 | `{gp_pct}` OR `{gp_dollars}` | log | One required. Flag if GP% < 15% per auto-reject. |
 | `{labor_hours_est}` | log | Estimated the operator-hours to close + service. Required for the $300/hr efficiency check. |
-| `{payout_milestones}` | log | List of `{milestone, %, date}` triples. Default your employer: 50% at PO, 50% at install. |
+| `{payout_milestones}` | log | List of `{milestone, %, date}` triples. Default employer: 50% at PO, 50% at install. |
 | `{payout_received}` | reconcile | Dollar amount of the actual deposit. |
 | `{payout_date}` | reconcile | YYYY-MM-DD. |
 | `{ledger_path}` | optional | Default: `agents/finance-manager/memory/commission_ledger.md`. |
@@ -102,25 +120,25 @@ quarter outlook.
 
 Quoted directly from `~/.claude/CLAUDE.md § Sales Quick Reference`:
 
-> **Target:** $5M/yr | Stretch: $9–10M | Macro: $30M at 30% margin
-> **Commission:** ~10% of GP, floor at 10% GP
-> **Auto-reject:** <$100K value, <15% GP, <$15K commission, <$300/hr efficiency
-> **Priority:** $500K–$8M+ permanent experiential/immersive, LED-dominant, multi-zone
+> **Target:** [your_annual_target] | Stretch: [your_stretch_target] | Macro: [your_macro_target] at [your_target_margin]
+> **Commission:** [your_commission_structure], floor at [your_commission_floor]
+> **Auto-reject:** <[your_min_deal_value], <[your_min_gp_percent], <[your_min_commission], <[your_min_hourly_rate]
+> **Priority:** [your_priority_segment]
 
 The skill enforces:
 
-1. **Commission = 10% of GP** (default; override if the operator states otherwise).
-2. **Floor 1 — Deal value ≥ $100K.** Anything below: flag `UNDER_VALUE_FLOOR`.
-3. **Floor 2 — GP ≥ 15%.** Anything below: flag `UNDER_GP_FLOOR`.
-4. **Floor 3 — Commission ≥ $15K.** Anything below: flag `UNDER_COMMISSION_FLOOR`.
-5. **Floor 4 — Efficiency ≥ $300/hr** (commission ÷ labor_hours_est). Below: flag `UNDER_EFFICIENCY_FLOOR`.
+1. **Commission = `[your_commission_rate]` of GP** (default; override if the operator states otherwise).
+2. **Floor 1 — Deal value ≥ `[your_min_deal_value]`.** Anything below: flag `UNDER_VALUE_FLOOR`.
+3. **Floor 2 — GP ≥ `[your_min_gp_percent]`.** Anything below: flag `UNDER_GP_FLOOR`.
+4. **Floor 3 — Commission ≥ `[your_commission_floor]`.** Anything below: flag `UNDER_COMMISSION_FLOOR`.
+5. **Floor 4 — Efficiency ≥ `[your_min_hourly_rate]`** (commission ÷ labor_hours_est). Below: flag `UNDER_EFFICIENCY_FLOOR`.
 
 If ANY floor flag fires, the row is logged with the flag visible and the
 skill returns a `verdict: REVIEW` line before the math. The operator
 decides whether to push the deal or kill it; the ledger does not auto-
 decline.
 
-**Per `~/.claude/CLAUDE.local.md § your employer Commission Tracking`:** the Monday
+**Per `~/.claude/CLAUDE.local.md § Commission Tracking`:** the Monday
 Systems Check cadence is when the operator reconciles owed/paid/pending
 weekly. This skill makes that reconciliation a one-shot read, not a
 spreadsheet rebuild. Do not default any park-trigger to weekly anchor session
@@ -135,14 +153,14 @@ cadence, not the trigger.
 
 ```
 gp_dollars       = gp_pct ? (deal_value × gp_pct) : gp_dollars_provided
-commission_owed  = gp_dollars × 0.10                      # 10% of GP, default
+commission_owed  = gp_dollars × [your_commission_rate]    # default decimal of GP
 efficiency       = commission_owed / labor_hours_est      # $/hr
 
 floors = []
-if deal_value     < 100_000:   floors.append("UNDER_VALUE_FLOOR")
-if gp_pct         < 0.15:      floors.append("UNDER_GP_FLOOR")
-if commission_owed < 15_000:   floors.append("UNDER_COMMISSION_FLOOR")
-if efficiency     < 300:       floors.append("UNDER_EFFICIENCY_FLOOR")
+if deal_value     < [your_min_deal_value]:    floors.append("UNDER_VALUE_FLOOR")
+if gp_pct         < [your_min_gp_percent]:    floors.append("UNDER_GP_FLOOR")
+if commission_owed < [your_commission_floor]: floors.append("UNDER_COMMISSION_FLOOR")
+if efficiency     < [your_min_hourly_rate]:   floors.append("UNDER_EFFICIENCY_FLOOR")
 
 verdict = floors ? "REVIEW (floors triggered)" : "CLEAR"
 ```
@@ -189,12 +207,12 @@ Return the four numbers + the count + the outlook.
 
 | Metric            | Value          |
 |-------------------|----------------|
-| Deal value        | ${deal_value}  |
-| GP %              | {gp_pct}%      |
+| Deal value        | ${deal_value} (floor: [your_min_deal_value])  |
+| GP %              | {gp_pct}% (floor: [your_min_gp_percent])      |
 | GP $              | ${gp_dollars}  |
-| Commission owed   | ${commission}  |
+| Commission owed   | ${commission} (floor: [your_commission_floor])  |
 | Labor hours est   | {hours} hrs    |
-| Efficiency        | ${eff}/hr      |
+| Efficiency        | ${eff}/hr (floor: [your_min_hourly_rate])      |
 
 ## Floor check
 {CLEAR or list of triggered floors with the threshold breached}
@@ -239,7 +257,7 @@ Row appended to {ledger_path}.
 | Under floor count | {n} deals       |
 | Quarter outlook   | ${q_outlook}    |
 
-## Trajectory vs exit-target target
+## Trajectory vs `[your_annual_target]`
 {One sentence — on pace / ahead / behind, with the gap in dollars.}
 
 ## Next reconciliation
@@ -260,7 +278,7 @@ Monday Systems Check.
 - **"User"** — say "the operator," "the operator's book," "the deal."
 - **Naming people from the bench.**
 - **Investment advice on the commission deposit.** This skill logs; trading-analyst sizes; finance-manager allocates.
-- **Treating GP% < 15% as a tradeoff.** It's an auto-reject threshold per `~/.claude/CLAUDE.md`.
+- **Treating GP% below `[your_min_gp_percent]` as a tradeoff.** It's an auto-reject threshold per `~/.claude/CLAUDE.md`.
 
 ---
 
@@ -275,10 +293,9 @@ all in one read, with the operator either moving on or filing a dispute.
 ## Cross-references
 
 - Auto-reject thresholds: `~/.claude/CLAUDE.md § Sales Quick Reference`
-- Personal commission state: `~/.claude/CLAUDE.local.md § your employer Commission Tracking`
-- Pointer stub: `.claude/memory/project_lmg_commission_tracking.md`
+- Personal commission state: `~/.claude/CLAUDE.local.md § Commission Tracking`
+- Pointer stub: `.claude/memory/project_commission_tracking.md`
 - Monday cadence rule: `.claude/memory/feedback_dont_default_park_to_monday.md`
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `deal-economics` (pre-deal go/no-go), `pnl-tracker` (post-close margin tracking), `budget-and-forecast` (commission against milestone target)
 - Owning agent: `finance-manager`
-- No AMA counterpart — this is a this system-locked in-house skill.

@@ -6,7 +6,9 @@ published: []
 created: 2026-05-11
 description: Explore Shopify's APIs, references, and developer tools. Find the right resources for building apps, storefronts, themes, and integrations.
 tags: [clippings]
-dept_secondary: [SOFTWARE DEV]
+category: catalog
+rook-relevance: high
+rook-consumers: shopify-agent, software-dev-team
 ---
 
 Turn your idea into a working integration. Find everything you need to build across every Shopify surface.#### [About Shopify APIs](https://shopify.dev/docs/api/usage)

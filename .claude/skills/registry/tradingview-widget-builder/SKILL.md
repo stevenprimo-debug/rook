@@ -1,4 +1,4 @@
----
+﻿---
 name: tradingview-widget-builder
 description: |
   Embed TradingView Advanced Charts widget in a customer-facing product.
@@ -352,4 +352,3 @@ chart renders in the target surface.
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `tradingview-datafeed-implementation` (the datafeed contract), `trading-dashboard-builder` (the surrounding UI), `pine-script-template` (the strategy logic the chart might display)
 - Owning agent: `trading-analyst`
-- No AMA counterpart — the operator-locked in-house skill (cohort + customer product surface).

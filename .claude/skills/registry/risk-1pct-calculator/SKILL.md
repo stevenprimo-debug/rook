@@ -1,4 +1,4 @@
----
+﻿---
 name: risk-1pct-calculator
 description: |
   Position sizing for 1% account risk per trade. Inputs: account size,
@@ -275,4 +275,3 @@ The cleanest output is the size + the check table + the disclaimer
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `posture-reader` (pre-size gate), `ict-pattern-detector` (where the entry + invalidation come from), `intraday-leveraged-etf-rules` (instrument-class caps), `investment-analysis-quick` (allocation-level wrapper from finance-manager)
 - Owning agent: `trading-analyst`
-- No AMA counterpart — the operator-locked in-house skill.

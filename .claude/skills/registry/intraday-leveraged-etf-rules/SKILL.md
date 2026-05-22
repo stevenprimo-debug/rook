@@ -1,4 +1,4 @@
----
+﻿---
 name: intraday-leveraged-etf-rules
 description: |
   SOXL / TQQQ / SOXS / SQQQ intraday-specific gates. Enforces ORB
@@ -296,4 +296,3 @@ waits.
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `posture-reader` (must call first), `risk-1pct-calculator` (sizing on CLEARED), `ict-pattern-detector` (the layered ICT confluence), `pine-script-template` (codify the ORB script)
 - Owning agent: `trading-analyst`
-- No AMA counterpart — the operator-locked in-house skill.

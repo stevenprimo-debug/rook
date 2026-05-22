@@ -6,7 +6,9 @@ published: []
 created: 2026-05-11
 description: Use event data delivered through webhooks to stay in sync with Shopify or execute code after a specific event occurs in a shop.
 tags: [clippings]
-dept_secondary: [SOFTWARE DEV]
+category: doc-clipping
+rook-relevance: high
+rook-consumers: shopify-agent, software-dev-team
 ---
 
 When your app needs information about specific events that have occurred on a shop, it can subscribe to Shopify webhook topics as a mechanism for receiving near-real-time data about these events.

@@ -6,7 +6,9 @@ published: []
 created: 2026-05-12
 description: The library allows connecting market data to the chart in two ways:
 tags: [clippings]
-dept_secondary: [FINANCE]
+category: vendor-api-reference
+rook-relevance: high
+rook-consumers: trading-analyst, software-dev-team
 ---
 - By using the built-in [UDF adapter](https://www.tradingview.com/charting-library-docs/latest/connecting_data/UDF).
 - By implementing your own datafeed via the Datafeed API.

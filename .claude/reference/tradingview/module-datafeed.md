@@ -6,7 +6,9 @@ published: []
 created: 2026-05-12
 description: Datafeed JS API for TradingView Advanced Charts
 tags: [clippings]
-dept_secondary: [DESIGN]
+category: vendor-api-reference
+rook-relevance: high
+rook-consumers: trading-analyst, software-dev-team
 ---
 ## Enumerations
 

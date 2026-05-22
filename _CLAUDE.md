@@ -38,7 +38,7 @@ The vault is designed for future-Claude to read and reason over. Every note foll
         - **Connector question** → `.claude/connectors/<service>/README.md` + `api-reference.md` (MCP-backed OR clean-REST + shared creds)
         - **Shared reference (the canonical cross-cutting shelf)** → `.claude/reference/`:
             - `.claude/reference/<service>/` — API + library docs (TradingView, Tradovate, Schwab, etc.)
-            - `.claude/reference/templates/<category>/` — NDA, contracts, SOW, SaaS, partnerships
+            - `.claude/reference/contract-templates/<category>/` — NDA, contracts, SOW, SaaS, partnerships
             - `.claude/reference/sops/` — operator SOPs (operator vault only)
         - **Agent-internal** → `agents/<agent>/memory/` — compounding learnings, decisions, feedback (versioned-append, per-agent). Captures land in root `inbox/` and the router moves them to ONE home (shared shelf OR agent memory) — never duplicated.
     - **Step 3 (only after 1 + 2):** answer / execute / dispatch.
@@ -48,7 +48,7 @@ The vault is designed for future-Claude to read and reason over. Every note foll
     - **What stays agent-scoped:** ONLY the agent's voice/personality bench, its own SKILL.md modes, the agent-specific methodology (not the shared playbooks), and the agent's compounding `memory/` (versioned-append history). Everything else cross-cutting → shared shelf.
     - **Pattern source:** `CLAUDE CODE/MEMORY/feedback_load_shopify_context_at_session_start.md` (locked 2026-05-20).
 
-16. **Rule #16 — Cross-model verification on reversibility=N decisions**: Before executing any irreversible action (client email, prod push, public post, money, force-push), the executing agent MUST surface the decision via `codex-cross-verify` — a Opus subagent adversarial review that returns AGREE / DISAGREE-WITH-REASON / NEEDS-MORE-CONTEXT. If the response is DISAGREE or NEEDS-MORE-CONTEXT, the action is held and the operator sees both verdicts via `AskUserQuestion` before anything executes. Synthesis line required: "Sonnet says X. Opus says Y. My call is Z because [specific reason]." Skill: `.claude/skills/codex-cross-verify/SKILL.md`. Locked 2026-05-21.
+16. **Rule #16 — Cross-model verification on reversibility=N decisions**: Before executing any irreversible action (client email, prod push, public post, money, force-push), the executing agent MUST surface the decision via `second-opinion-verify` — a vendor-neutral skill that runs an adversarial review through Perplexity (primary), Claude Opus subagent (fallback), or flags the decision for manual review (final fallback). Returns AGREE / DISAGREE-WITH-REASON / NEEDS-MORE-CONTEXT. Synthesis required: "Sonnet says X. Second opinion says Y. My call is Z because [specific reason]." Skill: `.claude/skills/second-opinion-verify/SKILL.md`. Locked 2026-05-21, renamed from `codex-cross-verify` 2026-05-22 (Codex CLI not bundled; Perplexity is customer's available adversarial model).
 
 17. **Rule #17 — Output format: HTML default for human-eyes artifacts.** ROOK outputs default to HTML for any artifact a human will see outside the vault (customer deliverables, `_from_rook/` reading inbox, anything that becomes a PDF, dashboard artifacts, briefs, plans, proposals, reports). Markdown stays for internal-only: memory files, SKILL.md, CLAUDE.md, README.md, routing manifests, system files. **Email exception:** customer-facing emails are plain text — "Hello [First Name]," opener, clear concise bullet points, customizable voice via inbox-manager templates. Brand injection applies to all HTML outputs — colors, fonts, logo pulled from `.claude/memory/rook_brand.md` (or operator-config when in operator-mode). Templates live at `.claude/templates/html/`. The brand-loader at `.claude/templates/html/brand-loader.py` emits a JSON dict consumed by every Jinja2 template. The operator-personal `.eml + X-Unsent: 1 + Cheers,` pattern is a LOCAL override in operator vault config, not part of the ROOK shipped product. Locked 2026-05-21.
 
@@ -126,7 +126,7 @@ Tier downgrades are never automatic. Tier upgrades require operator approval (re
 ## Section 1 — Vault structure
 
 ```
-PrimoLabs_PoweredByClaude/
+rook/
 ├── _CLAUDE.md                ← THIS FILE (vault operating rules)
 ├── CLAUDE.md                 ← top-level routing contract
 ├── MASTER_INDEX.md           ← cross-agent wikilink hub (auto-generated)

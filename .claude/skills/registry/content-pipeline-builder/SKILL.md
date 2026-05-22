@@ -3,8 +3,7 @@ name: content-pipeline-builder
 description: |
   Single-turn research-and-write skill. User supplies a topic; the skill returns a research brief
   (8-15 sourced claims with inline citations) + section outline + full draft article — all in one
-  pass. Never uses preamble. The verdict is the first artifact. In-session counterpart to the
-  research-then-write AMA template, which runs the same pipeline autonomously across phases.
+  pass. Never uses preamble. The verdict is the first artifact.
 type: skill
 category: marketing
 version: "1.0.0"
@@ -19,30 +18,29 @@ tools:
   - WebFetch
   - WebSearch
 trigger: >
-  Fire when the user says: "write me an article on X," "research and draft," "research-then-write,"
+  Fire when the user says: "write me an article on X," "research and draft,"
   "blog post with sources," "sourced article," "long-form draft with citations," "draft a piece on,"
   "write a post about," or supplies a topic + length target expecting a fully-cited article in one
   turn.
 inherits:
   - voice_spine: .claude/voice-spine.md
-  - ama_counterpart: skills/templates/ama-templates/research-then-write/ama-definition.md
 ---
 
 # Content Pipeline Builder
 
 ## Overview
 
-Owner agent: **content-strategist**. This skill collapses the autonomous research-then-write AMA
-pipeline (Researcher → Writer → Editor) into a single chat turn. The user gives a topic; the skill
-returns three artifacts in sequence: (1) a research brief with 8-15 deduped sources, (2) a
-section-by-section outline with the load-bearing argument named per section, (3) the full draft
-with every factual claim traceable to a Phase 1 source.
+Owner agent: **content-strategist**. This skill runs a Researcher → Writer → Editor pipeline
+in a single chat turn. The user gives a topic; the skill returns three artifacts in sequence:
+(1) a research brief with 8-15 deduped sources, (2) a section-by-section outline with the
+load-bearing argument named per section, (3) the full draft with every factual claim traceable
+to a Phase 1 source.
 
-How this differs from the AMA counterpart: the AMA runs headless against Exa + Notion, publishes
-on a webhook, and produces one article per invocation with phase-completion logs. This skill runs
-in-chat using WebFetch + WebSearch, returns the artifacts as markdown the operator reads
-immediately, and skips the publishing step unless the operator explicitly asks for it. The AMA is
-for scale; this skill is for one-piece sessions where the operator stays in the loop.
+This skill runs in-chat using WebFetch + WebSearch, returns the artifacts as markdown the
+operator reads immediately, and skips any publishing step unless the operator explicitly asks
+for it. For autonomous headless pipelines (Exa + Notion + webhook publishing), see the
+[21st-dev AI agents catalog](../../../reference/21st-dev-ai-agents/) — ROOK does not bundle
+hosted-agent pipeline templates by default.
 
 The skill enforces the cite-or-die rule: zero fabricated sources, zero claims without a Phase 1
 trace. If fewer than 5 credible sources surface, the skill says so and proceeds with what exists
@@ -174,8 +172,7 @@ surface and walk away.
 
 ## Cross-references
 
-- AMA counterpart: `skills/templates/ama-templates/research-then-write/SKILL.md` and
-  `ama-definition.md` — autonomous version with Notion publishing
+- Autonomous pipeline counterpart: [21st-dev AI agents catalog](../../../reference/21st-dev-ai-agents/) (downloadable, not bundled)
 - Owner agent: `agents/content-strategist/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `topic-cluster-strategist`, `content-calendar-planner`, `seo-audit-quick`

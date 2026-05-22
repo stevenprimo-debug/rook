@@ -1,4 +1,4 @@
----
+﻿---
 name: pine-script-template
 description: |
   Pine v5 strategy scaffolder for TradingView. Takes strategy logic
@@ -295,4 +295,3 @@ the idea.
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `ict-pattern-detector` (pattern call → strategy logic), `risk-1pct-calculator` (the position-size math the script implements), `intraday-leveraged-etf-rules` (instrument-class rules), `tradingview-widget-builder` (embed the alerts in a product UI)
 - Owning agent: `trading-analyst`
-- No AMA counterpart — the operator-locked in-house skill.

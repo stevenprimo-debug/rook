@@ -6,7 +6,9 @@ published: []
 created: 2026-05-11
 description: Learn how to set up and configure a webhook subscription using the app configuration file and GCP PubSub.
 tags: [clippings]
-dept_secondary: [SHOPIFY]
+category: vendor-api-reference
+rook-relevance: high
+rook-consumers: shopify-agent, software-dev-team
 ---
 
 Subscribe your app to Shopify webhook topics so that it will be alerted when an event occurs on a merchant store.

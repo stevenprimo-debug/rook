@@ -1,4 +1,4 @@
----
+﻿---
 name: budget-and-forecast
 description: |
   Quarterly forecasting against the [your income target] milestone target.
@@ -35,6 +35,15 @@ inherits:
 ---
 
 # budget-and-forecast
+
+## Customer Configuration
+
+Before this skill is operational, fill in the following in `~/.claude/CLAUDE.md` (or your customer config file). The skill reads from there at runtime; if any are unset, it will surface the missing config rather than guess.
+
+| Placeholder | What to put there |
+|---|---|
+| `## Financial Runway` (section in `~/.claude/CLAUDE.md`) | Define `[your_net_income_target]`, `[your_gross_income_target]`, `[your_milestone_target_date]`, and `[your_personal_burn_monthly]` here. This skill reads from that file — do not edit the skill source. |
+| `[your_revenue_buckets]` | Define the bucket labels for your four revenue pillars (e.g., what the operator calls each pillar; the skill uses these labels in the bucket modes). |
 
 ## Overview
 
@@ -97,13 +106,9 @@ computes variance, surfaces what slipped, names the pacing adjustment.
 
 ## Domain Knowledge (CRITICAL — the operator-locked milestone math)
 
-Quoted from `~/.claude/CLAUDE.md`:
+Define your runway target in `~/.claude/CLAUDE.md` under `## Financial Runway`. This skill reads from that file at runtime — it expects the following keys to be filled in: `[your_net_income_target]`, `[your_gross_income_target]`, `[your_milestone_target_date]`, and `[your_personal_burn_monthly]`. If any are missing, the skill surfaces the gap and refuses to forecast.
 
-> **Primary mission — exit your employer by [milestone target date]:** Build to $100K net self-
-> employed income (~$135–145K gross). Tools and products are NOT limited
-> to AV — that's the warm audience, not the ceiling.
-
-And from the revenue-pillars doctrine (`agents/memory/
+From the revenue-pillars doctrine (`agents/memory/
 doctrine_exit_strategy_4_pillars.md`):
 
 > Four revenue pillars: (1) [your warm-audience product line]
@@ -279,4 +284,3 @@ confirms the current cadence.
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `commission-ledger`, `pnl-tracker`, `deal-economics`, `tax-planning-quick`
 - Owning agent: `finance-manager`
-- No AMA counterpart — the operator-locked in-house skill.

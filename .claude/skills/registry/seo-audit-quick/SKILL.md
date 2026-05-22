@@ -1,4 +1,4 @@
----
+﻿---
 name: seo-audit-quick
 description: |
   Single-page SEO audit in one turn. Operator supplies a URL or file path; the skill returns a
@@ -24,7 +24,6 @@ trigger: >
   or pastes a URL with "audit" intent.
 inherits:
   - voice_spine: .claude/voice-spine.md
-  - ama_counterpart: None
 ---
 
 # SEO Audit Quick
@@ -35,9 +34,7 @@ Owner agent: **seo-specialist**. This skill takes one URL or one HTML/markdown f
 a scored SEO report in a single chat turn. The audit covers seven axes: title tag, meta
 description, heading structure (H1-H4), image accessibility and weight, structured data
 (schema), internal link graph, and Core Web Vitals signals (where measurable from static
-analysis). Each axis gets a 0-10 score; the report aggregates to a composite.
-
-No AMA counterpart. Single-page audits are operator-initiated one-shots. The autonomous version
+analysis). Each axis gets a 0-10 score; the report aggregates to a composite. Single-page audits are operator-initiated one-shots. The autonomous version
 would be a site-wide crawler, which is a different skill class (not in this batch).
 
 The skill enforces the diagnosis-then-prescription pattern: every issue named gets a specific fix
@@ -188,7 +185,6 @@ minutes and walk away.
 
 ## Cross-references
 
-- AMA counterpart: None — single-page audits are in-session-only
 - Owner agent: `agents/seo-specialist/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `on-page-quick-check`, `keyword-cluster-quick`, `aeo-gap-finder`

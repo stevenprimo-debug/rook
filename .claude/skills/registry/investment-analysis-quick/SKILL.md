@@ -1,4 +1,4 @@
----
+﻿---
 name: investment-analysis-quick
 description: |
   Position sizing and investment evaluation for the operator's leveraged
@@ -268,4 +268,3 @@ order (sized per the binding constraint) or walks.
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `risk-1pct-calculator` (trading-analyst — per-trade sizing), `posture-reader` (trading-analyst — regime gate), `intraday-leveraged-etf-rules` (trading-analyst — instrument rules), `pnl-tracker` (realized outcomes)
 - Owning agent: `finance-manager` (cross-references `trading-analyst`)
-- No AMA counterpart — the operator-locked in-house skill.

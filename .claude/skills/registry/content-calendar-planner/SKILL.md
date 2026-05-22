@@ -1,10 +1,9 @@
----
+﻿---
 name: content-calendar-planner
 description: |
   Plans a 4-12 week content calendar in one turn — topics mapped to target keywords, audience
   awareness stage, publishing cadence, CTA per piece, owner per piece. Never uses preamble. The
-  calendar table is the first artifact. No AMA counterpart — this is an in-session-only planning
-  surface.
+  calendar table is the first artifact. This is an in-session-only planning surface.
 type: skill
 category: marketing
 version: "1.0.0"
@@ -24,7 +23,6 @@ trigger: >
   post next month," "build my content pipeline."
 inherits:
   - voice_spine: .claude/voice-spine.md
-  - ama_counterpart: None
 ---
 
 # Content Calendar Planner
@@ -36,7 +34,7 @@ Owner agent: **content-strategist**. This skill produces a publish-ready content
 without further editing. Each row carries: week, pillar-or-spoke designation, topic, target
 keyword, awareness stage, length target, CTA, owner, and the next-piece link (hub-and-spoke).
 
-No AMA counterpart exists. The calendar planner is an in-session-only surface because operators
+The calendar planner is an in-session-only surface because operators
 re-plan the calendar on different cadences (monthly, quarterly) and the inputs change every time
 (campaign focus, audience priority, available capacity).
 
@@ -172,7 +170,6 @@ within the hour.
 
 ## Cross-references
 
-- AMA counterpart: None — in-session-only surface
 - Owner agent: `agents/content-strategist/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Related skills: `topic-cluster-strategist`, `content-pipeline-builder`, `keyword-cluster-quick`

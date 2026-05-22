@@ -3,8 +3,7 @@ name: keyword-cluster-quick
 description: |
   In-session single-turn keyword cluster builder. Operator supplies a seed keyword; the skill
   returns clustered keyword tables with intent tags + content-gap notes in one pass. Never uses
-  preamble. The cluster table is the first artifact. In-session counterpart to the
-  seo-keyword-research AMA template.
+  preamble. The cluster table is the first artifact.
 type: skill
 category: marketing
 version: "1.0.0"
@@ -24,23 +23,21 @@ trigger: >
   for SEO," or supplies a seed keyword expecting clustered output.
 inherits:
   - voice_spine: .claude/voice-spine.md
-  - ama_counterpart: skills/templates/ama-templates/seo-keyword-research/ama-definition.md
 ---
 
 # Keyword Cluster Quick
 
 ## Overview
 
-Owner agent: **seo-specialist**. This skill collapses the seo-keyword-research AMA into a single
-chat turn. Operator gives a seed keyword; the skill runs 3-5 web searches, extracts the keyword
-universe (long-tail variations, question forms, adjacent subtopics), groups them into clusters
-by search intent (informational / commercial / transactional / navigational), and identifies
-content gaps relative to top-ranking competitor SERPs.
+Owner agent: **seo-specialist**. Operator gives a seed keyword; the skill runs 3-5 web searches,
+extracts the keyword universe (long-tail variations, question forms, adjacent subtopics), groups
+them into clusters by search intent (informational / commercial / transactional / navigational),
+and identifies content gaps relative to top-ranking competitor SERPs.
 
-How this differs from the AMA counterpart: the AMA runs against the Exa MCP server in a chat
-loop, supports drill-downs across many turns, and is the operator's standing keyword-research
-console. This skill runs once, returns a structured table, and is meant for the moment the
-operator wants the cluster picture now and will iterate later.
+This skill runs once, returns a structured table, and is meant for the moment the operator wants
+the cluster picture now and will iterate later. For a multi-turn standing keyword-research
+console (Exa MCP loop, drill-downs), see the [21st-dev AI agents catalog](../../../reference/21st-dev-ai-agents/)
+— ROOK does not bundle hosted-agent pipeline templates by default.
 
 The skill enforces two rules: (1) never fabricate search volume or difficulty — no MCP access to
 volume data in-session means those numbers are not made up; (2) every cluster carries an intent
@@ -177,8 +174,7 @@ keyword research done.
 
 ## Cross-references
 
-- AMA counterpart: `skills/templates/ama-templates/seo-keyword-research/SKILL.md` and
-  `ama-definition.md` — autonomous chat-UI version with Exa MCP loop
+- Autonomous pipeline counterpart: [21st-dev AI agents catalog](../../../reference/21st-dev-ai-agents/) (downloadable, not bundled)
 - Owner agent: `agents/seo-specialist/SKILL.md`
 - Voice spine: `.claude/voice-spine.md`
 - Pairs with: `topic-cluster-strategist` (content-strategist owns) — feeds keyword universe into

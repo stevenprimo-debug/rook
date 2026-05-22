@@ -6,7 +6,9 @@ published: []
 created: 2026-05-11
 description: Learn how to start internationalizing your app by externalizing, formatting, and translating strings.
 tags: [clippings]
-dept_secondary: [PERSONAL, MARKETING]
+category: doc-clipping
+rook-relevance: medium
+rook-consumers: shopify-agent, software-dev-team
 ---
 
 Shopify helps merchants expand their business to a global audience, sell to multiple countries, and scale internationally. This means that many merchants need to sell in multiple languages and currencies.
