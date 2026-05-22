@@ -125,3 +125,14 @@ Items from §1 and §2 with recommended archive destinations. **Nothing has been
 ## Compounding-append note
 
 This digest is the HEAD for 2026-05-21. Future digests should append, never rewrite. If a hard-gate item resolves before next sweep, the resolution row appends as `RESOLVED <date>` and the old finding stays as audit trail.
+
+---
+
+## 2026-05-22 Resolution
+
+The morning fix sprint executed the legacy-brand -> ROOK rename across the 17 remaining CLAUDE.md files plus `agents/_template/CLAUDE.md`. The two SOFT GATEs at lines 70 and 110 are now **RESOLVED**:
+
+- **Line 70 SOFT GATE — legacy "vault rules" phrasing -> "ROOK vault rules":** RESOLVED 2026-05-22. The 17 remaining CLAUDE.md files + `_template/CLAUDE.md` were rewritten in the parallel fix sprint.
+- **Line 110 SOFT GATE (same item, line-numbered in approval block):** RESOLVED 2026-05-22. Tracked alongside the line-70 resolution.
+
+Other soft-gate items from the 2026-05-21 approval block remain open and will be tracked in the next weekly digest. The brand-rename was the highest-priority brand-bleed risk; it is closed.
