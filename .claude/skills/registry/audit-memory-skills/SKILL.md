@@ -15,7 +15,7 @@ You are performing a recursive integrity audit on the ROOK ecosystem. The goal i
 ## Root to audit
 
 Vault-root resolution (in order):
-1. `$env:PRIMOLABS_VAULT_ROOT` (if set)
+1. `$env:ROOK_VAULT_ROOT` (if set)
 2. `git rev-parse --show-toplevel` (if cwd is inside a git repo)
 3. Walk up from cwd looking for the first directory that contains `agents/` + `hooks/` siblings
 

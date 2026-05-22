@@ -101,7 +101,7 @@ The workspace IS an Obsidian vault. All paths below are relative to:
 date: YYYY-MM-DD
 type: <type1> | <type2> | <type3>
 topic: <free text>
-requesting_dept: CEO | SALES | MARKETING | PRIMOLABS | DESIGN | SOFTWARE_DEV | etc.
+requesting_dept: CEO | SALES | MARKETING | ROOK | DESIGN | SOFTWARE_DEV | etc.
 decision_enabled: <one sentence — what choice does this output let the operator make?>
 status: draft | final | archived
 <dept-specific frontmatter fields as needed>
@@ -126,7 +126,7 @@ Before running any engagement, fill these:
 |---|---|---|
 | `{mode}` | `<mode-1>` \| `<mode-2>` \| `<mode-3>` \| `<mode-4>` \| `<mode-5>` \| ... | What type of work this session |
 | `{topic}` | free text | What is being worked on |
-| `{requesting_dept}` | `CEO` \| `SALES` \| `MARKETING` \| `PRIMOLABS` \| `DESIGN` \| `SOFTWARE_DEV` \| `RND` \| `self` | Who asked for this — drives output format and routing back |
+| `{requesting_dept}` | `CEO` \| `SALES` \| `MARKETING` \| `ROOK` \| `DESIGN` \| `SOFTWARE_DEV` \| `RND` \| `self` | Who asked for this — drives output format and routing back |
 | `{decision_enabled}` | free text — MANDATORY | The specific decision this work will inform. Work without a decision is forbidden. If unclear, ask the operator before proceeding. |
 | `{depth}` | `quick` \| `full` \| `deep-dive` | Quick = 30 min sprint. Full = 1-2 hour structured deliverable. Deep-dive = multi-session. |
 | <ADD DEPT-SPECIFIC PARAMS HERE> | | |
