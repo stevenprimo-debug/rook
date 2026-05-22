@@ -149,7 +149,7 @@ The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shar
 |---|---|---|
 | Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
 | Trace a specific chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
-| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "User authentication" "Session token"` |
 | Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
 
 **Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
@@ -581,7 +581,7 @@ experiment."
 The agent immediately runs Prior Art Scanner sub-agent.
 
 > **Prior Art Scanner verdict:** Three competitors have shipped
-> voice-trigger features; one was abandoned (touring operators reported
+> voice-trigger features; one was abandoned (field operators reported
 > ambient noise made it unreliable); two remain as niche features.
 > Operator's own past experiments: none on voice triggers; one related
 > experiment on macro-key triggers (killed at week 3 for ergonomics).
@@ -670,13 +670,13 @@ The agent runs Graduation Gate against community-faq-bot.
 
 ### `cheap_teardown` — Operator proposes a 6-week build
 
-the operator: "Let's build a fully working LLM-powered AV scoping tool for
+the operator: "Let's build a fully working LLM-powered intake-scoping tool for
 your business. 6 weeks, full Next.js + Supabase + auth + dashboard."
 
 The agent runs Probe Designer.
 
-> **Tier 1 — Cheapest probe (3 days):** the operator manually does AV scoping
-> with Claude in a chat for the next 3 incoming your business opportunities.
+> **Tier 1 — Cheapest probe (3 days):** the operator manually does intake scoping
+> with Claude in a chat for the next 3 incoming opportunities.
 > Captures: was Claude useful? What edge-case failed? What would a
 > tool need to add value beyond a chat?
 > **Tier 2 — Middle probe (1 week):** A scripted prompt template + a
@@ -686,7 +686,7 @@ The agent runs Probe Designer.
 > auth + dashboard.
 >
 > **Recommendation:** start at Tier 1. The 3-day probe answers "is
-> Claude reliable at AV scoping?" cheaper than the 6-week build. If
+> Claude reliable at intake scoping?" cheaper than the 6-week build. If
 > Tier 1 succeeds, move to Tier 2. Tier 3 is rarely the right starting
 > point because Tier 1 + Tier 2 often reveal that the tool requires a
 > different shape than originally proposed.
@@ -696,9 +696,9 @@ The agent runs Probe Designer.
 
 ### `stage_debate` — Novelty vs. Kill-Criterion tension
 
-A proposed experiment is exciting (genuinely new ground — TouchDesigner
-+ generative AI on tour visuals) but has no obvious kill criterion
-("when do we know it's not working?").
+A proposed experiment is exciting (genuinely new ground — generative
+AI applied to a new production workflow) but has no obvious kill
+criterion ("when do we know it's not working?").
 
 > **Round 1 — Opening positions.**
 > Novelty-Pole: this is the most novel proposal in the pipeline. Pass
@@ -716,7 +716,7 @@ A proposed experiment is exciting (genuinely new ground — TouchDesigner
 > insight in 60 seconds, kill"). Learning-Velocity arbitrates.
 > **Closing synthesis:** the experiment is funded with a process-based
 > kill criterion: "if at week 3 I cannot articulate one specific
-> insight in 60 seconds AND name what tour use case it serves, kill."
+> insight in 60 seconds AND name what specific use case it serves, kill."
 > Time-box: 4 weeks. Resource cap: 25 operator hours. The operator
 > commits to a written check-in at week 2 (mid-point status) and a
 > kill-or-extend decision at week 3. Novelty preserved; discipline

@@ -58,7 +58,7 @@ skills_can_create: true
 connectors: []
 trigger: 'Fire when the user says: blog post, long-form, content brief, content pillar, topic cluster, editorial calendar,
   newsletter, podcast outline, white paper, cohort lesson, email sequence, drip campaign, content strategy, SEO content plan,
-  content roadmap, evergreen content, thought leadership, hub-and-spoke.
+  content roadmap, evergreen content, authority content, hub-and-spoke.
 
   '
 inherits:
@@ -124,7 +124,7 @@ and goes outside.** Engagement is the failure mode. Tab-closure is the win.
 | Pole | Principle | What this pole gates on |
 |---|---|---|
 | Pole 1 | **Editorial-Craft-Pole** | "Does the piece earn its place in the reader's afternoon? Does every paragraph carry weight? Is the piece shorter than it wants to be?" Catches: padded prose, throat-clearing intros, lists masquerading as analysis, "in this post we'll cover" openers. Bias: cut to the load-bearing paragraphs. |
-| Pole 2 | **Direct-Response-Pole** | "Does the piece move the reader from awareness stage X to stage X+1? Does it earn the next action?" Catches: content that pumps page views but doesn't move anyone, "thought leadership" with no CTA, list pieces that exit the reader without a next step. Bias: every piece earns the next click. |
+| Pole 2 | **Direct-Response-Pole** | "Does the piece move the reader from awareness stage X to stage X+1? Does it earn the next action?" Catches: content that pumps page views but doesn't move anyone, "authority content" with no CTA, list pieces that exit the reader without a next step. Bias: every piece earns the next click. |
 | Pole 3 (synthesis middle) | **Audience-Asset-Pole** | "Does this piece compound the owned audience — email list, podcast subs, community members — or rent attention on a decaying platform? Will this piece still earn its place in 3 years?" Catches: trend-pieces with 30-day shelf life, social-only strategies, content that depends on a platform's discovery algorithm. Bias: build the audience the brand controls. |
 
 **Tension axis:** EDITORIAL (Craft) vs. CONVERSION (Direct-Response) —
@@ -187,7 +187,7 @@ The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shar
 |---|---|---|
 | Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
 | Trace a specific chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
-| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "User authentication" "Session token"` |
 | Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
 
 **Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
@@ -229,7 +229,7 @@ routing_keywords:
     - SEO content plan
     - content roadmap
     - evergreen content
-    - thought leadership
+    - authority content
     - hub-and-spoke
   secondary:
     - long read
@@ -392,7 +392,7 @@ Invoke skill-creator.
 <domain_knowledge>
 **Long-form content reality (2026):**
 - Average attention budget: 5-7 minutes for B2B; 3-4 min for consumer.
-- Email-list compounding outperforms social-only by 5-10x over 3 years.
+- Email-list compounding outperforms social-only by 5-10× over 3 years.
 - Pillar pieces (3000-5000w) rank for 2-3 years longer than spoke pieces.
 - AEO (answer-engine optimization) has shifted top-of-funnel discovery — long-form needs structured answers.
 - Newsletter discovery (Substack, beehiiv) remains durable; social discovery decays with algorithm changes.

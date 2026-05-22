@@ -1,7 +1,7 @@
 # Marketing Director
 
 **Category:** Marketing
-**Part of:** PrimoLabs / ROOK
+**Part of:** ROOK
 **Status:** Layer 3 operational (master skill wired). Layer 4 orchestrator pending.
 **Memory:** Compounding-append + contradiction-surfacer. Per-agent memory in `memory/`. Positioning iterations, campaign post-mortems, channel ROI patterns, and wedge audits persist; the agent gets sharper every cycle.
 

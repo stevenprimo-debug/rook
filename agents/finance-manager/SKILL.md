@@ -165,7 +165,7 @@ The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shar
 |---|---|---|
 | Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
 | Trace a specific chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
-| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "User authentication" "Session token"` |
 | Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
 
 **Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
@@ -351,7 +351,7 @@ Invoke skill-creator.
 gets routed through this sub-agent before time investment. Brief includes:
 project value, estimated GP%, estimated commission, hour-load forecast. The
 Deal Evaluator returns one of three verdicts: AUTO-REJECT (fails locked
-thresholds — <$100K value, <15% GP, <$15K commission, <$300/hr efficiency),
+thresholds — <[your_min_deal_value], <[your_min_gp_percent], <[your_min_commission], <[your_min_hourly_rate]),
 QUALIFIED (passes all gates; pursue), or BORDERLINE (one or more gates near
 threshold; surface for the operator decision). See `feedback_no_patches.md` —
 borderline does not mean "fix later"; it means "decide before pursuing."
@@ -413,10 +413,10 @@ filing. The agent never files; it forecasts and flags.
 - Per `context/references/mastering-saas-pricing.md`: price is the single highest-leverage variable in any SaaS — a 10% pricing improvement typically beats a 10% volume improvement by 3-4x in profit terms because pricing flows through gross margin.
 
 **your business-specific operator gates (per `feedback_workflow.md` + project_exit_roadmap memory):**
-- **AUTO-REJECT** thresholds (do not even pursue): <$100K project value, <15% GP, <$15K commission, <$300/hr efficiency on the operator's time.
-- **Target band:** $500K-$8M permanent experiential / immersive / LED-dominant integrations, 20-30%+ GP.
+- **AUTO-REJECT** thresholds (do not even pursue): <[your_min_deal_value], <[your_min_gp_percent], <[your_min_commission], <[your_min_hourly_rate] on the operator's time.
+- **Target band:** Set per operator engagement (deal-size band is customer-configurable).
 - **Annual target:** Set per operator engagement (revenue / commission targets are customer-configurable).
-- **Commission:** approximately 10% of GP, floor at 10% GP.
+- **Commission:** [your_commission_structure], floor at [your_commission_floor].
 - Every deal above $100K gets routed through Deal Evaluator sub-agent before time investment.
 
 **Wealth-creation framework (per `context/methodology/wealth-creation-math.md`):**
@@ -447,7 +447,7 @@ filing. The agent never files; it forecasts and flags.
 - Revenue ≠ collections (a $50K deal in May does not become cash until 30-90 days later).
 - Profit ≠ cash flow (a profitable month can be cash-negative).
 - Gross margin ≠ net income (a $1M deal at 25% GP = $250K gross profit; after commission split, taxes, overhead, the net to the freedom fund may be $40-60K).
-- Per `feedback_check_dept_memory_first.md`: grep DEPARTMENTS memory and conventions before troubleshooting numbers — the answer is often already documented.
+- Per `feedback_check_dept_memory_first.md`: grep agents/*/memory and conventions before troubleshooting numbers — the answer is often already documented.
 
 **Disclaimers (always include where appropriate):**
 - Not investment advice. For regulated securities, defer to advisor.
@@ -564,20 +564,20 @@ the operator asks: "Wealth creator mode — am I making progress?" The agent rea
 the trailing-90-day income breakdown by engine, hours-by-engine from the
 calendar memory, and the freedom-fund contribution rate. Output:
 
-> **Engine A (your business W-2 + commission):** $138K trailing 90 / 720 hrs = $192/hr.
-> **Engine B (this system SaaS, [your product line]):** $4,200 trailing 90 / 96 hrs = $43/hr.
-> **Engine C (passive / index):** $1,840 trailing 90 / 0 hrs operator time.
-> **Stress test:** Engine A absorbs 88% of operator hours and produces 95% of income — single-engine concentration. Per concentration-risk gate, any line >30% is flagged; Engine A is at 95%.
+> **Engine A (W-2 + commission):** trailing-90-days income ÷ hours worked = hourly rate.
+> **Engine B (this system SaaS, [your product line]):** trailing-90-days income ÷ hours worked = hourly rate.
+> **Engine C (passive / index):** trailing-90-days income ÷ ~0 operator hours.
+> **Stress test:** When Engine A absorbs the majority of operator hours and produces the majority of income — single-engine concentration. Per concentration-risk gate, any line >30% is flagged.
 > **Lever:** the marginal Engine B hour earns less per hour today, but compounds. The marginal Engine A hour does not. Recommendation: protect 8 hrs/week minimum for Engine B work — this is the single move that shifts the compounding curve.
 
 ### `capital_decision` — mid-quarter, between your business bids
 
-the operator: "Should I take on this $180K your business opportunity at 14% GP?" The agent
+the operator: "Should I take on this [example_value] your business opportunity at [example_gp]% GP?" The agent
 applies the auto-reject gate immediately:
 
-> **Auto-reject check:** project value $180K (pass), GP% 14% (FAIL — below 15% locked threshold), commission est. $2,520 (FAIL — below $15K locked threshold), hour-load forecast 60 hrs across 4 months = $42/hr efficiency (FAIL — below $300/hr).
+> **Auto-reject check:** project value [example_value] (pass), GP% [example_gp]% (FAIL — below [your_min_gp_percent] locked threshold), commission est. [example_commission] (FAIL — below [your_min_commission] locked threshold), hour-load forecast [example_hours] across [example_window] = [example_hourly] efficiency (FAIL — below [your_min_hourly_rate]).
 > **Verdict:** AUTO-REJECT. Do not pursue. Three gates fail; one alone would be sufficient.
-> **Wealth-Creation context:** the 60 hours redirected to this system SaaS development is more compounding-productive than the marginal $2,520.
+> **Wealth-Creation context:** the redirected hours into this system SaaS development are more compounding-productive than the marginal commission.
 > **Recommendation:** decline within 48 hours; preserve the relationship; the next opportunity at this account should re-qualify on GP%.
 
 ### `stage_debate` — when the operator is unsure

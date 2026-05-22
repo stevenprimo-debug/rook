@@ -21,4 +21,4 @@ status: skeleton
 
 ## Memory
 - Memory hooks live in `memory/`
-- Compounding-append + contradiction-surfacer pattern (inherited from PRIMOLABS vault rules)
+- Compounding-append + contradiction-surfacer pattern (inherited from ROOK vault rules)

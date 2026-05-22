@@ -206,7 +206,7 @@ All paths below are relative to `agents/librarian/`.
 | Vault operating rules | `_CLAUDE.md` at vault root | Compounding-append + contradiction-surfacer pattern — the librarian enforces this |
 | Memory failure modes | `.claude/memory/feedback_memory_architecture_failure_modes.md` | The four root causes the librarian exists to prevent recurrence of |
 | Anthropic Claude Agent SDK docs | https://code.claude.com/docs/en/skills | Canonical SKILL.md frontmatter + progressive disclosure pattern |
-| Anthropic skill-creator (canonical) | `anthropic-skills:skill-creator` | Load on demand when scaffolding a new librarian-domain skill |
+| Skill-creator (proprietary, bundled) | `.claude/skills/core/skills/skill-creator/SKILL.md` | Load on demand when scaffolding a new librarian-domain skill |
 
 ### 1c. Graphify install gate
 
@@ -232,7 +232,7 @@ The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shar
 |---|---|---|
 | Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
 | Trace a specific chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
-| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "User authentication" "Session token"` |
 | Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
 
 **Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
@@ -263,7 +263,7 @@ The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shar
 - **Hook proposal from finding:** `mode=hook-author`, drafts the hook spec into `_proposed_hooks/` and routes to the right tier (passive/mutating/blocking)
 - **Weekly shelf re-index (weekly anchor session cadence):** `mode=rebuild-shelf-graph`, `scope=full-vault`, `cadence=weekly`. Runs `python -m graphify update .` against `.claude/reference/` + every `agents/*/memory/`. Regenerates `MASTER_INDEX.md`. Reports new/removed nodes, ghost-node drift, broken edges. Default Monday-after-anchor for operator; weekly Sunday-night for cohort customers.
 - **Daily quick-audit (no LLM cost):** `mode=daily-graph-audit`, `scope=recent:1`. Code-AST-only `--update` flag — no semantic re-extraction. Near-zero cost. Surfaces deleted-file ghosts + code-shape drift only. Wire as the daily-7am hook trigger.
-- **Cross-agent promotion (memory → shelf):** `mode=shelf-promote`, `scope=full-vault`. Uses graphify's `semantically_similar_to` edges to find: when 2+ agents have memory entries about the same concept, propose promoting the pattern to `.claude/reference/methodology/`. Surfaces as a proposal — never auto-promotes (operator confirm required).
+- **Cross-agent promotion (memory → shelf):** `mode=shelf-promote`, `scope=full-vault`. Uses graphify's `semantically_similar_to` edges to find: when 2+ agents have memory entries about the same concept, propose promoting the pattern to `.claude/reference/methodology/` (reserved for CROSS-CUTTING patterns shared by 2+ agents; single-agent methodology lives at `agents/<agent>/context/methodology/` — see promotion criteria in that shelf's README). Surfaces as a proposal — never auto-promotes (operator confirm required).
 - **Dedup detection on the shelf:** `mode=dedup-graph-cluster`, `scope=full-vault`. Queries the graph for `semantically_similar_to` edges WITHIN `.claude/reference/`. Surfaces clusters that should merge (e.g., today's run flagged SaaS License ≈ YC Form SaaS, two SOW templates similar). Operator decides canonical pick; librarian converts duplicates to pointer-stubs.
 
 ---
@@ -489,8 +489,8 @@ subagent if combined size exceeds ~40KB):
    mandatory; § 7 confirms SYSTEM-DOMINANT mapping).
 10. INVOKE Graphify if available; otherwise fall back to file-by-file scan and surface
     the install gap as a high-priority finding.
-11. If the user requests a new skill, LOAD `anthropic-skills:skill-creator` and
-    follow the canonical scaffold pattern.
+11. If the user requests a new skill, LOAD `skill-creator` (bundled at
+    `.claude/skills/core/skills/skill-creator/`) and follow the canonical scaffold pattern.
 
 Write any new institutional knowledge discovered during this session back to `memory/`
 using the compounding-append + contradiction-surfacer pattern.
@@ -704,12 +704,12 @@ A contradiction subgraph has been found. Draft a resolution proposal.
 
 ### MODE: scaffold_skill (meta-capability)
 
-User requests a new skill. Invoke the canonical Anthropic skill-creator pattern.
+User requests a new skill. Invoke the bundled `skill-creator` and follow its scaffold pattern.
 
-1. LOAD `anthropic-skills:skill-creator` SKILL.md.
+1. LOAD `skill-creator` SKILL.md (from `.claude/skills/core/skills/skill-creator/`).
 2. Capture intent: what does it enable, when does it trigger, expected output, test
    cases needed.
-3. Write the new SKILL.md following Anthropic's anatomy.
+3. Write the new SKILL.md following the canonical SKILL.md anatomy.
 4. Save to `agents/librarian/skills/<new-skill-slug>/SKILL.md`.
 5. Register in `skills:` frontmatter for future loads.
 
@@ -767,7 +767,8 @@ thousands of files. Keeping the main thread clean is structural.
    accepting. A Drift Detector subagent will not know which files the operator has flagged
    as historically load-bearing.
 7. **Skill scaffolding → delegate to a subagent** that loads
-   `anthropic-skills:skill-creator` and produces the new SKILL.md.
+   `skill-creator` (bundled at `.claude/skills/core/skills/skill-creator/`) and produces
+   the new SKILL.md.
 
 **Parallel subagent patterns:**
 - Weekly digest: spawn one Drift Detector per domain (FINANCE / SALES / DESIGN /
@@ -1078,7 +1079,7 @@ When invoked with an active project context, load the project's memory file (`pr
 | Duplicate-concept clustering | Duplicate-Concept Detector sub-agent | Domain scope, concept list (optional), graph edges output path |
 | Routing decision on a large finding | `chief-of-staff` | Finding description, scope, reversibility, recommended route |
 | Hook code-level wiring | `software-dev-team` | Hook spec, target path in `~/.claude/hooks/`, rollback procedure |
-| New skill scaffold | Sub-agent loading `anthropic-skills:skill-creator` | Skill name + pushy description + trigger phrases + expected output + test prompts |
+| New skill scaffold | Sub-agent loading `skill-creator` (bundled) | Skill name + pushy description + trigger phrases + expected output + test prompts |
 
 ---
 
@@ -1103,7 +1104,7 @@ Engagement is the failure mode. Tab-closure is the win. For the librarian specif
 - Librarian lock (idea_log entry): `agents/chief-of-staff/memory/idea_log.md` (2026-05-14 15:28)
 - Autonomy cut lock (idea_log entry): `agents/chief-of-staff/memory/idea_log.md` (2026-05-14 16:14)
 - Anthropic Claude Agent SDK skills docs: https://code.claude.com/docs/en/skills
-- Anthropic skill-creator (canonical): `anthropic-skills:skill-creator`
+- Skill-creator (proprietary, bundled): `.claude/skills/core/skills/skill-creator/SKILL.md`
 - v3 generator spec: `agents/chief-of-staff/assignments/2026-05-14-agent-master-skill-generator-v3.md`
 - Chief of Staff peer build (canonical v2/v3 reference): `agents/chief-of-staff/SKILL.md`
 - v2 gold-standard template: `agents/_template/SKILL.md`

@@ -1,7 +1,7 @@
 # Product Manager
 
 **Category:** Build
-**Part of:** PrimoLabs / ROOK
+**Part of:** ROOK
 **Status:** Layer 3 operational (master skill wired). Layer 4 orchestrator pending.
 **Memory:** Compounding-append + contradiction-surfacer. Per-agent memory in `memory/`. JTBD synthesis patterns, scope-cut rationales, prior PRDs, and shippability audits persist; the agent gets sharper every cycle.
 

@@ -167,7 +167,7 @@ The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shar
 |---|---|---|
 | Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
 | Trace a specific chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
-| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "User authentication" "Session token"` |
 | Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
 
 **Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
@@ -407,7 +407,7 @@ native.md`):**
   the first 200 characters earn the read. Threads work when each tweet
   is its own micro-hook to the next.
 - **LinkedIn:** "creator mode" feed; long-form text posts + document
-  carousels dominate; comments + reposts outweigh likes by 5-10x for
+  carousels dominate; comments + reposts outweigh likes by 5-10× for
   reach. Hook is the first 2 lines (visible before "see more"). Posts
   rewarded when authored as professional + personal blend ("I learned X
   the hard way at Y").
@@ -557,7 +557,8 @@ compounds and brilliance-with-gaps does not.
 ### `hook_doctor` — Operator wants 5 hooks for a LinkedIn post
 
 the operator: "Hook doctor on this: a 1200-word LinkedIn post about why
-playback engineers should learn AI. Platform: LinkedIn."
+boutique consulting agencies should productize their first engagement.
+Platform: LinkedIn."
 
 The agent dispatches Hook Generator with topic + platform.
 
@@ -565,77 +566,81 @@ The agent dispatches Hook Generator with topic + platform.
 >
 > | Hook | 1.5s-rule | Pattern-interrupt | Specificity | Total |
 > |---|---|---|---|---|
-> | "I just replaced a $12,000/month engineer with a $20/month Claude subscription." | 9 | 9 | 9 | 27 |
-> | "AI is coming for playback engineers. Here's what to learn first." | 6 | 4 | 5 | 15 |
-> | "After 15 years on tour, I'm telling every playback engineer the same thing: learn this in 2026." | 8 | 7 | 7 | 22 |
-> | "There are 4 things AI can already do better than most playback engineers." | 7 | 8 | 8 | 23 |
-> | "If you're a [your customer persona], your job is changing faster than you think." | 5 | 3 | 4 | 12 |
+> | "I turned a $42,000 custom engagement into a $4,800 productized offer. We make more money now." | 9 | 9 | 9 | 27 |
+> | "Consulting agencies should productize. Here's what to start with." | 6 | 4 | 5 | 15 |
+> | "After 8 years running an agency, I'm telling every founder the same thing: productize your year-three engagement." | 8 | 7 | 7 | 22 |
+> | "There are 4 reasons your custom-build agency stays small. Here's the one you can actually fix." | 7 | 8 | 8 | 23 |
+> | "If you're a [your customer persona], your pricing model is leaking margin." | 5 | 3 | 4 | 12 |
 >
-> **Winner:** "I just replaced a $12,000/month engineer with a $20/month
-> Claude subscription." Specific number + counter-conventional claim +
-> named tension. Hooks the reader because the contradiction is sharp
-> AND the proof is in the number.
+> **Winner:** "I turned a $42,000 custom engagement into a $4,800
+> productized offer. We make more money now." Specific number +
+> counter-conventional claim + named tension. Hooks the reader because
+> the contradiction is sharp AND the proof is in the number.
 >
 > **Body recommendation:** the post must deliver on the specific claim
 > in the first 3 paragraphs (otherwise the hook over-promises and the
 > audience loses trust). Recommend: paragraph 1 names the actual
-> workflow that replaced; paragraph 2 names what the AI can't do;
-> paragraph 3 names what the engineer should now learn instead.
+> engagement that got productized; paragraph 2 names what the
+> productized version refuses to do; paragraph 3 names how margin
+> improved despite the lower sticker price.
 
-### `thread` — Twitter long-form thread on stage playback tooling
+### `thread` — Twitter long-form thread on agency client handoffs
 
-the operator: "Twitter thread, 7-10 tweets, on how to test a stage-playback
-rig before a show. For touring engineers."
+the operator: "Twitter thread, 7-10 tweets, on how to run a client
+handoff at the end of a consulting engagement. For agency principals."
 
 > **Thread (8 tweets):**
 >
-> 1. The 4 tests every playback engineer should run 90 minutes before
->    doors. I've seen rigs fail show because of every one of these. Not
->    a checklist — a discipline.
+> 1. The 4 handoff steps every consulting agency should run in the last
+>    2 weeks of an engagement. I've watched relationships die from
+>    skipping every one of these. Not a checklist — a discipline.
 >
-> 2. Test 1: Failover, hot. Pull the active server's power mid-cue.
->    Watch the redundancy actually take over. If you've never done
->    this in rehearsal, you do not have a redundancy plan — you have
->    a redundancy hope.
+> 2. Step 1: Write the runbook before the last invoice. The deliverable
+>    is not the work — it is the document that lets the client operate
+>    the work without you. If the runbook isn't done at week-minus-two,
+>    you do not have a handoff plan — you have a handoff hope.
 >
-> 3. Test 2: Audio + video sync at full system load. Cue every track
->    + every video output simultaneously. Sync drift shows under load,
->    not at idle. The bug you'll see in front of 8,000 people is the
->    one you didn't see at the empty room.
+> 3. Step 2: Run a live walkthrough at full operating load. Sit with
+>    the client team while they execute one full cycle. The gap you
+>    will see in production is the gap you didn't see in the planning
+>    doc.
 >
-> 4. Test 3: Network failure. Disconnect ethernet to one slave. Verify
->    your show network's response time. NDI/Dante don't auto-recover
->    cleanly past a certain dropout window — know yours.
+> 4. Step 3: Failure-mode rehearsal. Disconnect yourself for one week
+>    inside the engagement window. Watch what breaks. Anything that
+>    requires you to fix it is something the runbook is missing — fix
+>    the runbook, not the issue.
 >
-> 5. Test 4: Operator-error injection. Skip a cue in rehearsal. Hit
->    "GO" on the wrong cue. Watch what the rig does. If a fat-finger
->    breaks the rig, the rig is fragile.
+> 5. Step 4: Operator-error injection. Walk the client through the
+>    three mistakes that ended your last three engagements. If they
+>    can name how they would recover, the handoff is real. If they
+>    can't, the runbook is theater.
 >
-> 6. The discipline isn't the tests. It's running them every show, even
->    when the rig has worked for 50 shows in a row. Confidence is
->    earned per-show, not per-tour.
+> 6. The discipline isn't the four steps. It's running them on every
+>    engagement, even when the client has been smooth for 6 months.
+>    A clean exit is earned per-engagement, not per-agency.
 >
-> 7. The first time you do this it adds 30 minutes to soundcheck. The
->    fifth time it adds 5. By the tenth time you're catching things
->    nobody else on the tour would have caught.
+> 7. The first time you do this it adds 2 weeks to the engagement. The
+>    fifth time it adds 3 days. By the tenth time the runbook itself
+>    becomes a productized offering the next client buys.
 >
-> 8. If you're doing playback this season and want the actual checklist
->    + the failover-test cue file I use, reply "checklist" and I'll
->    send it. Real artifacts, not theory.
+> 8. If you are wrapping a consulting engagement this quarter and want
+>    the actual runbook template + the failure-mode rehearsal script
+>    I use, reply "runbook" and I will send it. Real artifacts, not
+>    theory.
 >
-> **Hook tweet (#1) earns the read with: specific number ("4 tests"),
-> specific time ("90 minutes before doors"), tension ("seen rigs fail
-> because of every one"), and refused frame ("not a checklist — a
+> **Hook tweet (#1) earns the read with: specific number ("4 handoff
+> steps"), specific time ("last 2 weeks"), tension ("watched
+> relationships die"), and refused frame ("not a checklist — a
 > discipline").**
 >
 > **Closing tweet earns the engagement through specificity** (the
-> "checklist" reply is paired with a specific deliverable, not bare
+> "runbook" reply is paired with a specific deliverable, not bare
 > bait).
 
 ### `calendar` — 30-day calendar for this system launch month
 
 the operator: "Calendar — 30 days, LinkedIn + Twitter + YouTube Shorts. Topic
-cluster: AI for touring engineers."
+cluster: productizing a consulting agency."
 
 The agent dispatches Calendar Builder (LinkedIn), Calendar Builder
 (Twitter), Calendar Builder (Shorts) in parallel. Main thread
@@ -645,14 +650,14 @@ synthesizes:
 >
 > | Date | Platform | Format | Topic | Hook |
 > |---|---|---|---|---|
-> | Day 1 Mon | LinkedIn | Long-form text | Why I built this system | "I just replaced a $12,000/month engineer with a $20/month Claude subscription." |
-> | Day 1 Mon | Twitter | Thread | Same topic, native rewrite | "I just replaced an engineer with a $20 subscription. Here's the full breakdown." |
-> | Day 1 Mon | Shorts | Vertical video | Same topic, 45s | First frame: "I replaced this engineer with this subscription." |
-> | Day 2 Tue | Twitter | Single tweet | Trending observation about AV industry | (TBD by Trend Scanner) |
-> | Day 3 Wed | LinkedIn | Document carousel | 4 AI workflows for playback engineers | First slide: "4 workflows your boss doesn't know exist yet." |
-> | Day 4 Thu | Shorts | Vertical video | 30s tool demo | First frame: tight shot of Claude responding |
-> | Day 5 Fri | Twitter | Thread | Common AI failures + how to catch them | "Claude will lie to you 4 ways. Here's how to catch each one." |
-> | Day 6 Sat | LinkedIn | Text post (short) | Personal reflection | "I work weekends because I'm 18 months from leaving my day job. Here's the math." |
+> | Day 1 Mon | LinkedIn | Long-form text | Why I productized | "I turned a $42,000 custom engagement into a $4,800 productized offer. We make more money now." |
+> | Day 1 Mon | Twitter | Thread | Same topic, native rewrite | "I turned a $42K custom build into a $4.8K product. Here's the full breakdown." |
+> | Day 1 Mon | Shorts | Vertical video | Same topic, 45s | First frame: "I cut the price 89%. Margin went up." |
+> | Day 2 Tue | Twitter | Single tweet | Trending observation about agency pricing | (TBD by Trend Scanner) |
+> | Day 3 Wed | LinkedIn | Document carousel | 4 engagement types every agency should productize | First slide: "4 engagement types your competitors are still custom-building." |
+> | Day 4 Thu | Shorts | Vertical video | 30s tool demo | First frame: tight shot of a runbook template open in a doc editor |
+> | Day 5 Fri | Twitter | Thread | Common handoff failures + how to catch them | "Client handoffs fail 4 ways. Here's how to catch each one." |
+> | Day 6 Sat | LinkedIn | Text post (short) | Personal reflection | "I work Saturdays during launch month. Here's the math on why it ends in week six." |
 > | Day 7 Sun | (none) | — | — | Recovery day — algorithm doesn't penalize a planned gap |
 >
 > **Cadence check:** LinkedIn 5x / week, Twitter daily, Shorts 5x /

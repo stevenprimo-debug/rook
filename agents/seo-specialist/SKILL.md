@@ -157,7 +157,7 @@ The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shar
 |---|---|---|
 | Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
 | Trace a specific chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
-| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "User authentication" "Session token"` |
 | Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
 
 **Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
@@ -585,34 +585,34 @@ citation profile, brand-mention density.
 
 ### `seo_aeo_audit` — A new content page on this system
 
-the operator: "Audit this new page at /ai-for-touring-engineers." The agent
+the operator: "Audit this new page at /vs/competitor-x." The agent
 runs all three poles in parallel via sub-agents.
 
 > **SERP-Rank gates:**
 > | Gate | Status | Fix |
 > |---|---|---|
-> | Title tag | FAIL — 73 chars, truncates on mobile | Cut to "AI Tools for Touring Engineers: A 2026 Guide" (53 chars) |
+> | Title tag | FAIL — 71 chars, truncates on mobile | Cut to "Competitor X vs. [Product]: Honest 2026 Comparison" (51 chars) |
 > | Meta description | PASS | — |
 > | One H1 | PASS | — |
 > | LCP | FAIL — 3.8s | Defer hero video; preload hero image; dispatch to software-dev-team |
 > | CLS | PASS — 0.04 | — |
 > | INP | PASS — 142ms | — |
 > | Canonical | PASS | — |
-> | Internal-link reachability | FAIL — page is orphan | Add inbound links from /tools, /playbook, /home |
+> | Internal-link reachability | FAIL — page is orphan | Add inbound links from /pricing, /features, /home |
 > | Schema | FAIL — missing Article schema | Add JSON-LD Article with author byline + datePublished |
 >
 > **Answer-Engine-Visibility gates:**
 > | Gate | Status | Fix |
 > |---|---|---|
-> | Structured-for-citation (clear definitions) | PARTIAL — definition is buried 4 paragraphs in | Hoist "AI for touring engineers means..." to first 200 words |
-> | List answers ("the 5 AI tools...") | PASS — has a list section | — |
+> | Structured-for-citation (clear definitions) | PARTIAL — the side-by-side comparison is buried 4 paragraphs in | Hoist "Here is the one-sentence difference..." to first 200 words |
+> | List answers ("the 5 differences...") | PASS — has a list section | — |
 > | Author byline with verifiable expertise | FAIL — no author block | Add the operator byline + LinkedIn link + 1-line credentials |
 > | Brand mentions in adjacent contexts | UNKNOWN — Citation Scanner not run yet | Run Citation Scanner; baseline mention density |
 >
 > **Topical-Authority gates:**
 > | Gate | Status | Fix |
 > |---|---|---|
-> | Pillar architecture | PARTIAL — this is a spoke but no pillar exists for "AI for AV" | Build pillar page (3000-5000 words) before publishing more spokes |
+> | Pillar architecture | PARTIAL — this is a spoke but no pillar exists for "Project Management for Remote Teams" | Build pillar page (3000-5000 words) before publishing more spokes |
 > | Internal-link graph | FAIL — orphan page | Add spoke→pillar (after pillar build) + spoke→spoke links |
 > | External citation profile | UNKNOWN | Run Citation Scanner |
 >
@@ -631,10 +631,10 @@ The agent dispatches 4 AEO Tester sub-agents in parallel — one per
 engine — running a defined prompt set:
 
 > **Prompt set (10 prompts):**
-> 1. "What are the best AI tools for [your customer industry] engineers?"
-> 2. "Who teaches AI to live event professionals?"
-> 3. "Where can I learn AI as a playback engineer?"
-> 4. "What's the difference between your product and other playback tools?"
+> 1. "What is the best project management tool for remote teams?"
+> 2. "Who builds async-first project management software for distributed teams?"
+> 3. "What's the best alternative to Competitor X under $20 per user per month?"
+> 4. "What's the difference between [Product] and the other project management tools?"
 > 5. "Who is [Product Owner]?"
 > 6. ... etc
 >
@@ -659,26 +659,26 @@ engine — running a defined prompt set:
 >
 > **Written to `memory/aeo_<surface-slug>_<YYYY-Q>.md`. Next review next quarter.**
 
-### `keyword_cluster` — Build topical cluster for "AI for AV"
+### `keyword_cluster` — Build topical cluster for "Project Management for Remote Teams"
 
-the operator: "Build the cluster for the AI-for-AV pillar." Cluster Builder
+the operator: "Build the cluster for the remote-PM pillar." Cluster Builder
 sub-agent returns:
 
-> **Pillar:** "AI for Audio-Visual Professionals: The 2026 Guide"
-> (3000-5000 words; covers definition, history, tools, use cases,
-> career impact, getting started).
+> **Pillar:** "Project Management for Remote Teams: The 2026 Guide"
+> (3000-5000 words; covers definition, async vs. sync, tooling,
+> rituals, team-size scaling, getting started).
 >
 > **Spokes (10 sub-topics, 1000-1500 words each):**
-> 1. AI tools for playback engineers (intent: informational)
-> 2. AI tools for show callers (informational)
-> 3. AI for projection mapping artists (informational)
-> 4. Best AI subscriptions for AV pros under $50/month (commercial-investigation)
-> 5. ChatGPT vs. Claude for touring engineers (commercial-investigation)
-> 6. Building an AI workflow for live events (informational)
-> 7. AI ethics on tour (informational; YMYL-adjacent)
-> 8. How to learn AI as an AV professional (informational)
+> 1. Async standups for distributed teams (intent: informational)
+> 2. Running sprint planning across three time zones (informational)
+> 3. How to structure a remote-first project workspace (informational)
+> 4. Best project management tools under $20 per user per month (commercial-investigation)
+> 5. Notion vs. ClickUp for product teams (commercial-investigation)
+> 6. Building a written-default communication culture (informational)
+> 7. Burnout signals on async teams (informational; YMYL-adjacent)
+> 8. How to onboard a remote engineer in week one (informational)
 > 9. this system vs. competitor platforms (commercial-investigation; brand)
-> 10. AI-generated content for live events (informational)
+> 10. AI-assisted status updates for distributed teams (informational)
 >
 > **Internal-link plan:** every spoke links back to the pillar in
 > first 200 words AND in conclusion. Related spokes cross-link (3-5 → 5-9

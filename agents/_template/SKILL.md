@@ -148,7 +148,7 @@ The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shar
 |---|---|---|
 | Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
 | Trace a specific concept chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
-| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "User authentication" "Session token"` |
 | Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
 
 **Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
@@ -176,7 +176,7 @@ Whenever this agent is about to invoke an external service, **read the relevant 
 | ROOK brand lock | `.claude/memory/rook_brand.md` | ROOK brand identity — chess-piece icon, product positioning, shipped application branding |
 | Cross-agent dispatch trail | `agents/chief-of-staff/memory/dispatch_log.md` | Who-called-whom history across the agent line |
 | Anthropic Claude Agent SDK skills docs | https://code.claude.com/docs/en/skills | Canonical SKILL.md frontmatter + progressive disclosure pattern |
-| Anthropic skill-creator (canonical) | `anthropic-skills:skill-creator` | Load on demand when the user requests a new skill — see Master Skill as Skill-Builder section |
+| Skill-creator (proprietary, bundled) | `.claude/skills/core/skills/skill-creator/SKILL.md` | Load on demand when the user requests a new skill — see Master Skill as Skill-Builder section |
 
 ---
 
@@ -315,8 +315,8 @@ combined size exceeds ~40KB):
 6. If `{artifact}` references a project, READ that project's context in `context/` or
    upstream.
 7. If the user requests a new skill (e.g., "make me a skill for X"), LOAD
-   `anthropic-skills:skill-creator` and follow the canonical scaffold pattern (see
-   "Master Skill as Skill-Builder" section below).
+   `skill-creator` (bundled at `.claude/skills/core/skills/skill-creator/`) and follow
+   the canonical scaffold pattern (see "Master Skill as Skill-Builder" section below).
 
 Write any new institutional knowledge discovered during this session back to `memory/`
 using the compounding-append + contradiction-surfacer pattern (versioned append on
@@ -383,15 +383,15 @@ User-requested narration mode. Synthesis-by-default is OFF for this session.
 ### MODE: scaffold_skill (meta-capability)
 
 User requests a new skill ("make me a skill for X," "turn this into a skill,"
-"automate this pattern"). Invoke the canonical Anthropic skill-creator pattern.
+"automate this pattern"). Invoke the bundled `skill-creator` and follow its scaffold pattern.
 
-1. LOAD `anthropic-skills:skill-creator` SKILL.md.
+1. LOAD `skill-creator` SKILL.md (from `.claude/skills/core/skills/skill-creator/`).
 2. Capture intent (per skill-creator's "Capture Intent" step):
    - What should this skill enable?
    - When should it trigger? (user phrases / contexts)
    - Expected output format?
    - Test cases needed?
-3. Write the new SKILL.md following Anthropic's anatomy:
+3. Write the new SKILL.md following the canonical SKILL.md anatomy:
    - YAML frontmatter (name + description required; description is "pushy" to trigger
      reliably per skill-creator guidance)
    - SKILL.md body (<500 lines per Anthropic's progressive-disclosure recommendation)
@@ -431,8 +431,9 @@ Context window discipline is NON-NEGOTIABLE for this agent.
 6. **After receiving subagent results:** validate against domain knowledge before
    accepting.
 7. **Skill scaffolding → delegate to a subagent** that loads
-   `anthropic-skills:skill-creator` and produces the new SKILL.md. Main thread reviews
-   the draft against this agent's domain context before committing.
+   `skill-creator` (bundled at `.claude/skills/core/skills/skill-creator/`) and produces
+   the new SKILL.md. Main thread reviews the draft against this agent's domain context
+   before committing.
 
 **Parallel subagent patterns:**
 - <PATTERN 1 — agent-specific parallel pattern>
@@ -626,7 +627,7 @@ distinguishable by the question they asked]
 | <Need type 1> | <target agent> | <required brief contents> |
 | <Need type 2> | <target agent> | <required brief contents> |
 | <Need type 3> | <target agent> | <required brief contents> |
-| New skill scaffold | Subagent loading `anthropic-skills:skill-creator` | Skill name + description (pushy) + trigger phrases + expected output + test prompts |
+| New skill scaffold | Subagent loading `skill-creator` (bundled) | Skill name + description (pushy) + trigger phrases + expected output + test prompts |
 | Web research | Explore subagent | Specific question; <500 word structured summary expected |
 | Context loading | Read-only subagent | File paths; "summarize in <N> words" |
 
@@ -679,7 +680,7 @@ the moment — when the user gets their answer, gets their hand-off, gets back t
 - ROOK brand lock: `.claude/memory/rook_brand.md`
 - Routing manifest: `routing-rules.json` at vault root
 - Anthropic Claude Agent SDK skills docs: https://code.claude.com/docs/en/skills
-- Anthropic skill-creator (canonical): `anthropic-skills:skill-creator`
+- Skill-creator (proprietary, bundled): `.claude/skills/core/skills/skill-creator/SKILL.md`
 - Designer reference build (v1 gold-standard, will migrate to v2 when next touched): `agents/designer/`
 - Engineering-lead reference build (v1, same migration path): `agents/engineering-lead/`
 - v1 template archive (named-figure version): `_archive/2026-05/template_SKILL_v1_named_figures.md`

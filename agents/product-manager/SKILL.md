@@ -156,7 +156,7 @@ The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shar
 |---|---|---|
 | Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
 | Trace a specific chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
-| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "User authentication" "Session token"` |
 | Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
 
 **Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
@@ -370,9 +370,10 @@ the PRD does not ship to software-dev-team — it returns to scope-cut
 first.
 
 **Parallel patterns:**
-- Multi-segment JTBD synthesis (e.g., touring playback engineers vs.
-  corporate AV operators vs. educators): spawn 1 JTBD Synthesizer per
-  segment; main thread aggregates the segment-level patterns.
+- Multi-segment JTBD synthesis (e.g., subscription-box customers vs.
+  one-time-purchase customers vs. wholesale buyers): spawn 1 JTBD
+  Synthesizer per segment; main thread aggregates the segment-level
+  patterns.
 - Multi-option prioritization (PRD ranking across a quarter's pipeline):
   spawn 1 Prioritization Scorer per scoring framework (RICE, ICE, Kano);
   main thread synthesizes the consensus and surfaces disagreements.

@@ -21,5 +21,5 @@ Mechanical / CAD engineering domain. Production-grade engineering deliverables f
 
 ## Memory
 - Memory hooks live in `memory/`
-- Compounding-append + contradiction-surfacer pattern (inherited from PRIMOLABS vault rules)
+- Compounding-append + contradiction-surfacer pattern (inherited from ROOK vault rules)
 - Reference: existing `agents/engineering-lead/memory/project_cad_skills_installed.md` for installed CAD tooling (freecad-mcp, nesting-engine, drawing-reader)

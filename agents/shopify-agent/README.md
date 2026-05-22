@@ -1,7 +1,7 @@
 # Shopify Agent
 
 **Category:** Revenue
-**Part of:** PrimoLabs / ROOK
+**Part of:** ROOK
 **Status:** Layer 3 operational (master skill wired). Layer 4 orchestrator pending.
 **Memory:** Compounding-append + contradiction-surfacer. Per-agent memory in `memory/`. App patterns, merchant feedback, Shopify API gotchas, conversion-funnel measurements, and app-store review history persist; the agent gets sharper every cycle.
 

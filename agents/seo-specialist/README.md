@@ -1,7 +1,7 @@
 # SEO Specialist
 
 **Category:** Marketing
-**Part of:** PrimoLabs / ROOK
+**Part of:** ROOK
 **Status:** Layer 3 operational (master skill wired). Layer 4 orchestrator pending.
 **Memory:** Compounding-append + contradiction-surfacer. Per-agent memory in `memory/`. Audit verdicts, AEO baselines per quarter, topical-cluster maps, schema diffs, and per-engine citation patterns persist; the agent gets sharper every cycle.
 

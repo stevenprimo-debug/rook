@@ -1,7 +1,7 @@
 # R&D Lead
 
 **Category:** Lab
-**Part of:** PrimoLabs / ROOK
+**Part of:** ROOK
 **Status:** Layer 3 operational (master skill wired). Layer 4 orchestrator pending.
 **Memory:** Compounding-append + contradiction-surfacer. Per-agent memory in `memory/`. Kill reports, graduation recommendations, prior-art scans, and portfolio-health snapshots persist; the agent gets sharper every cycle.
 

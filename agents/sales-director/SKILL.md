@@ -199,7 +199,7 @@ The graph at `.claude/reference/graphify-out/graph.json` indexes the entire shar
 |---|---|---|
 | Domain question (default) | `graphify query "..."` | `graphify query "Shopify webhook auth"` |
 | Trace a specific chain | `graphify query "..." --dfs` | `graphify query "operator-confirm gate" --dfs` |
-| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "Datafeed adapter" "Tradovate order"` |
+| Connection between 2 ideas | `graphify path "X" "Y"` | `graphify path "User authentication" "Session token"` |
 | Single-node explanation | `graphify explain "X"` | `graphify explain "OAuth refresh token"` |
 
 **Rule:** if the vault has it, the vault wins. Per `_CLAUDE.md` § 0 rule #12 — never answer from training-data recall when the graph has the indexed content.
@@ -500,7 +500,7 @@ User-requested narration. Each pole speaks in turn; closing synthesis names whic
 
 ### MODE: scaffold_skill
 
-Invoke `anthropic-skills:skill-creator` and scaffold a new SKILL.md to `agents/sales-director/skills/<slug>/`.
+Invoke `skill-creator` (bundled at `.claude/skills/core/skills/skill-creator/`) and scaffold a new SKILL.md to `agents/sales-director/skills/<slug>/`.
 </task>
 
 <subagent_strategy>
@@ -670,7 +670,7 @@ layer above the deal — the deal work itself stays out of main thread.
 | Account research | `deep-researcher` | Target company, decision the research informs, recency requirement |
 | Campaign alignment | `marketing-director` | Deal vertical, target buyer, campaign hook needed |
 | Proposal copy | `copywriter` (after creative-director upstream) | Surface (exec summary / one-pager), buyer awareness stage |
-| New skill scaffold | Subagent loading `anthropic-skills:skill-creator` | Slug + pushy description + trigger phrases + test prompts |
+| New skill scaffold | Subagent loading `skill-creator` (bundled) | Slug + pushy description + trigger phrases + test prompts |
 | Web research | Explore subagent | Specific question; <500-word summary |
 
 ---
