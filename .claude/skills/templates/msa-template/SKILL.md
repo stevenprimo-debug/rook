@@ -78,7 +78,7 @@ standard professional services practice.
 
 The two variants are NOT 50% different — they share ~80% of clauses verbatim
 (definitions, force majeure, governing law boilerplate). The flip happens in:
-IP ownership (work-for-hire vs license-back), liability cap (10x fee vs 1x
+IP ownership (work-for-hire vs license-back), liability cap (10× fee vs 1×
 fee), indemnification scope, change-order judgment authority, termination
 for convenience rights.
 
