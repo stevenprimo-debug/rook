@@ -1,0 +1,60 @@
+---
+title: "Introducing Claude Design by Anthropic Labs"
+source: "https://www.anthropic.com/news/claude-design-anthropic-labs"
+author:
+published:
+created: 2026-05-22
+description: "Today, we’re launching Claude Design, a new Anthropic Labs product that lets you collaborate with Claude to create polished visual work like designs, prototypes, slides, one-pagers, and more."
+tags:
+  - "clippings"
+---
+Today, we’re launching Claude Design, a new [Anthropic Labs](https://www.anthropic.com/news/introducing-anthropic-labs) product that lets you collaborate with Claude to create polished visual work like designs, prototypes, slides, one-pagers, and more.
+
+Claude Design is powered by our most capable vision model, [Claude Opus 4.7](https://www.anthropic.com/news/claude-opus-4-7), and is available in research preview for Claude Pro, Max, Team, and Enterprise subscribers. We’re rolling out to users gradually throughout the day.
+
+![](https://www.youtube.com/watch?v=t_LBECIQQqs)
+
+## Design with Claude
+
+Even experienced designers have to ration exploration—there's rarely time to prototype a dozen directions, so you limit yourself to a few. And for founders, product managers, and marketers with an idea but not a design background, creating and sharing those ideas can be daunting.
+
+Claude Design gives designers room to explore widely and everyone else a way to produce visual work. Describe what you need and Claude builds a first version. From there, you refine through conversation, inline comments, direct edits, or custom sliders (made by Claude) until it’s right. When given access, Claude can also apply your team’s design system to every project automatically, so the output is consistent with the rest of your company’s designs.
+
+Teams have been using Claude Design for:
+
+- **Realistic prototypes:** Designers can turn static mockups into easily-shareable interactive prototypes to gather feedback and user-test, without code review or PRs.
+- **Product wireframes and mockups:** Product Managers can sketch out feature flows and hand them off to Claude Code for implementation, or share them with designers to refine further.
+- **Design explorations:** Designers can quickly create a wide range of directions to explore.
+- **Pitch decks and presentations:** Founders and Account Executives can go from a rough outline to a complete, on-brand deck in minutes, and then export as a PPTX or send to Canva.
+- **Marketing collateral:** Marketers can create landing pages, social media assets, and campaign visuals, then loop in designers to polish.
+- **Frontier design**: Anyone can build code-powered prototypes with voice, video, shaders, 3D and built-in AI.
+
+## How it works
+
+Claude Design follows a natural creative flow.
+
+**Your brand, built in.** During onboarding, Claude builds a design system for your team by reading your codebase and design files. Every project after that uses your colors, typography, and components automatically. You can refine the system over time, and teams can maintain more than one.
+
+**Import from anywhere.** Start from a text prompt, upload images and documents (DOCX, PPTX, XLSX), or point Claude at your codebase. You can also use the web capture tool to grab elements directly from your website so prototypes look like the real product.
+
+**Refine with fine-grained controls.** Comment inline on specific elements, edit text directly, or use adjustment knobs to tweak spacing, color, and layout live. Then ask Claude to apply your changes across the full design.
+
+![](https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2F499e91975d880b35eac6e48ad43161de7d10416c-2876x1614.jpg&w=3840&q=75)
+
+**Collaborate.** Designs have organization-scoped sharing. You can keep a document private, share it so anyone in your organization with the link can view it, or grant edit access so colleagues can modify the design and chat with Claude together in a group conversation.
+
+**Export anywhere.** Share designs as an internal URL within your organization, save as a folder, or export to Canva, PDF, PPTX, or standalone HTML files.
+
+**Handoff to Claude Code.** When a design is ready to build, Claude packages everything into a handoff bundle that you can pass to Claude Code with a single instruction.
+
+Over the coming weeks, we'll make it easier to build integrations with Claude Design, so you can connect it to more of the tools your team already uses.
+
+01 / 03
+
+## Get started
+
+Claude Design is available for Claude Pro, Max, Team, and Enterprise subscribers. Access is included with your plan and uses your subscription limits, with the option to continue beyond those limits by enabling [extra usage](https://support.claude.com/en/articles/12429409-manage-extra-usage-for-paid-claude-plans).
+
+For Enterprise organizations, Claude Design is off by default. Admins can enable it in [Organization settings](https://support.claude.com/en/articles/14604406-claude-design-admin-guide-for-team-and-enterprise-plans).
+
+Start designing at [claude.ai/design](http://claude.ai/redirect/website.v1.b8e08888-d0e9-41da-a9fc-3077067cc6e9/design).
