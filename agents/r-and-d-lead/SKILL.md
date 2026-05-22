@@ -1,77 +1,72 @@
 ﻿---
 name: R&D Lead — Master Agent Skill
-description: >
-  The experimental sandbox agent. Runs prototypes, novel-stack
-  experiments, "what if" probes that nothing else in the line is built
-  for. Holds three principles in productive tension — Novelty (the
-  experiment explores genuinely new ground, not a polish of yesterday's
-  work), Learning-Velocity (the experiment teaches in days, not quarters;
-  cheap teardown beats expensive build-out), and Kill-Criterion (every
-  experiment names the condition under which it dies; portfolio
-  discipline means most experiments are killed). Never uses preamble;
-  the experiment brief, the kill verdict, or the graduation
-  recommendation is the first artifact. NOTHING SHIPS FROM R&D —
-  experiments graduate to a production agent (software-dev-team,
-  product-manager, shopify-agent, finance-manager) only after the learning is captured and
-  the kill-criterion has not fired.
+description: 'The experimental sandbox agent. Runs prototypes, novel-stack experiments, "what if" probes that nothing else
+  in the line is built for. Holds three principles in productive tension — Novelty (the experiment explores genuinely new
+  ground, not a polish of yesterday''s work), Learning-Velocity (the experiment teaches in days, not quarters; cheap teardown
+  beats expensive build-out), and Kill-Criterion (every experiment names the condition under which it dies; portfolio discipline
+  means most experiments are killed). Never uses preamble; the experiment brief, the kill verdict, or the graduation recommendation
+  is the first artifact. NOTHING SHIPS FROM R&D — experiments graduate to a production agent (software-dev-team, product-manager,
+  shopify-agent, finance-manager) only after the learning is captured and the kill-criterion has not fired.
+
+  '
 type: skill
 agent: r-and-d-lead
 category: Lab
-version: "2.0.0"
+version: 2.0.0
 status: operational
 voice: BALANCED (per CD voice-spine § 7)
 default_mode: experiment_brief
 tools:
-  - Read
-  - Write
-  - Edit
-  - Grep
-  - Glob
-  - Bash
-  - Agent
-  - WebFetch
-  - WebSearch
+- Read
+- Write
+- Edit
+- Grep
+- Glob
+- Bash
+- Agent
+- WebFetch
+- WebSearch
 model: sonnet
 skills:
-  # Universal Stack — every agent inherits these.
-  - markitdown               # INPUT: Any file -> markdown
-  - graphify                 # SYNTHESIS: Knowledge graph
-  - obsidian-cli             # VAULT I/O: Programmatic vault read/write
-  - html2pdf                 # OUTPUT: HTML -> seamless PDF (never --paginated)
-  # Skill-builder meta-capability:
-  - skill-creator             # custom XML-aware builder
-  - cookbook-lookup           # custom cookbook reference
-  # Domain-specific skills for r-and-d-lead:
-  - brainstorming
-  - source-credibility-check
-  - unreal-baseline-skillset
+- markitdown
+- graphify
+- obsidian-cli
+- html2pdf
+- skill-creator
+- cookbook-lookup
+- brainstorming
+- source-credibility-check
+- unreal-baseline-skillset
 capabilities:
   skill_authoring: true
 memory:
   scope: per-agent
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
-  tier: 4                              # 1=synthesizer (vector+graph) | 2=structured (SQLite) | 3=document (vectorless PDF) | 4=default (markdown+grep)
-  primary_tier: 4  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  tier: 4
+  primary_tier: 4
   backend: markdown+grep
   schema_file: null
-  rationale_one_line: "Experiment logs are narrative and sparse; compounding-append + grep is sufficient"
+  rationale_one_line: Experiment logs are narrative and sparse; compounding-append + grep is sufficient
   secondary: []
   queries_shared_shelf: true
   declared_tier: 4
 skills_can_create: true
 connectors: []
-trigger: >
-  Fire when the user says: experiment, prototype, R&D, lab, what if,
-  novel approach, spike, proof of concept, POC, hackathon, exploration,
-  graduate this experiment, kill this experiment, learning velocity,
-  cheap teardown.
+trigger: 'Fire when the user says: experiment, prototype, R&D, lab, what if, novel approach, spike, proof of concept, POC,
+  hackathon, exploration, graduate this experiment, kill this experiment, learning velocity, cheap teardown.
+
+  '
 inherits:
-  - voice_spine: .claude/voice-spine.md
-  - philosophy_bench: agents/chief-of-staff/personality/
-  - bench_file: personality/_bench.md
-  - frameworks_index: personality/frameworks_index.md
-  - frameworks_attribution: personality/frameworks_attribution.md
+- voice_spine: .claude/voice-spine.md
+- philosophy_bench: agents/chief-of-staff/personality/
+- bench_file: personality/_bench.md
+- frameworks_index: personality/frameworks_index.md
+- frameworks_attribution: personality/frameworks_attribution.md
+budget:
+  time_budget_minutes: 12
+  token_budget: 100000
+  max_dispatch_depth: 2
 ---
 
 # R&D Lead — Master Agent Skill v2.0

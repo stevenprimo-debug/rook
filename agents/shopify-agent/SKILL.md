@@ -1,118 +1,117 @@
 ﻿---
 name: Shopify Agent — Master Agent Skill
-description: >
-  The Shopify development and operations agent. Three modes: operate (merchant
-  ops — order pulls, CS drafts, analytics, chargebacks), build (app/theme
-  dev), and agentic-buyer (UCP protocol). Holds three principles — Commerce-Flow
-  (funnel works), Merchant-Margin (unit economics respected), Customer-Trust
-  (repeat purchase earned). Never uses preamble. Use this skill for Shopify app
-  dev, theme work, agentic commerce, ecommerce automation, merchant operations,
-  order intelligence, chargeback tracking, or made-to-order Shopify builds.
+description: 'The Shopify development and operations agent. Three modes: operate (merchant ops — order pulls, CS drafts, analytics,
+  chargebacks), build (app/theme dev), and agentic-buyer (UCP protocol). Holds three principles — Commerce-Flow (funnel works),
+  Merchant-Margin (unit economics respected), Customer-Trust (repeat purchase earned). Never uses preamble. Use this skill
+  for Shopify app dev, theme work, agentic commerce, ecommerce automation, merchant operations, order intelligence, chargeback
+  tracking, or made-to-order Shopify builds.
+
+  '
 type: skill
 agent: shopify-agent
 category: Revenue
-version: "3.0.0"
+version: 3.0.0
 status: operational
 shopify_scopes:
   operate:
     required:
-      - read_orders
-      - read_customers
-      - read_fulfillments
-      - read_products
+    - read_orders
+    - read_customers
+    - read_fulfillments
+    - read_products
     optional:
-      - read_shopify_payments_disputes   # when Payments active (see KNOWN_ISSUES.md KI-001)
-      - write_orders                     # order tagging — reversibility=N
-      - write_fulfillments               # fulfillment marks — reversibility=N
-      - write_draft_orders               # refund drafts — reversibility=N
+    - read_shopify_payments_disputes
+    - write_orders
+    - write_fulfillments
+    - write_draft_orders
   build:
-    declared_per_spec: true              # varies per build assignment
+    declared_per_spec: true
   agentic_buyer:
-    auth_path: UCP_profile              # different auth model — not Shopify Admin scopes
+    auth_path: UCP_profile
   daily_ops:
     required:
-      - read_orders
-      - read_customers
-      - read_inventory
-      - read_fulfillments
-      - write_orders        # for ops-review tag, backorder tag — reversibility=N
-      - write_fulfillments  # for tracking write-back (reversibility=N, guardrailed)
+    - read_orders
+    - read_customers
+    - read_inventory
+    - read_fulfillments
+    - write_orders
+    - write_fulfillments
     optional:
-      - read_shopify_payments_disputes
-      - write_draft_orders  # for v1 refund fallback (reversibility=N)
+    - read_shopify_payments_disputes
+    - write_draft_orders
     external_mcps_required_for_full_capability:
-      - gmail               # transactional sends (v1)
-      - scheduled-tasks     # cron sweep mechanism (v1)
-      - shippo              # label purchase (Rule #18 opt-in, v2)
-      - stripe              # direct refunds (Rule #18 opt-in, v2)
+    - gmail
+    - scheduled-tasks
+    - shippo
+    - stripe
 voice: SYSTEM-DOMINANT (per CD voice-spine § 7)
 default_mode: build-feature
 tools:
-  - Read
-  - Write
-  - Edit
-  - Grep
-  - Glob
-  - Bash
-  - Agent
-  - WebFetch
-  - WebSearch
+- Read
+- Write
+- Edit
+- Grep
+- Glob
+- Bash
+- Agent
+- WebFetch
+- WebSearch
 model: sonnet
 skills:
-  # Universal Stack — every agent inherits these.
-  - markitdown               # INPUT: Any file -> markdown
-  - graphify                 # SYNTHESIS: Knowledge graph
-  - obsidian-cli             # VAULT I/O: Programmatic vault read/write
-  - html2pdf                 # OUTPUT: HTML -> seamless PDF (never --paginated)
-  # Skill-builder meta-capability:
-  - skill-creator             # custom XML-aware builder
-  - cookbook-lookup           # custom cookbook reference
-  # Domain-specific skills for shopify-agent:
-  - shopify-polaris-component
-  - shopify-product-setup
-  - shopify-webhook-builder
-  - agentic-commerce-flow
+- markitdown
+- graphify
+- obsidian-cli
+- html2pdf
+- skill-creator
+- cookbook-lookup
+- shopify-polaris-component
+- shopify-product-setup
+- shopify-webhook-builder
+- agentic-commerce-flow
 capabilities:
   skill_authoring: true
 memory:
   scope: per-agent
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
-  tier: 4  # CURRENT — declared_tier=2 below preserves architectural intent (no backing files yet)
-  primary_tier: 2  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  tier: 4
+  primary_tier: 2
   backend: SQLite
   schema_file: memory/shopify.db
-  rationale_one_line: "Order + merchant data grows to 10k+ records; SQL required"
+  rationale_one_line: Order + merchant data grows to 10k+ records; SQL required
   secondary:
-    - tier: 4
-      backend: markdown+grep
-      purpose: "merchant notes, integration decisions, learnings"
+  - tier: 4
+    backend: markdown+grep
+    purpose: merchant notes, integration decisions, learnings
   queries_shared_shelf: true
   declared_tier: 2
 skills_can_create: true
 connectors:
-  - name: shopify-admin-api
-    purpose: Order + product CRUD, webhook subscriptions
-    reversibility: N
-    auth_required: operator-provided API key
-    type: REST
-  - name: shopify-storefront-api
-    purpose: Storefront read-only queries
-    reversibility: Y
-    auth_required: operator-provided access token
-    type: GraphQL
-trigger: >
-  Fire when the user says: Shopify, Shopify app, Shopify theme, Liquid,
-  Hydrogen, Polaris, app store, merchant, agentic commerce, conversion rate,
-  checkout flow, cart abandonment, product page, collection page, theme
-  customization, app development, ecommerce automation, Shopify Plus,
-  Shopify CLI, app extension, theme editor, checkout extensibility.
+- name: shopify-admin-api
+  purpose: Order + product CRUD, webhook subscriptions
+  reversibility: N
+  auth_required: operator-provided API key
+  type: REST
+- name: shopify-storefront-api
+  purpose: Storefront read-only queries
+  reversibility: Y
+  auth_required: operator-provided access token
+  type: GraphQL
+trigger: 'Fire when the user says: Shopify, Shopify app, Shopify theme, Liquid, Hydrogen, Polaris, app store, merchant, agentic
+  commerce, conversion rate, checkout flow, cart abandonment, product page, collection page, theme customization, app development,
+  ecommerce automation, Shopify Plus, Shopify CLI, app extension, theme editor, checkout extensibility.
+
+  '
 inherits:
-  - voice_spine: .claude/voice-spine.md
-  - philosophy_bench: Naval + Clear + Newport (system-level, via Chief of Staff)
-  - bench_file: personality/_bench.md
-  - frameworks_index: personality/frameworks_index.md
-  - frameworks_attribution: personality/frameworks_attribution.md
+- voice_spine: .claude/voice-spine.md
+- philosophy_bench: Naval + Clear + Newport (system-level, via Chief of Staff)
+- bench_file: personality/_bench.md
+- frameworks_index: personality/frameworks_index.md
+- frameworks_attribution: personality/frameworks_attribution.md
+budget:
+  time_budget_minutes: 20
+  token_budget: 150000
+  max_dispatch_depth: 2
 ---
 
 # Shopify Agent — Master Agent Skill v3.0

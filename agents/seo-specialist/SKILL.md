@@ -1,81 +1,76 @@
 ﻿---
 name: SEO Specialist — Master Agent Skill
-description: >
-  The combined SEO + AEO (answer-engine optimization) agent. Owns
-  technical SEO, on-page optimization, schema markup, internal linking,
-  topical authority architecture, AEO visibility (ChatGPT / Claude /
-  Perplexity / Gemini), and SERP-feature optimization. Holds three
-  principles in productive tension — SERP-Rank (the page earns its
-  position in classical Google results; technical health holds; on-page
-  signals are right), Answer-Engine-Visibility (the brand appears in
-  generated AI responses — citations, recommendations, mentions — across
-  ChatGPT / Claude / Perplexity / Gemini), and Topical-Authority (the
-  substrate both rankings depend on — depth of coverage, internal-link
-  graph, citation profile, brand mention density). Never uses preamble;
-  the audit verdict, the schema diff, or the topical-cluster map is the
-  first artifact.
+description: 'The combined SEO + AEO (answer-engine optimization) agent. Owns technical SEO, on-page optimization, schema
+  markup, internal linking, topical authority architecture, AEO visibility (ChatGPT / Claude / Perplexity / Gemini), and SERP-feature
+  optimization. Holds three principles in productive tension — SERP-Rank (the page earns its position in classical Google
+  results; technical health holds; on-page signals are right), Answer-Engine-Visibility (the brand appears in generated AI
+  responses — citations, recommendations, mentions — across ChatGPT / Claude / Perplexity / Gemini), and Topical-Authority
+  (the substrate both rankings depend on — depth of coverage, internal-link graph, citation profile, brand mention density).
+  Never uses preamble; the audit verdict, the schema diff, or the topical-cluster map is the first artifact.
+
+  '
 type: skill
 agent: seo-specialist
 category: Marketing
-version: "2.0.0"
+version: 2.0.0
 status: operational
 voice: SYSTEM-DOMINANT (per CD voice-spine § 7)
 default_mode: seo_aeo_audit
 tools:
-  - Read
-  - Write
-  - Edit
-  - Grep
-  - Glob
-  - Bash
-  - Agent
-  - WebFetch
-  - WebSearch
+- Read
+- Write
+- Edit
+- Grep
+- Glob
+- Bash
+- Agent
+- WebFetch
+- WebSearch
 model: sonnet
 skills:
-  # Universal Stack — every agent inherits these.
-  - markitdown               # INPUT: Any file -> markdown
-  - graphify                 # SYNTHESIS: Knowledge graph
-  - obsidian-cli             # VAULT I/O: Programmatic vault read/write
-  - html2pdf                 # OUTPUT: HTML -> seamless PDF (never --paginated)
-  # Skill-builder meta-capability:
-  - skill-creator             # custom XML-aware builder
-  - cookbook-lookup           # custom cookbook reference
-  # Domain-specific skills for seo-specialist:
-  - aeo-gap-finder
-  - keyword-cluster-quick
-  - seo-audit-quick
-  - on-page-quick-check
-  - topic-cluster-strategist
+- markitdown
+- graphify
+- obsidian-cli
+- html2pdf
+- skill-creator
+- cookbook-lookup
+- aeo-gap-finder
+- keyword-cluster-quick
+- seo-audit-quick
+- on-page-quick-check
+- topic-cluster-strategist
 capabilities:
   skill_authoring: true
 memory:
   scope: per-agent
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
-  tier: 4                              # 1=synthesizer (vector+graph) | 2=structured (SQLite) | 3=document (vectorless PDF) | 4=default (markdown+grep)
-  primary_tier: 4  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  tier: 4
+  primary_tier: 4
   backend: markdown+grep
   schema_file: null
-  rationale_one_line: "Keyword maps and AEO baselines are narrative; grep handles all lookup patterns"
+  rationale_one_line: Keyword maps and AEO baselines are narrative; grep handles all lookup patterns
   secondary: []
   queries_shared_shelf: true
   declared_tier: 4
 skills_can_create: true
 connectors:
-  - .claude/connectors/perplexity/
-trigger: >
-  Fire when the user says: SEO, AEO, answer engine optimization, schema,
-  structured data, keyword cluster, topical authority, internal linking,
-  technical SEO, on-page SEO, SERP, ranking, AI visibility, AI search
-  optimization, ChatGPT visibility, Perplexity, generative engine
-  optimization, GEO, on-page audit, content brief SEO.
+- .claude/connectors/perplexity/
+trigger: 'Fire when the user says: SEO, AEO, answer engine optimization, schema, structured data, keyword cluster, topical
+  authority, internal linking, technical SEO, on-page SEO, SERP, ranking, AI visibility, AI search optimization, ChatGPT visibility,
+  Perplexity, generative engine optimization, GEO, on-page audit, content brief SEO.
+
+  '
 inherits:
-  - voice_spine: .claude/voice-spine.md
-  - philosophy_bench: agents/chief-of-staff/personality/
-  - bench_file: personality/_bench.md
-  - frameworks_index: personality/frameworks_index.md
-  - frameworks_attribution: personality/frameworks_attribution.md
+- voice_spine: .claude/voice-spine.md
+- philosophy_bench: agents/chief-of-staff/personality/
+- bench_file: personality/_bench.md
+- frameworks_index: personality/frameworks_index.md
+- frameworks_attribution: personality/frameworks_attribution.md
+budget:
+  time_budget_minutes: 12
+  token_budget: 100000
+  max_dispatch_depth: 2
 ---
 
 # SEO Specialist — Master Agent Skill v2.0

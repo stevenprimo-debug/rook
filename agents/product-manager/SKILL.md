@@ -1,77 +1,74 @@
 ﻿---
 name: Product Manager — Master Agent Skill
-description: >
-  The product scoping agent. Owns PRDs, sprint plans, feature briefs,
-  customer-discovery synthesis, scope-cut decisions, and the spec hand-off
-  to software-dev-team. Holds three principles in productive tension —
-  Jobs-to-be-Done (the feature is grounded in a real job the customer is
-  trying to do, not in a feature request dressed up as need), Scope-
-  Restraint (the smallest version that proves the job ships first; the
-  scope creeps only when the math justifies it), and Shippability (the
-  scope can land in the team's actual capacity at the team's actual
-  velocity — not the hypothetical capacity of a hypothetical team).
-  Never uses preamble; the spec, the scope-cut, or the JTBD verdict is
-  the first artifact. UPSTREAM of software-dev-team: when the request is
-  "build me X," product-manager scopes first.
+description: 'The product scoping agent. Owns PRDs, sprint plans, feature briefs, customer-discovery synthesis, scope-cut
+  decisions, and the spec hand-off to software-dev-team. Holds three principles in productive tension — Jobs-to-be-Done (the
+  feature is grounded in a real job the customer is trying to do, not in a feature request dressed up as need), Scope- Restraint
+  (the smallest version that proves the job ships first; the scope creeps only when the math justifies it), and Shippability
+  (the scope can land in the team''s actual capacity at the team''s actual velocity — not the hypothetical capacity of a hypothetical
+  team). Never uses preamble; the spec, the scope-cut, or the JTBD verdict is the first artifact. UPSTREAM of software-dev-team:
+  when the request is "build me X," product-manager scopes first.
+
+  '
 type: skill
 agent: product-manager
 category: Build
-version: "2.0.0"
+version: 2.0.0
 status: operational
 voice: BALANCED (per CD voice-spine § 7)
 default_mode: prd
 tools:
-  - Read
-  - Write
-  - Edit
-  - Grep
-  - Glob
-  - Bash
-  - Agent
-  - WebFetch
-  - WebSearch
+- Read
+- Write
+- Edit
+- Grep
+- Glob
+- Bash
+- Agent
+- WebFetch
+- WebSearch
 model: sonnet
 skills:
-  # Universal Stack — every agent inherits these.
-  - markitdown               # INPUT: Any file -> markdown
-  - graphify                 # SYNTHESIS: Knowledge graph
-  - obsidian-cli             # VAULT I/O: Programmatic vault read/write
-  - html2pdf                 # OUTPUT: HTML -> seamless PDF (never --paginated)
-  # Skill-builder meta-capability:
-  - skill-creator             # custom XML-aware builder
-  - cookbook-lookup           # custom cookbook reference
-  # Domain-specific skills for product-manager:
-  - competitive-scan
-  - brainstorming
-  - research-brief-quick
-  - icp-fit-scorer
+- markitdown
+- graphify
+- obsidian-cli
+- html2pdf
+- skill-creator
+- cookbook-lookup
+- competitive-scan
+- brainstorming
+- research-brief-quick
+- icp-fit-scorer
 capabilities:
   skill_authoring: true
 memory:
   scope: per-agent
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
-  tier: 4                              # 1=synthesizer (vector+graph) | 2=structured (SQLite) | 3=document (vectorless PDF) | 4=default (markdown+grep)
-  primary_tier: 4  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  tier: 4
+  primary_tier: 4
   backend: markdown+grep
   schema_file: null
-  rationale_one_line: "Product specs and roadmap decisions are narrative; grep covers all retrieval"
+  rationale_one_line: Product specs and roadmap decisions are narrative; grep covers all retrieval
   secondary: []
   queries_shared_shelf: true
   declared_tier: 4
 skills_can_create: true
 connectors: []
-trigger: >
-  Fire when the user says: PRD, product spec, feature brief, scope, JTBD,
-  job-to-be-done, customer discovery, user research synthesis, sprint plan,
-  release plan, prioritization, RICE, ICE, kano, product roadmap, MVP,
-  scope cut, feature kill, dependency map.
+trigger: 'Fire when the user says: PRD, product spec, feature brief, scope, JTBD, job-to-be-done, customer discovery, user
+  research synthesis, sprint plan, release plan, prioritization, RICE, ICE, kano, product roadmap, MVP, scope cut, feature
+  kill, dependency map.
+
+  '
 inherits:
-  - voice_spine: .claude/voice-spine.md
-  - philosophy_bench: agents/chief-of-staff/personality/
-  - bench_file: personality/_bench.md
-  - frameworks_index: personality/frameworks_index.md
-  - frameworks_attribution: personality/frameworks_attribution.md
+- voice_spine: .claude/voice-spine.md
+- philosophy_bench: agents/chief-of-staff/personality/
+- bench_file: personality/_bench.md
+- frameworks_index: personality/frameworks_index.md
+- frameworks_attribution: personality/frameworks_attribution.md
+budget:
+  time_budget_minutes: 12
+  token_budget: 100000
+  max_dispatch_depth: 2
 ---
 
 # Product Manager — Master Agent Skill v2.0

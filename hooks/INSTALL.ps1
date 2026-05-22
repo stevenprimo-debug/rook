@@ -54,7 +54,8 @@ $RequiredHooks = @(
     'preference-detector.ps1',
     'pretooluse-routing-enforcer.ps1',
     'preamble-resolver.ps1',
-    'context-watch-gate.ps1'
+    'context-watch-gate.ps1',
+    'dispatch-budget-watchdog.ps1'
 )
 $missing = @()
 foreach ($h in $RequiredHooks) {
@@ -111,6 +112,7 @@ $cmdLibrarianBackground  = Build-BackgroundHookCmd 'librarian-digest.ps1'
 $cmdPreference           = Build-HookCmd 'preference-detector.ps1'
 $cmdSessionMode          = Build-HookCmd 'session-mode-injector.ps1'
 $cmdContextWatch         = Build-HookCmd 'context-watch-gate.ps1'
+$cmdDispatchBudget       = Build-HookCmd 'dispatch-budget-watchdog.ps1'
 
 # ---- LOAD OR CREATE settings.json ------------------------------------------
 Write-Step "Reading $SettingsPath"
@@ -179,10 +181,11 @@ $hooksBlock = $settings.hooks
 # Spec for each event: list of (hook-script-name, command-string, timeout)
 $hookSpec = [ordered]@{
     'SessionStart' = @(
-        @{ name = 'superpowers-init.ps1';         cmd = $cmdSuperpowers; timeout = 8;  matcher = '' },
-        @{ name = 'session-prelude.ps1';          cmd = $cmdPrelude;     timeout = 12; matcher = '' },
-        @{ name = 'preamble-resolver.ps1';        cmd = $cmdPreamble;    timeout = 5;  matcher = '' },
-        @{ name = 'session-mode-injector.ps1';    cmd = $cmdSessionMode; timeout = 5;  matcher = '' }
+        @{ name = 'superpowers-init.ps1';         cmd = $cmdSuperpowers;     timeout = 8;  matcher = '' },
+        @{ name = 'session-prelude.ps1';          cmd = $cmdPrelude;         timeout = 12; matcher = '' },
+        @{ name = 'preamble-resolver.ps1';        cmd = $cmdPreamble;        timeout = 5;  matcher = '' },
+        @{ name = 'session-mode-injector.ps1';    cmd = $cmdSessionMode;     timeout = 5;  matcher = '' },
+        @{ name = 'dispatch-budget-watchdog.ps1'; cmd = $cmdDispatchBudget;  timeout = 4;  matcher = '' }
     )
     'UserPromptSubmit' = @(
         @{ name = 'routing-enforcer.ps1';        cmd = $cmdRouting;      timeout = 10; matcher = '' },
@@ -195,8 +198,9 @@ $hookSpec = [ordered]@{
         @{ name = 'precompact-handoff.ps1';      cmd = $cmdPreCompact;  timeout = 5;  matcher = '' }
     )
     'PreToolUse' = @(
-        @{ name = 'posture-staleness-gate.ps1';         cmd = $cmdPosture;          timeout = 6;  matcher = '' },
-        @{ name = 'pretooluse-routing-enforcer.ps1';    cmd = $cmdPreToolUseRouting; timeout = 5;  matcher = '' }
+        @{ name = 'posture-staleness-gate.ps1';         cmd = $cmdPosture;           timeout = 6;  matcher = '' },
+        @{ name = 'pretooluse-routing-enforcer.ps1';    cmd = $cmdPreToolUseRouting; timeout = 5;  matcher = '' },
+        @{ name = 'dispatch-budget-watchdog.ps1';       cmd = $cmdDispatchBudget;    timeout = 5;  matcher = 'Task|Agent' }
     )
     'SessionEnd' = @(
         # Spawn-detached: hook returns in <1s; librarian-digest.ps1 keeps running
@@ -251,22 +255,26 @@ foreach ($event in $hookSpec.Keys) {
         # if kept is empty AND the group was all-PrimoLabs, drop the whole group
     }
 
-    # Build our matcher group, append
-    $primoHooks = @()
+    # Build our matcher groups (one group per distinct matcher value)
+    $groupsByMatcher = [ordered]@{}
     foreach ($spec in $hookSpec[$event]) {
-        $primoHooks += [PSCustomObject]@{
+        $m = if ($null -eq $spec.matcher) { '' } else { "$($spec.matcher)" }
+        if (-not $groupsByMatcher.Contains($m)) { $groupsByMatcher[$m] = @() }
+        $groupsByMatcher[$m] += [PSCustomObject]@{
             type    = 'command'
             command = $spec.cmd
             timeout = $spec.timeout
         }
-        Write-OK "$event :: $($spec.name)"
+        $tag = if ($m -eq '') { '' } else { " [matcher=$m]" }
+        Write-OK "$event :: $($spec.name)$tag"
     }
-    $primoGroup = [PSCustomObject]@{
-        matcher = ''
-        hooks   = $primoHooks
+    foreach ($m in $groupsByMatcher.Keys) {
+        $primoGroup = [PSCustomObject]@{
+            matcher = $m
+            hooks   = $groupsByMatcher[$m]
+        }
+        $cleaned += $primoGroup
     }
-
-    $cleaned += $primoGroup
     $hooksBlock.$event = $cleaned
 }
 

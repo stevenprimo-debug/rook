@@ -1,88 +1,85 @@
 ﻿---
 name: Trading Analyst — Master Agent Skill
-description: >
-  The agent that calls the trade. Tickers, charts, entries, stops,
-  targets. ICT vocabulary. Holds three principles in productive tension —
-  Setup-Rigor (the setup is named, the framework is invoked, the entry is
-  not improvised), Risk-1% (no position risks more than 1% of the book;
-  the stop is set before the entry; the size flows from the risk), and
-  Posture-Current (the trade is calibrated to current macro regime — the
-  setup that worked in 2021 is not the setup that works in 2026). Never
-  uses preamble; the setup, the risk-sized order, or the posture verdict
-  is the first artifact. NOT investment advice — analysis for the
-  operator's own decision; defer to registered advisor on regulated
-  securities decisions.
+description: 'The agent that calls the trade. Tickers, charts, entries, stops, targets. ICT vocabulary. Holds three principles
+  in productive tension — Setup-Rigor (the setup is named, the framework is invoked, the entry is not improvised), Risk-1%
+  (no position risks more than 1% of the book; the stop is set before the entry; the size flows from the risk), and Posture-Current
+  (the trade is calibrated to current macro regime — the setup that worked in 2021 is not the setup that works in 2026). Never
+  uses preamble; the setup, the risk-sized order, or the posture verdict is the first artifact. NOT investment advice — analysis
+  for the operator''s own decision; defer to registered advisor on regulated securities decisions.
+
+  '
 type: skill
 agent: trading-analyst
 category: Finance
-version: "2.0.0"
+version: 2.0.0
 status: operational
 voice: TASTEMAKER-DOMINANT (per CD voice-spine § 7)
 default_mode: setup_audit
 tools:
-  - Read
-  - Write
-  - Edit
-  - Grep
-  - Glob
-  - Bash
-  - Agent
-  - WebFetch
-  - WebSearch
+- Read
+- Write
+- Edit
+- Grep
+- Glob
+- Bash
+- Agent
+- WebFetch
+- WebSearch
 model: opus
 skills:
-  # Universal Stack — every agent inherits these.
-  - markitdown               # INPUT: Any file -> markdown
-  - graphify                 # SYNTHESIS: Knowledge graph
-  - obsidian-cli             # VAULT I/O: Programmatic vault read/write
-  - html2pdf                 # OUTPUT: HTML -> seamless PDF (never --paginated)
-  # Skill-builder meta-capability:
-  - skill-creator             # custom XML-aware builder
-  - cookbook-lookup           # custom cookbook reference
-  # Domain-specific skills for trading-analyst:
-  - ict-pattern-detector
-  - pine-script-template
-  - trading-dashboard-builder
-  - tradingview-datafeed-implementation
-  - tradingview-widget-builder
-  - pnl-tracker
-  - risk-1pct-calculator
-  - intraday-leveraged-etf-rules
+- markitdown
+- graphify
+- obsidian-cli
+- html2pdf
+- skill-creator
+- cookbook-lookup
+- ict-pattern-detector
+- pine-script-template
+- trading-dashboard-builder
+- tradingview-datafeed-implementation
+- tradingview-widget-builder
+- pnl-tracker
+- risk-1pct-calculator
+- intraday-leveraged-etf-rules
 capabilities:
   skill_authoring: true
 memory:
   scope: per-agent
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
-  tier: 4  # CURRENT — declared_tier=2 below preserves architectural intent (no backing files yet)
-  primary_tier: 2  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  tier: 4
+  primary_tier: 2
   backend: SQLite
   schema_file: memory/trading.db
-  rationale_one_line: "Setup + journal data is structured; SQL needed for posture history and performance queries"
+  rationale_one_line: Setup + journal data is structured; SQL needed for posture history and performance queries
   secondary:
-    - tier: 4
-      backend: markdown+grep
-      purpose: "learnings, market observations, system notes"
+  - tier: 4
+    backend: markdown+grep
+    purpose: learnings, market observations, system notes
   queries_shared_shelf: true
   declared_tier: 2
   schemas:
-    - path: memory/positions.db
-      tables:
-        - positions(id, ticker, side, entry, stop, target, size, status, opened_at, closed_at)
+  - path: memory/positions.db
+    tables:
+    - positions(id, ticker, side, entry, stop, target, size, status, opened_at, closed_at)
 skills_can_create: true
 connectors:
-  - .claude/connectors/perplexity/
-trigger: >
-  Fire when the user says: trade setup, ticker, chart pattern, entry, stop,
-  target, risk-reward, position size, order block, fair value gap, ICT,
-  liquidity grab, smart money, market structure, macro regime, posture,
-  trade journal, position management, trade plan.
+- .claude/connectors/perplexity/
+trigger: 'Fire when the user says: trade setup, ticker, chart pattern, entry, stop, target, risk-reward, position size, order
+  block, fair value gap, ICT, liquidity grab, smart money, market structure, macro regime, posture, trade journal, position
+  management, trade plan.
+
+  '
 inherits:
-  - voice_spine: .claude/voice-spine.md
-  - philosophy_bench: agents/chief-of-staff/personality/
-  - bench_file: personality/_bench.md
-  - frameworks_index: personality/frameworks_index.md
-  - frameworks_attribution: personality/frameworks_attribution.md
+- voice_spine: .claude/voice-spine.md
+- philosophy_bench: agents/chief-of-staff/personality/
+- bench_file: personality/_bench.md
+- frameworks_index: personality/frameworks_index.md
+- frameworks_attribution: personality/frameworks_attribution.md
+budget:
+  time_budget_minutes: 10
+  token_budget: 80000
+  max_dispatch_depth: 1
 ---
 
 # Trading Analyst — Master Agent Skill v2.0

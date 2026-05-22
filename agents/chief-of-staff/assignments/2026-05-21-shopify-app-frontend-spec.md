@@ -308,7 +308,65 @@ Free tier nag triggers (Polaris `Banner` at top of Chat tab):
 | Testing | Vitest (unit), Playwright (e2e smoke) |
 | Lint | ESLint + Shopify ESLint config |
 
-No Tailwind, no custom UI library, no styled-components — Polaris owns all styling. Bundle target: under 250KB gzipped initial load.
+No Tailwind, no custom UI library, no styled-components — Polaris owns all styling. Bundle sizing strategy and CI gate detailed in §12a below — the original "under 250KB" target was below the dependency baseline floor and has been revised.
+
+### 12a. Bundle size strategy
+
+The original "under 250KB gzipped initial load" target is below the dependency baseline floor. Measured baseline (latest minified+gzipped):
+
+| Dep | Approx size (gzipped) |
+|---|---|
+| React 18 + ReactDOM | ~140KB |
+| Polaris React (full bundle) | ~80KB (tree-shaking helps but `Frame`, `TopBar`, `Card`, `DataTable` are heavy) |
+| App Bridge React + Hooks | ~30KB |
+| TanStack Query | ~12KB |
+| **Baseline floor** | **~170-220KB** before any app code |
+
+App code adds an estimated 30-80KB across chat UI + action cards + settings + onboarding flows. Realistic total: 200-300KB initial load if naively bundled.
+
+**Revised targets:**
+
+- **Initial chunk (chat landing):** under 220KB gzipped — the critical path the merchant hits on every app open
+- **Total app bundle (all routes loaded):** under 400KB gzipped — full surface area, after lazy chunks resolve
+- **Per-route lazy chunk:** under 50KB gzipped — Settings, Activity Log, Pricing each as separate chunks
+
+**Code-splitting plan:**
+
+- **Route-level splits** via React.lazy + Suspense — `/orders`, `/settings`, `/activity`, `/pricing` each become separate chunks. Only Chat is in the initial bundle.
+- **Polaris imports — named only.** Use `import {Card, Button} from '@shopify/polaris'` (tree-shakeable named imports), NEVER `import * as Polaris`. ESLint rule enforces.
+- **Vendor split:** React + ReactDOM in their own vendor chunk (cacheable across deploys); Polaris in a separate vendor chunk (changes on Polaris upgrades, not app deploys); App Bridge in its own vendor chunk.
+- **Defer non-critical:** the syntax-highlighter for the JSON viewer in Activity log (~40KB) is loaded only when a row modal opens, not on route mount.
+- **Icon imports:** Polaris icons imported individually via `@shopify/polaris-icons/dist/svg/<IconName>.svg`, not the full icon bundle.
+
+**Vite chunk-splitting config (sketch):**
+
+```js
+build: {
+  rollupOptions: {
+    output: {
+      manualChunks: {
+        'vendor-react': ['react', 'react-dom'],
+        'vendor-polaris': ['@shopify/polaris'],
+        'vendor-app-bridge': ['@shopify/app-bridge-react', '@shopify/app-bridge'],
+      }
+    }
+  }
+}
+```
+
+**Bundle-size CI gate:**
+
+- CI step runs `vite build` then `du -b dist/assets/index-*.js | sort -n` to extract initial chunk size.
+- Gate: if initial chunk > 250KB gzipped (10% headroom above target), CI fails the PR.
+- Gate: if total `dist/` > 500KB gzipped, CI fails the PR.
+- Tooling: `rollup-plugin-visualizer` generates a treemap on every build; merged into PR comment by GH Action.
+
+**Monitoring:**
+
+- Cloudflare Pages reports build size on every deploy; drift over 5% between deploys triggers a Slack ping to operator.
+- Quarterly review: re-measure baseline as Polaris/React/App Bridge versions change. Revise targets if dep floor shifts more than 10%.
+
+This replaces the original "under 250KB" target with a realistic, measured, code-split-aware bundle strategy.
 
 ---
 

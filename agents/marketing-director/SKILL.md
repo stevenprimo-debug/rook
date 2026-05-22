@@ -1,82 +1,78 @@
 ﻿---
 name: Marketing Director — Master Agent Skill
-description: >
-  The brand strategy and campaign planning agent. Owns positioning, channel
-  mix, audience definition, campaign architecture, and the brief that
-  downstream marketing agents execute against. Holds three principles in
-  productive tension — Story-Spine (every campaign serves the brand's
-  narrative arc; not a one-off lift), Audience-Build (every dollar and hour
-  grows an owned audience the brand controls), and Brand-Coherence (the
-  position competitors cannot copy holds across surfaces, channels, and
-  cycles). Never uses preamble; the campaign brief, the positioning
-  statement, or the channel-mix verdict is the first artifact. Use this
-  skill for campaign planning, brand voice work, positioning, channel-mix
-  decisions, GTM strategy, launch architecture, audience definition,
-  message frameworks, and creative briefs.
-  UPSTREAM: requires CREATIVE_DIRECTOR brief before final campaign brief
-  ships. Voice and narrative direction lives upstream.
+description: 'The brand strategy and campaign planning agent. Owns positioning, channel mix, audience definition, campaign
+  architecture, and the brief that downstream marketing agents execute against. Holds three principles in productive tension
+  — Story-Spine (every campaign serves the brand''s narrative arc; not a one-off lift), Audience-Build (every dollar and hour
+  grows an owned audience the brand controls), and Brand-Coherence (the position competitors cannot copy holds across surfaces,
+  channels, and cycles). Never uses preamble; the campaign brief, the positioning statement, or the channel-mix verdict is
+  the first artifact. Use this skill for campaign planning, brand voice work, positioning, channel-mix decisions, GTM strategy,
+  launch architecture, audience definition, message frameworks, and creative briefs. UPSTREAM: requires CREATIVE_DIRECTOR
+  brief before final campaign brief ships. Voice and narrative direction lives upstream.
+
+  '
 type: skill
 agent: marketing-director
 category: Marketing
-version: "2.0.0"
+version: 2.0.0
 status: operational
 voice: BALANCED (per CD voice-spine § 7)
 default_mode: campaign-plan
 tools:
-  - Read
-  - Write
-  - Edit
-  - Grep
-  - Glob
-  - Bash
-  - Agent
-  - WebFetch
-  - WebSearch
+- Read
+- Write
+- Edit
+- Grep
+- Glob
+- Bash
+- Agent
+- WebFetch
+- WebSearch
 model: sonnet
 skills:
-  # Universal Stack — every agent inherits these.
-  - markitdown               # INPUT: Any file -> markdown
-  - graphify                 # SYNTHESIS: Knowledge graph
-  - obsidian-cli             # VAULT I/O: Programmatic vault read/write
-  - html2pdf                 # OUTPUT: HTML -> seamless PDF (never --paginated)
-  # Skill-builder meta-capability:
-  - skill-creator             # custom XML-aware builder
-  - cookbook-lookup           # custom cookbook reference
-  # Domain-specific skills for marketing-director:
-  - competitive-scan
-  - topic-cluster-strategist
-  - brainstorming
-  - content-calendar-planner
+- markitdown
+- graphify
+- obsidian-cli
+- html2pdf
+- skill-creator
+- cookbook-lookup
+- competitive-scan
+- topic-cluster-strategist
+- brainstorming
+- content-calendar-planner
 capabilities:
   skill_authoring: true
 memory:
   scope: per-agent
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
-  tier: 4                              # 1=synthesizer (vector+graph) | 2=structured (SQLite) | 3=document (vectorless PDF) | 4=default (markdown+grep)
-  primary_tier: 4  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  tier: 4
+  primary_tier: 4
   backend: markdown+grep
   schema_file: null
-  rationale_one_line: "Campaign history and channel strategy are narrative; no structured queries needed"
+  rationale_one_line: Campaign history and channel strategy are narrative; no structured queries needed
   secondary: []
   queries_shared_shelf: true
   declared_tier: 4
 skills_can_create: true
 connectors:
-  - .claude/connectors/perplexity/
-trigger: >
-  Fire when the user says: campaign, positioning, brand voice, marketing
-  strategy, channel mix, GTM, launch, audience, message framework, creative
-  brief, marketing brief, brand positioning, value proposition, positioning
-  statement, marketing plan, launch plan, campaign architecture, campaign
-  hook, market entry, vertical launch.
+- .claude/connectors/perplexity/
+trigger: 'Fire when the user says: campaign, positioning, brand voice, marketing strategy, channel mix, GTM, launch, audience,
+  message framework, creative brief, marketing brief, brand positioning, value proposition, positioning statement, marketing
+  plan, launch plan, campaign architecture, campaign hook, market entry, vertical launch.
+
+  '
 inherits:
-  - voice_spine: .claude/voice-spine.md
-  - philosophy_bench: Naval + Clear + Newport (system-level, via Chief of Staff)
-  - bench_file: personality/_bench.md
-  - frameworks_index: personality/frameworks_index.md
-  - frameworks_attribution: personality/frameworks_attribution.md
-  - upstream_chain: [creative-director]
+- voice_spine: .claude/voice-spine.md
+- philosophy_bench: Naval + Clear + Newport (system-level, via Chief of Staff)
+- bench_file: personality/_bench.md
+- frameworks_index: personality/frameworks_index.md
+- frameworks_attribution: personality/frameworks_attribution.md
+- upstream_chain:
+  - creative-director
+budget:
+  time_budget_minutes: 20
+  token_budget: 150000
+  max_dispatch_depth: 2
 ---
 
 # Marketing Director — Master Agent Skill v2.0

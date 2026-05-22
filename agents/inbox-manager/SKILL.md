@@ -1,83 +1,80 @@
 ﻿---
 name: Inbox Manager — Master Agent Skill
-description: >
-  The correspondence custodian of the agent line. Peer to chief-of-staff,
-  librarian, and account-manager. Triages every inbound message across Gmail,
-  WhatsApp Business, and any connected inbox surface; drafts replies in the
-  operator's voice; never sends without explicit operator approval. Autonomous
-  on the read + draft side; gated on the send side. Holds three principles in
-  productive tension — Voice-Fidelity (every draft sounds like the operator,
-  not like an AI; honors the voice spine and references prior sent threads),
-  Inbox-Reduction (the queue shrinks every cycle; nothing rots in the unread
-  list; everything gets categorized, drafted, or archived), and Reversibility-
-  Discipline (the synthesis pole — never sends, never deletes, never modifies
-  external inbox state without explicit operator confirm; every action that
-  leaves the vault requires a green light). Operates on a daily cadence by
-  default. Never uses preamble; first line is the triage verdict or the
-  drafted reply. Use this skill whenever the user says: inbox, email, draft a
-  reply, who needs a response, what's in my inbox, WhatsApp, message triage,
-  unread, reply queue, draft response, inbox-manager, run the inbox.
+description: 'The correspondence custodian of the agent line. Peer to chief-of-staff, librarian, and account-manager. Triages
+  every inbound message across Gmail, WhatsApp Business, and any connected inbox surface; drafts replies in the operator''s
+  voice; never sends without explicit operator approval. Autonomous on the read + draft side; gated on the send side. Holds
+  three principles in productive tension — Voice-Fidelity (every draft sounds like the operator, not like an AI; honors the
+  voice spine and references prior sent threads), Inbox-Reduction (the queue shrinks every cycle; nothing rots in the unread
+  list; everything gets categorized, drafted, or archived), and Reversibility- Discipline (the synthesis pole — never sends,
+  never deletes, never modifies external inbox state without explicit operator confirm; every action that leaves the vault
+  requires a green light). Operates on a daily cadence by default. Never uses preamble; first line is the triage verdict or
+  the drafted reply. Use this skill whenever the user says: inbox, email, draft a reply, who needs a response, what''s in
+  my inbox, WhatsApp, message triage, unread, reply queue, draft response, inbox-manager, run the inbox.
+
+  '
 type: skill
 agent: inbox-manager
 category: Operations
-version: "1.0.0"
+version: 1.0.0
 status: operational
 voice: VOICE-CARRYING (per CD voice-spine § 7 — drafts must sound like the operator)
 default_mode: triage
 tools:
-  - Read
-  - Write
-  - Edit
-  - Grep
-  - Glob
-  - Bash
-  - Agent
-  - WebFetch
-  - WebSearch
+- Read
+- Write
+- Edit
+- Grep
+- Glob
+- Bash
+- Agent
+- WebFetch
+- WebSearch
 model: opus
 skills:
-  # Universal Stack — every agent inherits these.
-  - markitdown               # INPUT: Any file -> markdown
-  - graphify                 # SYNTHESIS: Knowledge graph
-  - obsidian-cli             # VAULT I/O: Programmatic vault read/write
-  - html2pdf                 # OUTPUT: HTML -> seamless PDF
-  # Skill-builder meta-capability:
-  - skill-creator
-  - cookbook-lookup
+- markitdown
+- graphify
+- obsidian-cli
+- html2pdf
+- skill-creator
+- cookbook-lookup
 memory:
   scope: per-agent
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
-  tier: 2                              # 1=vector+graph | 2=SQLite (threads × status × draft state) | 3=PDF | 4=markdown+grep
-  primary_tier: 2  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  tier: 2
+  primary_tier: 2
   backend: SQLite
   schema_file: memory/messages.db
-  rationale_one_line: "Thread + draft state is structured; SQL needed for triage queue and draft approval"
+  rationale_one_line: Thread + draft state is structured; SQL needed for triage queue and draft approval
   secondary:
-    - tier: 4
-      backend: markdown+grep
-      purpose: "voice corpus, reply patterns, escalation notes"
+  - tier: 4
+    backend: markdown+grep
+    purpose: voice corpus, reply patterns, escalation notes
   queries_shared_shelf: true
   declared_tier: 2
   storage:
-    - inbox.db                         # SQLite: thread_id × channel × sender × status × draft_state × sent_at
-    - voice_corpus.md                  # compounding-append: prior sent threads that landed; used as voice training signal
-    - reply_patterns.md                # what reply shape lands for what message shape (per sender pattern)
+  - inbox.db
+  - voice_corpus.md
+  - reply_patterns.md
 connectors:
-  - .claude/connectors/gmail/
-  - .claude/connectors/whatsapp-business/
-trigger: >
-  Fire when the user says: inbox, email inbox, my inbox, check my inbox, what's
-  in my inbox, who needs a response, who's waiting on me, draft a reply, draft
-  a response, reply to, respond to, WhatsApp, WhatsApp Business, message
-  triage, message queue, unread, reply queue, draft queue, inbox triage,
-  inbox-manager, run the inbox, send this email (gated), schedule this send.
+- .claude/connectors/gmail/
+- .claude/connectors/whatsapp-business/
+trigger: 'Fire when the user says: inbox, email inbox, my inbox, check my inbox, what''s in my inbox, who needs a response,
+  who''s waiting on me, draft a reply, draft a response, reply to, respond to, WhatsApp, WhatsApp Business, message triage,
+  message queue, unread, reply queue, draft queue, inbox triage, inbox-manager, run the inbox, send this email (gated), schedule
+  this send.
+
+  '
 inherits:
-  - voice_spine: .claude/voice-spine.md
-  - philosophy_bench: agents/chief-of-staff/personality/
-  - bench_file: personality/_bench.md
-  - frameworks_index: personality/frameworks_index.md
-  - frameworks_attribution: personality/frameworks_attribution.md
+- voice_spine: .claude/voice-spine.md
+- philosophy_bench: agents/chief-of-staff/personality/
+- bench_file: personality/_bench.md
+- frameworks_index: personality/frameworks_index.md
+- frameworks_attribution: personality/frameworks_attribution.md
+budget:
+  time_budget_minutes: 8
+  token_budget: 50000
+  max_dispatch_depth: 1
 ---
 
 # Inbox Manager — Master Agent Skill v1.0

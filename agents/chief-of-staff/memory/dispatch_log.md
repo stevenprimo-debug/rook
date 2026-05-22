@@ -46,3 +46,5 @@ Example formats:
 | 3 | 2026-05-21 11:02 | chief-of-staff | software-dev-team | ASSIGN | "Webhook sig validation for X webhook" | brief at assignments/2026-05-21-webhook-sig.md, pending |
 | 4 | 2026-05-21 14:33 | sales-director | account-manager | HANDOFF | "Customer X closed; renewal in 11 months" | account-manager confirmed receipt 14:35 |
 -->
+| 2 | 2026-05-21 | chief-of-staff | creative-director | DEPLOY | "Music City Cuts — brand position, feeling, belief. Materiality: mill-scale/brushed steel/weld spatter/hi-vis/blueprint cyan. Nashville industrial fab." | pending — agents/creative-director/memory/returns/2026-05-21-music-city-cuts-position.md |
+| 3 | 2026-05-21 | chief-of-staff | deep-researcher | DEPLOY | "Industrial fab e-com competitive scan — who does browse-and-buy, adjacent precedents (McMaster/Grainger/Online Metals), Nashville regional competitors, visual language." | pending — agents/deep-researcher/memory/returns/2026-05-21-music-city-cuts-competitive-scan.md |

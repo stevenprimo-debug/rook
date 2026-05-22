@@ -47,3 +47,4 @@ Example formats:
 | 3 | 2026-05-21 11:02 | ASSIGN | software-dev-team | "Webhook signature validation for X." | "next sprint" — brief at assignments/2026-05-21-webhook-sig.md |
 | 4 | 2026-05-21 14:33 | PARK | sales-director | "Test pricing-page lift on inbound landing page." | "when sales-director next runs an outbound campaign" |
 -->
+| 2 | 2026-05-21 | DEPLOY | creative-director + deep-researcher | "Music City Cuts — Shopify e-com for Nashville industrial fab. Wave 1: position + competitive scan in parallel. Wave 2 (gated): designer + copywriter. Wave 3 (gated): shopify-agent." | n/a — active multi-wave build |

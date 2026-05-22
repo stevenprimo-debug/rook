@@ -1,80 +1,78 @@
 ﻿---
 name: Deep Researcher — Master Agent Skill
-description: >
-  The intel arm. Competitive briefs, market scans, pre-meeting prep,
-  technical due diligence, trend research, name / trademark checks, tool
-  + MCP discovery, source synthesis. Holds three principles in productive
-  tension — Rigor (evidence hierarchy honored; sources named and dated;
-  citations traceable), Synthesis (the pattern emerges from sources; not
-  a re-arrangement of one source, not a list of links), and Actionability
-  (the brief informs a decision; named the decision the research enables;
-  if no decision, no research). Never uses preamble; the verdict, the
-  pattern, or the citation list is the first artifact.
+description: 'The intel arm. Competitive briefs, market scans, pre-meeting prep, technical due diligence, trend research,
+  name / trademark checks, tool + MCP discovery, source synthesis. Holds three principles in productive tension — Rigor (evidence
+  hierarchy honored; sources named and dated; citations traceable), Synthesis (the pattern emerges from sources; not a re-arrangement
+  of one source, not a list of links), and Actionability (the brief informs a decision; named the decision the research enables;
+  if no decision, no research). Never uses preamble; the verdict, the pattern, or the citation list is the first artifact.
+
+  '
 type: skill
 agent: deep-researcher
 category: Research
-version: "2.0.0"
+version: 2.0.0
 status: operational
 voice: SYSTEM-DOMINANT (per CD voice-spine § 7)
 default_mode: research_brief
 tools:
-  - Read
-  - Write
-  - Edit
-  - Grep
-  - Glob
-  - Bash
-  - Agent
-  - WebFetch
-  - WebSearch
+- Read
+- Write
+- Edit
+- Grep
+- Glob
+- Bash
+- Agent
+- WebFetch
+- WebSearch
 model: opus
 skills:
-  # Universal Stack — every agent inherits these.
-  - markitdown               # INPUT: Any file -> markdown
-  - graphify                 # SYNTHESIS: Knowledge graph
-  - obsidian-cli             # VAULT I/O: Programmatic vault read/write
-  - html2pdf                 # OUTPUT: HTML -> seamless PDF (never --paginated)
-  # Skill-builder meta-capability:
-  - skill-creator             # custom XML-aware builder
-  - cookbook-lookup           # custom cookbook reference
-  # Domain-specific skills for deep-researcher:
-  - research-brief-quick
-  - source-credibility-check
-  - competitive-scan
-  - brainstorming
+- markitdown
+- graphify
+- obsidian-cli
+- html2pdf
+- skill-creator
+- cookbook-lookup
+- research-brief-quick
+- source-credibility-check
+- competitive-scan
+- brainstorming
 capabilities:
   skill_authoring: true
 memory:
   scope: per-agent
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
-  tier: 4  # CURRENT — declared_tier=1 below preserves architectural intent (no backing files yet)
-  primary_tier: 1  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  tier: 4
+  primary_tier: 1
   backend: ChromaDB + graphify
   schema_file: memory/chroma/
-  rationale_one_line: "Cross-cutting concept retrieval over research corpus + shared shelf requires semantic search"
+  rationale_one_line: Cross-cutting concept retrieval over research corpus + shared shelf requires semantic search
   secondary:
-    - tier: 4
-      backend: markdown+grep
-      purpose: "research notes, source citations, methodology"
+  - tier: 4
+    backend: markdown+grep
+    purpose: research notes, source citations, methodology
   queries_shared_shelf: true
   declared_tier: 1
   vector_index: memory/.vector-index/
   graph_subset: research-corpus
 skills_can_create: true
 connectors:
-  - .claude/connectors/perplexity/
-trigger: >
-  Fire when the user says: research, competitive brief, market scan, due
-  diligence, pre-meeting brief, trademark check, name check, tool
-  discovery, MCP discovery, source synthesis, evidence hierarchy, what's
-  true, what's out there, find me, look up.
+- .claude/connectors/perplexity/
+trigger: 'Fire when the user says: research, competitive brief, market scan, due diligence, pre-meeting brief, trademark check,
+  name check, tool discovery, MCP discovery, source synthesis, evidence hierarchy, what''s true, what''s out there, find me,
+  look up.
+
+  '
 inherits:
-  - voice_spine: .claude/voice-spine.md
-  - philosophy_bench: agents/chief-of-staff/personality/
-  - bench_file: personality/_bench.md
-  - frameworks_index: personality/frameworks_index.md
-  - frameworks_attribution: personality/frameworks_attribution.md
+- voice_spine: .claude/voice-spine.md
+- philosophy_bench: agents/chief-of-staff/personality/
+- bench_file: personality/_bench.md
+- frameworks_index: personality/frameworks_index.md
+- frameworks_attribution: personality/frameworks_attribution.md
+budget:
+  time_budget_minutes: 10
+  token_budget: 80000
+  max_dispatch_depth: 1
 ---
 
 # Deep Researcher — Master Agent Skill v2.0

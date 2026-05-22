@@ -1,77 +1,78 @@
 ﻿---
 name: Chief of Staff — Router Skill
-description: >
-  Dispatcher for the 20-agent roster. Classifies inbound requests, routes to the
-  correct specialist agent(s), and synthesizes returns. Holds NO domain knowledge.
-  Owns routing, parallelization topology, pivot acknowledgment, reversibility-gating,
-  and final summary — nothing else. Memory hygiene belongs to Librarian; execution
-  belongs to specialists. Auto-dispatches on new chat when project context resolves
-  to one or more specialists with ≥80% confidence — no confirmation ceremony.
+description: 'Dispatcher for the 20-agent roster. Classifies inbound requests, routes to the correct specialist agent(s),
+  and synthesizes returns. Holds NO domain knowledge. Owns routing, parallelization topology, pivot acknowledgment, reversibility-gating,
+  and final summary — nothing else. Memory hygiene belongs to Librarian; execution belongs to specialists. Auto-dispatches
+  on new chat when project context resolves to one or more specialists with ≥80% confidence — no confirmation ceremony.
+
+  '
 type: skill
 agent: chief-of-staff
 category: Operations
 role: router
-version: "2.0"
+version: '2.0'
 status: operational
 voice: SYSTEM-DOMINANT
 default_mode: triage
 tools:
-  - Read
-  - Write
-  - Edit
-  - Grep
-  - Glob
-  - Bash
-  - Agent
-  - WebFetch
-  - WebSearch
+- Read
+- Write
+- Edit
+- Grep
+- Glob
+- Bash
+- Agent
+- WebFetch
+- WebSearch
 model: opus
 skills:
-  - markitdown
-  - graphify
-  - obsidian-cli
-  - html2pdf
-  - skill-creator
-  - cookbook-lookup
-  - dispatching-parallel-agents
-  - inbox-routing
-  - obsidian-capture
-  - schedule
-  - brainstorming
+- markitdown
+- graphify
+- obsidian-cli
+- html2pdf
+- skill-creator
+- cookbook-lookup
+- dispatching-parallel-agents
+- inbox-routing
+- obsidian-capture
+- schedule
+- brainstorming
 memory:
   scope: per-agent
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
   tier: 4
-  primary_tier: 4  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  primary_tier: 4
   backend: markdown+grep
   schema_file: null
-  rationale_one_line: "Idea log + dispatch log are append-only narrative; no structured queries needed"
+  rationale_one_line: Idea log + dispatch log are append-only narrative; no structured queries needed
   secondary: []
   queries_shared_shelf: true
   storage:
-    - memory/idea_log.md         # compounding-append ledger — every inbound classified, never silently dropped
-    - memory/dispatch_log.md     # compounding-append dispatch record — every brief issued + return status
+  - memory/idea_log.md
+  - memory/dispatch_log.md
   read_pattern: grep + frontmatter scan
   write_pattern: compounding-append with timestamp
   declared_tier: 4
 skills_can_create: true
 connectors:
-  - .claude/connectors/perplexity/
-trigger: >
-  Fire when the operator opens a new session without naming a specialist agent,
-  or says: chief of staff, cos, dispatch, delegate, route this, who handles,
-  kick off, spin up, what's next, status check, cross-agent, orchestrate,
-  coordinate agents, dispatch hub, spitball, idea, what should I do with,
-  should I, thinking about, wondering if, what if I, got an idea, random thought,
-  while we're at it, oh also, one more thing, park this. Also fires automatically
-  on a new chat when project context resolves to one or more specialists with
-  ≥80% confidence — no confirmation prompt.
+- .claude/connectors/perplexity/
+trigger: 'Fire when the operator opens a new session without naming a specialist agent, or says: chief of staff, cos, dispatch,
+  delegate, route this, who handles, kick off, spin up, what''s next, status check, cross-agent, orchestrate, coordinate agents,
+  dispatch hub, spitball, idea, what should I do with, should I, thinking about, wondering if, what if I, got an idea, random
+  thought, while we''re at it, oh also, one more thing, park this. Also fires automatically on a new chat when project context
+  resolves to one or more specialists with ≥80% confidence — no confirmation prompt.
+
+  '
 inherits:
-  - voice_spine: .claude/voice-spine.md
-  - bench_file: personality/_bench.md
-  - frameworks_index: personality/frameworks_index.md
-  - frameworks_attribution: personality/frameworks_attribution.md
+- voice_spine: .claude/voice-spine.md
+- bench_file: personality/_bench.md
+- frameworks_index: personality/frameworks_index.md
+- frameworks_attribution: personality/frameworks_attribution.md
+budget:
+  time_budget_minutes: 15
+  token_budget: 100000
+  max_dispatch_depth: 3
 ---
 
 # Chief of Staff — Router Skill v2.0

@@ -56,6 +56,7 @@ REQUIRED_HOOKS=(
     "pretooluse-routing-enforcer.sh"
     "preamble-resolver.sh"
     "context-watch-gate.sh"
+    "dispatch-budget-watchdog.sh"
 )
 MISSING=0
 for h in "${REQUIRED_HOOKS[@]}"; do
@@ -96,6 +97,7 @@ CMD_LIBRARIAN=$(build_cmd "librarian-digest.sh")
 CMD_PREFERENCE=$(build_cmd "preference-detector.sh")
 CMD_SESSION_MODE=$(build_cmd "session-mode-injector.sh")
 CMD_CONTEXT_WATCH=$(build_cmd "context-watch-gate.sh")
+CMD_DISPATCH_BUDGET=$(build_cmd "dispatch-budget-watchdog.sh")
 
 # ---- Load or initialize settings.json ------------------------------------
 step "Reading $SETTINGS_PATH"
@@ -197,6 +199,7 @@ SETTINGS=$(echo "$SETTINGS" | jq \
     --arg cmdPreToolUseRouting "$CMD_PRETOOLUSE_ROUTING" \
     --arg cmdPreamble  "$CMD_PREAMBLE" \
     --arg cmdCtxWatch  "$CMD_CONTEXT_WATCH" \
+    --arg cmdDispBudget "$CMD_DISPATCH_BUDGET" \
 '
 def strip_ours($arr):
     ($arr // [])
@@ -212,10 +215,11 @@ def strip_ours($arr):
 
 .hooks.SessionStart     = strip_ours(.hooks.SessionStart) + [{
     matcher: "", hooks: [
-        {type:"command", command:$cmdSp,        timeout:8},
-        {type:"command", command:$cmdPrelude,   timeout:12},
-        {type:"command", command:$cmdPreamble,  timeout:5},
-        {type:"command", command:$cmdSessMode,  timeout:5}
+        {type:"command", command:$cmdSp,         timeout:8},
+        {type:"command", command:$cmdPrelude,    timeout:12},
+        {type:"command", command:$cmdPreamble,   timeout:5},
+        {type:"command", command:$cmdSessMode,   timeout:5},
+        {type:"command", command:$cmdDispBudget, timeout:4}
     ]}]
 | .hooks.UserPromptSubmit = strip_ours(.hooks.UserPromptSubmit) + [{
     matcher: "", hooks: [
@@ -233,6 +237,10 @@ def strip_ours($arr):
     matcher: "", hooks: [
         {type:"command", command:$cmdPost,              timeout:6},
         {type:"command", command:$cmdPreToolUseRouting, timeout:5}
+    ]},
+    {
+    matcher: "Task|Agent", hooks: [
+        {type:"command", command:$cmdDispBudget,        timeout:5}
     ]}]
 | .hooks.PostToolUse     = strip_ours(.hooks.PostToolUse) + [{
     matcher: "", hooks: [
@@ -240,10 +248,10 @@ def strip_ours($arr):
     ]}]
 ')
 
-ok "SessionStart :: superpowers-init.sh, session-prelude.sh, preamble-resolver.sh, session-mode-injector.sh"
+ok "SessionStart :: superpowers-init.sh, session-prelude.sh, preamble-resolver.sh, session-mode-injector.sh, dispatch-budget-watchdog.sh"
 ok "UserPromptSubmit :: routing-enforcer.sh, preference-detector.sh, context-watch-gate.sh, vault-context-injector.sh, session-end-detect.sh"
 ok "PreCompact :: precompact-handoff.sh"
-ok "PreToolUse :: posture-staleness-gate.sh"
+ok "PreToolUse :: posture-staleness-gate.sh, pretooluse-routing-enforcer.sh, dispatch-budget-watchdog.sh [matcher=Task|Agent]"
 ok "PostToolUse :: librarian-digest.sh"
 
 # ---- Write ----------------------------------------------------------------

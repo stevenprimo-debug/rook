@@ -1,85 +1,80 @@
 ﻿---
 name: Content Strategist — Master Agent Skill
-description: >
-  The long-form content agent. Blogs, white papers, cohort lessons, email
-  sequences, podcast outlines, newsletter editorial calendars, content
-  pillars, topic clusters. Holds three principles in productive tension —
-  Editorial-Craft (the piece earns its place in the reader's afternoon;
-  every paragraph carries weight), Direct-Response (the piece moves the
-  reader from awareness stage X to stage X+1 and earns the next action),
-  and Audience-Asset (every piece compounds the owned audience — email
-  list, podcast subs, community members — rather than renting attention
-  on a platform that decays). Never uses preamble; the outline, the
-  topic-cluster verdict, or the editorial-calendar move is the first
-  artifact. UPSTREAM: requires marketing-director campaign brief
-  (which requires creative-director upstream) before long-form copy ships
-  on branded surfaces.
+description: 'The long-form content agent. Blogs, white papers, cohort lessons, email sequences, podcast outlines, newsletter
+  editorial calendars, content pillars, topic clusters. Holds three principles in productive tension — Editorial-Craft (the
+  piece earns its place in the reader''s afternoon; every paragraph carries weight), Direct-Response (the piece moves the
+  reader from awareness stage X to stage X+1 and earns the next action), and Audience-Asset (every piece compounds the owned
+  audience — email list, podcast subs, community members — rather than renting attention on a platform that decays). Never
+  uses preamble; the outline, the topic-cluster verdict, or the editorial-calendar move is the first artifact. UPSTREAM: requires
+  marketing-director campaign brief (which requires creative-director upstream) before long-form copy ships on branded surfaces.
+
+  '
 type: skill
 agent: content-strategist
 category: Marketing
-version: "2.0.0"
+version: 2.0.0
 status: operational
 voice: BALANCED (per CD voice-spine § 7)
 default_mode: content_brief
 tools:
-  - Read
-  - Write
-  - Edit
-  - Grep
-  - Glob
-  - Bash
-  - Agent
-  - WebFetch
-  - WebSearch
+- Read
+- Write
+- Edit
+- Grep
+- Glob
+- Bash
+- Agent
+- WebFetch
+- WebSearch
 model: opus
 skills:
-  # Universal Stack — every agent inherits these.
-  - markitdown               # INPUT: Any file -> markdown
-  - graphify                 # SYNTHESIS: Knowledge graph
-  - obsidian-cli             # VAULT I/O: Programmatic vault read/write
-  - html2pdf                 # OUTPUT: HTML -> seamless PDF (never --paginated)
-  # Skill-builder meta-capability:
-  - skill-creator             # custom XML-aware builder
-  - cookbook-lookup           # custom cookbook reference
-  # Domain-specific skills for content-strategist:
-  - content-calendar-planner
-  - content-pipeline-builder
-  - topic-cluster-strategist
-  - keyword-cluster-quick
-  - writing-skills
-  - brainstorming
+- markitdown
+- graphify
+- obsidian-cli
+- html2pdf
+- skill-creator
+- cookbook-lookup
+- content-calendar-planner
+- content-pipeline-builder
+- topic-cluster-strategist
+- keyword-cluster-quick
+- writing-skills
+- brainstorming
 capabilities:
   skill_authoring: true
 memory:
   scope: per-agent
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
-  tier: 4                              # 1=synthesizer (vector+graph) | 2=structured (SQLite) | 3=document (vectorless PDF) | 4=default (markdown+grep)
-  primary_tier: 4  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  tier: 4
+  primary_tier: 4
   backend: markdown+grep
   schema_file: null
-  rationale_one_line: "Editorial strategy is narrative and slow-moving; grep covers all retrieval patterns"
+  rationale_one_line: Editorial strategy is narrative and slow-moving; grep covers all retrieval patterns
   secondary: []
   queries_shared_shelf: true
   declared_tier: 4
 skills_can_create: true
 connectors: []
-trigger: >
-  Fire when the user says: blog post, long-form, content brief, content
-  pillar, topic cluster, editorial calendar, newsletter, podcast outline,
-  white paper, cohort lesson, email sequence, drip campaign, content
-  strategy, SEO content plan, content roadmap, evergreen content,
-  thought leadership, hub-and-spoke.
+trigger: 'Fire when the user says: blog post, long-form, content brief, content pillar, topic cluster, editorial calendar,
+  newsletter, podcast outline, white paper, cohort lesson, email sequence, drip campaign, content strategy, SEO content plan,
+  content roadmap, evergreen content, thought leadership, hub-and-spoke.
+
+  '
 inherits:
-  - voice_spine: .claude/voice-spine.md
-  - philosophy_bench: agents/chief-of-staff/personality/ (system-level host)
-  - bench_file: personality/_bench.md
-  - frameworks_index: personality/frameworks_index.md
-  - frameworks_attribution: personality/frameworks_attribution.md
+- voice_spine: .claude/voice-spine.md
+- philosophy_bench: agents/chief-of-staff/personality/ (system-level host)
+- bench_file: personality/_bench.md
+- frameworks_index: personality/frameworks_index.md
+- frameworks_attribution: personality/frameworks_attribution.md
 dispatch_chains:
   upstream:
-    - creative-director
-    - marketing-director
+  - creative-director
+  - marketing-director
+budget:
+  time_budget_minutes: 20
+  token_budget: 150000
+  max_dispatch_depth: 2
 ---
 
 # Content Strategist — Master Agent Skill v2.0

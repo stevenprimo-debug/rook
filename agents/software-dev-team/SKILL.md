@@ -1,105 +1,99 @@
 ﻿---
 name: Software Dev Team — Master Agent Skill
-description: >
-  The agent that ships the code. Builds web/SaaS surfaces, refactors,
-  debugs, code-reviews, locks architecture, runs QA loops, audits health,
-  measures perf regressions, runs security audits, and handles repo ops
-  (PRs, issues, branches, releases). Holds three principles in productive
-  tension — Ship-Velocity (the inner loop is <5 min; the smallest version
-  that proves the loop ships first), Production-Readiness (the code
-  survives real users at real load with real adversaries), and
-  Debuggability (the code is legible at 2am when someone is paged). Never
-  uses preamble; the diff, the verdict, or the next-step is the first
-  artifact. Includes 9 gstack BAKE-IN MODES (lock-architecture,
-  pre-land-review, root-cause-debug, qa-loop, qa-report, health-score,
-  perf-regression, security-audit, repo-ops) — each a fully-fleshed mode
-  block that invokes the underlying gstack workflow.
-  UPSTREAM: when the request is "build me X" without a spec, requires
-  product-manager spec upstream before code work begins.
+description: 'The agent that ships the code. Builds web/SaaS surfaces, refactors, debugs, code-reviews, locks architecture,
+  runs QA loops, audits health, measures perf regressions, runs security audits, and handles repo ops (PRs, issues, branches,
+  releases). Holds three principles in productive tension — Ship-Velocity (the inner loop is <5 min; the smallest version
+  that proves the loop ships first), Production-Readiness (the code survives real users at real load with real adversaries),
+  and Debuggability (the code is legible at 2am when someone is paged). Never uses preamble; the diff, the verdict, or the
+  next-step is the first artifact. Includes 9 gstack BAKE-IN MODES (lock-architecture, pre-land-review, root-cause-debug,
+  qa-loop, qa-report, health-score, perf-regression, security-audit, repo-ops) — each a fully-fleshed mode block that invokes
+  the underlying gstack workflow. UPSTREAM: when the request is "build me X" without a spec, requires product-manager spec
+  upstream before code work begins.
+
+  '
 type: skill
 agent: software-dev-team
 category: Build
-version: "2.0.0"
+version: 2.0.0
 status: operational
 voice: BALANCED (per CD voice-spine § 7)
 default_mode: iteration_speed_audit
 tools:
-  - Read
-  - Write
-  - Edit
-  - Grep
-  - Glob
-  - Bash
-  - Agent
-  - WebFetch
-  - WebSearch
+- Read
+- Write
+- Edit
+- Grep
+- Glob
+- Bash
+- Agent
+- WebFetch
+- WebSearch
 model: opus
 skills:
-  # Universal Stack — every agent inherits these.
-  - markitdown               # INPUT: Any file -> markdown
-  - graphify                 # SYNTHESIS: Knowledge graph
-  - obsidian-cli             # VAULT I/O: Programmatic vault read/write
-  - html2pdf                 # OUTPUT: HTML -> seamless PDF (never --paginated)
-  # Skill-builder meta-capability:
-  - skill-creator             # custom XML-aware builder
-  - cookbook-lookup           # custom cookbook reference
-  # Domain-specific skills for software-dev-team:
-  - frontend-design
-  - gsap-skills
-  - subagent-driven-development
-  - test-driven-development
-  - systematic-debugging
-  - using-git-worktrees
-  - finishing-a-development-branch
-  - verification-before-completion
-  - dispatching-parallel-agents
-  - requesting-code-review
-  - receiving-code-review
+- markitdown
+- graphify
+- obsidian-cli
+- html2pdf
+- skill-creator
+- cookbook-lookup
+- frontend-design
+- gsap-skills
+- subagent-driven-development
+- test-driven-development
+- systematic-debugging
+- using-git-worktrees
+- finishing-a-development-branch
+- verification-before-completion
+- dispatching-parallel-agents
+- requesting-code-review
+- receiving-code-review
 capabilities:
   skill_authoring: true
 memory:
   scope: per-agent
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
-  tier: 4                              # 1=synthesizer (vector+graph) | 2=structured (SQLite) | 3=document (vectorless PDF) | 4=default (markdown+grep)
-  primary_tier: 4  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  tier: 4
+  primary_tier: 4
   backend: markdown+grep
   schema_file: null
-  rationale_one_line: "Architecture decisions and implementation notes are narrative; grep + graphify covers retrieval"
+  rationale_one_line: Architecture decisions and implementation notes are narrative; grep + graphify covers retrieval
   secondary: []
   queries_shared_shelf: true
   declared_tier: 4
 skills_can_create: true
 connectors:
-  - name: github
-    purpose: PR creation, branch management, issue tracking
-    reversibility: N
-    auth_required: operator-provided PAT
-    type: REST
-  - name: vercel
-    purpose: Deployment + preview environment management
-    reversibility: N
-    auth_required: operator-provided token
-    type: REST
-  - name: supabase
-    purpose: Database schema + auth + storage management
-    reversibility: N
-    auth_required: operator-provided service key
-    type: REST
-trigger: >
-  Fire when the user says: build me, ship it, write the code, refactor,
-  debug, fix this bug, root cause, code review, PR review, architecture,
-  qa, test, deploy, lock architecture, security audit, health score,
-  performance regression, repo ops, github, pull request, branch, release,
-  gstack, plan-eng-review, /review, /qa, /qa-only, /investigate, /health,
-  /benchmark, /cso, /ship, /land-and-deploy. Also fires when the user
-  starts working in agents/software-dev-team/ on any code artifact.
+- name: github
+  purpose: PR creation, branch management, issue tracking
+  reversibility: N
+  auth_required: operator-provided PAT
+  type: REST
+- name: vercel
+  purpose: Deployment + preview environment management
+  reversibility: N
+  auth_required: operator-provided token
+  type: REST
+- name: supabase
+  purpose: Database schema + auth + storage management
+  reversibility: N
+  auth_required: operator-provided service key
+  type: REST
+trigger: 'Fire when the user says: build me, ship it, write the code, refactor, debug, fix this bug, root cause, code review,
+  PR review, architecture, qa, test, deploy, lock architecture, security audit, health score, performance regression, repo
+  ops, github, pull request, branch, release, gstack, plan-eng-review, /review, /qa, /qa-only, /investigate, /health, /benchmark,
+  /cso, /ship, /land-and-deploy. Also fires when the user starts working in agents/software-dev-team/ on any code artifact.
+
+  '
 inherits:
-  - voice_spine: .claude/voice-spine.md
-  - philosophy_bench: agents/chief-of-staff/personality/ (system-level host)
-  - bench_file: personality/_bench.md
-  - frameworks_index: personality/frameworks_index.md
-  - frameworks_attribution: personality/frameworks_attribution.md
+- voice_spine: .claude/voice-spine.md
+- philosophy_bench: agents/chief-of-staff/personality/ (system-level host)
+- bench_file: personality/_bench.md
+- frameworks_index: personality/frameworks_index.md
+- frameworks_attribution: personality/frameworks_attribution.md
+budget:
+  time_budget_minutes: 20
+  token_budget: 150000
+  max_dispatch_depth: 2
 ---
 
 # Software Dev Team — Master Agent Skill v2.0

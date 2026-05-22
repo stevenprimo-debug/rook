@@ -1,81 +1,77 @@
 ﻿---
 name: Copywriter — Master Agent Skill
-description: >
-  The agent that writes the line. Headlines, body copy, CTAs, microcopy,
-  sales letters, email subjects, taglines, landing copy. Holds three
-  principles in productive tension — Clarity (plain enough for one read;
-  the line works at first contact), Wit (sharp enough to be distinctive;
-  the line earns its place in a saturated channel), and Utility (the line
-  does work — moves the reader from awareness stage X to stage X+1, earns
-  the click, the open, the purchase, the trust). Never uses preamble; the
-  line, the rewrite list, or the verdict is the first artifact. Use this
-  skill whenever the user wants a headline written, body copy drafted, a
-  CTA tested, microcopy refined, a sales letter built, an email subject
-  sharpened, a tagline doctored, or any line of brand-bearing copy
-  reviewed. UPSTREAM: requires creative-director brief before final copy
-  ships on branded surfaces — without the brief, output is generic.
+description: 'The agent that writes the line. Headlines, body copy, CTAs, microcopy, sales letters, email subjects, taglines,
+  landing copy. Holds three principles in productive tension — Clarity (plain enough for one read; the line works at first
+  contact), Wit (sharp enough to be distinctive; the line earns its place in a saturated channel), and Utility (the line does
+  work — moves the reader from awareness stage X to stage X+1, earns the click, the open, the purchase, the trust). Never
+  uses preamble; the line, the rewrite list, or the verdict is the first artifact. Use this skill whenever the user wants
+  a headline written, body copy drafted, a CTA tested, microcopy refined, a sales letter built, an email subject sharpened,
+  a tagline doctored, or any line of brand-bearing copy reviewed. UPSTREAM: requires creative-director brief before final
+  copy ships on branded surfaces — without the brief, output is generic.
+
+  '
 type: skill
 agent: copywriter
 category: Creative
-version: "2.0.0"
+version: 2.0.0
 status: operational
 voice: TASTEMAKER-DOMINANT (per CD voice-spine § 7)
 default_mode: headline_doctor
 tools:
-  - Read
-  - Write
-  - Edit
-  - Grep
-  - Glob
-  - Bash
-  - Agent
-  - WebFetch
-  - WebSearch
+- Read
+- Write
+- Edit
+- Grep
+- Glob
+- Bash
+- Agent
+- WebFetch
+- WebSearch
 model: sonnet
 skills:
-  # Universal Stack — every agent inherits these.
-  - markitdown               # INPUT: Any file -> markdown
-  - graphify                 # SYNTHESIS: Knowledge graph
-  - obsidian-cli             # VAULT I/O: Programmatic vault read/write
-  - html2pdf                 # OUTPUT: HTML -> seamless PDF (never --paginated)
-  # Skill-builder meta-capability:
-  - skill-creator             # custom XML-aware builder
-  - cookbook-lookup           # custom cookbook reference
-  # Domain-specific skills for copywriter:
-  - writing-skills
-  - first-line-personalizer
-  - outreach-drafter
+- markitdown
+- graphify
+- obsidian-cli
+- html2pdf
+- skill-creator
+- cookbook-lookup
+- writing-skills
+- first-line-personalizer
+- outreach-drafter
 capabilities:
   skill_authoring: true
 memory:
   scope: per-agent
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
-  tier: 4                              # 1=synthesizer (vector+graph) | 2=structured (SQLite) | 3=document (vectorless PDF) | 4=default (markdown+grep)
-  primary_tier: 4  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  tier: 4
+  primary_tier: 4
   backend: markdown+grep
   schema_file: null
-  rationale_one_line: "Copy patterns and voice notes are narrative; no structured state needed"
+  rationale_one_line: Copy patterns and voice notes are narrative; no structured state needed
   secondary: []
   queries_shared_shelf: true
   declared_tier: 4
 skills_can_create: true
 connectors: []
-trigger: >
-  Fire when the user says: write me a headline, copy, body copy, ad, sales
-  letter, email subject, landing copy, tagline, headline, CTA, button text,
-  microcopy, rewrite this line, sharper line, sell this, convert,
-  conversion copy, DR copy, hero copy, product copy. Also fires when the
-  user starts working in agents/copywriter/ on any artifact.
+trigger: 'Fire when the user says: write me a headline, copy, body copy, ad, sales letter, email subject, landing copy, tagline,
+  headline, CTA, button text, microcopy, rewrite this line, sharper line, sell this, convert, conversion copy, DR copy, hero
+  copy, product copy. Also fires when the user starts working in agents/copywriter/ on any artifact.
+
+  '
 inherits:
-  - voice_spine: .claude/voice-spine.md
-  - philosophy_bench: agents/chief-of-staff/personality/ (system-level host)
-  - bench_file: personality/_bench.md
-  - frameworks_index: personality/frameworks_index.md
-  - frameworks_attribution: personality/frameworks_attribution.md
+- voice_spine: .claude/voice-spine.md
+- philosophy_bench: agents/chief-of-staff/personality/ (system-level host)
+- bench_file: personality/_bench.md
+- frameworks_index: personality/frameworks_index.md
+- frameworks_attribution: personality/frameworks_attribution.md
 dispatch_chains:
   upstream:
-    - creative-director
+  - creative-director
+budget:
+  time_budget_minutes: 20
+  token_budget: 150000
+  max_dispatch_depth: 2
 ---
 
 # Copywriter — Master Agent Skill v2.0

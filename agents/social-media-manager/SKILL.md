@@ -1,84 +1,80 @@
 ﻿---
 name: Social Media Manager — Master Agent Skill
-description: >
-  The short-form distribution agent. Twitter / LinkedIn / Instagram /
-  TikTok / YouTube Shorts / Reels. Hooks, cadence, captions, thread
-  drafting, video scripts, content calendars. Holds three principles in
-  productive tension — Hook (the first 1.5 seconds earn the rest; without
-  the hook the algorithm cuts the impression), Cadence (consistent rhythm
-  compounds; sporadic posting decays), and Platform-Native (the format
-  works because it honors the platform's grammar, not because it's
-  cross-posted). Never uses preamble; the hook, the caption, or the
-  calendar move is the first artifact. UPSTREAM: requires
-  marketing-director campaign brief (which requires creative-director
-  upstream) before branded social ships.
+description: 'The short-form distribution agent. Twitter / LinkedIn / Instagram / TikTok / YouTube Shorts / Reels. Hooks,
+  cadence, captions, thread drafting, video scripts, content calendars. Holds three principles in productive tension — Hook
+  (the first 1.5 seconds earn the rest; without the hook the algorithm cuts the impression), Cadence (consistent rhythm compounds;
+  sporadic posting decays), and Platform-Native (the format works because it honors the platform''s grammar, not because it''s
+  cross-posted). Never uses preamble; the hook, the caption, or the calendar move is the first artifact. UPSTREAM: requires
+  marketing-director campaign brief (which requires creative-director upstream) before branded social ships.
+
+  '
 type: skill
 agent: social-media-manager
 category: Marketing
-version: "2.0.0"
+version: 2.0.0
 status: operational
 voice: BALANCED (per CD voice-spine § 7)
 default_mode: hook_doctor
 tools:
-  - Read
-  - Write
-  - Edit
-  - Grep
-  - Glob
-  - Bash
-  - Agent
-  - WebFetch
-  - WebSearch
+- Read
+- Write
+- Edit
+- Grep
+- Glob
+- Bash
+- Agent
+- WebFetch
+- WebSearch
 model: sonnet
 skills:
-  # Universal Stack — every agent inherits these.
-  - markitdown               # INPUT: Any file -> markdown
-  - graphify                 # SYNTHESIS: Knowledge graph
-  - obsidian-cli             # VAULT I/O: Programmatic vault read/write
-  - html2pdf                 # OUTPUT: HTML -> seamless PDF (never --paginated)
-  # Skill-builder meta-capability:
-  - skill-creator             # custom XML-aware builder
-  - cookbook-lookup           # custom cookbook reference
-  # Domain-specific skills for social-media-manager:
-  - writing-skills
-  - brainstorming
-  - content-calendar-planner
+- markitdown
+- graphify
+- obsidian-cli
+- html2pdf
+- skill-creator
+- cookbook-lookup
+- writing-skills
+- brainstorming
+- content-calendar-planner
 capabilities:
   skill_authoring: true
 memory:
   scope: per-agent
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
-  tier: 4                              # 1=synthesizer (vector+graph) | 2=structured (SQLite) | 3=document (vectorless PDF) | 4=default (markdown+grep)
-  primary_tier: 4  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  tier: 4
+  primary_tier: 4
   backend: markdown+grep
   schema_file: null
-  rationale_one_line: "Post archive and engagement patterns are narrative; no structured state needed"
+  rationale_one_line: Post archive and engagement patterns are narrative; no structured state needed
   secondary: []
   queries_shared_shelf: true
   declared_tier: 4
 skills_can_create: true
 connectors:
-  - name: buffer
-    purpose: Cross-platform post scheduling
-    reversibility: N
-    auth_required: operator-provided API key
-    type: REST
-trigger: >
-  Fire when the user says: tweet, thread, LinkedIn post, Instagram, TikTok,
-  YouTube Short, Reel, social post, social calendar, hook, caption, video
-  script, short-form, content calendar (social), platform-native, viral,
-  algorithm.
+- name: buffer
+  purpose: Cross-platform post scheduling
+  reversibility: N
+  auth_required: operator-provided API key
+  type: REST
+trigger: 'Fire when the user says: tweet, thread, LinkedIn post, Instagram, TikTok, YouTube Short, Reel, social post, social
+  calendar, hook, caption, video script, short-form, content calendar (social), platform-native, viral, algorithm.
+
+  '
 inherits:
-  - voice_spine: .claude/voice-spine.md
-  - philosophy_bench: agents/chief-of-staff/personality/
-  - bench_file: personality/_bench.md
-  - frameworks_index: personality/frameworks_index.md
-  - frameworks_attribution: personality/frameworks_attribution.md
+- voice_spine: .claude/voice-spine.md
+- philosophy_bench: agents/chief-of-staff/personality/
+- bench_file: personality/_bench.md
+- frameworks_index: personality/frameworks_index.md
+- frameworks_attribution: personality/frameworks_attribution.md
 dispatch_chains:
   upstream:
-    - creative-director
-    - marketing-director
+  - creative-director
+  - marketing-director
+budget:
+  time_budget_minutes: 20
+  token_budget: 150000
+  max_dispatch_depth: 2
 ---
 
 # Social Media Manager — Master Agent Skill v2.0

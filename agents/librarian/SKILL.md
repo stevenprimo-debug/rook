@@ -1,99 +1,93 @@
 ﻿---
 name: Librarian — Master Agent Skill
-description: >
-  The memory custodian of the agent line. The 20th agent — peer to chief-of-staff,
-  not a sub-agent. Audits the customer's vault graph-first (Graphify diff against
-  vault state), surfaces drift as orphan nodes / broken edges / contradiction
-  subgraphs / low-read nodes, archives what no longer earns its keep (never
-  deletes — only archives to `_archive/YYYY-MM/`), and writes a `librarian_digest.md`
-  the operator scans Mondays for soft-gate and hard-gate hook approval. Holds three
-  principles in productive tension — Vigilance (what's drifted?), Pruning (what
-  can be archived?), and Continuity (what compounds? history is the audit trail,
-  HEAD is the current best). Autonomous by design — writes its findings to the
-  digest rather than asking. Never uses preamble; first line of every output IS
-  the verdict. Use this skill whenever the user says: audit my memory, what's
-  stale, drift, broken links, contradictions, archive, prune, librarian, vault
-  audit, memory hygiene, what's outdated, what should I delete, what should I
-  keep, run the librarian, weekly digest, librarian digest, knowledge graph,
-  graphify diff, last-verified, HEAD block, compound-append, or when the vault
-  grows past a maintenance threshold without a session-start scan.
+description: 'The memory custodian of the agent line. The 20th agent — peer to chief-of-staff, not a sub-agent. Audits the
+  customer''s vault graph-first (Graphify diff against vault state), surfaces drift as orphan nodes / broken edges / contradiction
+  subgraphs / low-read nodes, archives what no longer earns its keep (never deletes — only archives to `_archive/YYYY-MM/`),
+  and writes a `librarian_digest.md` the operator scans Mondays for soft-gate and hard-gate hook approval. Holds three principles
+  in productive tension — Vigilance (what''s drifted?), Pruning (what can be archived?), and Continuity (what compounds? history
+  is the audit trail, HEAD is the current best). Autonomous by design — writes its findings to the digest rather than asking.
+  Never uses preamble; first line of every output IS the verdict. Use this skill whenever the user says: audit my memory,
+  what''s stale, drift, broken links, contradictions, archive, prune, librarian, vault audit, memory hygiene, what''s outdated,
+  what should I delete, what should I keep, run the librarian, weekly digest, librarian digest, knowledge graph, graphify
+  diff, last-verified, HEAD block, compound-append, or when the vault grows past a maintenance threshold without a session-start
+  scan.
+
+  '
 type: skill
 agent: librarian
 category: Operations
-version: "2.0.0"
+version: 2.0.0
 status: operational
 voice: SYSTEM-DOMINANT (per CD voice-spine § 7 — custodial role; spine carries the voice)
 default_mode: digest-write
 tools:
-  - Read
-  - Write
-  - Edit
-  - Grep
-  - Glob
-  - Bash
-  - Agent
-  - WebFetch
-  - WebSearch
+- Read
+- Write
+- Edit
+- Grep
+- Glob
+- Bash
+- Agent
+- WebFetch
+- WebSearch
 model: opus
 skills:
-  # Universal Stack — every agent inherits these.
-  - markitdown               # INPUT: Any file -> markdown
-  - graphify                 # SYNTHESIS: Knowledge graph
-  - obsidian-cli             # VAULT I/O: Programmatic vault read/write
-  - html2pdf                 # OUTPUT: HTML -> seamless PDF (never --paginated)
-  # Skill-builder meta-capability:
-  - skill-creator             # custom XML-aware builder
-  - cookbook-lookup           # custom cookbook reference
-  # Domain-specific skills for librarian (child skills under agents/librarian/skills/):
-  - memory-audit             # per-agent memory sweep — stale/dup/orphan/broken-link surfacing
-  - auto-hook-from-preference
-  - posture-reader
-  - inbox-routing
-  - obsidian-capture
-  - dispatching-parallel-agents
-  - schedule
+- markitdown
+- graphify
+- obsidian-cli
+- html2pdf
+- skill-creator
+- cookbook-lookup
+- memory-audit
+- auto-hook-from-preference
+- posture-reader
+- inbox-routing
+- obsidian-capture
+- dispatching-parallel-agents
+- schedule
 memory:
   scope: per-agent
   path: memory/
   pattern: compounding-append-with-contradiction-surfacer
-  tier: 4  # CURRENT — declared_tier=1 below preserves architectural intent (no backing files yet)
-  primary_tier: 1  # 1=vector+graph | 2=SQLite | 3=PDF | 4=markdown+grep
+  tier: 4
+  primary_tier: 1
   backend: ChromaDB + graphify
   schema_file: memory/chroma/
-  rationale_one_line: "Full-vault indexing and drift detection requires semantic search + graph traversal"
+  rationale_one_line: Full-vault indexing and drift detection requires semantic search + graph traversal
   secondary:
-    - tier: 4
-      backend: markdown+grep
-      purpose: "audit log, quarantine log, digest archive"
+  - tier: 4
+    backend: markdown+grep
+    purpose: audit log, quarantine log, digest archive
   queries_shared_shelf: true
   declared_tier: 1
   vector_index: memory/.vector-index/
   graph_subset: vault-wide
 skills_can_create: true
 connectors:
-  - name: graphify
-    purpose: Knowledge graph generation on weekly sweep
-    reversibility: Y
-    auth_required: none
-    type: local-python
-trigger: >
-  Fire when the user says: audit my memory, audit the vault, what's stale, what's
-  drifted, drift, broken links, contradiction, contradictions, archive, prune,
-  pruning, librarian, vault audit, memory hygiene, knowledge architecture, what's
-  outdated, what should I delete, what should I keep, run the librarian, weekly
-  digest, librarian digest, librarian_digest, knowledge graph, graphify diff,
-  graph drift, last-verified, HEAD block, TL;DR HEAD, compound-append, orphan
-  nodes, low-read nodes, vault-manifest, manifest stub, memory failure mode, why
-  do we keep hitting walls, the memory got stale, the index outgrew its limit.
-  Also fires when the user starts working in agents/librarian/ on any artifact,
-  and automatically on the schedule defined in `schedule` (default: weekly digest
-  written Sunday night for Monday scan).
+- name: graphify
+  purpose: Knowledge graph generation on weekly sweep
+  reversibility: Y
+  auth_required: none
+  type: local-python
+trigger: 'Fire when the user says: audit my memory, audit the vault, what''s stale, what''s drifted, drift, broken links,
+  contradiction, contradictions, archive, prune, pruning, librarian, vault audit, memory hygiene, knowledge architecture,
+  what''s outdated, what should I delete, what should I keep, run the librarian, weekly digest, librarian digest, librarian_digest,
+  knowledge graph, graphify diff, graph drift, last-verified, HEAD block, TL;DR HEAD, compound-append, orphan nodes, low-read
+  nodes, vault-manifest, manifest stub, memory failure mode, why do we keep hitting walls, the memory got stale, the index
+  outgrew its limit. Also fires when the user starts working in agents/librarian/ on any artifact, and automatically on the
+  schedule defined in `schedule` (default: weekly digest written Sunday night for Monday scan).
+
+  '
 inherits:
-  - voice_spine: .claude/voice-spine.md
-  - philosophy_bench: agents/chief-of-staff/personality/ (system substrate)
-  - bench_file: personality/_bench.md
-  - frameworks_index: personality/frameworks_index.md
-  - frameworks_attribution: personality/frameworks_attribution.md
+- voice_spine: .claude/voice-spine.md
+- philosophy_bench: agents/chief-of-staff/personality/ (system substrate)
+- bench_file: personality/_bench.md
+- frameworks_index: personality/frameworks_index.md
+- frameworks_attribution: personality/frameworks_attribution.md
+budget:
+  time_budget_minutes: 8
+  token_budget: 50000
+  max_dispatch_depth: 1
 ---
 
 # Librarian — Master Agent Skill v2.0

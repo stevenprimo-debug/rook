@@ -1,0 +1,384 @@
+{
+  "communities": {
+    "0": [
+      "inbox_manager_memory_db_py",
+      "memory_db_connect",
+      "memory_db_evaluate_deal",
+      "memory_db_get_active_setups",
+      "memory_db_get_at_risk",
+      "memory_db_get_chargeback_orders",
+      "memory_db_get_current_posture",
+      "memory_db_get_disputes",
+      "memory_db_get_house_number",
+      "memory_db_get_merchant",
+      "memory_db_get_open_pipeline",
+      "memory_db_get_order_with_items",
+      "memory_db_get_overdue_invoices",
+      "memory_db_get_pending_commissions",
+      "memory_db_get_pending_drafts",
+      "memory_db_get_renewal_window",
+      "memory_db_get_reply_queue",
+      "memory_db_get_stalled_deals",
+      "memory_db_get_unfulfilled_orders",
+      "memory_db_log_stage_transition",
+      "memory_db_log_trade_result",
+      "memory_db_log_triage_run",
+      "memory_db_mark_draft_sent",
+      "memory_db_migrate",
+      "memory_db_query",
+      "memory_db_rationale_1",
+      "memory_db_rationale_120",
+      "memory_db_rationale_145",
+      "memory_db_rationale_155",
+      "memory_db_rationale_16",
+      "memory_db_rationale_25",
+      "memory_db_rationale_32",
+      "memory_db_rationale_39",
+      "memory_db_rationale_40",
+      "memory_db_rationale_47",
+      "memory_db_rationale_48",
+      "memory_db_rationale_54",
+      "memory_db_rationale_57",
+      "memory_db_rationale_62",
+      "memory_db_rationale_63",
+      "memory_db_rationale_73",
+      "memory_db_rationale_84",
+      "memory_db_rationale_96",
+      "memory_db_set_house_number",
+      "memory_db_upsert_account",
+      "memory_db_upsert_dispute",
+      "memory_db_upsert_merchant",
+      "memory_db_write"
+    ],
+    "1": [
+      "scripts_batch_by_size_assign_size",
+      "scripts_batch_by_size_batch_by_size",
+      "scripts_batch_by_size_is_blank",
+      "scripts_batch_by_size_is_done",
+      "scripts_batch_by_size_load_orders",
+      "scripts_batch_by_size_rationale_68",
+      "scripts_batch_by_size_rationale_84",
+      "scripts_batch_by_size_rationale_99",
+      "scripts_batch_by_size_should_skip",
+      "scripts_batch_by_size_write_manifest",
+      "scripts_enrich_orders_and_batch_build_batch_list",
+      "scripts_enrich_orders_and_batch_enrich",
+      "scripts_enrich_orders_and_batch_extract_address_token",
+      "scripts_enrich_orders_and_batch_load_api_values",
+      "scripts_enrich_orders_and_batch_load_csv_values",
+      "scripts_enrich_orders_and_batch_rationale_182",
+      "scripts_enrich_orders_and_batch_rationale_51",
+      "scripts_enrich_orders_and_batch_rationale_77",
+      "scripts_enrich_orders_and_batch_rationale_86",
+      "scripts_enrich_orders_and_batch_save_enriched",
+      "scripts_ingest_archive_get_or_create_merchant",
+      "scripts_ingest_archive_ingest_disputes",
+      "scripts_ingest_archive_ingest_orders",
+      "scripts_ingest_archive_rationale_38",
+      "scripts_ingest_archive_rationale_49",
+      "scripts_ingest_archive_rationale_96",
+      "scripts_parse_disputes_download_jsonl",
+      "scripts_parse_disputes_find_latest_excel",
+      "scripts_parse_disputes_flag_in_excel",
+      "scripts_parse_disputes_parse_disputes",
+      "scripts_parse_disputes_rationale_157",
+      "scripts_parse_disputes_rationale_45",
+      "scripts_parse_disputes_rationale_75",
+      "scripts_parse_disputes_rationale_97",
+      "scripts_parse_disputes_summarize_disputes",
+      "scripts_parse_gsheet_main",
+      "scripts_parse_gsheet_parse_csv_file",
+      "scripts_parse_gsheet_parse_json_mcp",
+      "scripts_parse_gsheet_parse_markdown_table",
+      "scripts_parse_gsheet_parse_xlsx_file",
+      "scripts_parse_gsheet_rationale_115",
+      "scripts_parse_gsheet_rationale_51",
+      "scripts_parse_gsheet_rationale_78",
+      "scripts_parse_gsheet_rationale_88",
+      "scripts_parse_gsheet_save_canonical_csv",
+      "shopify_agent_skills_operate_scripts_enrich_orders_and_batch_py",
+      "shopify_agent_skills_operate_scripts_ingest_archive_py",
+      "shopify_agent_skills_operate_scripts_parse_gsheet_py"
+    ],
+    "2": [
+      "concept_5_stages_awareness",
+      "concept_aida",
+      "concept_audience_asset_pole",
+      "concept_big_idea_test",
+      "concept_clarity_pole",
+      "concept_coherence_pole",
+      "concept_content_tilt",
+      "concept_direct_response_pole",
+      "concept_editorial_craft_pole",
+      "concept_hub_spoke",
+      "concept_provocation_pole",
+      "concept_restraint_pole",
+      "concept_utility_pole",
+      "concept_wit_pole",
+      "content_strategist_bench",
+      "content_strategist_frameworks_attribution",
+      "content_strategist_frameworks_index",
+      "content_strategist_readme",
+      "content_strategist_skill",
+      "copywriter_bench",
+      "copywriter_frameworks_attribution",
+      "copywriter_frameworks_index",
+      "copywriter_readme",
+      "copywriter_skill",
+      "creative_director_readme"
+    ],
+    "3": [
+      "scripts_shopify_order_pull_build_inventory",
+      "scripts_shopify_order_pull_check_rate_limit",
+      "scripts_shopify_order_pull_export_to_excel",
+      "scripts_shopify_order_pull_extract_custom_field",
+      "scripts_shopify_order_pull_extract_properties",
+      "scripts_shopify_order_pull_fetch_orders",
+      "scripts_shopify_order_pull_get_auth_token",
+      "scripts_shopify_order_pull_get_headers",
+      "scripts_shopify_order_pull_order_to_row",
+      "scripts_shopify_order_pull_rationale_104",
+      "scripts_shopify_order_pull_rationale_192",
+      "scripts_shopify_order_pull_rationale_224",
+      "scripts_shopify_order_pull_rationale_243",
+      "scripts_shopify_order_pull_rationale_257",
+      "scripts_shopify_order_pull_rationale_342",
+      "scripts_shopify_order_pull_rationale_385",
+      "scripts_shopify_order_pull_rationale_49",
+      "scripts_shopify_order_pull_rationale_79",
+      "scripts_shopify_order_pull_rationale_87",
+      "scripts_shopify_order_pull_write_sheet",
+      "shopify_agent_skills_operate_scripts_shopify_order_pull_py"
+    ],
+    "4": [
+      "account_manager_bench",
+      "account_manager_claude",
+      "account_manager_frameworks_attribution",
+      "account_manager_frameworks_index",
+      "account_manager_skill",
+      "chief_of_staff_memory_architecture",
+      "concept_account_memory_pole",
+      "concept_compounding_append",
+      "concept_deal_architecture_pole",
+      "concept_graphify",
+      "concept_html2pdf",
+      "concept_markitdown",
+      "concept_memory_tiers",
+      "concept_obsidian_cli",
+      "concept_renewal_window_pole",
+      "concept_roster_json",
+      "concept_skill_creator",
+      "concept_voice_spine",
+      "readme_methodology_coverage",
+      "readme_rook_product_line",
+      "template_skill"
+    ],
+    "5": [
+      "chief_of_staff_bench",
+      "chief_of_staff_capability_upgrade",
+      "chief_of_staff_dispatch_log",
+      "chief_of_staff_frameworks_attribution",
+      "chief_of_staff_frameworks_index",
+      "chief_of_staff_idea_log",
+      "chief_of_staff_readme",
+      "chief_of_staff_skill",
+      "concept_ambition_pole",
+      "concept_dispatch_chain_lookup",
+      "concept_dispatch_classify",
+      "concept_optin_pattern",
+      "concept_reversibility_gate",
+      "concept_reversibility_pole",
+      "concept_routing_rules",
+      "concept_scope_expand_check",
+      "concept_triage_pole"
+    ],
+    "6": [
+      "librarian_memory_embed_py",
+      "memory_embed_collect_files",
+      "memory_embed_get_chroma",
+      "memory_embed_index_corpus",
+      "memory_embed_index_vault",
+      "memory_embed_query_corpus",
+      "memory_embed_query_vault",
+      "memory_embed_rationale_1",
+      "memory_embed_rationale_33",
+      "memory_embed_rationale_54",
+      "memory_embed_rationale_57",
+      "memory_embed_rationale_79",
+      "memory_embed_rationale_81"
+    ],
+    "7": [
+      "scripts_build_handoff_excel_color_sheet",
+      "scripts_build_handoff_excel_load_color_map",
+      "scripts_build_handoff_excel_rationale_114",
+      "scripts_build_handoff_excel_rationale_49",
+      "scripts_build_handoff_excel_rationale_63",
+      "scripts_build_handoff_excel_rationale_74",
+      "scripts_build_handoff_excel_status_fill",
+      "scripts_build_handoff_excel_write_legend_sheet",
+      "shopify_agent_skills_operate_scripts_build_handoff_excel_py"
+    ],
+    "8": [
+      "chief_of_staff_shopify_backend",
+      "chief_of_staff_shopify_frontend",
+      "concept_shopify_backend_cloudflare",
+      "concept_shopify_frontend_polaris"
+    ],
+    "9": [
+      "template_claude"
+    ],
+    "10": [
+      "template_readme"
+    ],
+    "11": [
+      "template_bench"
+    ],
+    "12": [
+      "chief_of_staff_claude"
+    ],
+    "13": [
+      "content_strategist_claude"
+    ],
+    "14": [
+      "copywriter_claude"
+    ],
+    "15": [
+      "creative_director_claude"
+    ],
+    "16": [
+      "concept_rook_brand"
+    ]
+  },
+  "cohesion": {
+    "0": 0.07,
+    "1": 0.07,
+    "2": 0.16,
+    "3": 0.12,
+    "4": 0.15,
+    "5": 0.23,
+    "6": 0.23,
+    "7": 0.25,
+    "8": 0.67,
+    "9": 1.0,
+    "10": 1.0,
+    "11": 1.0,
+    "12": 1.0,
+    "13": 1.0,
+    "14": 1.0,
+    "15": 1.0,
+    "16": 1.0
+  },
+  "gods": [
+    {
+      "id": "scripts_parse_gsheet_main",
+      "label": "main()",
+      "degree": 33
+    },
+    {
+      "id": "memory_db_query",
+      "label": "query()",
+      "degree": 24
+    },
+    {
+      "id": "chief_of_staff_skill",
+      "label": "Chief of Staff Router Skill",
+      "degree": 18
+    },
+    {
+      "id": "account_manager_skill",
+      "label": "Account Manager Master Skill",
+      "degree": 15
+    },
+    {
+      "id": "copywriter_skill",
+      "label": "Copywriter Master Skill",
+      "degree": 15
+    },
+    {
+      "id": "content_strategist_skill",
+      "label": "Content Strategist Master Skill",
+      "degree": 14
+    },
+    {
+      "id": "memory_db_write",
+      "label": "write()",
+      "degree": 12
+    },
+    {
+      "id": "scripts_batch_by_size_batch_by_size",
+      "label": "batch_by_size()",
+      "degree": 8
+    },
+    {
+      "id": "chief_of_staff_frameworks_index",
+      "label": "Chief of Staff Frameworks Index",
+      "degree": 8
+    },
+    {
+      "id": "template_skill",
+      "label": "Agent SKILL.md Template",
+      "degree": 7
+    }
+  ],
+  "surprises": [
+    {
+      "source": "5 Stages of Awareness (Schwartz)",
+      "target": "Direct-Response-Pole",
+      "source_files": [
+        "copywriter/personality/frameworks_index.md",
+        "content-strategist/personality/_bench.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; semantically similar concepts with no structural link"
+    },
+    {
+      "source": "get_overdue_invoices()",
+      "target": "query()",
+      "source_files": [
+        "finance-manager/memory/db.py",
+        "account-manager/memory/db.py"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; peripheral node `get_overdue_invoices()` unexpectedly reaches hub `query()`"
+    },
+    {
+      "source": "get_pending_commissions()",
+      "target": "query()",
+      "source_files": [
+        "finance-manager/memory/db.py",
+        "account-manager/memory/db.py"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; peripheral node `get_pending_commissions()` unexpectedly reaches hub `query()`"
+    },
+    {
+      "source": "get_merchant()",
+      "target": "query()",
+      "source_files": [
+        "shopify-agent/memory/db.py",
+        "account-manager/memory/db.py"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; peripheral node `get_merchant()` unexpectedly reaches hub `query()`"
+    },
+    {
+      "source": "get_unfulfilled_orders()",
+      "target": "query()",
+      "source_files": [
+        "shopify-agent/memory/db.py",
+        "account-manager/memory/db.py"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; peripheral node `get_unfulfilled_orders()` unexpectedly reaches hub `query()`"
+    }
+  ],
+  "tokens": {
+    "input": 66047,
+    "output": 13653
+  }
+}

@@ -139,7 +139,7 @@ Every webhook POST carries `X-Shopify-Hmac-Sha256` header. Worker computes `base
 
 `POST /webhook/:shop_domain/:topic`
 
-Topics handled in v1: `orders-create`, `orders-updated`, `refunds-create`, `app-uninstalled`, `shop-update`.
+Topics handled in v1: `orders-create`, `orders-updated`, `refunds-create`, `app-uninstalled`, `shop-update`, plus the three GDPR topics below.
 
 ### 5-second response budget
 
@@ -172,6 +172,26 @@ When an `orders/create` event clears the queue and is processed:
    - **If merchant has live SSE chat session open (heartbeat within 5min):** push `order_received` event over SSE -> App Bridge Toast fires + chat scroll-to-bottom shows the auto-summary message.
    - **Else:** queue a Gmail digest record. Digest emits at next 15-min boundary (batches multiple events into one email).
 3. If posture=`pre_approve` AND a write is needed: surface action card in chat (if open) OR send single approval email (if not). Both surfaces carry the same `action_id`; whichever the merchant clicks first wins, the other expires.
+
+### GDPR webhooks (App Store required)
+
+Shopify auto-rejects App Store submissions that don't implement all three GDPR-mandated webhook topics. These are subscribed at install via the same `webhookSubscriptionCreate` GraphQL mutation as the operational webhooks, HMAC-verified identically, and routed to dedicated handlers.
+
+| Topic | Trigger | Response SLA | Handler responsibility |
+|---|---|---|---|
+| `customers/data_request` | Merchant or customer requests all customer data the app has touched | Respond within 30 days | Query `mcp_logs` + `conversation_history` for any record referencing the customer; assemble JSON payload; email to merchant's compliance contact (or Shopify Partners contact if none set) |
+| `customers/redact` | Fires 10 days after a customer requests deletion | Purge or anonymize within 30 days | Hash-replace customer email/name/address across `mcp_logs`, `conversation_history`, `pending_actions`, `failed_events`. Retain order_id + line-item shape (Shopify needs these for its own reporting) but strip all PII fields |
+| `shop/redact` | Fires 48 hours after `app/uninstalled` | Delete all shop data within 30 days | Full hard-delete of tenant row, all D1 child tables (`mcp_logs`, `conversation_history`, `tenant_features`, `tenant_sweep_state`, `failed_events`), Secrets Store entries, R2 cold-archive shards. Idempotent — safe to re-fire |
+
+Implementation requirements:
+
+- All three endpoints use the same HMAC verification path as operational webhooks (`X-Shopify-Hmac-Sha256` constant-time compare against `app_secret`). Mismatch -> 401.
+- All three must return `200 OK` within 5 seconds — same response budget as operational webhooks. Heavy work (data assembly, redaction, hard delete) is enqueued to Cloudflare Queues and processed async.
+- Audit trail: every GDPR webhook fire is logged to a dedicated D1 table `gdpr_requests` with `topic`, `received_at`, `completed_at`, `record_count`, `status`. Retained 7 years (longer than the 30-day SLA window) for compliance audit.
+- `shop/redact` runs LAST in tenant lifecycle. If the same `shop_domain` later re-installs, treat as a fresh tenant (new D1 row, no history carry-over).
+- Cross-reference: [Shopify GDPR docs](https://shopify.dev/docs/apps/build/privacy-law-compliance) — the canonical source for current topic shapes and required response semantics.
+
+Failure mode: missing or non-responsive GDPR webhooks is the #1 reason Shopify App Store rejects submissions. Test all three via Shopify Partners' webhook test harness before submitting.
 
 ---
 
@@ -428,17 +448,67 @@ Critical: the Toast and the Gmail digest record for the same `event_id` carry th
 
 ## 10. Multi-tenant routing
 
-### Secrets storage
+### Secrets storage — encrypted-in-D1 pattern
 
-Cloudflare Secrets Store, namespace `shopify-app-prod`:
+Cloudflare Secrets Store has a hard ceiling of ~1000 keys per Worker. The original design (3 secrets/tenant: Shopify access pointer, Gmail OAuth refresh pointer, optional Anthropic pointer) caps multi-tenancy at ~333 merchants before the architecture breaks. v1 uses an **encrypted-in-D1** pattern instead — D1 has no key-count ceiling at any practical scale.
 
-| Key pattern | Value |
+**Cloudflare Secrets Store (small, global-only):**
+
+| Key | Value |
 |---|---|
-| `shopify_token:<shop_domain>` | Shopify Admin API access token |
-| `gmail_refresh:<shop_domain>` | Gmail OAuth refresh token (per-tenant) |
-| `anthropic_key:<shop_domain>` | Tenant-owned Anthropic key (only present if Pro tier) |
-| `app_secret` | Shopify app shared secret (global, HMAC verification) |
-| `anthropic_key_pooled` | PrimoLabs pooled Anthropic key (global, free tier) |
+| `app_secret` | Shopify app shared secret (HMAC verification — global) |
+| `anthropic_key_pooled` | PrimoLabs pooled Anthropic key (Free tier — global) |
+| `tenant_secrets_master_key` | AES-256-GCM master key for tenant-secret encryption (rotated quarterly) |
+| `gmail_oauth_client_secret` | Google OAuth client secret (global) |
+
+Five global secrets total. Headroom is permanent.
+
+**Per-tenant secrets (D1 table `tenant_secrets`):**
+
+```
+shop_domain         TEXT
+secret_name         TEXT  -- 'shopify_token' | 'gmail_refresh' | 'anthropic_key'
+ciphertext          BLOB  -- AES-256-GCM(plaintext, master_key, nonce)
+nonce               BLOB  -- 12 bytes, unique per encryption
+key_version         INT   -- master-key generation that encrypted this row
+created_at          TIMESTAMP
+updated_at          TIMESTAMP
+PK (shop_domain, secret_name)
+```
+
+**Decryption at request time:**
+
+1. Worker reads `tenant_secrets` row for `(shop_domain, secret_name)`.
+2. Worker reads `tenant_secrets_master_key` from Secrets Store (cached in memory for cold-start duration; never logged).
+3. Worker calls `crypto.subtle.decrypt({name: 'AES-GCM', iv: nonce}, master_key, ciphertext)`.
+4. Plaintext lives in memory only for the duration of the request. Never written to logs, never serialized to response, never persisted.
+
+**Why AES-256-GCM:** authenticated encryption — any tampering with ciphertext fails decryption (vs CBC which would silently produce garbage plaintext). 12-byte nonce per row prevents replay across rows. Native Web Crypto API in Workers runtime (no third-party deps).
+
+**Master-key rotation procedure (quarterly):**
+
+1. Operator runs `wrangler secret put tenant_secrets_master_key_next` with new key material.
+2. Migration script (`scripts/rotate_master_key.ts`) reads every `tenant_secrets` row, decrypts with old key, re-encrypts with new key, writes back with `key_version+1`.
+3. After all rows migrated, operator deletes old master key from Secrets Store.
+4. Worker code reads `key_version` per row and selects the correct master key (during rotation window, both old and new keys live in memory).
+5. Audit log: every row touched during rotation logged to `gdpr_requests` with `topic='master_key_rotation'` for compliance trail.
+
+**Compromise recovery procedure:**
+
+If `tenant_secrets_master_key` is suspected compromised (leaked logs, exfiltrated worker bundle, etc):
+
+1. Treat as P0 incident — set `ROOK_DAILYOPS_PAUSED=1` (§11 global kill) within 5 minutes.
+2. Generate new master key, write to Secrets Store as `tenant_secrets_master_key_next`.
+3. Run rotation script (above) — re-encrypt every tenant secret.
+4. Force Shopify access-token rotation for every tenant: call Shopify `accessTokenRevoke` for each, surface re-auth prompt on next chat load.
+5. Force Gmail refresh-token rotation for every tenant: invalidate stored refresh tokens, surface OAuth-reconnect banner.
+6. Force any BYO Anthropic-key tenants to re-enter their key (cannot rotate on their behalf).
+7. Audit `gdpr_requests` + `mcp_logs` for any decryption events in the compromise window; notify affected merchants per breach-notification requirements.
+8. Resume operations only after all tenant secrets re-encrypted under new master key and old master key deleted.
+
+Recovery time objective: ~4 hours for a 1000-tenant population on a single Worker.
+
+**Capacity at this pattern:** D1 row count ceiling is effectively unlimited at our scale (~10K tenants x 3 secrets = 30K rows is a rounding error for D1). Multi-tenant ceiling is no longer secret-store-bound — it becomes Worker-CPU-bound, which scales horizontally by spinning up regional Workers if needed.
 
 ### Tenant config (D1)
 
@@ -561,47 +631,93 @@ Cron job at 7am tenant-local sends `Daily Summary — {date}` email:
 - Workers paid: $5/mo for 10M requests + 30M CPU-ms.
 - Queues: 1M ops/month free; $0.40 per additional 1M.
 - D1: 5M reads + 100K writes/day free. Comfortably covers 100s of tenants.
-- Secrets Store: free.
+- Secrets Store: free (but see §10 — secret-count ceiling drives D1-encrypted-blob pattern).
 
-### Anthropic API estimate per order processed
+### Trust-ramp daily-chat token reality
 
-Average per-order processing (Sonnet 4.6 input $3/MTok, output $15/MTok):
-- Orchestrator dispatch: ~2K input + 500 output = $0.006 + $0.0075 = $0.0135
-- One sub-agent call (e.g., inventory): ~1K input + 300 output = $0.003 + $0.0045 = $0.0075
-- Chat turns (avg 2/order in notify_only): ~3K input + 1K output x 2 = $0.018 + $0.03 = $0.048
-- **Per-order total estimate: ~$0.07** (notify_only with merchant interaction)
-- **Auto-execute: ~$0.02** (no chat interaction)
+The original per-order cost model assumed merchant interaction scales with order volume. It doesn't. In `notify_only` posture — the v1 default and the load-bearing trust ramp — merchants chat with the agent throughout the day independently of order count. They ask "anything need attention?", "what shipped today?", "walk me through what you did at 10am" — these turns dwarf the per-order processing math.
 
-### Per-merchant monthly cost tiers
+Real interaction pattern observed in prototype (operator self-testing):
 
-| Tier | Orders/day | Orders/mo | Anthropic | CF infra | **Total infra** |
+- 5-15 chat turns/day for a steady LOW-volume merchant (most of day curiosity + EOD review)
+- 15-40 chat turns/day for a MED-volume merchant (multiple check-ins, more approvals)
+- 40-100+ chat turns/day for HIGH-volume merchant (active operator parked in the App)
+
+Each turn averages ~3K input + ~1K output tokens (system prompt + sub-agent context + recent history + new turn). At Sonnet 4.6 pricing ($3/MTok input, $15/MTok output): **~$0.024/turn raw cost**.
+
+### Prompt caching reality
+
+Anthropic prompt caching cuts cached input tokens to 10% of raw cost ($0.30/MTok cached vs $3/MTok raw). The daily-ops system prompt + sub-agent definitions + per-tenant config block (~15K tokens) is identical across turns within a session — prime cache target.
+
+Assumption: 70% cache hit rate after first session warm (first turn writes cache, subsequent turns hit). Cache writes cost 1.25x raw; cache reads cost 0.1x raw. Effective per-turn input cost drops from $0.009 to ~$0.003 (a 3x reduction, not 10x — output tokens and the new-turn delta still bill at full).
+
+Net effective per-turn cost with caching: **~$0.015/turn** (down from $0.024).
+
+### Recomputed per-merchant monthly cost (notify_only posture)
+
+| Volume | Orders/mo | Chat turns/mo | Per-order processing | Chat-turn cost | **Total Anthropic/mo** |
 |---|---|---|---|---|---|
-| LOW | <10 | <300 | $6-$21 | ~$0 | **~$6-21** |
-| MED | 10-50 | 300-1500 | $21-$105 | ~$0.50 | **~$21-105** |
-| HIGH | 50-200 | 1500-6000 | $105-$420 | ~$2 | **~$107-422** |
+| LOW | ~30 | ~300 (10/day) | ~$0.60 | ~$4.50 | **~$5/mo** |
+| MED | ~200 | ~750 (25/day) | ~$4 | ~$11 | **~$15/mo** |
+| HIGH | ~1000 | ~2400 (80/day) | ~$20 | ~$36 | **~$56/mo** |
 
-### Recommended SaaS subscription pricing (if PrimoLabs-managed)
+Numbers assume 70% cache hit rate and ~2 sub-agent calls per order. `auto_execute` posture drops chat-turn cost ~60% (less merchant interaction once trust is earned); `pre_approve` adds ~15% (Gmail approval round-trips).
 
-| Tier | Price/mo | Includes |
-|---|---|---|
-| Starter | $29 | LOW volume, pooled key, $5 Anthropic cap |
-| Growth | $99 | MED volume, pooled key, $50 Anthropic cap |
-| Pro | $299 | HIGH volume, BYO Anthropic key required |
-| Enterprise | custom | SLA, dedicated infra |
+### Cloudflare infra cost
+
+- LOW: $0 (within free tier)
+- MED: ~$0.50/mo (Workers requests start spilling into paid tier)
+- HIGH: ~$2/mo (Workers + Queues + D1 paid tier overages)
+
+### Free tier — replace $5/mo soft cap
+
+The original $5/mo Anthropic soft cap is mathematically impossible to honor: even a LOW-volume merchant doing 10 orders/day with 8 chat turns/day generates ~7M tokens/month (~$22 input + ~$8 output = $30/mo before caching, ~$10/mo with 70% caching). A $5 cap breaks at first real merchant.
+
+**Revised Free tier:**
+
+- **Cap structure:** "100 orders/mo OR $25/mo Anthropic usage, whichever hits first."
+- **Soft enforcement:** at 80% of either cap, surface upgrade banner. At 100%, agent enters read-only mode (still answers questions, no writes until next month or upgrade).
+- **Operator subsidy ceiling:** PrimoLabs absorbs Anthropic spend up to $25/merchant/mo on Free tier. Beyond cap = upgrade required, no overage charges.
+
+This sets a realistic conversion trigger (~85% of LOW-volume merchants stay under $25; the ones who exceed it are the upgrade candidates).
+
+### Recommended SaaS pricing — revised
+
+| Tier | Price/mo | Volume | Anthropic key | Margin at MED volume |
+|---|---|---|---|---|
+| **Free** | $0 | <100 orders OR <$25 Anthropic | Pooled (capped) | Loss leader, recovered via upgrade |
+| **Pro** | $99/mo | Unlimited | BYO Anthropic key required | ~$95/mo net (~95% margin — BYO offloads Anthropic spend) |
+| **Premium** | $299/mo | Unlimited | BYO Anthropic key | ~$285/mo net (Opus 4.7 surcharge billed to merchant's own key) |
+
+**Pro $99/mo margin check at MED volume:**
+- Revenue: $99
+- Infra: ~$0.50 (CF) + $0 Anthropic (BYO)
+- Stripe/Shopify billing fees: ~$3
+- Net: **~$95/mo per Pro merchant (~96% margin)**
+
+**Premium $299/mo at HIGH volume with Opus 4.7:**
+- Opus 4.7 is ~5x Sonnet pricing ($15 input / $75 output per MTok). HIGH-volume tenant with Opus burns ~$280/mo Anthropic — but the tenant pays that directly via BYO key, not PrimoLabs.
+- Revenue: $299
+- Infra: ~$2 (CF paid tier)
+- Stripe/Shopify fees: ~$9
+- Net: **~$288/mo per Premium merchant (~96% margin)**
 
 ### Shopify App Store revenue share
 
-Shopify takes 0% on first $1M annual app revenue per partner (2024 policy), 15% after that. Above $1M tier 2 = 15%.
+Shopify takes 0% on first $1M annual app revenue per partner (2024 policy), 15% after that.
 
-For the first ~$1M/year (~280 Growth subs), zero revenue share. After that, factor 15% into margin model.
+For the first ~$1M/year (~840 Pro subs or ~280 Premium), zero rev share. After that, factor 15% into margin (Pro net drops to ~$81/mo, Premium to ~$245/mo).
 
-### Margin model
+### Margin model — revised
 
-At 100 active merchants split 60/30/10 across Starter/Growth/Pro:
-- Revenue: 60 x $29 + 30 x $99 + 10 x $299 = $1,740 + $2,970 + $2,990 = **$7,700/mo**
-- Infra cost (mid-estimate): ~$2,500/mo
-- Gross margin: **~$5,200/mo (~68%)**
-- Net of Shopify rev share: same (under $1M annual).
+At 100 active merchants split 60/30/10 across Free/Pro/Premium:
+- Revenue: 60 x $0 + 30 x $99 + 10 x $299 = $0 + $2,970 + $2,990 = **$5,960/mo**
+- Anthropic cost (Free tier only — Pro/Premium are BYO): 60 x ~$15 (assume MED midpoint with cap) = ~$900/mo (capped at ~$1,500 by dual cap)
+- Infra (Cloudflare): ~$50/mo
+- Stripe/Shopify billing fees: ~$120/mo
+- **Net margin: ~$4,890/mo (~82%)** before rev share, ~$4,000/mo (~67%) once past $1M annual.
+
+The model is healthy. The dominant operator risk is Free-tier Anthropic spend if Free conversion is slow — capped at $25/merchant via the dual cap.
 
 ---
 
