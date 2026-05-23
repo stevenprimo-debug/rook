@@ -104,5 +104,11 @@ agents/librarian/digests/
 # gitignore contract without rewriting history.
 agents/chief-of-staff/memory/dispatch_log.md
 agents/chief-of-staff/memory/idea_log.md
+
+# Operator-only master agent skill template — never ships in cohort zip / public clone.
+# The 7-section ROOK Master Skill scaffold is proprietary IP; operators receive it
+# via OPERATOR vault sync, not via marketplace clone. Untracked 2026-05-23 per
+# github-expert Option A precedent.
+agents/_template/
 # Root-level graphify cache mirror (operator-local; rebuilt by librarian)
 graphify-out/
