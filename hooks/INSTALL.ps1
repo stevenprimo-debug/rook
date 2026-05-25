@@ -1,14 +1,14 @@
-# INSTALL.ps1 -- PrimoLabs Stack hook installer (Windows)
+# INSTALL.ps1 -- ROOK Stack hook installer (Windows)
 # ---------------------------------------------------------------------------
 # One command. Wires all 6 hooks into ~/.claude/settings.json, sets up env
 # vars pointing back at the vault, runs a dry-run on each hook, reports.
 #
 # Usage:
-#   cd PrimoLabs_PoweredByClaude
+#   cd rook
 #   pwsh ./hooks/INSTALL.ps1
 #
-# Idempotent: running twice doesn't double-wire. Existing non-PrimoLabs hooks
-# are preserved. Existing PrimoLabs hooks are updated in place.
+# Idempotent: running twice doesn't double-wire. Existing non-ROOK hooks
+# are preserved. Existing ROOK hooks are updated in place.
 #
 # Exit codes: 0 = success, 1 = soft failure (some hooks missing/failed), 2 = hard failure (no settings.json access)
 
@@ -51,7 +51,13 @@ $RequiredHooks = @(
     'superpowers-init.ps1',
     'posture-staleness-gate.ps1',
     'librarian-digest.ps1',
-    'preference-detector.ps1'
+    'preference-detector.ps1',
+    'pretooluse-routing-enforcer.ps1',
+    'preamble-resolver.ps1',
+    'context-watch-gate.ps1',
+    'dispatch-budget-watchdog.ps1',
+    'graphify-weekly-rebuild.ps1',
+    'master-skill-builder-trigger.ps1'
 )
 $missing = @()
 foreach ($h in $RequiredHooks) {
@@ -83,15 +89,45 @@ function Build-HookCmd {
     return "powershell -NoProfile -NonInteractive -File `"$abs`""
 }
 
-$cmdRouting     = Build-HookCmd 'routing-enforcer.ps1'
-$cmdPrelude     = Build-HookCmd 'session-prelude.ps1'
-$cmdVaultCtx    = Build-HookCmd 'vault-context-injector.ps1'
-$cmdSessionEnd  = Build-HookCmd 'session-end-detect.ps1'
-$cmdPreCompact  = Build-HookCmd 'precompact-handoff.ps1'
-$cmdSuperpowers = Build-HookCmd 'superpowers-init.ps1'
-$cmdPosture     = Build-HookCmd 'posture-staleness-gate.ps1'
-$cmdLibrarian   = Build-HookCmd 'librarian-digest.ps1'
-$cmdPreference  = Build-HookCmd 'preference-detector.ps1'
+# Spawn-detach wrapper: returns immediately, launches the target script as a
+# hidden background process that survives the SessionEnd hook return.
+# Used for librarian-digest so the 5-10 min sweep runs without blocking
+# the customer's session exit.
+function Build-BackgroundHookCmd {
+    param([string]$scriptName)
+    $abs = Join-Path $HooksDir $scriptName
+    # PowerShell-escaped inner command: launches $abs hidden, returns immediately
+    $inner = "Start-Process powershell -ArgumentList '-NoProfile','-WindowStyle','Hidden','-File','$abs' -WindowStyle Hidden | Out-Null"
+    return "powershell -NoProfile -NonInteractive -Command `"$inner`""
+}
+
+# Hook wrapper that sets ROOK_SKB_TRIGGER env var before invoking the script.
+# Used by master-skill-builder-trigger.ps1 which is registered on 3 events
+# (Stop / PreCompact / SessionEnd) and needs to know which one fired.
+function Build-TriggerTaggedHookCmd {
+    param([string]$scriptName, [string]$triggerTag)
+    $abs = Join-Path $HooksDir $scriptName
+    # Inner command sets env var then invokes the hook script
+    $inner = "`$env:ROOK_SKB_TRIGGER='$triggerTag'; & '$abs'"
+    return "powershell -NoProfile -NonInteractive -Command `"$inner`""
+}
+
+$cmdRouting              = Build-HookCmd 'routing-enforcer.ps1'
+$cmdPreToolUseRouting    = Build-HookCmd 'pretooluse-routing-enforcer.ps1'
+$cmdPrelude              = Build-HookCmd 'session-prelude.ps1'
+$cmdPreamble             = Build-HookCmd 'preamble-resolver.ps1'
+$cmdVaultCtx             = Build-HookCmd 'vault-context-injector.ps1'
+$cmdSessionEnd           = Build-HookCmd 'session-end-detect.ps1'
+$cmdPreCompact           = Build-HookCmd 'precompact-handoff.ps1'
+$cmdSuperpowers          = Build-HookCmd 'superpowers-init.ps1'
+$cmdPosture              = Build-HookCmd 'posture-staleness-gate.ps1'
+$cmdLibrarianBackground  = Build-BackgroundHookCmd 'librarian-digest.ps1'
+$cmdPreference           = Build-HookCmd 'preference-detector.ps1'
+$cmdContextWatch         = Build-HookCmd 'context-watch-gate.ps1'
+$cmdDispatchBudget       = Build-HookCmd 'dispatch-budget-watchdog.ps1'
+$cmdSkbStop              = Build-TriggerTaggedHookCmd 'master-skill-builder-trigger.ps1' 'Stop'
+$cmdSkbPreCompact        = Build-TriggerTaggedHookCmd 'master-skill-builder-trigger.ps1' 'PreCompact'
+$cmdSkbSessionEnd        = Build-TriggerTaggedHookCmd 'master-skill-builder-trigger.ps1' 'SessionEnd'
 
 # ---- LOAD OR CREATE settings.json ------------------------------------------
 Write-Step "Reading $SettingsPath"
@@ -126,18 +162,14 @@ Write-Step "Wiring env vars"
 $envBlock = $settings.env
 
 $envDefaults = @{
-    PRIMOLABS_VAULT_ROOT          = $VaultRoot
-    PRIMOLABS_HOOKS_DIR           = $HooksDir
-    PRIMOLABS_HARDSTOP_HOUR       = '16'
-    PRIMOLABS_HARDSTOP_ENABLED    = '1'
-    PRIMOLABS_HARDSTOP_TZ         = 'Central Standard Time'
-    PRIMOLABS_POSTURE_STALE_DAYS  = '7'
-    PRIMOLABS_LIBRARIAN_CADENCE   = '50'
+    ROOK_VAULT_ROOT          = $VaultRoot
+    ROOK_HOOKS_DIR           = $HooksDir
+    ROOK_POSTURE_STALE_DAYS  = '7'
 }
 
 foreach ($k in $envDefaults.Keys) {
     $existing = $envBlock.$k
-    if ($k -in @('PRIMOLABS_VAULT_ROOT','PRIMOLABS_HOOKS_DIR')) {
+    if ($k -in @('ROOK_VAULT_ROOT','ROOK_HOOKS_DIR')) {
         # Always overwrite path-pointers -- they must match this install
         if ($envBlock.PSObject.Properties.Name -contains $k) {
             $envBlock.$k = $envDefaults[$k]
@@ -164,23 +196,41 @@ $hooksBlock = $settings.hooks
 # Spec for each event: list of (hook-script-name, command-string, timeout)
 $hookSpec = [ordered]@{
     'SessionStart' = @(
-        @{ name = 'superpowers-init.ps1';      cmd = $cmdSuperpowers; timeout = 8;  matcher = '' },
-        @{ name = 'session-prelude.ps1';       cmd = $cmdPrelude;     timeout = 12; matcher = '' }
+        @{ name = 'superpowers-init.ps1';         cmd = $cmdSuperpowers;     timeout = 8;  matcher = '' },
+        @{ name = 'session-prelude.ps1';          cmd = $cmdPrelude;         timeout = 12; matcher = '' },
+        @{ name = 'preamble-resolver.ps1';        cmd = $cmdPreamble;        timeout = 5;  matcher = '' },
+        @{ name = 'dispatch-budget-watchdog.ps1'; cmd = $cmdDispatchBudget;  timeout = 4;  matcher = '' }
     )
     'UserPromptSubmit' = @(
-        @{ name = 'routing-enforcer.ps1';        cmd = $cmdRouting;     timeout = 10; matcher = '' },
-        @{ name = 'vault-context-injector.ps1';  cmd = $cmdVaultCtx;    timeout = 8;  matcher = '' },
-        @{ name = 'session-end-detect.ps1';      cmd = $cmdSessionEnd;  timeout = 5;  matcher = '' },
-        @{ name = 'preference-detector.ps1';     cmd = $cmdPreference;  timeout = 8;  matcher = '' }
+        @{ name = 'routing-enforcer.ps1';        cmd = $cmdRouting;      timeout = 10; matcher = '' },
+        @{ name = 'preference-detector.ps1';     cmd = $cmdPreference;   timeout = 8;  matcher = '' },
+        @{ name = 'context-watch-gate.ps1';      cmd = $cmdContextWatch; timeout = 8;  matcher = '' },
+        @{ name = 'vault-context-injector.ps1';  cmd = $cmdVaultCtx;     timeout = 8;  matcher = '' },
+        @{ name = 'session-end-detect.ps1';      cmd = $cmdSessionEnd;   timeout = 5;  matcher = '' }
     )
     'PreCompact' = @(
-        @{ name = 'precompact-handoff.ps1';      cmd = $cmdPreCompact;  timeout = 5;  matcher = '' }
+        @{ name = 'precompact-handoff.ps1';            cmd = $cmdPreCompact;     timeout = 5;  matcher = '' },
+        @{ name = 'master-skill-builder-trigger.ps1';  cmd = $cmdSkbPreCompact;  timeout = 5;  matcher = '' }
     )
     'PreToolUse' = @(
-        @{ name = 'posture-staleness-gate.ps1'; cmd = $cmdPosture;    timeout = 6;  matcher = '' }
+        @{ name = 'posture-staleness-gate.ps1';         cmd = $cmdPosture;           timeout = 6;  matcher = '' },
+        @{ name = 'pretooluse-routing-enforcer.ps1';    cmd = $cmdPreToolUseRouting; timeout = 5;  matcher = '' },
+        @{ name = 'dispatch-budget-watchdog.ps1';       cmd = $cmdDispatchBudget;    timeout = 5;  matcher = 'Task|Agent' }
     )
-    'PostToolUse' = @(
-        @{ name = 'librarian-digest.ps1';      cmd = $cmdLibrarian;   timeout = 8;  matcher = '' }
+    'Stop' = @(
+        # Stop-event fires after every Claude turn completes. master-skill-builder-trigger
+        # applies its own heuristic skip gate (≥5 tool calls AND ≥3 file edits) before
+        # injecting any system reminder, so the cost is near-zero on routine turns.
+        @{ name = 'master-skill-builder-trigger.ps1';  cmd = $cmdSkbStop;        timeout = 5;  matcher = '' }
+    )
+    'SessionEnd' = @(
+        # Spawn-detached: hook returns in <1s; librarian-digest.ps1 keeps running
+        # in background for 5-10 min. Survives session exit but NOT computer shutdown.
+        # Computer-shutdown resilience requires the Task Scheduler safety net (see below).
+        @{ name = 'librarian-digest.ps1';              cmd = $cmdLibrarianBackground; timeout = 5;  matcher = '' },
+        # Final-sweep skill-builder fire — only fires if session ≥100K tokens AND no
+        # skill was staged earlier this session (gate inside the script).
+        @{ name = 'master-skill-builder-trigger.ps1';  cmd = $cmdSkbSessionEnd;   timeout = 5;  matcher = '' }
     )
 }
 
@@ -226,26 +276,127 @@ foreach ($event in $hookSpec.Keys) {
             }
             $cleaned += $newGrp
         }
-        # if kept is empty AND the group was all-PrimoLabs, drop the whole group
+        # if kept is empty AND the group was all-ROOK, drop the whole group
     }
 
-    # Build our matcher group, append
-    $primoHooks = @()
+    # Build our matcher groups (one group per distinct matcher value)
+    $groupsByMatcher = [ordered]@{}
     foreach ($spec in $hookSpec[$event]) {
-        $primoHooks += [PSCustomObject]@{
+        $m = if ($null -eq $spec.matcher) { '' } else { "$($spec.matcher)" }
+        if (-not $groupsByMatcher.Contains($m)) { $groupsByMatcher[$m] = @() }
+        $groupsByMatcher[$m] += [PSCustomObject]@{
             type    = 'command'
             command = $spec.cmd
             timeout = $spec.timeout
         }
-        Write-OK "$event :: $($spec.name)"
+        $tag = if ($m -eq '') { '' } else { " [matcher=$m]" }
+        Write-OK "$event :: $($spec.name)$tag"
     }
-    $primoGroup = [PSCustomObject]@{
-        matcher = ''
-        hooks   = $primoHooks
+    foreach ($m in $groupsByMatcher.Keys) {
+        $primoGroup = [PSCustomObject]@{
+            matcher = $m
+            hooks   = $groupsByMatcher[$m]
+        }
+        $cleaned += $primoGroup
     }
-
-    $cleaned += $primoGroup
     $hooksBlock.$event = $cleaned
+}
+
+# ---- TASK SCHEDULER: shutdown-resilience safety net -------------------------
+# Registers a Windows Task Scheduler entry that runs librarian-digest at user
+# login (delayed 5 min). If the SessionEnd spawn-detached run got killed by a
+# laptop-close / shutdown / crash, this catches it on next boot.
+# The task checks for a recent digest before running; if librarian wrote a
+# digest in the last 24h, it exits early.
+Write-Step "Registering Task Scheduler safety net for librarian"
+$TaskName = 'RookLibrarianDailySweep'
+$LibrarianAbs = Join-Path $HooksDir 'librarian-digest.ps1'
+
+try {
+    # Unregister any prior version (idempotent re-install)
+    Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue | Unregister-ScheduledTask -Confirm:$false -ErrorAction SilentlyContinue
+
+    # Action: run librarian-digest.ps1 hidden, with ROOK_LIBRARIAN_BACKUP=1
+    # (the script checks this env var + last-digest timestamp to decide whether to run)
+    $action = New-ScheduledTaskAction `
+        -Execute 'powershell.exe' `
+        -Argument "-NoProfile -WindowStyle Hidden -File `"$LibrarianAbs`""
+
+    # Trigger: at user logon, delayed 5 min (let login complete first)
+    $trigger = New-ScheduledTaskTrigger -AtLogOn
+    $trigger.Delay = 'PT5M'
+
+    # Settings: catch-up if missed (computer was off), allow run on battery, stop after 15 min
+    $settingsTask = New-ScheduledTaskSettingsSet `
+        -StartWhenAvailable `
+        -AllowStartIfOnBatteries `
+        -DontStopIfGoingOnBatteries `
+        -ExecutionTimeLimit (New-TimeSpan -Minutes 15)
+
+    # Register under current user, no elevation needed
+    $principal = New-ScheduledTaskPrincipal `
+        -UserId "$env:USERDOMAIN\$env:USERNAME" `
+        -LogonType Interactive `
+        -RunLevel Limited
+
+    Register-ScheduledTask `
+        -TaskName $TaskName `
+        -Description 'ROOK: catches missed librarian-digest runs after laptop close / shutdown. Runs at user login + 5 min, skips if digest was written in last 24h.' `
+        -Action $action `
+        -Trigger $trigger `
+        -Settings $settingsTask `
+        -Principal $principal `
+        -Force | Out-Null
+
+    Write-OK "Task Scheduler entry registered: $TaskName (runs at login + 5 min delay)"
+} catch {
+    Write-Warn "Could not register Task Scheduler entry: $($_.Exception.Message)"
+    Write-Warn "Shutdown-resilience disabled. SessionEnd hook still works while computer is on."
+}
+
+# ---- WEEKLY GRAPHIFY REBUILD (Task Scheduler) -------------------------------
+# Runs `python -m graphify update` on agents/ and .claude/reference/ once a week.
+# AST-only re-extraction (no LLM tokens, no API key needed). Keeps the semantic
+# graph fresh as new memory accumulates. For full LLM-semantic re-extract, the
+# operator runs `graphify extract` manually.
+Write-Step "Registering Task Scheduler entry for weekly graphify rebuild"
+$GraphifyTaskName = 'RookGraphifyWeeklyRebuild'
+$GraphifyScriptAbs = Join-Path $HooksDir 'graphify-weekly-rebuild.ps1'
+
+try {
+    Get-ScheduledTask -TaskName $GraphifyTaskName -ErrorAction SilentlyContinue | Unregister-ScheduledTask -Confirm:$false -ErrorAction SilentlyContinue
+
+    $graphifyAction = New-ScheduledTaskAction `
+        -Execute 'powershell.exe' `
+        -Argument "-NoProfile -WindowStyle Hidden -File `"$GraphifyScriptAbs`""
+
+    # Trigger: weekly, Sunday 3:15 AM local time (quiet hours)
+    $graphifyTrigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek Sunday -At 3:15AM
+
+    $graphifySettings = New-ScheduledTaskSettingsSet `
+        -StartWhenAvailable `
+        -AllowStartIfOnBatteries `
+        -DontStopIfGoingOnBatteries `
+        -ExecutionTimeLimit (New-TimeSpan -Minutes 30)
+
+    $graphifyPrincipal = New-ScheduledTaskPrincipal `
+        -UserId "$env:USERDOMAIN\$env:USERNAME" `
+        -LogonType Interactive `
+        -RunLevel Limited
+
+    Register-ScheduledTask `
+        -TaskName $GraphifyTaskName `
+        -Description 'ROOK: weekly graphify update on agents/ and .claude/reference/. AST-only re-extraction (no LLM cost). Sunday 3:15am. Operator runs graphify extract manually for full LLM semantic rebuild.' `
+        -Action $graphifyAction `
+        -Trigger $graphifyTrigger `
+        -Settings $graphifySettings `
+        -Principal $graphifyPrincipal `
+        -Force | Out-Null
+
+    Write-OK "Task Scheduler entry registered: $GraphifyTaskName (runs Sundays at 3:15 AM)"
+} catch {
+    Write-Warn "Could not register graphify weekly rebuild: $($_.Exception.Message)"
+    Write-Warn "Weekly rebuild disabled. Operator can still run 'python -m graphify update <path>' manually."
 }
 
 # ---- WRITE -----------------------------------------------------------------
@@ -256,14 +407,15 @@ if ($DryRun) {
 } else {
     # Backup existing file
     if (Test-Path $SettingsPath) {
-        $backup = "$SettingsPath.primolabs-backup-$(Get-Date -Format 'yyyyMMdd-HHmmss')"
+        $backup = "$SettingsPath.rook-backup-$(Get-Date -Format 'yyyyMMdd-HHmmss')"
         Copy-Item -Path $SettingsPath -Destination $backup -Force
         Write-OK "Backup: $backup"
     }
 
     $json = $settings | ConvertTo-Json -Depth 10
     # ConvertTo-Json renders & etc.; settings.json is happy with literal Unicode.
-    Set-Content -Path $SettingsPath -Value $json -Encoding UTF8
+    # Use WriteAllText with no-BOM UTF-8 encoding so python json.load() doesn't choke on BOM.
+    [System.IO.File]::WriteAllText($SettingsPath, $json, [System.Text.UTF8Encoding]::new($false))
     Write-OK "Wrote $SettingsPath"
 }
 
@@ -275,8 +427,8 @@ if (-not (Test-Path $TestDir)) {
     Write-Warn "test/ folder not found -- skipping dry-run"
 } else {
     # Set env vars in this process so the hooks see the right paths
-    $env:PRIMOLABS_VAULT_ROOT = $VaultRoot
-    $env:PRIMOLABS_HOOKS_DIR  = $HooksDir
+    $env:ROOK_VAULT_ROOT = $VaultRoot
+    $env:ROOK_HOOKS_DIR  = $HooksDir
 
     $TestScript = Join-Path $TestDir 'run-all.ps1'
     if (Test-Path $TestScript) {

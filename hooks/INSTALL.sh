@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# INSTALL.sh — PrimoLabs Stack hook installer (macOS / Linux)
+# INSTALL.sh — ROOK Stack hook installer (macOS / Linux)
 # ---------------------------------------------------------------------------
 # Usage:  bash ./hooks/INSTALL.sh
 #
@@ -52,6 +52,12 @@ REQUIRED_HOOKS=(
     "posture-staleness-gate.sh"
     "librarian-digest.sh"
     "preference-detector.sh"
+    "pretooluse-routing-enforcer.sh"
+    "preamble-resolver.sh"
+    "context-watch-gate.sh"
+    "dispatch-budget-watchdog.sh"
+    "graphify-weekly-rebuild.sh"
+    "master-skill-builder-trigger.sh"
 )
 MISSING=0
 for h in "${REQUIRED_HOOKS[@]}"; do
@@ -80,7 +86,9 @@ fi
 build_cmd() { echo "bash \"$HOOKS_DIR/$1\""; }
 
 CMD_ROUTING=$(build_cmd "routing-enforcer.sh")
+CMD_PRETOOLUSE_ROUTING=$(build_cmd "pretooluse-routing-enforcer.sh")
 CMD_PRELUDE=$(build_cmd "session-prelude.sh")
+CMD_PREAMBLE=$(build_cmd "preamble-resolver.sh")
 CMD_VAULT_CTX=$(build_cmd "vault-context-injector.sh")
 CMD_SESSION_END=$(build_cmd "session-end-detect.sh")
 CMD_PRECOMPACT=$(build_cmd "precompact-handoff.sh")
@@ -88,6 +96,19 @@ CMD_SUPERPOWERS=$(build_cmd "superpowers-init.sh")
 CMD_POSTURE=$(build_cmd "posture-staleness-gate.sh")
 CMD_LIBRARIAN=$(build_cmd "librarian-digest.sh")
 CMD_PREFERENCE=$(build_cmd "preference-detector.sh")
+CMD_CONTEXT_WATCH=$(build_cmd "context-watch-gate.sh")
+CMD_DISPATCH_BUDGET=$(build_cmd "dispatch-budget-watchdog.sh")
+
+# Trigger-tagged wrappers for master-skill-builder-trigger.sh — same script
+# registered on 3 events (Stop/PreCompact/SessionEnd) needs to know which one
+# fired. ROOK_SKB_TRIGGER env var carries the discriminator.
+build_skb_cmd() {
+    local trigger="$1"
+    echo "ROOK_SKB_TRIGGER=$trigger bash \"$HOOKS_DIR/master-skill-builder-trigger.sh\""
+}
+CMD_SKB_STOP=$(build_skb_cmd "Stop")
+CMD_SKB_PRECOMPACT=$(build_skb_cmd "PreCompact")
+CMD_SKB_SESSIONEND=$(build_skb_cmd "SessionEnd")
 
 # ---- Load or initialize settings.json ------------------------------------
 step "Reading $SETTINGS_PATH"
@@ -116,9 +137,9 @@ step "Wiring env vars"
 SETTINGS=$(echo "$SETTINGS" | jq \
     --arg vr "$VAULT_ROOT" \
     --arg hd "$HOOKS_DIR" \
-    '.env.PRIMOLABS_VAULT_ROOT = $vr | .env.PRIMOLABS_HOOKS_DIR = $hd')
-ok "PRIMOLABS_VAULT_ROOT = $VAULT_ROOT"
-ok "PRIMOLABS_HOOKS_DIR = $HOOKS_DIR"
+    '.env.ROOK_VAULT_ROOT = $vr | .env.ROOK_HOOKS_DIR = $hd')
+ok "ROOK_VAULT_ROOT = $VAULT_ROOT"
+ok "ROOK_HOOKS_DIR = $HOOKS_DIR"
 
 # Default vars only if missing
 set_default() {
@@ -131,11 +152,8 @@ set_default() {
         ok "$k = $EXISTING (preserved)"
     fi
 }
-set_default PRIMOLABS_HARDSTOP_HOUR     "16"
-set_default PRIMOLABS_HARDSTOP_ENABLED  "1"
-set_default PRIMOLABS_HARDSTOP_TZ       "America/Chicago"
-set_default PRIMOLABS_POSTURE_STALE_DAYS "7"
-set_default PRIMOLABS_LIBRARIAN_CADENCE "50"
+set_default ROOK_POSTURE_STALE_DAYS "7"
+set_default ROOK_LIBRARIAN_CADENCE "50"
 
 # ---- Wire hooks (idempotent) ---------------------------------------------
 step "Wiring hooks into settings.json"
@@ -188,6 +206,13 @@ SETTINGS=$(echo "$SETTINGS" | jq \
     --arg cmdPost      "$CMD_POSTURE" \
     --arg cmdLib       "$CMD_LIBRARIAN" \
     --arg cmdPref      "$CMD_PREFERENCE" \
+    --arg cmdPreToolUseRouting "$CMD_PRETOOLUSE_ROUTING" \
+    --arg cmdPreamble  "$CMD_PREAMBLE" \
+    --arg cmdCtxWatch  "$CMD_CONTEXT_WATCH" \
+    --arg cmdDispBudget "$CMD_DISPATCH_BUDGET" \
+    --arg cmdSkbStop   "$CMD_SKB_STOP" \
+    --arg cmdSkbPre    "$CMD_SKB_PRECOMPACT" \
+    --arg cmdSkbEnd    "$CMD_SKB_SESSIONEND" \
 '
 def strip_ours($arr):
     ($arr // [])
@@ -203,23 +228,40 @@ def strip_ours($arr):
 
 .hooks.SessionStart     = strip_ours(.hooks.SessionStart) + [{
     matcher: "", hooks: [
-        {type:"command", command:$cmdSp,      timeout:8},
-        {type:"command", command:$cmdPrelude, timeout:12}
+        {type:"command", command:$cmdSp,         timeout:8},
+        {type:"command", command:$cmdPrelude,    timeout:12},
+        {type:"command", command:$cmdPreamble,   timeout:5},
+        {type:"command", command:$cmdDispBudget, timeout:4}
     ]}]
 | .hooks.UserPromptSubmit = strip_ours(.hooks.UserPromptSubmit) + [{
     matcher: "", hooks: [
-        {type:"command", command:$cmdRouting,  timeout:10},
-        {type:"command", command:$cmdVaultCtx, timeout:8},
-        {type:"command", command:$cmdSessEnd,  timeout:5},
-        {type:"command", command:$cmdPref,     timeout:8}
+        {type:"command", command:$cmdRouting,   timeout:10},
+        {type:"command", command:$cmdPref,      timeout:8},
+        {type:"command", command:$cmdCtxWatch,  timeout:8},
+        {type:"command", command:$cmdVaultCtx,  timeout:8},
+        {type:"command", command:$cmdSessEnd,   timeout:5}
     ]}]
 | .hooks.PreCompact = strip_ours(.hooks.PreCompact) + [{
     matcher: "", hooks: [
-        {type:"command", command:$cmdPreComp, timeout:5}
+        {type:"command", command:$cmdPreComp, timeout:5},
+        {type:"command", command:$cmdSkbPre,  timeout:5}
     ]}]
 | .hooks.PreToolUse      = strip_ours(.hooks.PreToolUse) + [{
     matcher: "", hooks: [
-        {type:"command", command:$cmdPost, timeout:6}
+        {type:"command", command:$cmdPost,              timeout:6},
+        {type:"command", command:$cmdPreToolUseRouting, timeout:5}
+    ]},
+    {
+    matcher: "Task|Agent", hooks: [
+        {type:"command", command:$cmdDispBudget,        timeout:5}
+    ]}]
+| .hooks.Stop = strip_ours(.hooks.Stop) + [{
+    matcher: "", hooks: [
+        {type:"command", command:$cmdSkbStop, timeout:5}
+    ]}]
+| .hooks.SessionEnd = strip_ours(.hooks.SessionEnd) + [{
+    matcher: "", hooks: [
+        {type:"command", command:$cmdSkbEnd, timeout:5}
     ]}]
 | .hooks.PostToolUse     = strip_ours(.hooks.PostToolUse) + [{
     matcher: "", hooks: [
@@ -227,10 +269,12 @@ def strip_ours($arr):
     ]}]
 ')
 
-ok "SessionStart :: superpowers-init.sh, session-prelude.sh"
-ok "UserPromptSubmit :: routing-enforcer.sh, vault-context-injector.sh, session-end-detect.sh, preference-detector.sh"
-ok "PreCompact :: precompact-handoff.sh"
-ok "PreToolUse :: posture-staleness-gate.sh"
+ok "SessionStart :: superpowers-init.sh, session-prelude.sh, preamble-resolver.sh, dispatch-budget-watchdog.sh"
+ok "UserPromptSubmit :: routing-enforcer.sh, preference-detector.sh, context-watch-gate.sh, vault-context-injector.sh, session-end-detect.sh"
+ok "PreCompact :: precompact-handoff.sh, master-skill-builder-trigger.sh [trigger=PreCompact]"
+ok "Stop :: master-skill-builder-trigger.sh [trigger=Stop]"
+ok "SessionEnd :: master-skill-builder-trigger.sh [trigger=SessionEnd]"
+ok "PreToolUse :: posture-staleness-gate.sh, pretooluse-routing-enforcer.sh, dispatch-budget-watchdog.sh [matcher=Task|Agent]"
 ok "PostToolUse :: librarian-digest.sh"
 
 # ---- Write ----------------------------------------------------------------
@@ -240,7 +284,7 @@ if [[ "$DRY_RUN" -eq 1 ]]; then
     echo "$SETTINGS" | jq .
 else
     if [[ -f "$SETTINGS_PATH" ]]; then
-        BACKUP="$SETTINGS_PATH.primolabs-backup-$(date +%Y%m%d-%H%M%S)"
+        BACKUP="$SETTINGS_PATH.rook-backup-$(date +%Y%m%d-%H%M%S)"
         cp "$SETTINGS_PATH" "$BACKUP"
         ok "Backup: $BACKUP"
     fi
@@ -252,8 +296,8 @@ fi
 step "Dry-run testing hooks"
 TEST_DIR="$HOOKS_DIR/test"
 if [[ -d "$TEST_DIR" && -f "$TEST_DIR/run-all.sh" ]]; then
-    export PRIMOLABS_VAULT_ROOT="$VAULT_ROOT"
-    export PRIMOLABS_HOOKS_DIR="$HOOKS_DIR"
+    export ROOK_VAULT_ROOT="$VAULT_ROOT"
+    export ROOK_HOOKS_DIR="$HOOKS_DIR"
     if bash "$TEST_DIR/run-all.sh"; then
         ok "All hooks passed dry-run"
     else
