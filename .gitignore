@@ -74,6 +74,44 @@ _scratch/
 .claude/skills/core/markitdown/src/packages/markitdown/tests/test_files/
 .claude/skills/core/markitdown/src/packages/markitdown-sample-plugin/tests/test_files/
 .claude/skills/registry/autocad-mcp/
+.mcp.json
+vault-agents/
+_archive/
 
-# WebFetch allowlist gate runtime log -- append-only, per-machine
+# Graphify output — operator-local graph cache containing absolute filesystem paths.
+# Each customer's librarian regenerates this on weekly sweep against THEIR vault.
+.claude/reference/graphify-out/
+agents/*/graphify-out/
+
+# Root-level graphify cache (operator-local; rebuilt by librarian)
+graphify-out-memory/
+
+# Operator-local Claude Code settings (never ships)
+.claude/settings.local.json
+
+# Operator-personal skills — never ships in cohort zip / public clone
+.claude/skills/_personal/
+
+# Operator-local agent state (per-operator compounding history; never ships in cohort zip)
+# Per .env FILES_OPERATOR_LOCAL — agent memory is per-operator.
+agents/*/memory/
+# Operator-personal dispatch briefs (chief-of-staff routes; cohort starts empty)
+agents/chief-of-staff/assignments/
+# Librarian weekly digests (regenerated per-operator on weekly sweep)
+agents/librarian/digests/
+# Explicit per-file overrides — these were tracked BEFORE agents/*/memory/ rule;
+# untracked 2026-05-23 per github-expert bench verdict (Option A) to honor the
+# gitignore contract without rewriting history.
+agents/chief-of-staff/memory/dispatch_log.md
+agents/chief-of-staff/memory/idea_log.md
+
+# Operator-only master agent skill template — never ships in cohort zip / public clone.
+# The 7-section ROOK Master Skill scaffold is proprietary IP; operators receive it
+# via OPERATOR vault sync, not via marketplace clone. Untracked 2026-05-23 per
+# github-expert Option A precedent.
+agents/_template/
+# Root-level graphify cache mirror (operator-local; rebuilt by librarian)
+graphify-out/
+
+# WebFetch allowlist gate runtime log — append-only, per-machine
 .claude/connectors/_gate.log
