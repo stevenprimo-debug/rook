@@ -113,5 +113,5 @@ agents/_template/
 # Root-level graphify cache mirror (operator-local; rebuilt by librarian)
 graphify-out/
 
-# WebFetch allowlist gate runtime log -- append-only, per-machine
+# WebFetch allowlist gate runtime log — append-only, per-machine
 .claude/connectors/_gate.log
