@@ -1,0 +1,204 @@
+{
+  "_schema_version": "1.0",
+  "_updated": "2026-05-25",
+  "_owner": "rook",
+  "_purpose": "Canonical URL allowlist for autonomous WebFetch. Fail-closed: hosts not present here are rejected by the hard gate. See .claude/connectors/README.md for threat model and integration.",
+  "services": [
+    {
+      "service": "anthropic",
+      "canonical_docs_url": "https://docs.anthropic.com/",
+      "allowed_hosts": ["docs.anthropic.com", "www.anthropic.com", "anthropic.com"],
+      "last_verified": "2026-05-25",
+      "notes": "Anthropic API + product docs"
+    },
+    {
+      "service": "claude-code",
+      "canonical_docs_url": "https://docs.claude.com/en/docs/claude-code",
+      "allowed_hosts": ["docs.claude.com", "claude.com"],
+      "last_verified": "2026-05-25",
+      "notes": "Claude Code CLI + agent SDK docs"
+    },
+    {
+      "service": "mcp-protocol",
+      "canonical_docs_url": "https://modelcontextprotocol.io/",
+      "allowed_hosts": ["modelcontextprotocol.io", "spec.modelcontextprotocol.io"],
+      "last_verified": "2026-05-25",
+      "notes": "Model Context Protocol specification"
+    },
+    {
+      "service": "shopify-admin-api",
+      "canonical_docs_url": "https://shopify.dev/docs/api/admin",
+      "allowed_hosts": ["shopify.dev", "help.shopify.com"],
+      "last_verified": "2026-05-25",
+      "notes": "Shopify Admin REST + GraphQL"
+    },
+    {
+      "service": "shopify-polaris",
+      "canonical_docs_url": "https://polaris.shopify.com/",
+      "allowed_hosts": ["polaris.shopify.com"],
+      "last_verified": "2026-05-25",
+      "notes": "Polaris UI library"
+    },
+    {
+      "service": "stripe",
+      "canonical_docs_url": "https://docs.stripe.com/",
+      "allowed_hosts": ["docs.stripe.com", "stripe.com"],
+      "last_verified": "2026-05-25",
+      "notes": "Stripe API + Connect"
+    },
+    {
+      "service": "vercel",
+      "canonical_docs_url": "https://vercel.com/docs",
+      "allowed_hosts": ["vercel.com"],
+      "last_verified": "2026-05-25",
+      "notes": "Vercel platform docs"
+    },
+    {
+      "service": "supabase",
+      "canonical_docs_url": "https://supabase.com/docs",
+      "allowed_hosts": ["supabase.com", "supabase.io"],
+      "last_verified": "2026-05-25",
+      "notes": "Supabase Postgres + auth + storage"
+    },
+    {
+      "service": "nextjs",
+      "canonical_docs_url": "https://nextjs.org/docs",
+      "allowed_hosts": ["nextjs.org"],
+      "last_verified": "2026-05-25",
+      "notes": "Next.js framework docs"
+    },
+    {
+      "service": "react",
+      "canonical_docs_url": "https://react.dev/",
+      "allowed_hosts": ["react.dev"],
+      "last_verified": "2026-05-25",
+      "notes": "React core docs"
+    },
+    {
+      "service": "openai",
+      "canonical_docs_url": "https://platform.openai.com/docs",
+      "allowed_hosts": ["platform.openai.com", "openai.com"],
+      "last_verified": "2026-05-25",
+      "notes": "OpenAI API docs"
+    },
+    {
+      "service": "github",
+      "canonical_docs_url": "https://docs.github.com/",
+      "allowed_hosts": ["docs.github.com", "github.com", "api.github.com"],
+      "last_verified": "2026-05-25",
+      "notes": "GitHub REST + GraphQL + Actions docs"
+    },
+    {
+      "service": "npm",
+      "canonical_docs_url": "https://docs.npmjs.com/",
+      "allowed_hosts": ["docs.npmjs.com", "www.npmjs.com", "npmjs.com"],
+      "last_verified": "2026-05-25",
+      "notes": "npm CLI + registry docs"
+    },
+    {
+      "service": "python",
+      "canonical_docs_url": "https://docs.python.org/3/",
+      "allowed_hosts": ["docs.python.org", "python.org", "www.python.org"],
+      "last_verified": "2026-05-25",
+      "notes": "Python language docs"
+    },
+    {
+      "service": "postgres",
+      "canonical_docs_url": "https://www.postgresql.org/docs/",
+      "allowed_hosts": ["www.postgresql.org", "postgresql.org"],
+      "last_verified": "2026-05-25",
+      "notes": "PostgreSQL reference"
+    },
+    {
+      "service": "sqlite",
+      "canonical_docs_url": "https://www.sqlite.org/docs.html",
+      "allowed_hosts": ["www.sqlite.org", "sqlite.org"],
+      "last_verified": "2026-05-25",
+      "notes": "SQLite documentation"
+    },
+    {
+      "service": "typescript",
+      "canonical_docs_url": "https://www.typescriptlang.org/docs/",
+      "allowed_hosts": ["www.typescriptlang.org", "typescriptlang.org"],
+      "last_verified": "2026-05-25",
+      "notes": "TypeScript handbook"
+    },
+    {
+      "service": "tailwind",
+      "canonical_docs_url": "https://tailwindcss.com/docs",
+      "allowed_hosts": ["tailwindcss.com"],
+      "last_verified": "2026-05-25",
+      "notes": "Tailwind CSS docs"
+    },
+    {
+      "service": "node",
+      "canonical_docs_url": "https://nodejs.org/en/docs",
+      "allowed_hosts": ["nodejs.org"],
+      "last_verified": "2026-05-25",
+      "notes": "Node.js runtime docs"
+    },
+    {
+      "service": "mdn",
+      "canonical_docs_url": "https://developer.mozilla.org/en-US/docs/Web",
+      "allowed_hosts": ["developer.mozilla.org"],
+      "last_verified": "2026-05-25",
+      "notes": "MDN Web Docs"
+    },
+    {
+      "service": "hubspot",
+      "canonical_docs_url": "https://developers.hubspot.com/docs/api",
+      "allowed_hosts": ["developers.hubspot.com", "knowledge.hubspot.com"],
+      "last_verified": "2026-05-25",
+      "notes": "HubSpot API + knowledge base"
+    },
+    {
+      "service": "google-cloud",
+      "canonical_docs_url": "https://cloud.google.com/docs",
+      "allowed_hosts": ["cloud.google.com"],
+      "last_verified": "2026-05-25",
+      "notes": "Google Cloud Platform docs"
+    },
+    {
+      "service": "aws",
+      "canonical_docs_url": "https://docs.aws.amazon.com/",
+      "allowed_hosts": ["docs.aws.amazon.com", "aws.amazon.com"],
+      "last_verified": "2026-05-25",
+      "notes": "AWS service docs"
+    },
+    {
+      "service": "cloudflare",
+      "canonical_docs_url": "https://developers.cloudflare.com/",
+      "allowed_hosts": ["developers.cloudflare.com"],
+      "last_verified": "2026-05-25",
+      "notes": "Cloudflare Workers + DNS + Pages docs"
+    },
+    {
+      "service": "docker",
+      "canonical_docs_url": "https://docs.docker.com/",
+      "allowed_hosts": ["docs.docker.com"],
+      "last_verified": "2026-05-25",
+      "notes": "Docker engine + Compose docs"
+    },
+    {
+      "service": "git",
+      "canonical_docs_url": "https://git-scm.com/doc",
+      "allowed_hosts": ["git-scm.com"],
+      "last_verified": "2026-05-25",
+      "notes": "Git SCM reference"
+    },
+    {
+      "service": "playwright",
+      "canonical_docs_url": "https://playwright.dev/docs/intro",
+      "allowed_hosts": ["playwright.dev"],
+      "last_verified": "2026-05-25",
+      "notes": "Playwright browser automation"
+    },
+    {
+      "service": "fastapi",
+      "canonical_docs_url": "https://fastapi.tiangolo.com/",
+      "allowed_hosts": ["fastapi.tiangolo.com"],
+      "last_verified": "2026-05-25",
+      "notes": "FastAPI Python framework"
+    }
+  ]
+}
