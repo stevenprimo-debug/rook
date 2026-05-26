@@ -4,7 +4,7 @@ These scripts shipped in earlier stack snapshots but are NOT part of the v1 hook
 
 Kept here for:
 1. Historical reference — what the source vault looks like internally.
-2. Potential future generalization — two of these are worth porting to v1 if a customer wants the equivalent behavior: `sync-memory` (Drive-sync backup of agent memory writes) and `session-stop` (daily handoff log). The others are either scoped to dead architecture (`drift-linter`, `assignments-stale-check`) or already exist as a v1 portable hook (`vault-context-injector`, `hardstop-4pm`).
+2. Potential future generalization — two of these are worth porting to v1 if a customer wants the equivalent behavior: `sync-memory` (Drive-sync backup of agent memory writes) and `session-stop` (daily handoff log). The others are either scoped to dead architecture (`drift-linter`, `assignments-stale-check`) or already exist as a v1 portable hook (`vault-context-injector`).
 
 **Not wired by INSTALL.** If you want one of these live, you must port it to the v1 portable pattern (env-var path resolution, ASCII-only, idempotent) and add it to `settings.template.json` manually.
 
@@ -15,4 +15,3 @@ Kept here for:
 | `session-stop.ps1` | Stop event — appended a one-line session marker (timestamp + project + path + session ID) to a daily handoff log file. | Worth porting. Only blocker is the hardcoded output path; trivial env-var swap. |
 | `assignments-stale-check.ps1` | Stop event — scanned a CEO `assignments/` directory for files untouched > 14 days and appended a "STALE ASSIGNMENTS" block to that day's handoff log. | Scoped to a v2 `DEPARTMENTS\CEO\assignments\` directory that no longer exists. The v3 equivalent (`agents/chief-of-staff/assignments/`) makes this potentially viable, but the script would need a rewrite. |
 | `vault-context-injector.ps1` | UserPromptSubmit — keyword-scanned the prompt against a MEMORY index and injected matching memory files into the response context. | **Already exists as a live v1 portable hook** at `hooks/vault-context-injector.ps1` (no underscore prefix). The archived copy is the pre-v1 version with the hardcoded MEMORY path. |
-| `hardstop-4pm.ps1` | Stop event — checked Central Time and emitted a "wrap up" warning if past 4pm CT (or a 30-min heads-up at 3:30pm). | Operator-personal — schedule-specific. Folded into `session-prelude.ps1` in v1 as a generic end-of-day reminder, but customers configure their own cutoff. |
